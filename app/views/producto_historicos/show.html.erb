@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Producto:</strong>
+  <%= @producto_historico.producto_id %>
+</p>
+
+<p>
+  <strong>Precio:</strong>
+  <%= @producto_historico.precio %>
+</p>
+
+<p>
+  <strong>Fechadesde:</strong>
+  <%= @producto_historico.fechaDesde %>
+</p>
+
+<p>
+  <strong>Fechahasta:</strong>
+  <%= @producto_historico.fechaHasta %>
+</p>
+
+<%= link_to 'Edit', edit_producto_historico_path(@producto_historico) %> |
+<%= link_to 'Back', producto_historicos_path %>

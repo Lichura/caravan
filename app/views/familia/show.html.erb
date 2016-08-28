@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @familium.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @familium.descripcion %>
+</p>
+
+<%= link_to 'Edit', edit_familium_path(@familium) %> |
+<%= link_to 'Back', familia_path %>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Caravanas</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'scrollify', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+
+
+<ul class="topnav" id="myTopnav">
+  <li><img src="<%= asset_path('logo.png') %>"></li>
+  <li><a id="inicio-link" href="#inicio" >Inicio</a></li>
+  <li><a id="nosotros-link" href="#nosotros">Nosotros</a></li>
+   <li><a id="productos-link" href="#productos">Productos</a></li>
+  <li><a href="#contacto">Contacto</a></li>
+  <li> 
+    <% if current_user %>
+      <%= link_to "Desconectarse", log_out_path  %>
+        <% else %>
+          <!--<%= link_to "Registro", sign_up_path  %>-->
+          <%= link_to "Acceso usuarios", log_in_path %>
+        <% end %>
+    </li>
+  <li class="icon">
+    <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+  </li>
+</ul>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

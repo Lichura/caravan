@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  producto_id: 
+  precio: 1.5
+  fechaDesde: 2016-08-16 21:48:33
+  fechaHasta: 2016-08-16 21:48:33
+
+two:
+  producto_id: 
+  precio: 1.5
+  fechaDesde: 2016-08-16 21:48:33
+  fechaHasta: 2016-08-16 21:48:33

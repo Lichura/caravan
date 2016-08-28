@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha: 2016-08-24
+  cantidadTotal: 1
+  tipo: 1
+  titular: MyString
+  cuit: MyString
+  precioTotal: 
+  remitido: false
+  facturado: false
+  comprobanteNumero: 1
+  condicionCompra: 1
+  sucursal: 1
+
+two:
+  fecha: 2016-08-24
+  cantidadTotal: 1
+  tipo: 1
+  titular: MyString
+  cuit: MyString
+  precioTotal: 
+  remitido: false
+  facturado: false
+  comprobanteNumero: 1
+  condicionCompra: 1
+  sucursal: 1

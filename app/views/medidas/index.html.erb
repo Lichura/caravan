@@ -1,0 +1,65 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Unidades de medida</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      <div class="row" style="height: 100px;"></div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+              <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                <tr>
+                  <th>Codigoafip</th>
+                  <th>Nombre</th>
+                  <th>Abreviatura</th>
+                  <th>Descripcion</th>
+                  <th>Mostrar</th>
+                  <th>Editar</th>
+                  <th>Eliminar</th>
+                </tr>
+              </thead>
+    <tbody>
+      <% @medidas.each  do |medida| %>
+          <tr>
+            <td><%= medida.codigoAfip %></td>
+            <td><%= medida.nombre %></td>
+            <td><%= medida.abreviatura %></td>
+            <td><%= medida.descripcion %></td>
+            <td>
+              <%= link_to medida_path(medida) do %>
+                <i class="glyphicon glyphicon-list-alt"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to edit_medida_path(medida) do %>
+               <i class="glyphicon glyphicon-pencil"></i>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to medida_path(medida.id), method: :delete, data: { confirm: 'seguro que desea eliminar esta provincia?' }, remote: true do %>
+              <i class="glyphicon glyphicon-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+    <%= will_paginate @medidas, renderer: BootstrapPagination::Rails %>
+      <button type="button" class="btn btn-primary pull-right">
+        <%= link_to 'Nueva unidad de medida', new_medida_path %>
+      </button>
+</div>
+
+</div>
+</div>
+</div>

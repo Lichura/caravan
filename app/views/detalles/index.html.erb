@@ -1,0 +1,35 @@
+<div class="page-header">
+  <%= link_to new_detalle_path, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Detalle
+  <% end %>
+  <h1>Listing detalles</h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+            <th>Pedido</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= @detalles.each do |detalle| %>
+            <td><%= detalle.pedido_id %></td>
+            <td><%= detalle.producto_id %></td>
+            <td><%= detalle.cantidad %></td>
+            <td><%= detalle.precio %></td>
+            <td><%= link_to 'Show', detalle %></td>
+        <td><%= link_to 'Edit', edit_detalle_path(detalle) %></td>
+        <td><%= link_to 'Destroy', detalle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>

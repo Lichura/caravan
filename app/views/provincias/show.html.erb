@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= link_to provincias_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_provincia_path(@provincia), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show provincia</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Pais:</dt>
+  <dd><%= @provincia.pais.nombre %></dd>
+
+    <dt>Codigo Afip:</dt>
+  <dd><%= @provincia.codigoAfip %></dd>
+
+  <dt>Nombre:</dt>
+  <dd><%= @provincia.nombre %></dd>
+
+  <dt>Nombre corto:</dt>
+  <dd><%= @provincia.nombre_corto %></dd>
+
+</dl>

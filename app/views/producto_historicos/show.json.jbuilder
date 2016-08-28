@@ -1,0 +1,1 @@
+json.partial! "producto_historicos/producto_historico", producto_historico: @producto_historico

@@ -1,0 +1,118 @@
+<div class="container">
+<div class="panel panel-default">
+<div class="panel-heading"><h3>Nuevo Cliente</h3></div>
+<div class="panel-body">
+  <div class="row">
+    <div class="col-lg-6">
+        <%= form_tag buscar_afip_users_path, method: :get, remote: true do %>
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Ingrese el Cuit del cliente</label>
+        <div class="input-group">
+          <%= text_field_tag :search_afip,  params[:search_afip], placeholder: "Buscar Cuit", class: "form-control"%>
+            <span class="input-group-btn">
+            <%= submit_tag "Buscar", class: 'btn btn-default'%>
+            </span>
+        </div>
+        <% end %>
+    </div>
+   </div>
+<br>
+    <div class="col-lg-6">
+      <%= form_for @user do |f| %>
+        <% if @user.errors.any? %>
+          <div class="error_messages">
+            <h2> Form ins invalid</h2>
+            <ul>
+              <% for message in @user.errors.full_messages %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+
+        <form>
+            <div id="afip"></div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <%= f.email_field :email, placeholder: "email@gmail.com", class: "form-control" %>
+              </div>
+            </div>
+            <% if current_user && (current_user.profile_id == 1) %>
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Contrasena</label>
+                <div class="col-sm-10">
+                  <%= f.password_field :password, placeholder: "password", class: "form-control" %>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Confirmar Contrasena</label>
+                <div class="col-sm-10">
+                  <%= f.password_field :password_confirmation, placeholder: "password", class: "form-control" %>
+                </div>
+              </div>
+            <% end %>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">ciudad</label>
+              <div class="col-sm-10">
+                <%= f.text_field :localidad_id, placeholder: "Trenque Lauquen", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">CUIG</label>
+              <div class="col-sm-10">
+                <%= f.text_field :cuig, placeholder: "CUIG", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">RENSPA</label>
+              <div class="col-sm-10">
+                <%= f.text_field :renspa, placeholder: "RENSPA", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Numero CV</label>
+              <div class="col-sm-10">
+                <%= f.text_field :numeroCv, placeholder: "Numero CV", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">telefono</label>
+              <div class="col-sm-10">
+                <%= f.text_field :telefono, placeholder: "Telefono", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Celular</label>
+              <div class="col-sm-10">
+                <%= f.text_field :celular, placeholder: "Celular", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Codigo Postal</label>
+              <div class="col-sm-10">
+                <%= f.text_field :codigoPostal, placeholder: "1044", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Pais</label>
+              <div class="col-sm-10">
+                <%= f.text_field :pais_id, placeholder: "Pais", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="inputEmail3" class="col-sm-2 col-form-label">Encargado</label>
+              <div class="col-sm-10">
+                <%= f.text_field :encargado, placeholder: "Encargado", class: "form-control" %>
+              </div>
+            </div>
+          <%= f.submit 'Crear Usuario', class: "btn btn-default right"%>
+        </form>
+
+
+          <% end %>
+    </div>
+</div>
+</div>
+</div>
+</div>

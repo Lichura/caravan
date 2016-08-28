@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= link_to detalles_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_detalle_path(@detalle), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show detalle</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Pedido:</dt>
+  <dd><%= @detalle.pedido_id %></dd>
+
+  <dt>Producto:</dt>
+  <dd><%= @detalle.producto_id %></dd>
+
+  <dt>Cantidad:</dt>
+  <dd><%= @detalle.cantidad %></dd>
+
+  <dt>Precio:</dt>
+  <dd><%= @detalle.precio %></dd>
+
+</dl>

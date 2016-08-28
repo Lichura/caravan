@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= link_to ciudades_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_ciudad_path(@ciudad), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show ciudad</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Pais:</dt>
+  <dd><%= @ciudad.pais_id %></dd>
+
+  <dt>Provincia:</dt>
+  <dd><%= @ciudad.provincia_id %></dd>
+
+  <dt>Nombre:</dt>
+  <dd><%= @ciudad.nombre %></dd>
+
+  <dt>Nombre corto:</dt>
+  <dd><%= @ciudad.nombre_corto %></dd>
+
+</dl>

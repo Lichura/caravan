@@ -1,0 +1,154 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20160828202324) do
+
+  create_table "ciudades", force: :cascade do |t|
+    t.integer  "pais_id"
+    t.integer  "provincia_id"
+    t.string   "nombre"
+    t.string   "nombre_corto"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "detalles", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.integer  "producto_id"
+    t.integer  "cantidad"
+    t.float    "precio"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "familia", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "medidas", force: :cascade do |t|
+    t.integer  "codigoAfip"
+    t.string   "nombre"
+    t.string   "abreviatura"
+    t.string   "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "mensajes", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "empresa"
+    t.string   "email"
+    t.string   "telefono"
+    t.string   "texto"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "paises", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "abreviacion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "pedido_items", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.integer  "cantidad"
+    t.float    "precio"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "producto_id"
+  end
+
+  create_table "pedidos", force: :cascade do |t|
+    t.date     "fecha"
+    t.integer  "cantidadTotal"
+    t.integer  "tipo"
+    t.string   "titular"
+    t.string   "cuit"
+    t.float    "precioTotal"
+    t.boolean  "remitido"
+    t.boolean  "facturado"
+    t.integer  "comprobanteNumero"
+    t.integer  "condicionCompra"
+    t.integer  "sucursal"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  create_table "producto_historicos", force: :cascade do |t|
+    t.integer  "producto_id"
+    t.float    "precio"
+    t.datetime "fechaDesde"
+    t.datetime "fechaHasta"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "productos", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.float    "precio"
+    t.boolean  "activo"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "familia_id"
+    t.integer  "familium_id"
+    t.index ["familia_id"], name: "index_productos_on_familia_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "provincias", force: :cascade do |t|
+    t.integer  "pais_id"
+    t.string   "nombre"
+    t.string   "nombre_corto"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "codigoAfip"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "auth_token"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
+    t.string   "password_digest"
+    t.string   "razonSocial"
+    t.string   "direccion"
+    t.integer  "localidad_id"
+    t.string   "cuig"
+    t.string   "renspa"
+    t.float    "cuit"
+    t.string   "telefono"
+    t.string   "codigoPostal"
+    t.integer  "provincia_id"
+    t.integer  "pais_id"
+    t.string   "encargado"
+    t.string   "celular"
+    t.string   "numeroCv"
+    t.integer  "profile_id"
+  end
+
+end

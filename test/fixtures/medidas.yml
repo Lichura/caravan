@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  codigoAfip: 1
+  nombre: MyString
+  abreviatura: MyString
+  descripcion: MyString
+
+two:
+  codigoAfip: 1
+  nombre: MyString
+  abreviatura: MyString
+  descripcion: MyString

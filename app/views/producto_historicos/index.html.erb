@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Producto Historicos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Precio</th>
+      <th>Fechadesde</th>
+      <th>Fechahasta</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @producto_historicos.each do |producto_historico| %>
+      <tr>
+        <td><%= producto_historico.producto_id %></td>
+        <td><%= producto_historico.precio %></td>
+        <td><%= producto_historico.fechaDesde %></td>
+        <td><%= producto_historico.fechaHasta %></td>
+        <td><%= link_to 'Show', producto_historico %></td>
+        <td><%= link_to 'Edit', edit_producto_historico_path(producto_historico) %></td>
+        <td><%= link_to 'Destroy', producto_historico, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Producto Historico', new_producto_historico_path %>

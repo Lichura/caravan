@@ -1,0 +1,2 @@
+class Medida < ApplicationRecord
+end

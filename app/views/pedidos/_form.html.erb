@@ -1,0 +1,110 @@
+<%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @pedido.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@pedido.errors.count, "error") %> prohibited this pedido from being saved:</h4>
+
+      <ul>
+      <% @pedido.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :fecha, "Fecha: ", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= Date.today %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= @numeroDePedido %>
+      <%= f.hidden_field :comprobanteNumero, :value => @numeroDePedido %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :cuit, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.collection_select :cuit, User.all, :cuit, :cuit,  include_blank: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :condicionCompra, "Condicion de compra", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :condicionCompra, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :sucursal, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :sucursal, class: "form-control" %>
+    </div>
+  </div>
+<!--Primero itero por todos los productos y para cada uno puedo asignarle una cantidad, el precio viene dado por el producto-->
+
+<% @productos.each do |producto| %>
+  <%= f.fields_for :detalles do |detalle| %>
+  
+  <div class="form-group">
+      <%= detalle.label :producto_id, :value => producto.nombre, class: "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= detalle.check_box :producto_id, {}, producto.id%>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= detalle.label :precio , class: "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= detalle.text_field :precio, :value => producto.precio, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= detalle.label :cantidad , class: "col-sm-2 control-label"%>
+    <div class="col-sm-10">
+      <%= detalle.text_field :cantidad, class: "form-control" %>
+    </div>
+  </div>
+  <% end %>
+<% end %>
+  <div class="form-group">
+    <%= f.label :cantidadTotal, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :cantidadTotal, class: "cantidadTotal form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+      <%= f.label :precioTotal, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+      <%= f.text_field :precioTotal, class: "subtotal form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+
+<!--<div class="subtotal">0$</div> -->
+<script>
+
+$('.cantidad').on('change', function () {
+
+    var subtotal = 0;
+    var cantidad = 0;
+    $('.cantidad').each(function () {
+        var $this = $(this);
+        var quantity = parseInt($this.val());
+        var price = parseFloat($this.siblings('.precio').val())
+        subtotal += quantity * price;
+        cantidad += quantity;
+    })
+    $('.subtotal').text(subtotal);
+    $('.cantidadTotal').text(cantidad);
+})
+$('.cantidad').trigger('change')
+</script>

@@ -1,0 +1,51 @@
+<div class="page-header">
+  <%= link_to pedidos_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Back
+  <% end %>
+  <%= link_to edit_pedido_path(@pedido), class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+  <% end %>
+  <h1>Show pedido</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Fecha:</dt>
+  <dd><%= @pedido.fecha %></dd>
+
+  <dt>Cantidadtotal:</dt>
+  <dd><%= @pedido.cantidadTotal %></dd>
+
+  <dt>Tipo:</dt>
+  <dd><%= @pedido.tipo %></dd>
+
+  <dt>Titular:</dt>
+  <dd><%= @pedido.titular %></dd>
+
+  <dt>Cuit:</dt>
+  <dd><%= @pedido.cuit %></dd>
+
+  <dt>Preciototal:</dt>
+  <dd><%= @pedido.precioTotal %></dd>
+
+  <dt>Remitido:</dt>
+  <dd><%= @pedido.remitido %></dd>
+
+  <dt>Facturado:</dt>
+  <dd><%= @pedido.facturado %></dd>
+
+  <dt>Comprobantenumero:</dt>
+  <dd><%= @pedido.comprobanteNumero %></dd>
+
+  <dt>Condicioncompra:</dt>
+  <dd><%= @pedido.condicionCompra %></dd>
+
+  <dt>Sucursal:</dt>
+  <dd><%= @pedido.sucursal %></dd>
+
+  <% @pedido.productos.each do |producto| %>
+    <%= producto.nombre %><br>
+  <% end %>
+
+</dl>
