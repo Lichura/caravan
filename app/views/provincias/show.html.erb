@@ -1,26 +1,36 @@
-<div class="page-header">
-  <%= link_to provincias_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to edit_provincia_path(@provincia), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
-  <% end %>
-  <h1>Show provincia</h1>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Provincia:</h2></div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>Pais:</dt>
+            <dd><%= @provincia.pais.nombre %></dd>
+
+              <dt>Codigo Afip:</dt>
+            <dd><%= @provincia.codigoAfip %></dd>
+
+            <dt>Nombre:</dt>
+            <dd><%= @provincia.nombre %></dd>
+
+            <dt>Nombre corto:</dt>
+            <dd><%= @provincia.nombre_corto %></dd>
+
+          </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to provincias_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Provincias
+      <% end %>
+      <%= link_to provincia_path(@provincia), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_provincia_path(@provincia),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
 </div>
-
-<dl class="dl-horizontal">
-  <dt>Pais:</dt>
-  <dd><%= @provincia.pais.nombre %></dd>
-
-    <dt>Codigo Afip:</dt>
-  <dd><%= @provincia.codigoAfip %></dd>
-
-  <dt>Nombre:</dt>
-  <dd><%= @provincia.nombre %></dd>
-
-  <dt>Nombre corto:</dt>
-  <dd><%= @provincia.nombre_corto %></dd>
-
-</dl>

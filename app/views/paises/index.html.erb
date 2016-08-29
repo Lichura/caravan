@@ -5,12 +5,14 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-sm-offset-3">
+          <%= form_tag(paises_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
-              <input type="text" class="form-control">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar paises", class: "form-control"%>
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Buscar</button>
+              <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
+            <% end %>
           </div>
         </div>
       <div class="row" style="height: 100px;"></div>

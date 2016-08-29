@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Monedas</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+          <%= form_tag(monedas_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar monedas", class: "form-control"%>
+              <span class="input-group-btn">
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                                            <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Simbolo</th>
+                        <th>Tipodecambio</th>
+
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+                  <% @monedas.each do |moneda| %>
+                                            <td><%= moneda.nombre %></td>
+                                            <td><%= moneda.descripcion %></td>
+                                            <td><%= moneda.simbolo %></td>
+                                            <td><%= moneda.tipoDeCambio %></td>
+                                      <td>
+                    <%= link_to moneda_path(moneda) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_moneda_path(moneda) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to moneda_path(moneda.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta moneda?' }, remote: true do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @monedas, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nueva moneda', new_moneda_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

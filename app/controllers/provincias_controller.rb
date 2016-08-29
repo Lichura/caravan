@@ -5,6 +5,11 @@ class ProvinciasController < ApplicationController
   # GET /provincias.json
   def index
     @provincias = Provincia.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @provincias = Provincia.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @provincias = Provincia.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /provincias/1

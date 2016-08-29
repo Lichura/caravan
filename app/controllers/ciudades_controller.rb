@@ -5,6 +5,11 @@ class CiudadesController < ApplicationController
   # GET /ciudades.json
   def index
     @ciudades = Ciudad.paginate(:page => params[:page], :per_page => 10)
+    if params[:search]
+        @ciudades = Ciudad.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @ciudades = Ciudad.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /ciudades/1

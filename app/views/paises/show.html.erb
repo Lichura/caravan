@@ -1,20 +1,29 @@
-<div class="page-header">
-  <%= link_to paises_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to edit_pais_path(@pais), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
-  <% end %>
-  <h1>Show pais</h1>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Pais:</h2></div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>Nombre:</dt>
+            <dd><%= @pais.nombre %></dd>
+
+            <dt>Abreviacion:</dt>
+            <dd><%= @pais.abreviacion %></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to paises_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Provincias
+      <% end %>
+      <%= link_to pais_path(@pais), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pais?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_pais_path(@pais),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
 </div>
-
-<dl class="dl-horizontal">
-  <dt>Nombre:</dt>
-  <dd><%= @pais.nombre %></dd>
-
-  <dt>Abreviacion:</dt>
-  <dd><%= @pais.abreviacion %></dd>
-
-</dl>

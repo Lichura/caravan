@@ -207,3 +207,13 @@ video {
 	background-color: #FFF;
 	top: 400%;
 }
+
+
+
+.table td {
+   text-align: center;   
+}	
+
+.table th {
+   text-align: center;   
+}

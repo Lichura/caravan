@@ -21,13 +21,14 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
+    create_pedidos
     if Pedido.last.present?
       @numeroDePedido = (Pedido.last.id + 1)
     else
       @numeroDePedido = 1
     end
-    @productos = Producto.all
-    @detalles = @pedido.detalles.build
+    #@productos = Producto.all
+    #@detalles = @pedido.detalles.build
     #@productos = @detalles.build_producto
     @usuarios = User.all
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
@@ -36,6 +37,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/1/edit
   def edit
     @productos = Producto.all
+
   end
 
   # POST /pedidos
@@ -56,6 +58,7 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
+
     respond_to do |format|
       if @pedido.update(pedido_params)
         format.html { redirect_to @pedido, notice: 'Pedido was successfully updated.' }
@@ -77,6 +80,14 @@ class PedidosController < ApplicationController
     end
   end
 
+  def create_pedidos
+      Producto.all.each do |obj|
+        if !@pedido.producto_ids.include?(obj.id)
+          @pedido.detalles.build(:producto_id => obj.id)
+        end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
@@ -89,7 +100,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :cantidadTotal, :tipo, :titular, :cuit, :precioTotal, :remitido, :facturado, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:precio, :cantidad, :producto_id])
+        params.require(:pedido).permit(:fecha, :cantidadTotal, :tipo, :titular, :cuit, :precioTotal, :remitido, :facturado, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :_destroy, :precio, :cantidad, :producto_id])
     end
 
 end

@@ -5,6 +5,11 @@ class PaisesController < ApplicationController
   # GET /paises.json
   def index
     @paises = Pais.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @paises = Pais.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @paises = Pais.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /paises/1

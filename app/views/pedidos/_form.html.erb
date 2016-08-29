@@ -21,8 +21,12 @@
   <div class="form-group">
     <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= @numeroDePedido %>
-      <%= f.hidden_field :comprobanteNumero, :value => @numeroDePedido %>
+      <% if @pedido.comprobanteNumero  %>
+        <%= f.label :comprobanteNumero, :value => @pedido.comprobanteNumero %>
+      <% else %>
+        <%= @numeroDePedido %>
+        <%= f.hidden_field :comprobanteNumero, :value => @numeroDePedido %>
+      <% end %>
     </div>
   </div>
   <div class="form-group">
@@ -46,29 +50,26 @@
   </div>
 <!--Primero itero por todos los productos y para cada uno puedo asignarle una cantidad, el precio viene dado por el producto-->
 
-<% @productos.each do |producto| %>
-  <%= f.fields_for :detalles do |detalle| %>
-  
-  <div class="form-group">
-      <%= detalle.label :producto_id, :value => producto.nombre, class: "col-sm-2 control-label"%>
-    <div class="col-sm-10">
-      <%= detalle.check_box :producto_id, {}, producto.id%>
-    </div>
-  </div>
-  <div class="form-group">
-      <%= detalle.label :precio , class: "col-sm-2 control-label"%>
-    <div class="col-sm-10">
-      <%= detalle.text_field :precio, :value => producto.precio, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-      <%= detalle.label :cantidad , class: "col-sm-2 control-label"%>
-    <div class="col-sm-10">
-      <%= detalle.text_field :cantidad, class: "form-control" %>
-    </div>
-  </div>
-  <% end %>
+<%= f.fields_for :detalles do |detalle| %>
+
+                <%= detalle.check_box :_destroy, {:checked => detalle.object.persisted?}, '0', '1' %>
+                <%= detalle.hidden_field :producto_id %>
+                <%= detalle.object.producto.nombre %> 
+                  </div>
+                </div>
+               <div class="form-group">
+                  <%= detalle.label :cantidad , class: "col-sm-2 control-label"%>
+                <div class="col-sm-10">
+                  <%= detalle.text_field :cantidad, class: "form-control" %>
+                </div>
+              </div>               
+              <div class="form-group">
+                  <%= detalle.label :precio , class: "col-sm-2 control-label"%>
+                <div class="col-sm-10">
+                  <%= detalle.text_field :precio, :value => detalle.object.producto.precio, class: "form-control" %>
+
 <% end %>
+
   <div class="form-group">
     <%= f.label :cantidadTotal, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
