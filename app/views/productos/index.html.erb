@@ -42,7 +42,8 @@
               </td>
 
               <td><%= producto.familium.nombre %></td>
-              <td>imagen</td> 
+
+              <td><%= image_tag producto.imagen %></td> 
               <td>
                 <%= link_to producto_path(producto) do %>
                   <i class="glyphicon glyphicon-list-alt"></i>

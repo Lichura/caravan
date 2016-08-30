@@ -1,0 +1,2 @@
+class Transportistum < ApplicationRecord
+end

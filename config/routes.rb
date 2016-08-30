@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :condicion_pagos
+  resources :transportista
   resources :monedas
   resources :medidas
   resources :profiles
@@ -22,10 +24,13 @@ Rails.application.routes.draw do
 
   root :to => "index#index"
   resources :users do
+    resource :user_sucursals
     collection do
-      get :buscar_afip
+      get :buscar_afip , :as => :buscar_afip
       get :edit_multiple
       put :update_multiple
+      get :edit_multiple_condiciones
+      put :update_multiple_condiciones
       get :buscar
     end
   end

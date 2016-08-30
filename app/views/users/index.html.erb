@@ -16,6 +16,7 @@
         <td><%= check_box_tag "users_ids[]", user.id %></td>
         <td><%= user.id %></td>
         <td><%= user.email %></td>
+        <td><%= user.condicion_id %></td>
         <td><%= link_to 'Show', user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
         <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -29,19 +30,6 @@
 
 
 
-
-
-
-       <!-- <%= form_tag buscar_afip_users_path, method: :get, remote: true do %>
-        <div class="input-group">
-          <%= text_field_tag :search_afip,  params[:search_afip], placeholder: "Buscar turnos", class: "form-control"%>
-            <span class="input-group-btn">
-            <%= submit_tag "Buscar", class: 'btn btn-default'%>
-            </span>
-        </div>
-        <% end %>
-
-                  <div id="afp"><p>fdsa</p></div>-->
 
 
 

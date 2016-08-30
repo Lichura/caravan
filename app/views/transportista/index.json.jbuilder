@@ -1,0 +1,1 @@
+json.array! @transportista, partial: 'transportista/transportistum', as: :transportistum

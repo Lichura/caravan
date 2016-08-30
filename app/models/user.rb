@@ -2,7 +2,8 @@ class User < ApplicationRecord
 
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
-	
+	has_many :user_sucursals
+	accepts_nested_attributes_for :user_sucursals, allow_destroy: true
 	#attr_accessor :password
 	#before_save :encrypt_password
 	before_create { generate_token(:auth_token) }
@@ -12,6 +13,7 @@ class User < ApplicationRecord
 	#validates_presence_of :password, :on => :create
 	validates_presence_of :email
 	validates_uniqueness_of :email
+	#validates :condicionPago, presence: false
 	include HTTParty
 	
 

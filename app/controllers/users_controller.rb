@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   @@parametro = ""
   def new
     @user = User.new
-    @afip = User.search_afip(params[:search_afip])
+    @afip = User.search_afip(user_afip)
+    sucursal = @user.user_sucursals.build
   end
   def index
     @user = User.all
@@ -40,7 +41,6 @@ def edit_multiple
       @user = User.all
     end
 end
-
 def update_multiple
   @user = User.update(params[:users].keys, params[:users].values)
   @user.reject! { |u| u.errors.empty? }
@@ -51,14 +51,40 @@ def update_multiple
   end
 end
 
+def edit_multiple_condiciones
+    @condiciones = CondicionPago.all.collect {|p| [ p.nombre, p.id ] }
+    @user = User.all
+    if params[:search]
+      @user = User.search(params[:search])
+    else
+      @user = User.all
+    end
+end
+
+def update_multiple_condiciones
+  @user = User.update(params[:users].keys, params[:users].values)
+  @user.reject! { |u| u.errors.empty? }
+  if @user.empty?
+    redirect_to edit_multiple_condiciones_users_url
+  else
+    render "index"
+  end
+end
+
+
+
+
 
   def create
   	@user = User.new(user_params)
-    @afip = User.search_afip(@@parametro)
+    @afip = User.search_afip(user_afip)
+    if @afip
     @user.cuit = @afip['data']['idPersona']
     @user.razonSocial = @afip['data']['nombre']
     @user.direccion = @afip['data']['domicilioFiscal']['direccion']
     @user.provincia_id = @afip['data']['domicilioFiscal']['idProvincia']
+    @user.condicionPago.id = '1'
+    end 
     if @user.password.blank?
       randomstring = SecureRandom.hex(5)
       @user.password = randomstring
@@ -101,6 +127,9 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :password, :password_confirmation, :localidad_id, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id)       
+			params.require(:user).permit(:email, :password, :password_confirmation, :localidad_id, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, user_sucursals_attributes: [:user_id, :nombre])       
 		end
+    def user_afip
+      params[:search_afip]
+    end
 end

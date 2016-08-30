@@ -1,0 +1,1 @@
+json.array! @condicion_pagos, partial: 'condicion_pagos/condicion_pago', as: :condicion_pago

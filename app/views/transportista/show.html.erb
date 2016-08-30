@@ -1,0 +1,46 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>transportistum</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Nombre:</dt>
+          <dd><%= @transportistum.nombre %></dd>
+
+          <dt>Dni:</dt>
+          <dd><%= @transportistum.dni %></dd>
+
+          <dt>Cuit:</dt>
+          <dd><%= @transportistum.cuit %></dd>
+
+          <dt>Destino:</dt>
+          <dd><%= @transportistum.destino %></dd>
+
+          <dt>Numeroguia:</dt>
+          <dd><%= @transportistum.numeroGuia %></dd>
+
+          <dt>Dniretira:</dt>
+          <dd><%= @transportistum.dniRetira %></dd>
+
+          <dt>Comentarios:</dt>
+          <dd><%= @transportistum.comentarios %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to edit_transportistum_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        transportista
+      <% end %>
+      <%= link_to transportistum_path(@transportistum), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_transportistum_path(@transportistum),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>

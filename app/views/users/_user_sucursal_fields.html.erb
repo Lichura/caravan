@@ -1,0 +1,12 @@
+<fieldset>
+                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Establecimiento: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :nombre, placeholder: "Establecimiento", class: "form-control" %>
+                      <%= f.hidden_field :_destroy %>
+                      <%= link_to "Eliminar establecimiento", '#', class: "remove_fields btn btn-danger pull-right" %>
+                    </div>
+                  </div>
+</fieldset>
+
+

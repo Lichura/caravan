@@ -1,0 +1,3 @@
+class CondicionPago < ApplicationRecord
+	
+end

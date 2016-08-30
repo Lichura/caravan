@@ -1,0 +1,1 @@
+json.partial! "condicion_pagos/condicion_pago", condicion_pago: @condicion_pago

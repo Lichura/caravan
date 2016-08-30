@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160829190149) do
+ActiveRecord::Schema.define(version: 20160830211327) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -19,6 +19,14 @@ ActiveRecord::Schema.define(version: 20160829190149) do
     t.string   "nombre_corto"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "condicion_pagos", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.integer  "dias"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "detalles", force: :cascade do |t|
@@ -111,10 +119,15 @@ ActiveRecord::Schema.define(version: 20160829190149) do
     t.string   "descripcion"
     t.float    "precio"
     t.boolean  "activo"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.string   "familia_id"
     t.integer  "familium_id"
+    t.integer  "stock_fisico"
+    t.integer  "stock_disponible"
+    t.integer  "stock_reservado"
+    t.integer  "stock_pedido"
+    t.string   "imagen"
     t.index ["familia_id"], name: "index_productos_on_familia_id"
   end
 
@@ -132,6 +145,28 @@ ActiveRecord::Schema.define(version: 20160829190149) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "codigoAfip"
+  end
+
+  create_table "transportista", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "dni"
+    t.string   "cuit"
+    t.string   "destino"
+    t.string   "numeroGuia"
+    t.float    "dniRetira"
+    t.string   "comentarios"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "user_sucursals", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "nombre"
+    t.string   "direccion"
+    t.string   "telefono"
+    t.string   "encargado"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -158,6 +193,7 @@ ActiveRecord::Schema.define(version: 20160829190149) do
     t.string   "celular"
     t.string   "numeroCv"
     t.integer  "profile_id"
+    t.integer  "condicion_id"
   end
 
 end

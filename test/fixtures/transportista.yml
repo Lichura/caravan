@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  dni: MyString
+  cuit: MyString
+  destino: MyString
+  numeroGuia: MyString
+  dniRetira: 1.5
+  comentarios: MyString
+
+two:
+  nombre: MyString
+  dni: MyString
+  cuit: MyString
+  destino: MyString
+  numeroGuia: MyString
+  dniRetira: 1.5
+  comentarios: MyString
