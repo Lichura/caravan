@@ -17,7 +17,7 @@
                   </h3>
                 </div>
                 <div id="afipCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="afipCollapse">
-                  <%= form_tag buscar_afip_users_path, method: :get, remote: true do %>
+                  <%= form_tag(new_user_path, :method => "get", id: "search-form") do %>
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Ingrese el Cuit del cliente</label>
                     <div class="input-group">
                     <%= text_field_tag :search_afip,  params[:search_afip], placeholder: "Buscar Cuit", class: "form-control"%>
@@ -26,11 +26,17 @@
                       </span>
                     </div>
                   <% end %><br>
-                  <div id="afip"></div>
-                </div>
-              </div>
-
               <%= form_for @user do |f| %>
+                <% if @afip %>
+                <div>
+                  <%= fields_for @user do |f| %>
+                      <% render 'afip_fields', f: f %>
+                  <% end %>
+                </div>
+              <% end %> 
+              <div id="afip"></div>
+            </div>
+          </div>
               <% if @user.errors.any? %>
                 <div class="error_messages">
                   <h2> Form ins invalid</h2>
@@ -40,7 +46,6 @@
                     <% end %>
                   </ul>
                 </div>
- 
             <% end %>
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="senasa">
@@ -144,11 +149,4 @@
         <% end %>
   </div>
 </div>
-
-
-<script>
-$('.collapse').on('shown.bs.collapse', function () {
-  $(this).closest('h3').css('color', 'blue');
-})
-</script>
 

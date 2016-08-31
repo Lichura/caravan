@@ -4,7 +4,11 @@ class UsersController < ApplicationController
   @@parametro = ""
   def new
     @user = User.new
-    @afip = User.search_afip(user_afip)
+      if params[:search_afip]
+        @afip = User.search_afip(params[:search_afip])
+      else
+        @afip = nil
+      end
     sucursal = @user.user_sucursals.build
   end
   def index
@@ -72,6 +76,13 @@ def update_multiple_condiciones
 end
 
 
+def afip_fields(prueba)
+
+    @afip = User.search_afip(prueba)
+
+ 
+end
+
 
 
 
@@ -127,7 +138,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :password, :password_confirmation, :localidad_id, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, user_sucursals_attributes: [:user_id, :nombre])       
+			params.require(:user).permit(:email, :password, :password_confirmation, :localidad_id, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, user_sucursals_attributes: [:user_id, :nombre])       
 		end
     def user_afip
       params[:search_afip]

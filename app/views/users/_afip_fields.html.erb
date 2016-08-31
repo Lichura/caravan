@@ -1,0 +1,14 @@
+
+  <div>
+
+      <%= f.label :cuit, "CUIT" %>
+      <%= f.text_field :cuit, placeholder: "CUIT", :value => @afip['data']['idPersona'] , class: "form-control" %>
+      <%= f.label :razonSocial, "Razon social" %>
+      <%= f.text_field :razonSocial, placeholder: "RazonSocial", :value => @afip['data']['nombre'] , class: "form-control" %>
+      <%= f.label :direccion, "Direccion" %>
+      <%= f.text_field :direccion, placeholder: "Direccion", :value => @afip['data']['domicilioFiscal']['direccion'] , class: "form-control" %>
+      <%= f.label :codigoPostal, "Direccion" %>
+      <%= f.text_field :codigoPostal, placeholder: "Codigo Postal", :value => @afip['data']['domicilioFiscal']['codPostal'] , class: "form-control" %>
+      <%= f.label :provincia_id, "Provincia" %>
+      <%= f.text_field :provincia_id, placeholder: "Direccion", :value => @afip['data']['domicilioFiscal']['idProvincia'], class: "form-control" %>
+  </div>
