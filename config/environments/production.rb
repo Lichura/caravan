@@ -93,4 +93,5 @@ Rails.application.configure do
    :password             => ENV['ZOHO_PASSWORD'],
    :authentication       => :login,
    :enable_starttls_auto => true
+    }
 end
