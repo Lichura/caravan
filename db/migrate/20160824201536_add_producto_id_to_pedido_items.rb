@@ -1,6 +1,14 @@
-class AddProductoIdToPedidoItems < ActiveRecord::Migration[5.0]
+class CreatePedidoItems < ActiveRecord::Migration[5.0]
   def change
-    add_column :pedido_items, :producto_id, :integer
-    remove_column :pedido_items, :item_id, :integer
+    create_table :pedido_items do |t|
+      t.integer :pedido_id
+      t.integer :cantidad
+      t.float :precio
+      t.integer :producto_id
+
+
+      t.timestamps
+    end
   end
 end
+
