@@ -1,6 +1,6 @@
 class ChangeCuitInUsers < ActiveRecord::Migration[5.0]
   def up
-    change_column :users, :cuit, :double
+    change_column :users, :cuit, :float
   end
 
   def down
