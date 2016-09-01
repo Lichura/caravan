@@ -4,20 +4,26 @@ class SessionsController < ApplicationController
 
   def create
   	user = User.find_by_email(params[:email])
-  	if user && user.authenticate(params[:password])
-      if params[:remember_me]
-        cookies.permanent[:auth_token] = user.auth_token
-      else
-        cookies[:auth_token] = user.auth_token
-      end
-      #puts "#{current_user.name}"
-  		#session[:user_id] = user.id
-  		flash.now.alert = "logged in!"
-  		redirect_to root_url
-  	else
-  		flash.now.alert = "Usuario o contraseña incorrecta"
-  		render "new"
-  	end
+    #si el usuario es un cliente, lo redirijo a la pagina principal y no lo dejo loguearse
+    if user.profile_id == 3
+        flash.now.alert = "Su usuario no cuenta con permisos para iniciar sesion"
+        redirect_to root_url
+    else
+    	if user && user.authenticate(params[:password])
+        if params[:remember_me]
+          cookies.permanent[:auth_token] = user.auth_token
+        else
+          cookies[:auth_token] = user.auth_token
+        end
+        #puts "#{current_user.name}"
+    		#session[:user_id] = user.id
+    		flash.now.alert = "logged in!"
+    		redirect_to root_url
+    	else
+    		flash.now.alert = "Usuario o contraseña incorrecta"
+    		render "new"
+    	end
+    end
   end
 
   def destroy

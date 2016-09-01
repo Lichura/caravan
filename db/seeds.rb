@@ -32,3 +32,5 @@ provincias = Provincia.create!([{pais_id: 1, codigoAfip: 0 , nombre: 'Capital Fe
 	{pais_id: 1, codigoAfip: 21, nombre: 'Rio Negro', nombre_corto: 'RN'},
 	{pais_id: 1, codigoAfip: 22, nombre: 'Santa Cruz', nombre_corto: 'SC'},
 	{pais_id: 1, codigoAfip: 23, nombre: 'Tierra del fuego', nombre_corto: 'TF'}])
+
+usuario = User.create!([{email:"admin", password: "admin", profile_id: "3"}])

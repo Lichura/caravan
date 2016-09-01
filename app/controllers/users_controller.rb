@@ -1,15 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  @@parametro = ""
   def new
     @user = User.new
-      if params[:search_afip]
-        @afip = User.search_afip(params[:search_afip])
-      else
-        @afip = nil
-      end
-    sucursal = @user.user_sucursals.build
+    @sucursales = @user.user_sucursals.build(:user_id => @user.id)
+
+    if params[:search_afip]
+      @afip = User.search_afip(params[:search_afip])
+    else
+      @afip = nil
+    end
+
   end
   def index
     @user = User.all
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
   def show
   end
   def edit
-        #@profiles = Profile.all
+    @profiles = Profile.all
   end
 
 def buscar
@@ -29,12 +30,7 @@ def buscar
     end
 end
 
-def buscar_afip
-    @afip = User.search_afip(params[:search_afip])
-    @@parametro = params[:search_afip]
-    #@user = User.new
-    @provincias = Provincia.all
-end
+
 
 def edit_multiple
     @profiles = Profile.all
@@ -51,7 +47,7 @@ def update_multiple
   if @user.empty?
     redirect_to edit_multiple_users_url
   else
-    render "index"
+    redirect_to edit_multiple_users_url
   end
 end
 
@@ -76,34 +72,27 @@ def update_multiple_condiciones
 end
 
 
-def afip_fields(prueba)
-
-    @afip = User.search_afip(prueba)
-
- 
-end
 
 
 
 
   def create
   	@user = User.new(user_params)
-    @afip = User.search_afip(user_afip)
-    if @afip
-    @user.cuit = @afip['data']['idPersona']
-    @user.razonSocial = @afip['data']['nombre']
-    @user.direccion = @afip['data']['domicilioFiscal']['direccion']
-    @user.provincia_id = @afip['data']['domicilioFiscal']['idProvincia']
-    @user.condicionPago.id = '1'
-    end 
+    if current_user.profile_id == 1
+      @user.profile_id = 2
+    else
+      @user.profile_id = 3
+    end
     if @user.password.blank?
       randomstring = SecureRandom.hex(5)
       @user.password = randomstring
       @user.password_confirmation = randomstring
     end
   	if @user.save
-      #UserMailer.envio_de_password(@user, @user.password).deliver_later
-  		redirect_to root_url, :notice => "Muchas gracias #{@user.email}"
+      if @user.profile_id == 2
+        UserMailer.envio_de_password(@user, @user.password).deliver_later
+      end
+  		redirect_to edit_multiple_users_pa, :notice => "Se creo el cliente #{@user.razonSocial}"
   	else
   		render "new"
   	end
@@ -138,9 +127,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :password, :password_confirmation, :localidad_id, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, user_sucursals_attributes: [:user_id, :nombre])       
+			params.require(:user).permit(:email, :localidad_id, :cuit, :provincia_id, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre])       
 		end
-    def user_afip
-      params[:search_afip]
-    end
+
 end

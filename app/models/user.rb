@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
-	has_many :user_sucursals
+	has_many :user_sucursals, :inverse_of => :user
 	accepts_nested_attributes_for :user_sucursals, allow_destroy: true
 	#attr_accessor :password
 	#before_save :encrypt_password
@@ -14,9 +14,19 @@ class User < ApplicationRecord
 	validates_presence_of :email
 	validates_uniqueness_of :email
 	#validates :condicionPago, presence: false
+	validates :password, :presence     => false
+	validates :password_confirmation, :presence     => false
+	validates :telefono, format: { with: /([0-9]{5,15})/, message: "El telefono que ingreso no es correcto" }, :allow_blank => true
+	validates :celular, format: { with: /([0-9]{5,15})/, message: "El celular que ingreso no es correcto" }, :allow_blank => true
+
+
 	include HTTParty
 	
+	def set_password
+		if self.profile_id == 2
 
+		end
+	end
 	def set_defaults
 		self.profile_id = Profile.first[:id]
 	end

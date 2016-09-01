@@ -29,3 +29,15 @@ function myFunction() {
 }
 
 
+
+
+$(document).ready(function(){
+$(window).scroll(function() {
+	if ($(window).scrollTop() >= 50 ) {
+        $('.topnav').addClass('fondo'); 
+    }
+    else {
+        $('.topnav').removeClass('fondo');   
+    }
+});
+});

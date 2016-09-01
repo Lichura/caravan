@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get 'password_resets/show'
   get 'password_resets/edit'
   get 'sessions/new'
-
+  post 'users/new'
   get 'provincias/buscar'
   #get 'users/new' 
   get "log_out" => "sessions#destroy", :as=> "log_out"
@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   resources :users do
     resource :user_sucursals
     collection do
-      get :afip_fields
       get :buscar_afip , :as => :buscar_afip
       get :edit_multiple
       put :update_multiple

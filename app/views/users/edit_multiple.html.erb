@@ -1,6 +1,6 @@
 <div class="container">
 <div class="panel panel-default">
-<div class="panel-heading"><h3>Editar usuarios</h3></div>
+<div class="panel-heading"><h3>Editar usuarios</h3><p ><%= notice %></p></div>
 <div class="panel-body">
   <div class="row">
     <div class="col-lg-6">
@@ -64,7 +64,8 @@
         </tbody>
       </table>
       </div>
-    <%= submit_tag "actualizar" , class: "btn btn-default pull-right" %>
+    <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+    <%= link_to 'Nuevo usuario', new_user_path, class: "btn btn-default"  %>
 </div>
 </div>
 </div>

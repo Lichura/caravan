@@ -1,12 +1,33 @@
 <fieldset>
+	<h2>Establecimiento: </h2>
                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Establecimiento: </label>
+                    <label class="col-sm-2 col-form-label">Nombre: </label>
                     <div class="col-sm-6">
-                      <%= f.text_field :nombre, placeholder: "Establecimiento", class: "form-control" %>
-                      <%= f.hidden_field :_destroy %>
-                      <%= link_to "Eliminar establecimiento", '#', class: "remove_fields btn btn-danger pull-right" %>
+                      <%= f.text_field :nombre, placeholder: "Nombre", class: "form-control" %>
                     </div>
-                  </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Encargado: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :encargado, placeholder: "Establecimiento", class: "form-control" %>
+                    </div>
+                </div>
+               	<div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Telefono: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :telefono, placeholder: "Establecimiento", class: "form-control" %>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Direccion: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :direccion, placeholder: "Establecimiento", class: "form-control" %>
+
+                    </div>
+                </div>
+
+                <%= f.hidden_field :_destroy %>
+                <%= link_to "Eliminar establecimiento", '#', class: "remove_fields btn btn-danger" %>
 </fieldset>
 
 
