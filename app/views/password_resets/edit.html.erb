@@ -14,20 +14,21 @@
 						</ul>
 					</div>
 				<% end %>
-				<div class="form-group">
-					<div class="form-group">
-						<%= f.label :password, "Ingrese su nueva contraseña", :class => "col-lg-3 control-label" %>
-						<div class="col-lg-9">
-							<%= f.password_field :password, value = nil, class: "form-control" %>
+					<div class="form-group row">
+						<%= f.label :password, "Nueva contraseña", :class => "col-sm-4 col-form-label" %>
+						<div class="col-sm-8">
+							<%= f.password_field :password, :class => "form-control" %>
+						</div>
+					</div>
+					<div class="form-group row">
+						<%= f.label :password_confirmation, "Reingresar nueva contraseña", :class => "col-sm-4 col-form-label" %>
+						<div class="col-sm-8">
+							<%= f.password_field :password_confirmation, :class => "form-control" %>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :password_confirmation, "Vuelva a ingresar su nueva contraseña", :class => "col-lg-3 control-label" %>
-						<div class="col-lg-9">
-							<%= f.password_field :password_confirmation, value = nil, class: "form-control" %>
-						</div>
+						<%= f.submit "Actualizar contraseña" , :class => "btn btn-primary"%>
 					</div>
-					<div class="actions"><%= f.submit "Actualizar contraseña" %></div>
 			<% end %>
 		</div>
 	</div>

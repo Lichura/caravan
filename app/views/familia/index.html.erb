@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading"><h3>Familia de productos</h3></div>
+    <p id="notice"><%= notice %></p>
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-sm-offset-3">
+            <%= form_tag(familia_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
-              <input type="text" class="form-control">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar familia de productos", class: "form-control"%>
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Buscar</button>
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
+           <% end %>
           </div>
         </div>
-      <div class="row" style="height: 100px;"></div>
+      <div class="row" style="height: 50px;"></div>
         <div class="table-responsive">
           <table class="table table-hover">
               <thead style="color: white; background-color:rgba(30,20,20, 0.7);">

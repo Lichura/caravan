@@ -4,7 +4,12 @@ class FamiliaController < ApplicationController
   # GET /familia
   # GET /familia.json
   def index
-    @familia = Familium.paginate(:page => params[:page], :per_page => 10)
+    @familia = Familium.all.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @familia = Familium.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @familia = Familium.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /familia/1

@@ -1,5 +1,6 @@
 class Pais < ApplicationRecord
 	has_many :provincias, :dependent => :destroy
+	has_many :ciudades, :through => :provincias
 
 
 

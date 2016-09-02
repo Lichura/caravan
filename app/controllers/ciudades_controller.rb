@@ -15,15 +15,19 @@ class CiudadesController < ApplicationController
   # GET /ciudades/1
   # GET /ciudades/1.json
   def show
+    @provincias = Provincia.all
+    @paises = Pais.all
   end
 
   # GET /ciudades/new
   def new
     @ciudad = Ciudad.new
+    @paises = Pais.all.collect {|x| [x.nombre, x.id]}
   end
 
   # GET /ciudades/1/edit
   def edit
+    @paises = Pais.all.collect {|x| [x.nombre, x.id]}
   end
 
   # POST /ciudades

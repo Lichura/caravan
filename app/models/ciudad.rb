@@ -1,5 +1,6 @@
 class Ciudad < ApplicationRecord
 	belongs_to :provincia
+	
 
 
 	def self.search(ciudad)

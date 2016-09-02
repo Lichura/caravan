@@ -31,7 +31,7 @@ class User < ApplicationRecord
 		self.profile_id = Profile.first[:id]
 	end
 	def self.search(usuario)
-		where("name LIKE ? OR lastname LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")
+		where("CUIT LIKE ? OR razonSocial LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")
 	end
 
 	def self.authenticate(email, password)

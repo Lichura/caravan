@@ -1,20 +1,21 @@
 <div class="container">
-<div class="panel panel-default">
-<div class="panel-heading"><h3>Editar condiciones de pago</h3></div>
-<div class="panel-body">
-  <div class="row">
-    <div class="col-lg-6">
-        <%= form_tag edit_multiple_condiciones_users_path, method: :get do %>
-        <div class="input-group">
-          <%= text_field_tag :search,  params[:search], placeholder: "Buscar Usuarios", class: "form-control"%>
-            <span class="input-group-btn">
-            <%= submit_tag "Buscar", class: 'btn btn-default'%>
-            </span>
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Usuarios - Condiciones de pago</h3></div>
+    <p id="notice"><%= notice %></p>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+            <%= form_tag(users_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar usuarios", class: "form-control"%>
+              <span class="input-group-btn">
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
+          </div>
         </div>
-        <% end %>
-    </div>
-   </div>
-  <br>
+      <div class="row" style="height: 50px;"></div>
    <div class="table-responsive">
     <table class="table table-hover">
       <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
@@ -55,7 +56,13 @@
       </table>
       </div>
     <%= submit_tag "actualizar" , class: "btn btn-default pull-right" %>
+  <% end %>
+      <button type="button" class="btn btn-primary">
+        <%= link_to 'Nuevo usuario', new_user_path %>
+      </button>
+      <button type="button" class="btn btn-primary">
+        <%= link_to 'Nueva condicion', new_condicion_pago_path %>
+      </button>
 </div>
 </div>
 </div>
-<% end %>
