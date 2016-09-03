@@ -2,7 +2,7 @@
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
-      <div class="panel-heading"><h2>condicion_pago</h2></div>
+      <div class="panel-heading"><h2>Condicion de pago</h2></div>
         <div class="panel-body">
          <dl class="dl-horizontal">
 
@@ -21,9 +21,9 @@
     </div>
       <%= link_to edit_condicion_pago_path, class: 'btn btn-default pull-right' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
-        condicion_pagos
+        Condiciones de pago
       <% end %>
-      <%= link_to condicion_pago_path(@condicion_pago), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+      <%= link_to condicion_pago_path(@condicion_pago), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta condicion?' }, class: 'btn btn-danger pull-right', remote: true do %>
         <span class="glyphicon glyphicon-trash"></span>
         Eliminar
       <% end %>

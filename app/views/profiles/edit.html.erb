@@ -1,13 +1,14 @@
-<div class="page-header">
-  <%= link_to profiles_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to @profile, class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-info-sign"></span>
-    Show
-  <% end %>
-  <h1>Editing profile</h1>
-</div>
 
-<%= render 'form' %>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Editar perfil</h3></div>
+    <p id="notice"><%= notice %></p>
+      <div class="panel-body">
+        <div class="row">
+	        	<div class="col-lg-6 col-sm-offset-3">
+					<%= render 'form' %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

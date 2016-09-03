@@ -55,6 +55,7 @@
     <div class="field">
     <%= f.label :provincia_id %><br>
     <%= f.text_field :provincia_id %>
+    <p><%= Provincia.find_by(id: @user.provincia_id).nombre %></p>
   </div>
     <div class="field">
     <%= f.label :pais_id %><br>

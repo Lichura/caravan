@@ -18,3 +18,12 @@ jQuery ->
 
 
 
+jQuery ->
+	ciudades = $('#user_localidad_id').html()
+	$('#user_provincia_id').ready -> 
+		provincia = $('#user_provincia_id :selected').text()
+		options = $(ciudades).filter("optgroup[label='#{provincia}']").html()
+		if options
+			$('#user_localidad_id').html(options)
+		else
+			$('#user_localidad_id').empty()

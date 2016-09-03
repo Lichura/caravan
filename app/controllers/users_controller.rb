@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @user = User.new
     @sucursales = @user.user_sucursals.build(:user_id => @user.id)
 
+    @provincias = Provincia.all
     if params[:search_afip]
       @afip = User.search_afip(params[:search_afip])
     else
@@ -19,6 +20,7 @@ class UsersController < ApplicationController
   end
   def edit
     @profiles = Profile.all
+    @provincias = Provincia.all
   end
 
 def buscar
@@ -78,6 +80,7 @@ end
 
   def create
   	@user = User.new(user_params)
+    @user.condicion_id = 1
     if current_user.profile_id == 1
       @user.profile_id = 2
     else
@@ -92,7 +95,7 @@ end
       if @user.profile_id == 2
         UserMailer.envio_de_password(@user, @user.password).deliver_later
       end
-  		redirect_to edit_multiple_users_pa, :notice => "Se creo el cliente #{@user.razonSocial}"
+  		redirect_to edit_multiple_users_path, :notice => "Se creo el cliente #{@user.razonSocial}"
   	else
   		render "new"
   	end
@@ -127,7 +130,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :localidad_id, :cuit, :provincia_id, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :codigoPostal, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre])       
+			params.require(:user).permit(:email, :localidad_id, :cuit, :provincia_id, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre])       
 		end
 
 end

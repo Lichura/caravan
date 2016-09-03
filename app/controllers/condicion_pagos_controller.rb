@@ -5,6 +5,11 @@ class CondicionPagosController < ApplicationController
   # GET /condicion_pagos.json
   def index
     @condicion_pagos = CondicionPago.paginate(:page => params[:page], :per_page => 10)
+    if params[:search]
+        @condicion_pagos = CondicionPago.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @condicion_pagos = CondicionPago.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /condicion_pagos/1

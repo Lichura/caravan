@@ -22,12 +22,16 @@
                     <label class="col-sm-2 col-form-label">Direccion: </label>
                     <div class="col-sm-6">
                       <%= f.text_field :direccion, placeholder: "Establecimiento", class: "form-control" %>
+                    </div>
+                    <div class="col-sm-4">
+                      <%= f.hidden_field :_destroy %>
+                      <%= link_to "Eliminar establecimiento", '#', class: "remove_fields btn btn-danger pull-right" %>
 
                     </div>
                 </div>
 
-                <%= f.hidden_field :_destroy %>
-                <%= link_to "Eliminar establecimiento", '#', class: "remove_fields btn btn-danger" %>
+
+
 </fieldset>
 
 

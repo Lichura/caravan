@@ -9,6 +9,11 @@
       <%= f.text_field :direccion, placeholder: "Direccion", :value => @afip['data']['domicilioFiscal']['direccion'] , class: "form-control" %>
       <%= f.label :codigoPostal, "Direccion" %>
       <%= f.text_field :codigoPostal, placeholder: "Codigo Postal", :value => @afip['data']['domicilioFiscal']['codPostal'] , class: "form-control" %>
+      <%= f.label :pais_id, "Pais" %>
+      <%= f.select :pais_id, options_from_collection_for_select(Pais.all, "id", "nombre",1), {}, {:multiple => false, :class => "form-control"} %>
       <%= f.label :provincia_id, "Provincia" %>
-      <%= f.text_field :provincia_id, placeholder: "Direccion", :value => @afip['data']['domicilioFiscal']['idProvincia'], class: "form-control" %>
+      <%= f.select :provincia_id, options_from_collection_for_select(Provincia.all, "id", "nombre", Provincia.find_by(codigoAfip: @afip['data']['domicilioFiscal']['idProvincia']).id), {}, {:multiple => false, :class => "form-control"} %>
   </div>
+
+
+

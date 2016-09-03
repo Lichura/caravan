@@ -53,7 +53,7 @@
                     <% end %>
                   </td>
                   <td>
-                    <%= link_to transportistum_path(transportistum.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta transportistum?' }, remote: true do %>
+                    <%= link_to transportistum_path(transportistum.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este transportista?' }, remote: true do %>
                       <i class="glyphicon glyphicon-trash"></i>
                     <% end %>
                     </td>
@@ -64,7 +64,7 @@
           </div>
           <%= will_paginate @transportista, renderer: BootstrapPagination::Rails %>
           <button type="button" class="btn btn-primary pull-right">
-            <%= link_to 'Nueva transportistum', new_transportistum_path %>
+            <%= link_to 'Nuevo transportista', new_transportistum_path %>
           </button>
         </div>
       </div>

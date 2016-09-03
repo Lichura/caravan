@@ -92,6 +92,12 @@
                     </div>
                   </div>
                   <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Localidad</label>
+                    <div class="col-sm-10">
+                      <%= f.grouped_collection_select :localidad_id, Provincia.order(:nombre), :ciudades, :nombre, :id, :nombre, {include_blank: true}, {:class => 'form-control'}  %> 
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <label class="col-sm-2 col-form-label">Telefono</label>
                     <div class="col-sm-10">
                       <%= f.telephone_field :telefono, placeholder: "Telefono", class: "form-control" %>
@@ -114,7 +120,7 @@
                   <%= f.fields_for :user_sucursals do |sucursal|%>
                     <%= render 'user_sucursal_fields', f: sucursal %>
                   <% end %>
-                  <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals, class: "btn btn-default pull-right" %>
+                  <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals, class: "btn btn-default" %>
                 </div>
                 </div>
 

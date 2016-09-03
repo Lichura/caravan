@@ -14,7 +14,7 @@ class TransportistaController < ApplicationController
 
   # GET /transportista/new
   def new
-    @transportistum = Transportistum.new
+    @transportista = Transportistum.new
   end
 
   # GET /transportista/1/edit
@@ -24,15 +24,15 @@ class TransportistaController < ApplicationController
   # POST /transportista
   # POST /transportista.json
   def create
-    @transportistum = Transportistum.new(transportistum_params)
+    @transportista = Transportistum.new(transportistum_params)
 
     respond_to do |format|
-      if @transportistum.save
-        format.html { redirect_to @transportistum, notice: 'Transportistum was successfully created.' }
-        format.json { render :show, status: :created, location: @transportistum }
+      if @transportista.save
+        format.html { redirect_to @transportista, notice: 'Transportistum was successfully created.' }
+        format.json { render :show, status: :created, location: @transportista }
       else
         format.html { render :new }
-        format.json { render json: @transportistum.errors, status: :unprocessable_entity }
+        format.json { render json: @transportista.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -41,12 +41,12 @@ class TransportistaController < ApplicationController
   # PATCH/PUT /transportista/1.json
   def update
     respond_to do |format|
-      if @transportistum.update(transportistum_params)
-        format.html { redirect_to @transportistum, notice: 'Transportistum was successfully updated.' }
-        format.json { render :show, status: :ok, location: @transportistum }
+      if @transportista.update(transportistum_params)
+        format.html { redirect_to @transportista, notice: 'Transportistum was successfully updated.' }
+        format.json { render :show, status: :ok, location: @transportista }
       else
         format.html { render :edit }
-        format.json { render json: @transportistum.errors, status: :unprocessable_entity }
+        format.json { render json: @transportista.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -54,7 +54,7 @@ class TransportistaController < ApplicationController
   # DELETE /transportista/1
   # DELETE /transportista/1.json
   def destroy
-    @transportistum.destroy
+    @transportista.destroy
     respond_to do |format|
       format.html { redirect_to transportista_url, notice: 'Transportistum was successfully destroyed.' }
       format.json { head :no_content }
@@ -64,7 +64,7 @@ class TransportistaController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transportistum
-      @transportistum = Transportistum.find(params[:id])
+      @transportista = Transportistum.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

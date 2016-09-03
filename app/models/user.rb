@@ -4,6 +4,8 @@ class User < ApplicationRecord
 	#belongs_to :profile
 	has_many :user_sucursals, :inverse_of => :user
 	accepts_nested_attributes_for :user_sucursals, allow_destroy: true
+	belongs_to :profile
+
 	#attr_accessor :password
 	#before_save :encrypt_password
 	before_create { generate_token(:auth_token) }
@@ -21,6 +23,13 @@ class User < ApplicationRecord
 
 
 	include HTTParty
+
+
+	  before_save :condicion_de_pago
+
+  	def condicion_de_pago
+    	self.condicion_id = 1
+  	end
 	
 	def set_password
 		if self.profile_id == 2
