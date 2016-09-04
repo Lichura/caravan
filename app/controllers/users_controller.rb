@@ -8,6 +8,20 @@ class UsersController < ApplicationController
     @provincias = Provincia.all
     if params[:search_afip]
       @afip = User.search_afip(params[:search_afip])
+      if @afip['success'] == true
+        @cuit = @afip['data']['idPersona'] 
+        @razonSocial = @afip['data']['nombre'] 
+        @domicilio = @afip['data']['domicilioFiscal']['direccion'] 
+        @codigoPostal = @afip['data']['domicilioFiscal']['codPostal'] 
+        @provincia = @afip['data']['domicilioFiscal']['idProvincia'] 
+      else
+        @cuit = ""
+        @razonSocial = ""
+        @domicilio = ""
+        @codigoPostal = ""
+        @provincia = 1
+        @error = "No se encontraron datos para ese CUIT"
+      end
     else
       @afip = nil
     end

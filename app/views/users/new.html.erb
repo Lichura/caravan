@@ -28,6 +28,10 @@
                   <% end %><br>
               <%= form_for @user do |f| %>
                 <% if @afip %>
+                  <% if @error %>
+                    <%= @error %>
+                  <% end %>
+
                 <div>
                   <%= fields_for @user do |ff| %>
                       <% render 'afip_fields', f: f %>
@@ -150,5 +154,16 @@
 <script>
 $(document).ready(function(){
   $('#user_cuig').mask('00.000.0.00000/00');
+
+
+   $("#search-form").validate({
+    debug: true,
+    rules: {
+    "search_afip": {required: true, rangelength: [11,11]},
+    }
+  });
 });
+
+
+
 </script>

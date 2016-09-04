@@ -1,18 +1,17 @@
 
   <div>
-
-      <%= f.label :cuit, "CUIT" %>
-      <%= f.text_field :cuit, placeholder: "CUIT", :value => @afip['data']['idPersona'] , class: "form-control" %>
-      <%= f.label :razonSocial, "Razon social" %>
-      <%= f.text_field :razonSocial, placeholder: "RazonSocial", :value => @afip['data']['nombre'] , class: "form-control" %>
-      <%= f.label :direccion, "Direccion" %>
-      <%= f.text_field :direccion, placeholder: "Direccion", :value => @afip['data']['domicilioFiscal']['direccion'] , class: "form-control" %>
-      <%= f.label :codigoPostal, "Direccion" %>
-      <%= f.text_field :codigoPostal, placeholder: "Codigo Postal", :value => @afip['data']['domicilioFiscal']['codPostal'] , class: "form-control" %>
-      <%= f.label :pais_id, "Pais" %>
-      <%= f.select :pais_id, options_from_collection_for_select(Pais.all, "id", "nombre",1), {}, {:multiple => false, :class => "form-control"} %>
-      <%= f.label :provincia_id, "Provincia" %>
-      <%= f.select :provincia_id, options_from_collection_for_select(Provincia.all, "id", "nombre", Provincia.find_by(codigoAfip: @afip['data']['domicilioFiscal']['idProvincia']).id), {}, {:multiple => false, :class => "form-control"} %>
+        <%= f.label :cuit, "CUIT" %>
+        <%= f.text_field :cuit, placeholder: "CUIT", :value => @cuit , class: "form-control" %>
+        <%= f.label :razonSocial, "Razon social" %>
+        <%= f.text_field :razonSocial, placeholder: "RazonSocial", :value => @razonSocial , class: "form-control" %>
+        <%= f.label :direccion, "Direccion" %>
+        <%= f.text_field :direccion, placeholder: "Direccion", :value => @domicilio , class: "form-control" %>
+        <%= f.label :codigoPostal, "Codigo Postal" %>
+        <%= f.text_field :codigoPostal, placeholder: "Codigo Postal", :value => @codigoPostal, class: "form-control" %>
+        <%= f.label :pais_id, "Pais" %>
+        <%= f.select :pais_id, options_from_collection_for_select(Pais.all, "id", "nombre",1), {}, {:multiple => false, :class => "form-control"} %>
+        <%= f.label :provincia_id, "Provincia" %>
+        <%= f.select :provincia_id, options_from_collection_for_select(Provincia.all, "id", "nombre", Provincia.find_by(codigoAfip: @provincia).id), {}, {:multiple => false, :class => "form-control"} %>
   </div>
 
 
