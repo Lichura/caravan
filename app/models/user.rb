@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
 	#attr_accessor :password
 	#before_save :encrypt_password
+  has_many :relacions
+  has_many :clientes, :through => :relacions
 	before_create { generate_token(:auth_token) }
 	has_secure_password
 
