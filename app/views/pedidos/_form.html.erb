@@ -1,74 +1,45 @@
-<%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <% if @pedido.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@pedido.errors.count, "error") %> prohibited this pedido from being saved:</h4>
 
-      <ul>
-      <% @pedido.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Nuevo Pedido</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6">
+          </div>
+        </div>
+        <br>
+        <%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
+          <% if @pedido.errors.any? %>
+            <div class="alert alert-danger alert-dismissable" role="alert">
+              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4><%= pluralize(@pedido.errors.count, "error") %> prohibited this pedido from being saved:</h4>
 
-  <div class="form-group">
-    <%= f.label :fecha, "Fecha: ", class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= Date.today %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <% if @pedido.comprobanteNumero  %>
-        <%= f.label :comprobanteNumero, :value => @pedido.comprobanteNumero %>
-      <% else %>
-        <%= @numeroDePedido %>
-        <%= f.hidden_field :comprobanteNumero, :value => @numeroDePedido %>
-      <% end %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :cuit, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select :cuit, User.all, :cuit, :cuit,  include_blank: true, class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :condicionCompra, "Condicion de compra", class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :condicionCompra, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :sucursal, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :sucursal, class: "form-control" %>
-    </div>
-  </div>
-<!--Primero itero por todos los productos y para cada uno puedo asignarle una cantidad, el precio viene dado por el producto-->
-
-<%= f.fields_for :detalles do |detalle| %>
-
-                <%= detalle.check_box :_destroy, {:checked => detalle.object.persisted?}, '0', '1' %>
-                <%= detalle.hidden_field :producto_id %>
-                <%= detalle.object.producto.nombre %> 
-                  </div>
+              <ul>
+              <% @pedido.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+            <div id="accordion" role="tablist" aria-multiselectable="false">
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="ClienteCollapse">
+                  <h3 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#ClienteCollapse" aria-expanded="true" aria-controls="afipCollapse">
+                      Cliente
+                    </a>
+                  </h3>
                 </div>
-               <div class="form-group">
-                  <%= detalle.label :cantidad , class: "col-sm-2 control-label"%>
-                <div class="col-sm-10">
-                  <%= detalle.text_field :cantidad, class: "form-control" %>
+                <div id="ClienteCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="ClienteCollapse">
+                    <%= f.fields_for @pedido do |ff| %>
+                       <% render 'cabecera', f: ff %>
+                    <% end %>
                 </div>
-              </div>               
-              <div class="form-group">
-                  <%= detalle.label :precio , class: "col-sm-2 control-label"%>
-                <div class="col-sm-10">
-                  <%= detalle.text_field :precio, :value => detalle.object.producto.precio, class: "form-control" %>
-
-<% end %>
+              </div>
+            </div>
+        <%= f.fields_for :detalles do |ff| %>
+           <% render 'detalle', f: ff %>
+        <% end %>
 
   <div class="form-group">
     <%= f.label :cantidadTotal, class: "col-sm-2 control-label" %>
@@ -89,7 +60,10 @@
   </div>
 <% end %>
 
-
+</div>
+</div>
+</div>
+</div>
 <!--<div class="subtotal">0$</div> -->
 <script>
 

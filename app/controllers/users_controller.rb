@@ -94,7 +94,7 @@ end
 
   def create
   	@user = User.new(user_params)
-    @relacions = current_user.relacions.build(:cliente_id => @user.id)
+    @relacions = current_user.relacions.build(:distribuidor_id => current_user.id)
     @user.condicion_id = 1
     if current_user.profile_id == 1
       @user.profile_id = 2

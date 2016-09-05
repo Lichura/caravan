@@ -8,8 +8,8 @@ class User < ApplicationRecord
 
 	#attr_accessor :password
 	#before_save :encrypt_password
-  has_many :relacions
-  has_many :clientes, :through => :relacions
+  	has_many :relacions
+  	has_many :clientes, :through => :relacions
 	before_create { generate_token(:auth_token) }
 	has_secure_password
 
@@ -22,7 +22,7 @@ class User < ApplicationRecord
 	validates :password_confirmation, :presence     => false
 	validates :telefono, format: { with: /([0-9]{5,15})/, message: "El telefono que ingreso no es correcto" }, :allow_blank => true
 	validates :celular, format: { with: /([0-9]{5,15})/, message: "El celular que ingreso no es correcto" }, :allow_blank => true
-	validates :search_afip, format: {with: /([0-9]{11})/, message: "El cuit introducido no es valido."}
+
 
 	include HTTParty
 

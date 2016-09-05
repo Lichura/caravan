@@ -1,0 +1,52 @@
+		<div class="articuloContenedor">
+			<div class="articuloContenedorLinea"></div>
+			<div class="articuloContenedorContenido"></div>
+				<div class="articuloImagen">
+					<%= image_tag f.object.producto.imagen %>
+				</div>
+				<div class="articuloDescripcion">
+				     <%= f.check_box :_destroy, {:checked => f.object.persisted?}, '0', '1' %>
+                	<%= f.hidden_field :producto_id %>
+					<div class="articuloDescripcionNombre"><%= f.object.producto.nombre %> </div>
+					<div class="articuloDescripcionDescripcion"><%= f.object.producto.descripcion %></div>
+				</div>
+				<div class="articuloControles">
+					<table>
+						<thead>
+							<th>Cantidad</th>
+							<th>Precio</th>
+							<th>Subtotal</th>
+						</thead>
+						<tbody>
+							<tr>
+							<td><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
+							<td class="precio"><%= f.object.producto.precio %></td>
+							<td><input class="subtotal" value="0" disabled></input></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+		</div>
+
+
+<script>
+$('document').ready(function(){
+	$('.cantidad').on('change', function() {
+        UpdateSubTotal(this);
+    });
+
+
+function UpdateSubTotal(elem) {
+    // This will give the tr of the Element Which was changed
+    var $container = $(elem).parent().parent();
+    var quantity = $container.find('.cantidad').val();
+    var price = $container.find('.precio').html();
+    var subtotal = parseInt(quantity) * parseFloat(price);
+    $container.find('.subtotal').val(subtotal.toFixed(2));
+}
+
+
+	
+	
+});
+</script>
