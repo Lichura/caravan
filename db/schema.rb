@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905140111) do
+ActiveRecord::Schema.define(version: 20160906190309) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -149,9 +149,9 @@ ActiveRecord::Schema.define(version: 20160905140111) do
 
   create_table "relacions", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "distribuidor_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "cliente_id"
   end
 
   create_table "transportista", force: :cascade do |t|
@@ -201,6 +201,7 @@ ActiveRecord::Schema.define(version: 20160905140111) do
     t.string   "numeroCv"
     t.integer  "profile_id"
     t.integer  "condicion_id"
+    t.integer  "distribuidor_id"
   end
 
 end

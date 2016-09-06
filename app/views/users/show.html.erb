@@ -18,7 +18,11 @@
               <dd><%= sucursal.nombre %></dd>
             <% end %>
             <dt>Distribuidor:</dt>
-            <dd><%= @user.clientes.email %></dd>
+            <% for cliente in @user.clientes do %>
+              <dd><%= cliente.razonSocial %></dd>
+            <% end %>
+
+
           </dl>
         </div>
       </div>

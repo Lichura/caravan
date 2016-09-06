@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @sucursales = @user.user_sucursals.build(:user_id => @user.id)
-
     @provincias = Provincia.all
     if params[:search_afip]
       @afip = User.search_afip(params[:search_afip])
@@ -94,12 +93,13 @@ end
 
   def create
   	@user = User.new(user_params)
-    @relacions = current_user.relacions.build(:distribuidor_id => current_user.id)
     @user.condicion_id = 1
-    if current_user.profile_id == 1
-      @user.profile_id = 2
-    else
-      @user.profile_id = 3
+    if current_user.present?
+      if current_user.profile_id == 1
+        @user.profile_id = 2
+      else
+        @user.profile_id = 3
+      end
     end
     if @user.password.blank?
       randomstring = SecureRandom.hex(5)
@@ -107,6 +107,8 @@ end
       @user.password_confirmation = randomstring
     end
   	if @user.save
+      @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
+      @distribuidor.save
       if @user.profile_id == 2
         UserMailer.envio_de_password(@user, @user.password).deliver_later
       end
@@ -137,6 +139,9 @@ end
   end
 
   	private
+    def relacions_params
+      params.require(:user).permit(:id, current_user.id)
+    end
     def set_multiple_ids
       params[:user_ids]
     end
