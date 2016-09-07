@@ -41,12 +41,8 @@ Rails.application.routes.draw do
   resources :pedidos do
     collection do
       get 'get_precios', to: "pedidos#get_precios"
-<<<<<<< HEAD
       get 'get_cliente', to: "pedidos#get_cliente"
     end 
-=======
-    end
->>>>>>> c4044e744b8a756367695706321670db2cbd9d4a
   end
 
   resources :relacions
