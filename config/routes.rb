@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :productos
   resources :familia
   resources :mensajes
+  get 'menu' => "menu#index", :as => "menu"
   get 'password_resets/new'
   get 'password_resets/show'
   get 'password_resets/edit'
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
   resources :pedidos do
     collection do
       get 'get_precios', to: "pedidos#get_precios"
+      get 'get_cliente', to: "pedidos#get_cliente"
     end 
   end
 

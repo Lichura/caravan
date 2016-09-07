@@ -6,6 +6,13 @@ class PedidosController < ApplicationController
     @producto = Producto.find params[:producto_id]
     @precio = @producto.precio
   end 
+  def get_cliente
+    @cliente = User.find(params[:cliente_id])
+    respond_to do |format|
+      format.html
+      format.json {render json: @cliente}
+    end
+  end 
   # GET /pedidos
   # GET /pedidos.json
   def index
