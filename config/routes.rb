@@ -11,13 +11,14 @@ Rails.application.routes.draw do
   resources :productos
   resources :familia
   resources :mensajes
+  get 'menu/index'
   get 'password_resets/new'
   get 'password_resets/show'
   get 'password_resets/edit'
   get 'sessions/new'
   post 'users/new'
   get 'provincias/buscar'
-  #get 'users/new' 
+  #get 'users/new'
   get "log_out" => "sessions#destroy", :as=> "log_out"
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   resources :pedidos do
     collection do
       get 'get_precios', to: "pedidos#get_precios"
-    end 
+    end
   end
 
   resources :relacions
