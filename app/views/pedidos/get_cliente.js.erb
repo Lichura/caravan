@@ -1,2 +1,2 @@
-$('#datosCliente').html(<%= @cliente.razonSocial %>);
+$('#Cliente').html("<%= j render(partial: 'cliente_prueba', locals: {cliente: @cliente}) %>");
 

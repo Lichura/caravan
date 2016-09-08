@@ -9,6 +9,33 @@
 Pais.destroy_all
 Provincia.destroy_all
 Ciudad.destroy_all
+Profile.destroy_all
+User.destroy_all
+
+perfiles = Profile.create!([
+  {id: 1, nombre: "admin", descripcion: "admin"},
+  {id: 2, nombre: "distribuidores", descripcion: "distribuidores"},
+  {id: 3, nombre: "cliente", descripcion: "cliente"}])
+usuarios = User.create!([{
+    profile_id: 1,
+    email:"lichun88@gmail.com",
+    password: "admin",
+    password_confirmation: "admin",
+    razonSocial: "Licho",
+    direccion: "bla bla",
+    cuig: "321321312",
+    renspa: "131232321",
+    cuit: 20335067623,
+    telefono: "144132312",
+    codigoPostal: "08018",
+    provincia_id: 1,
+    pais_id: 1,
+    encargado: "Licho",
+    celular: "13123123",
+    numeroCv: "23123",
+
+
+  }])
 paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
 
 provincias = Provincia.create!([{pais_id: 1, id:1, codigoAfip: 0 , nombre: 'Capital Federal', nombre_corto: 'CF'},

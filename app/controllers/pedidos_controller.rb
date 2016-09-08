@@ -9,8 +9,9 @@ class PedidosController < ApplicationController
   def get_cliente
     @cliente = User.find(params[:cliente_id])
     respond_to do |format|
-      format.html
-      format.json {render json: @cliente}
+      format.json
+      #format.html
+      #format.json {render json: @cliente}
     end
   end 
   # GET /pedidos

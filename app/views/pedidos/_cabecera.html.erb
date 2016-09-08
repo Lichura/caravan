@@ -21,6 +21,9 @@
       <%= f.collection_select(:cuit, current_user.clientes.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
     </div>
   </div>
+  <div id="Cliente">
+    <%= render partial: 'cliente_prueba', locals: {cliente: @cliente}  %>
+  </div>
   <%= render 'cliente' %>
   <div class="form-group">
     <%= f.label :condicionCompra, "Condicion de compra", class: "col-sm-2 control-label" %>
