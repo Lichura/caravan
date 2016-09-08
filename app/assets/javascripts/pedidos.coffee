@@ -20,7 +20,6 @@ jQuery ->
   			$.ajax
   				url: "/pedidos/get_cliente"
   				type: "GET"
-  				dataType: "json"
   				data:
   					cliente_id: $('#pedido_pedido_cuit option:selected').val()
   				success: (data) ->

@@ -1,1 +1,2 @@
-$("#Cliente").html( "<%=j render :partial => 'cliente_prueba', :locals => {:cliente => @cliente } %>" );
+$('#Cliente').html( "<%=j render('cliente', :locals => {:cliente => @cliente }) %>" );
+$('#Cliente').slideDown(350);
