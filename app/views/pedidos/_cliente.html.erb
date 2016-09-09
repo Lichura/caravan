@@ -68,8 +68,8 @@
   <label for="example-text-input" class="col-xs-2 col-form-label">Sucursal:</label>
   <div class="col-xs-10">
     <span class="form-control" type="text" id="clienteSucursal">
-
-      <%= @cliente.user_sucursals.all %></span>
+<%= select("nombre", "id", @cliente.user_sucursals.all.collect {|p| [ p.nombre, p.id ] }, { include_blank: true }) %>
+</span>
   </div>
 </div>
 

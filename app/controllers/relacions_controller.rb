@@ -1,5 +1,13 @@
 class RelacionsController < ApplicationController
 
+  def edit
+
+  end
+
+  def index
+   @relacions = Relacion.paginate(:page => params[:page], :per_page => 10)
+  end
+
   def create
     @relacion = current_user.relacions.build(relacion_params)
 

@@ -52,6 +52,9 @@ class PedidosController < ApplicationController
     @pedido = Pedido.new(pedido_params)
     respond_to do |format|
       if @pedido.save
+        @pedido.detalles_attributes.each do |key,value|
+          Producto.find(:producto_id).stock_reservado += :cantidad
+        end
         format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
         format.json { render :show, status: :created, location: @pedido }
       else

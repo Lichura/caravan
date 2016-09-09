@@ -71,15 +71,20 @@ $('.cantidad').on('change', function () {
 
     var subtotal = 0;
     var cantidad = 0;
+    var total = 0;
     $('.cantidad').each(function () {
         var $this = $(this);
         var quantity = parseInt($this.val());
         var price = parseFloat($this.siblings('.precio').val())
         subtotal += quantity * price;
         cantidad += quantity;
+        total += subtotal
     })
     $('.subtotal').text(subtotal);
     $('.cantidadTotal').text(cantidad);
+    $('.total').text(total);
 })
 $('.cantidad').trigger('change')
+
+
 </script>
