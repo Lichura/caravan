@@ -21,7 +21,7 @@
 							<tr>
 							<td><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
 							<td class="precio"><%= f.object.producto.precio %></td>
-							<td><input class="subtotal" value="0" disabled></input></td>
+							<td><div class="subtotal" value=0></div></td>
 							</tr>
 						</tbody>
 					</table>
@@ -31,9 +31,16 @@
 
 <script>
 $('document').ready(function(){
+
+	 $('.subtotal').change(function() {
+    	UpdateTotal();
+    });
+
 	$('.cantidad').on('change', function() {
         UpdateSubTotal(this);
     });
+
+
 
 
 function UpdateSubTotal(elem) {
@@ -42,11 +49,31 @@ function UpdateSubTotal(elem) {
     var quantity = $container.find('.cantidad').val();
     var price = $container.find('.precio').html();
     var subtotal = parseInt(quantity) * parseFloat(price);
-    $container.find('.subtotal').val(subtotal.toFixed(2));
+    $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
 
 
-	
+ function UpdateTotal() {
+	var sum = 0;
+	var cantidad = 0;
+	$(".subtotal").each(function() {
+	    var val = $.trim( $(this).text() );
+	    if ( val ) {
+	        val = parseFloat( val.replace( /^\$/, "" ) );
+	        sum += !isNaN( val ) ? val : 0;
+	    }
+	});
+
+	$(".cantidad").each(function(){
+		var val = $.trim( $(this).val() );
+		cantidad += parseFloat(val);
+	});
+
+	$("input.total").val( sum );
+	$("input.cantidadTotal").val( cantidad );
+}
+
 	
 });
+
 </script>

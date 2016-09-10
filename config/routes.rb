@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   resources :users do
     resource :user_sucursals
     collection do
-      get :buscar_afip , :as => :buscar_afip
+      get 'buscar_afip', to: "users#buscar_afip"
       get :edit_multiple
       put :update_multiple
       get :edit_multiple_condiciones

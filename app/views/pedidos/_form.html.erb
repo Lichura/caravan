@@ -31,9 +31,9 @@
                   </h3>
                 </div>
                 <div id="ClienteCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="ClienteCollapse">
-                    <%= f.fields_for @pedido do |ff| %>
-                       <% render 'cabecera', f: ff %>
-                    <% end %>
+
+                       <%= render partial: 'cabecera', locals: {f: f} %>
+
                 </div>
               </div>
             </div>
@@ -50,9 +50,10 @@
   <div class="form-group">
       <%= f.label :precioTotal, class: "col-sm-2 control-label" %>
       <div class="col-sm-10">
-      <%= f.text_field :precioTotal, class: "subtotal form-control" %>
+      <%= f.text_field :precioTotal, class: "total form-control" %>
     </div>
   </div>
+<div class="total" disabled></div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit class: "btn btn-primary" %>
@@ -67,24 +68,6 @@
 <!--<div class="subtotal">0$</div> -->
 <script>
 
-$('.cantidad').on('change', function () {
-
-    var subtotal = 0;
-    var cantidad = 0;
-    var total = 0;
-    $('.cantidad').each(function () {
-        var $this = $(this);
-        var quantity = parseInt($this.val());
-        var price = parseFloat($this.siblings('.precio').val())
-        subtotal += quantity * price;
-        cantidad += quantity;
-        total += subtotal
-    })
-    $('.subtotal').text(subtotal);
-    $('.cantidadTotal').text(cantidad);
-    $('.total').text(total);
-})
-$('.cantidad').trigger('change')
-
 
 </script>
+

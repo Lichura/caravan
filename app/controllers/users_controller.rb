@@ -5,26 +5,11 @@ class UsersController < ApplicationController
     @user = User.new
     @sucursales = @user.user_sucursals.build(:user_id => @user.id)
     @provincias = Provincia.all
-    if params[:search_afip]
-      @afip = User.search_afip(params[:search_afip])
-      if @afip['success'] == true
-        @cuit = @afip['data']['idPersona'] 
-        @razonSocial = @afip['data']['nombre'] 
-        @domicilio = @afip['data']['domicilioFiscal']['direccion'] 
-        @codigoPostal = @afip['data']['domicilioFiscal']['codPostal'] 
-        @provincia = @afip['data']['domicilioFiscal']['idProvincia'] 
-      else
-        @cuit = ""
-        @razonSocial = ""
-        @domicilio = ""
-        @codigoPostal = ""
-        @provincia = 1
-        @error = "No se encontraron datos para ese CUIT"
-      end
-    else
-      @afip = nil
+    @afip = User.search_afip(params[:search_afip])
+    respond_to do |format|
+     format.html
+     format.js {render "buscar_afip"}
     end
-
   end
   def index
     @user = User.all
@@ -45,6 +30,14 @@ def buscar
     end
 end
 
+def buscar_afip
+  @provincias = Provincia.all
+  @afip = User.search_afip(params[:search_afip])
+  @user = params[:user]
+    respond_to do |format|
+     format.js {render  "buscar_afip"}
+    end
+end
 
 
 def edit_multiple
@@ -150,7 +143,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre])       
+			params.require(:user).permit(:email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])       
 		end
 
 end

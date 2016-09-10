@@ -2,10 +2,10 @@ class User < ApplicationRecord
 
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
+	
 	has_many :user_sucursals, :inverse_of => :user
 	accepts_nested_attributes_for :user_sucursals, allow_destroy: true
 	belongs_to :profile
-
 	#attr_accessor :password
 	#before_save :encrypt_password
   	#has_many :clientes, class_name: "User", foreign_key: "distribuidor_id", inverse_of: :distribuidor

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
-    protect_from_forgery with: :exception
+    #protect_from_forgery with: :exception
+    protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
   helper_method :current_user
   add_flash_types :contacto_error, :another_custom_type

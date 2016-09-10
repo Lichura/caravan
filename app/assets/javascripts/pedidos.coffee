@@ -16,22 +16,11 @@ $(document).ready ->
 
 jQuery ->
 	$(document).ready ->
-  		$("#pedido_pedido_cuit").on "change", ->
+  		$("#pedido_id").on "change", ->
   			$.ajax
   				url: "/pedidos/get_cliente"
   				type: "GET"
   				data:
-  					cliente_id: $('#pedido_pedido_cuit option:selected').val()
+  					cliente_id: $('#pedido_id option:selected').val()
   				success: (data) ->
-        			$('#clienteCuit').html(data.cuit)
-        			$('#clienteRazonSocial').html(data.razonSocial)
-        			$('#clienteCuig').html(data.cuig)
-        			$('#clienteRenspa').html(data.renspa)
-        			$('#clienteCV').html(data.numeroCv)
-        			$('#clienteProvincia').html(data.provincia_id)
-        			$('#clienteLocalidad').html(data.localidad_id)
-        			$('#clienteCodigoPostal').html(data.codigoPostal)
-        			$('#clienteDireccion').html(data.direccion)
-        			$('#clienteTelefono').html(data.telefono)
-        			$('#clienteEncargado').html(data.encargado)
-        			$('#clienteSucursal').html(data.sucursal.last.nombre)
+
