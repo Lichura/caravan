@@ -16,11 +16,11 @@ $(document).ready ->
 
 jQuery ->
 	$(document).ready ->
-  		$("#pedido_id").on "change", ->
+  		$("#pedido_user_id").on "change", ->
   			$.ajax
-  				url: "/pedidos/get_cliente"
+  				url: "/pedidos/new"
   				type: "GET"
   				data:
-  					cliente_id: $('#pedido_id option:selected').val()
+  					cliente_id: $('#pedido_user_id option:selected').val()
   				success: (data) ->
-
+            alert(data)

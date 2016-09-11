@@ -1,32 +1,13 @@
-		<div class="articuloContenedor">
-			<div class="articuloContenedorLinea"></div>
-			<div class="articuloContenedorContenido"></div>
-				<div class="articuloImagen">
-					<%= image_tag f.object.producto.imagen %>
-				</div>
-				<div class="articuloDescripcion">
-				     <%= f.check_box :_destroy, {:checked => f.object.persisted?}, '0', '1' %>
-                	<%= f.hidden_field :producto_id %>
-					<div class="articuloDescripcionNombre"><%= f.object.producto.nombre %> </div>
-					<div class="articuloDescripcionDescripcion"><%= f.object.producto.descripcion %></div>
-				</div>
-				<div class="articuloControles">
-					<table>
-						<thead>
-							<th>Cantidad</th>
-							<th>Precio</th>
-							<th>Subtotal</th>
-						</thead>
-						<tbody>
-							<tr>
-							<td><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
-							<td class="precio"><%= f.object.producto.precio %></td>
-							<td><div class="subtotal" value=0></div></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-		</div>
+<tr>
+	<td><%= image_tag f.object.producto.imagen %></td>
+	<td><%= f.check_box :_destroy, {:checked => f.object.persisted?}, '0', '1' %></td>
+	<td><%= f.object.producto.nombre %> <br>
+	<%= f.object.producto.descripcion %></td>
+	<td class="precio"><%= f.object.producto.precio %></td>
+	<td><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
+	<td><div class="subtotal" value=0></div></td>
+	<%= f.hidden_field :producto_id %>
+</tr>
 
 
 <script>

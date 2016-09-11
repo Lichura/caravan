@@ -1,3 +1,5 @@
+<% if @cliente %>
+<%= form_for @pedido do |f| %>
 <div class="form-group row">
   <label for="example-text-input" class="col-xs-2 col-form-label">CUIT:</label>
   <div class="col-xs-10">
@@ -56,7 +58,7 @@
   <label for="example-text-input" class="col-xs-2 col-form-label">Sucursal:</label>
   <div class="col-xs-10">
     <span  type="text" id="clienteSucursal">
-    <%= select("nombre", "id", @cliente.user_sucursals.all.map {|p| [ p.nombre, p.id ] }, {}, {:class => "form-control"}) %>
+    <%= f.collection_select(:sucursal, @cliente.user_sucursals.all, :id, :nombre,  {}, {:class => "form-control"}) %>
 </span>
   </div>
 </div>
@@ -66,5 +68,7 @@
     <span class="form-control" type="text" id="clienteDireccion"><%= CondicionPago.find(@cliente.condicion_id).nombre %></span>
   </div>
 </div>
-
+      <%= f.hidden_field :condicionCompra, :value => @cliente.condicion_id %>
+<% end %>
+<% end %>
 

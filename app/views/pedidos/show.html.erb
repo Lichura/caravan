@@ -21,10 +21,10 @@
   <dd><%= @pedido.tipo %></dd>
 
   <dt>Titular:</dt>
-  <dd><%= User.find(@pedido.cuit).razonSocial %></dd>
+  <dd><%= User.find(@pedido.user_id).razonSocial %></dd>
 
   <dt>Cuit:</dt>
-  <dd><%= User.find(@pedido.cuit).cuit %></dd>
+  <dd><%= User.find(@pedido.user_id).cuit %></dd>
 
   <dt>Preciototal:</dt>
   <dd><%= @pedido.precioTotal %></dd>
@@ -39,10 +39,10 @@
   <dd><%= @pedido.comprobanteNumero %></dd>
 
   <dt>Condicioncompra:</dt>
-  <dd><%= @pedido.condicionCompra %></dd>
+  <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>
 
   <dt>Sucursal:</dt>
-
+  <dd><%= UserSucursal.find(@pedido.sucursal).nombre %></dd>
 
   <% @pedido.productos.each do |producto| %>
     <%= producto.nombre %><br>

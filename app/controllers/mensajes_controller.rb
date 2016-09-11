@@ -4,7 +4,12 @@ class MensajesController < ApplicationController
   # GET /mensajes
   # GET /mensajes.json
   def index
-    @mensajes = Mensaje.all
+    @mensajes = Mensaje.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @mensajes = Mensaje.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @mensajes = Mensaje.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /mensajes/1

@@ -1,10 +1,10 @@
-div class="container">
+<div class="container">
   <div class="panel panel-default">
     <div class="panel-heading"><h3>Mensajes</h3><p id="notice"><%= notice %></p></div>
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-sm-offset-3">
-          <%= form_tag(monedas_path, :method => "get", id: "search-form") do %>
+          <%= form_tag(mensajes_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar mensajes", class: "form-control"%>
               <span class="input-group-btn">
@@ -38,21 +38,22 @@ div class="container">
         <td><%= mensaje.email %></td>
         <td><%= mensaje.telefono %></td>
         <td><%= mensaje.texto %></td>
-        <%= link_to mensaje_path(moneda) do %>
-                      <i class="glyphicon glyphicon-list-alt"></i>
-                    <% end %>
-                  </td>
-                  <td>
-                    <%= link_to edit_mensaje_path(mensaje) do %>
-                      <i class="glyphicon glyphicon-pencil"></i>
-                    <% end %>
-                  </td>
-                  <td>
-                    <%= link_to mensaje_path(mensaje.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este mensaje?' }, remote: true do %>
-                      <i class="glyphicon glyphicon-trash"></i>
-                    <% end %>
-                    </td>
-                  </tr>
+        <td>
+          <%= link_to mensaje_path(mensaje) do %>
+            <i class="glyphicon glyphicon-list-alt"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_mensaje_path(mensaje) do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+         </td>
+         <td>
+          <%= link_to mensaje_path(mensaje.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este mensaje?' }, remote: true do %>
+           <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
+        </td>
+      </tr>
                 <% end %>
                 </tbody>
             </table>

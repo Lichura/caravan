@@ -4,6 +4,7 @@ class Relacion < ApplicationRecord
   
   
   	def self.search(relacion)
-		where(["nombre LIKE ? OR nombre_corto Like ?", "%#{relacion}%", "%#{relacion}%"])
+  		usuario = User.where("razonSocial LIKE ?", "%#{relacion}%").first.id
+		where(["user_id LIKE ? OR cliente_id Like ?", "%#{usuario}%", "%#{usuario}%"])
 	end
 end

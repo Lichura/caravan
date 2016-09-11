@@ -5,6 +5,11 @@ class ProductosController < ApplicationController
   # GET /productos.json
   def index
      @productos = Producto.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @productos = Producto.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @productos = Producto.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /productos/1

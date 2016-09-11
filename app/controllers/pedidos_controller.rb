@@ -6,12 +6,14 @@ class PedidosController < ApplicationController
     @producto = Producto.find params[:producto_id]
     @precio = @producto.precio
   end
+
   def get_cliente
     @cliente = User.find(params[:cliente_id])
     respond_to do |format|
      format.js { render 'get_cliente', layout: false}
     end
   end
+
   # GET /pedidos
   # GET /pedidos.json
   def index
@@ -38,6 +40,12 @@ class PedidosController < ApplicationController
     #@productos = @detalles.build_producto
     @usuarios = User.all
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
+    if params[:cliente_id]
+    @cliente = User.find(params[:cliente_id])
+      respond_to do |format|
+       format.js {render "get_cliente"}
+      end
+    end
   end
 
   # GET /pedidos/1/edit
@@ -107,7 +115,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :cantidadTotal, :tipo, :titular, :cuit, :precioTotal, :remitido, :facturado, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :_destroy, :precio, :cantidad, :producto_id])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :_destroy, :precio, :cantidad, :producto_id])
     end
 
 end

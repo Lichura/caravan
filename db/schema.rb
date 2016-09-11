@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160906190309) do
+ActiveRecord::Schema.define(version: 20160911162712) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(version: 20160906190309) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "monedas", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.string   "simbolo"
+    t.float    "tipoDeCambio"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "paises", force: :cascade do |t|
     t.string   "nombre"
     t.string   "abreviacion"
@@ -94,6 +103,7 @@ ActiveRecord::Schema.define(version: 20160906190309) do
     t.integer  "sucursal"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "user_id"
   end
 
   create_table "producto_historicos", force: :cascade do |t|

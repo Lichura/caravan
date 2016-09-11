@@ -17,8 +17,12 @@ class SessionsController < ApplicationController
         end
         #puts "#{current_user.name}"
     		#session[:user_id] = user.id
-    		flash.now.alert = "logged in!"
-    		redirect_to root_url
+    		flash.now.alert = "Bienvenido!"
+        if user.profile_id == 1
+    		  redirect_to menu_url
+        else
+          redirect_to distribuidores_url
+        end
     	else
     		flash.now.alert = "Usuario o contraseña incorrecta"
     		render "new"
