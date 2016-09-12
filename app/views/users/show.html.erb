@@ -4,20 +4,36 @@
       <div class="panel-heading"><h2>Usuario:</h2></div>
         <div class="panel-body">
           <dl class="dl-horizontal">
+            <dt>Email:</dt>
+            <dd><%= @user.email %></dd>
             <dt>Cuit:</dt>
             <dd><%= @user.cuit %></dd>
 
               <dt>Razon Social:</dt>
             <dd><%= @user.razonSocial %></dd>
-
+            <dt>Pais:</dt>
+            <dd><%= @user.pais_id %></dd>
             <dt>Provincia:</dt>
             <dd><%= @user.provincia_id %></dd>
-
+            <dt>Ciudad:</dt>
+            <dd><%= @user.ciudad_id %></dd>
             <% @user.user_sucursals.each do |sucursal| %>
               <dt>Nombre:</dt>
               <dd><%= sucursal.nombre %></dd>
+              <dt>Encargado:</dt>
+              <dd><%= sucursal.encargado %></dd>
+              <dt>Telefono:</dt>
+              <dd><%= sucursal.telefono %></dd>
+               <dt>Direccion:</dt>
+              <dd><%= sucursal.direccion %></dd>
+              <dt>Codigo Postal:</dt>
+            <dd><%= @user.codigoPostal %></dd>
             <% end %>
-            <dt>Distribuidor:</dt>
+            <% if current_user.profile_id == 3 %>
+              <dt>Distribuidor:</dt>
+            <% else %>
+              <dt>Clientes:</dt>
+            <% end %>
             <% for cliente in @user.clientes do %>
               <dd><%= cliente.razonSocial %></dd>
             <% end %>
