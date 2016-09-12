@@ -20,8 +20,9 @@ familia = Familia.create!([{
 }])
 
 productos = Producto.create!([
-	{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1}
-		{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1}
+	{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1},
+	{id:2, nombre: "Caravana 2", precio: 50, activo: true, familia_id: 1},
+	{id:3, nombre: "Caravana 3", precio: 250, activo: true, familia_id: 1}
 ])
 
 
