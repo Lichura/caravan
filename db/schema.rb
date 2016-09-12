@@ -64,15 +64,6 @@ ActiveRecord::Schema.define(version: 20160911162712) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "monedas", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "descripcion"
-    t.string   "simbolo"
-    t.float    "tipoDeCambio"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
   create_table "paises", force: :cascade do |t|
     t.string   "nombre"
     t.string   "abreviacion"

@@ -60,7 +60,10 @@ class PedidosController < ApplicationController
     @pedido = Pedido.new(pedido_params)
     respond_to do |format|
       if @pedido.save
-
+        @pedido.detalles.each do |producto|
+         Producto.find(producto.id).stock_reservado =+ producto.cantidad
+         Producto.find(producto.id).stock_disponible =- producto.cantidad
+        end
         format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
         format.json { render :show, status: :created, location: @pedido }
       else
@@ -89,6 +92,10 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1.json
   def destroy
     @pedido.destroy
+        @pedido.detalles.each do |producto|
+         Producto.find(producto.id).stock_reservado =- producto.cantidad
+         Producto.find(producto.id).stock_disponible =+ producto.cantidad
+        end
     respond_to do |format|
       format.html { redirect_to pedidos_url, notice: 'Pedido was successfully destroyed.' }
       format.json { head :no_content }
