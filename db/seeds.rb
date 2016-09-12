@@ -11,11 +11,29 @@ Provincia.destroy_all
 Ciudad.destroy_all
 Profile.destroy_all
 User.destroy_all
+Familia.destroy_all
+Producto.destroy_all
+
+
+familia = Familia.create!([{
+	id:1, nombre: "Caravanas", nombre: "Caravanas" 
+}])
+
+productos = Producto.create!([
+	{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1}
+		{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1}
+])
+
+
+
+
 
 perfiles = Profile.create!([
   {id: 1, nombre: "admin", descripcion: "admin"},
   {id: 2, nombre: "distribuidores", descripcion: "distribuidores"},
   {id: 3, nombre: "cliente", descripcion: "cliente"}])
+  
+  
 usuarios = User.create!([{
     profile_id: 1,
     email:"lichun88@gmail.com",
@@ -32,9 +50,23 @@ usuarios = User.create!([{
     pais_id: 1,
     encargado: "Licho",
     celular: "13123123",
-    numeroCv: "23123",
-
-
+    numeroCv: "23123"}
+,
+    {
+    profile_id: 2,
+    email:"distribuidor",
+    password: "distribuidor",
+    password_confirmation: "distribuidor",
+    razonSocial: "Distribuidor 1",
+    direccion: "bla bla",
+    cuig: "321321312",
+    renspa: "131232321",
+    cuit: 20335067623,
+    telefono: "144132312",
+    codigoPostal: "08018",
+    provincia_id: 1,
+    pais_id: 1,
+    numeroCv: "23123"
   }])
 paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
 
