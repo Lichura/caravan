@@ -10,48 +10,77 @@
       </ul>
     </div>
   <% end %>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
+
+
+  <div class="form-group">
+    <%= f.label :email, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
   </div>
+
   <div class="field">
     <% @profiles.each do |perfil| %>
     <%= f.radio_button :profile_id, perfil.id %>
     <%= f.label :profile_id, perfil.nombre %><br>
     <% end %>
   </div>
-  <div class="field">
-    <%= f.label :razonSocial %><br>
-    <%= f.text_field :razonSocial %>
+
+  <div class="form-group">
+    <%= f.label :razonSocial, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :razonSocial, class: "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :direccion %><br>
-    <%= f.text_field :direccion %>
+
+  <div class="form-group">
+    <%= f.label :direccion, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :direccion, class: "form-control" %>
+    </div>
   </div>
+
   <div class="field">
     <%= f.label :localidad_id %><br>
     <%= f.text_field :localidad_id %>
   </div>
-    <div class="field">
-    <%= f.label :cuid %><br>
-    <%= f.text_field :cuig %>
+
+
+  <div class="form-group">
+    <%= f.label :cuig, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :cuig, class: "form-control" %>
+    </div>
+
+      <div class="form-group">
+    <%= f.label :renspa, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :renspa, class: "form-control" %>
+    </div>
   </div>
-    <div class="field">
-    <%= f.label :renspa %><br>
-    <%= f.text_field :renspa %>
+    
+  <div class="form-group">
+    <%= f.label :cuit, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :cuit, class: "form-control" %>
+    </div>
   </div>
-    <div class="field">
-    <%= f.label :cuit %><br>
-    <%= f.text_field :cuit %>
+
+      <div class="form-group">
+    <%= f.label :telefono, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :telefono, class: "form-control" %>
+    </div>
   </div>
-    <div class="field">
-    <%= f.label :telefono %><br>
-    <%= f.text_field :telefono %>
+    
+  
+      <div class="form-group">
+    <%= f.label :codigoPostal, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :codigoPostal, class: "form-control" %>
+    </div>
   </div>
-    <div class="field">
-    <%= f.label :codigoPostal %><br>
-    <%= f.text_field :codigoPostal %>
-  </div>
+ 
     <div class="field">
     <%= f.label :provincia_id %><br>
     <%= f.text_field :provincia_id %>

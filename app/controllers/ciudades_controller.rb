@@ -1,6 +1,6 @@
 class CiudadesController < ApplicationController
   before_action :set_ciudad, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /ciudades
   # GET /ciudades.json
   def index

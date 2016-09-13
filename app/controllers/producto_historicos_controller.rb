@@ -1,6 +1,6 @@
 class ProductoHistoricosController < ApplicationController
   before_action :set_producto_historico, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /producto_historicos
   # GET /producto_historicos.json
   def index

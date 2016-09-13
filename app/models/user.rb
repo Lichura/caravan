@@ -1,8 +1,8 @@
 class User < ApplicationRecord
-
+  enum role: [:admin, :distribuidor, :cliente]
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
-	
+
 	has_many :user_sucursals, :inverse_of => :user
 	accepts_nested_attributes_for :user_sucursals, allow_destroy: true
 	belongs_to :profile
@@ -10,7 +10,7 @@ class User < ApplicationRecord
 	#before_save :encrypt_password
   	#has_many :clientes, class_name: "User", foreign_key: "distribuidor_id", inverse_of: :distribuidor
   	#belongs_to :distribuidor, class_name: "User", inverse_of: :clientes
-	
+
   	has_many :relacions
   	has_many :clientes, :through => :relacions
 
@@ -40,7 +40,7 @@ class User < ApplicationRecord
   	def condicion_de_pago
     	self.condicion_id = 1
   	end
-	
+
 	def set_password
 		if self.profile_id == 2
 
@@ -54,7 +54,7 @@ class User < ApplicationRecord
 	end
 
 	def self.authenticate(email, password)
-		user = find_by_email(email)  #.first aca habia un 
+		user = find_by_email(email)  #.first aca habia un
 		if user && user.password_hash = BCrypt::Engine.hash_secret(password, user.password_digest)
 			user
 		else
@@ -67,7 +67,7 @@ class User < ApplicationRecord
 			self.password_salt = BCrypt::Engine.generate_salt
 			self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
 		end
-	end	
+	end
 
 	def send_password_reset
 		generate_token(:password_reset_token)
@@ -84,7 +84,7 @@ class User < ApplicationRecord
 
 
 	def self.search_afip(cuit)
-	
+
 	#xml de la afip
 		if cuit
 			base_uri 'https://soa.afip.gob.ar/sr-padron/v2/persona/'+cuit

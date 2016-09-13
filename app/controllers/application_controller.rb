@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
     #protect_from_forgery with: :exception
+
     protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
   helper_method :current_user
@@ -14,7 +15,13 @@ class ApplicationController < ActionController::Base
   def admin_required
     if current_user.blank? || current_user.profile[:id] != 1
       redirect_to root_url, :notice => "no esta autorizado!"
-    end  
+    end
+  end
+  
+  def distribuidor_required
+    if current_user.blank? || current_user.profile[:id] != 2
+      redirect_to root_url, :notice => "no esta autorizado!"
+    end
   end
   private
 

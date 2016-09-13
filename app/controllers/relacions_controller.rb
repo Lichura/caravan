@@ -1,5 +1,6 @@
 class RelacionsController < ApplicationController
   before_action :set_relacion, only: [:show, :edit, :update, :destroy]
+  before_filter :admin_required
   def edit
 
   end

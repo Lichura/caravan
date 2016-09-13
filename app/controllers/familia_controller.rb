@@ -1,6 +1,6 @@
 class FamiliaController < ApplicationController
   before_action :set_familium, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /familia
   # GET /familia.json
   def index

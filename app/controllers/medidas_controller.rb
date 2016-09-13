@@ -1,6 +1,6 @@
 class MedidasController < ApplicationController
   before_action :set_medida, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /medidas
   # GET /medidas.json
   def index

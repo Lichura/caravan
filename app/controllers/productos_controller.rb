@@ -1,6 +1,6 @@
 class ProductosController < ApplicationController
   before_action :set_producto, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /productos
   # GET /productos.json
   def index

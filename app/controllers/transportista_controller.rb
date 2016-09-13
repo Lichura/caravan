@@ -1,6 +1,6 @@
 class TransportistaController < ApplicationController
   before_action :set_transportistum, only: [:show, :edit, :update, :destroy]
-
+  before_filter :admin_required
   # GET /transportista
   # GET /transportista.json
   def index
