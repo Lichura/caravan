@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  enum role: [:admin, :distribuidor, :cliente]
+  	enum role: [:admin, :distribuidor, :cliente]
+  	before_create :set_default_role
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
 
@@ -33,6 +34,10 @@ class User < ApplicationRecord
 
 	  before_save :condicion_de_pago
 
+	def set_default_role
+		self.role ||= :cliente
+		self.profile_id ||= 3
+	end
 
 	def afip
 	  @afip ||= afip.present? ? "#{user.nombre.capitalize}" : "No user" # or Anonymous(whichever suites your requirement)

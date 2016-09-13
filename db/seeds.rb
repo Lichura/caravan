@@ -11,18 +11,18 @@ Provincia.destroy_all
 Ciudad.destroy_all
 Profile.destroy_all
 User.destroy_all
-Familia.destroy_all
+Familium.destroy_all
 Producto.destroy_all
 
 
-familia = Familia.create!([{
-	id:1, nombre: "Caravanas", nombre: "Caravanas" 
+familia = Familium.create!([{
+	id:1, nombre: "Caravanas", descripcion: "Caravanas" 
 }])
 
 productos = Producto.create!([
-	{id:1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0 },
-	{id:2, nombre: "Caravana 2", precio: 50, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0},
-	{id:3, nombre: "Caravana 3", precio: 250, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0}
+	{id:1, familium_id: 1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0 },
+	{id:2, familium_id: 1, nombre: "Caravana 2", precio: 50, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0},
+	{id:3, familium_id: 1, nombre: "Caravana 3", precio: 250, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0}
 ])
 
 
@@ -51,8 +51,8 @@ usuarios = User.create!([{
     pais_id: 1,
     encargado: "Licho",
     celular: "13123123",
-    numeroCv: "23123"}
-,
+    numeroCv: "23123",
+    role: :admin},
     {
     profile_id: 2,
     email:"distribuidor",

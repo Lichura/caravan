@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   get 'menu' => "menu#index", :as => "menu"
 
+
   get 'password_resets/new'
   get 'password_resets/show'
   get 'password_resets/edit'
