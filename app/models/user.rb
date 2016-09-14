@@ -38,9 +38,9 @@ class User < ApplicationRecord
 	include HTTParty
 
 
-  def set_default_condicion_de_pago
-    self.condicion_id  ||= 1
-  end
+  	def set_default_condicion_de_pago
+    	self.condicion_id  ||= 1
+  	end
 
 	def set_default_role
 		self.role ||= :cliente

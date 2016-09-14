@@ -4,7 +4,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
    #GET /resource/sign_up
    def new
-     super
+         @user = User.new
+    @sucursales = @user.user_sucursals.build(:user_id => @user.id)
+    @provincias = Provincia.all
+    @afip = User.search_afip(params[:search_afip])
+    respond_to do |format|
+     format.html
+     format.js {render "buscar_afip"}
+    end
    end
    #POST /resource
    def create
