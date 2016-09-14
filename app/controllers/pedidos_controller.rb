@@ -1,7 +1,8 @@
 class PedidosController < ApplicationController
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
-
-
+  before_filter :admin_required, :all
+  before_filter :distribuidor_required,  only: :new
+ 
   def get_precios
     @producto = Producto.find params[:producto_id]
     @precio = @producto.precio
