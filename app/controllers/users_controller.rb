@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required
-    before_filter :distribuidor_required
   def new
     @user = User.new
     @sucursales = @user.user_sucursals.build(:user_id => @user.id)
