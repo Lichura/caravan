@@ -4,10 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-
-
-
-
   	enum role: [:admin, :distribuidor, :cliente]
   	before_create :set_default_role
     before_create :set_default_condicion_de_pago
@@ -48,28 +44,19 @@ class User < ApplicationRecord
 
 	def set_default_role
 		self.role ||= :cliente
-		self.profile_id ||= 3
 	end
 
 	def afip
 	  @afip ||= afip.present? ? "#{user.nombre.capitalize}" : "No user" # or Anonymous(whichever suites your requirement)
 	end
 
-
-
 	def set_defaults
 		self.profile_id = Profile.first[:id]
 	end
+	
 	def self.search(usuario)
 		where("CUIT LIKE ? OR razonSocial LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")
 	end
-
-
-
-
-
-
-
 
 	def self.search_afip(cuit)
 
