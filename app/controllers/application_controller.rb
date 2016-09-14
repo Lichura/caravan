@@ -1,7 +1,12 @@
 class ApplicationController < ActionController::Base
     #protect_from_forgery with: :exception
+    include Pundit
+    rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+    #protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
-    protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
+
+  before_filter :require_login
+
 
   helper_method :current_user
   add_flash_types :contacto_error, :another_custom_type
@@ -12,23 +17,27 @@ class ApplicationController < ActionController::Base
    end
   end
 
-  def admin_required
-    if current_user.blank? || current_user.profile[:id] != 1
-      redirect_to root_path, notice: "no esta autorizado!"
+
+
+private
+
+  def require_login
+    unless logged_in?
+      flash[:error] = "You must be logged in to access this section"
+      redirect_to log_in_path # halts request cycle
     end
   end
 
-
-  
-  def distribuidor_required
-    if current_user.blank? || current_user.profile[:id] != 2
-      redirect_to root_url, :notice => "no esta autorizado!"
-    end
+  def user_not_authorized
+    flash[:warning] = "You are not authorized to perform this action."
+    session[:return_to] = request.referer
   end
-  private
-
   def current_user
   	#@current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]
     @current_user ||= User.where("auth_token =?", cookies[:auth_token]).first if cookies[:auth_token]
+  end
+
+  def logged_in?
+   current_user != nil
   end
 end

@@ -1,7 +1,6 @@
 class PedidosController < ApplicationController
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required, :all
-  before_filter :distribuidor_required,  only: :new
+
  
   def get_precios
     @producto = Producto.find params[:producto_id]
@@ -18,8 +17,9 @@ class PedidosController < ApplicationController
   # GET /pedidos
   # GET /pedidos.json
   def index
-    @pedidos = Pedido.paginate(:page => params[:page], :per_page => 10)
 
+    @pedidos = Pedido.paginate(:page => params[:page], :per_page => 10)
+    authorize @pedidos
   end
 
   # GET /pedidos/1
@@ -31,6 +31,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/new
   def new
     @pedido = Pedido.new
+    authorize @pedido
     create_pedidos
     if Pedido.last.present?
       @numeroDePedido = (Pedido.last.id + 1)
@@ -53,13 +54,15 @@ class PedidosController < ApplicationController
   # GET /pedidos/1/edit
   def edit
     @productos = Producto.all
-
+    authorize @productos
   end
 
   # POST /pedidos
   # POST /pedidos.json
   def create
     @pedido = Pedido.new(pedido_params)
+    authorize @pedido
+    @pedido.distribuidor_id = current_user.id
     respond_to do |format|
       if @pedido.save
         params[:pedido][:detalles_attributes].each do |producto, params|
