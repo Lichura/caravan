@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+CondicionPago.destroy_all
 Pais.destroy_all
 Provincia.destroy_all
 Ciudad.destroy_all
@@ -14,7 +15,7 @@ User.destroy_all
 Familium.destroy_all
 Producto.destroy_all
 
-
+condicionesPagos = CondicionPago.create!([{id:1, nombre: "30 dias"}])
 familia = Familium.create!([{
 	id:1, nombre: "Caravanas", descripcion: "Caravanas" 
 }])

@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   	enum role: [:admin, :distribuidor, :cliente]
   	before_create :set_default_role
+    before_create :set_default_condicion_de_pago
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
 
@@ -32,7 +33,9 @@ class User < ApplicationRecord
 	include HTTParty
 
 
-	  before_save :condicion_de_pago
+  def set_default_condicion_de_pago
+    self.condicion_id  ||= 1
+  end
 
 	def set_default_role
 		self.role ||= :cliente
@@ -42,9 +45,7 @@ class User < ApplicationRecord
 	def afip
 	  @afip ||= afip.present? ? "#{user.nombre.capitalize}" : "No user" # or Anonymous(whichever suites your requirement)
 	end
-  	def condicion_de_pago
-    	self.condicion_id = 1
-  	end
+
 
 	def set_password
 		if self.profile_id == 2

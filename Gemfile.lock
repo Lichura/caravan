@@ -156,6 +156,7 @@ GEM
     savon (0.7.9)
       builder (>= 2.1.2)
       crack (>= 0.1.4)
+    slack-notifier (1.5.1)
     spring (1.7.2)
     spring-watcher-listen (2.0.0)
       listen (>= 2.7, < 4.0)
@@ -212,6 +213,7 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   rails_12factor
   sass-rails (~> 5.0)
+  slack-notifier
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3

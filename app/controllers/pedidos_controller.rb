@@ -24,6 +24,7 @@ class PedidosController < ApplicationController
   # GET /pedidos/1
   # GET /pedidos/1.json
   def show
+
   end
 
   # GET /pedidos/new
@@ -65,6 +66,8 @@ class PedidosController < ApplicationController
           @producto.stock_disponible = params[:cantidad].to_i
           @producto.save
         end
+        enviar_mensaje_por_slack
+
         format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
         format.json { render :show, status: :created, location: @pedido }
       else
@@ -111,11 +114,25 @@ class PedidosController < ApplicationController
     end
   end
 
+
   private
+
+  def enviar_mensaje_por_slack
+       articulos = Hash.new
+        params[:pedido][:detalles_attributes].each do |producto, params|
+          nombre = Producto.find(params[:producto_id]).nombre
+          articulos[nombre] = params[:cantidad]
+        end
+            SLACK.ping "Nuevo pedido del cliente: #{User.find(@pedido.user_id).razonSocial}\n
+            Articulos: #{articulos}
+", parse: "full"
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
       @pedido = Pedido.find(params[:id])
     end
+
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     #def pedido_params
