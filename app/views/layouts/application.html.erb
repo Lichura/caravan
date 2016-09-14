@@ -19,14 +19,7 @@
    <li><a id="productos-link" href="#productos">Productos</a></li>
   <li><a href="#contacto">Contacto</a></li>
   <li>              <%= alert %></li>
-  <li> 
-    <% if current_user %>
-      <%= link_to "Desconectarse", log_out_path  %>
-        <% else %>
-          <!--<%= link_to "Registro", sign_up_path  %>-->
-          <%= link_to "Acceso usuarios", log_in_path %>
-        <% end %>
-    </li>
+
   <li class="icon">
     <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
   </li>

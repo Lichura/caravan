@@ -44,6 +44,8 @@ gem 'will_paginate-bootstrap'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+#gema para el login
+gem 'devise'
 #Integracion con slack
 gem 'slack-notifier'
 #pundit se usa para los perfiles
