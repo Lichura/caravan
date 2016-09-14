@@ -121,16 +121,15 @@ class PedidosController < ApplicationController
 
   private
 
-  def enviar_mensaje_por_slack
+    def enviar_mensaje_por_slack
        articulos = Hash.new
         params[:pedido][:detalles_attributes].each do |producto, params|
           nombre = Producto.find(params[:producto_id]).nombre
           articulos[nombre] = params[:cantidad]
         end
             SLACK.ping "Nuevo pedido del cliente: #{User.find(@pedido.user_id).razonSocial}\n
-            Articulos: #{articulos}
-", parse: "full"
-  end
+            Articulos: #{articulos}", parse: "full"
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
       @pedido = Pedido.find(params[:id])
