@@ -1,11 +1,12 @@
 class MenuController < ApplicationController
-	before_filter :admin_required, except: [:distribuidores]
-	before_filter :distribuidor_required, only: [:distribuidores]
+
 
 	def index
+		authorize :menu, :index?
 	end
 
 	def distribuidores
+		authorize :menu, :distribuidores?
 	end
 
 end
