@@ -1,6 +1,6 @@
 class ProvinciasController < ApplicationController
   before_action :set_provincia, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required
+
   # GET /provincias
   # GET /provincias.json
   def index
