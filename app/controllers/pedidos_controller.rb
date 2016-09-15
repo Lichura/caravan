@@ -104,7 +104,9 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1
   # DELETE /pedidos/1.json
   def destroy
+        authorize @pedido
     @pedido.destroy
+
         @pedido.detalles.each do |producto|
          Producto.find(producto.id).stock_reservado = producto.cantidad
          Producto.find(producto.id).stock_disponible = producto.cantidad

@@ -60,7 +60,8 @@
             <% end %>
           </td>
           <td>
-            <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' }, remote: true do %>
+
+            <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' } do %>
               <i class="glyphicon glyphicon-trash"></i>
             <% end %>
           </td>
