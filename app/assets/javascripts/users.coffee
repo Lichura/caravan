@@ -38,4 +38,4 @@ jQuery ->
   				dataType: "script"
   				data:
   					search_afip: $('#buscarAfip').val()
-  				success: (data) ->
+
