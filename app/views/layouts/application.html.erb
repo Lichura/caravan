@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <div class="spinner"></div>
     <title>Caravanas</title>
     <%= csrf_meta_tags %>
 
@@ -19,7 +20,7 @@
    <li><a id="productos-link" href="#productos">Productos</a></li>
   <li><a href="#contacto">Contacto</a></li>
   <li>              <%= alert %></li>
-  <li> 
+  <li>
     <% if current_user %>
       <%= link_to "Desconectarse", log_out_path  %>
         <% else %>
