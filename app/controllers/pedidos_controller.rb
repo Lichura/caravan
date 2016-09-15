@@ -19,6 +19,11 @@ class PedidosController < ApplicationController
   def index
 
     @pedidos = Pedido.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @pedidos = Pedido.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
+      end
     authorize @pedidos
   end
 
