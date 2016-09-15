@@ -9,13 +9,12 @@ jQuery ->
 		$(this).closest('fieldset').hide()
 		event.preventDefault()
 
-$(document).on "turbolinks:load", ->
-	jQuery ->
-		$('.add_fields').on 'click', (event) ->
-			time = new Date().getTime()
-			regexp = new RegExp($(this).data('id'), 'g')
-			$(this).before($(this).data('fields').replace(regexp, time))
-			event.preventDefault()
+jQuery ->
+	$('.add_fields').on 'click', (event) ->
+		time = new Date().getTime()
+		regexp = new RegExp($(this).data('id'), 'g')
+		$(this).before($(this).data('fields').replace(regexp, time))
+		event.preventDefault()
 
 
 

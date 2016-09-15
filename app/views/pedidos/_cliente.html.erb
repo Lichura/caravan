@@ -6,6 +6,7 @@
     <span class="form-control" type="text" id="clienteCuit"><%= @cliente.cuit %></span>
   </div>
 </div>
+<%= f.hidden_field :cuit, :value => @cliente.cuit %>
 <div class="form-group row">
   <label for="example-text-input" class="col-xs-2 col-form-label">Razon Social:</label>
   <div class="col-xs-10">

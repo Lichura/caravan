@@ -241,3 +241,7 @@ video {
 .spinner i{
   margin: 50px 50px;
 }
+
+.alert{
+  margin-top: 5%;
+}

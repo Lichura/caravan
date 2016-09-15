@@ -72,7 +72,7 @@ class PedidosController < ApplicationController
         end
         enviar_mensaje_por_slack
 
-        format.html { redirect_to @pedido, notice: 'Pedido was successfully created.' }
+        format.html { redirect_to @pedido, notice: 'El pedido se creo correctamente' }
         format.json { render :show, status: :created, location: @pedido }
       else
         format.html { render :new }
@@ -87,7 +87,7 @@ class PedidosController < ApplicationController
 
     respond_to do |format|
       if @pedido.update(pedido_params)
-        format.html { redirect_to @pedido, notice: 'Pedido was successfully updated.' }
+        format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
       else
         format.html { render :edit }
@@ -105,7 +105,7 @@ class PedidosController < ApplicationController
          Producto.find(producto.id).stock_disponible = producto.cantidad
         end
     respond_to do |format|
-      format.html { redirect_to pedidos_url, notice: 'Pedido was successfully destroyed.' }
+      format.html { redirect_to pedidos_url, notice: 'El pedido se ha eliminado correctamente' }
       format.json { head :no_content }
     end
   end

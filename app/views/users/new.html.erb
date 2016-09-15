@@ -92,10 +92,11 @@
             <%= f.fields_for :user_sucursals do |sucursal| %>
               <%= render 'user_sucursal_fields', f: sucursal %>
             <% end %>
-            <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals %>
-            <%= f.submit 'Crear Usuario'%>
+            <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals,  :class => "btn btn-success pull-right" %>
+
           </div>
         </div>
+      <%= f.submit 'Crear Usuario', :class => "btn btn-primary pull-right" %>
       </div>
     </div>
   </div>

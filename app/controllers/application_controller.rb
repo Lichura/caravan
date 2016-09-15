@@ -23,14 +23,14 @@ private
 
   def require_login
     unless logged_in?
-      flash[:error] = "You must be logged in to access this section"
+      flash[:error] = "Es necesario ingresar al sistema para realizar esta accion."
       redirect_to log_in_path # halts request cycle
     end
   end
 
   def user_not_authorized
-    flash[:warning] = "You are not authorized to perform this action."
-    session[:return_to] = request.referer
+    flash[:alert] = "Usted no se encuentra autorizado para realizar esa accion."
+    redirect_to(request.referrer || root_path)
   end
   def current_user
   	#@current_user ||= User.find_by_auth_token!(cookies[:auth_token]) if cookies[:auth_token]

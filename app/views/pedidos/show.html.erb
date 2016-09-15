@@ -1,51 +1,68 @@
-<div class="page-header">
-  <%= link_to pedidos_path, class: 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <%= link_to edit_pedido_path(@pedido), class: 'btn btn-primary' do %>
-    <span class="glyphicon glyphicon-pencil"></span>
-    Edit
-  <% end %>
-  <h1>Show pedido</h1>
-</div>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Pedido:</h2></div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+              <dt>Comprobante  numero:</dt>
+              <dd><%= @pedido.comprobanteNumero %></dd>
+              <dt>Fecha:</dt>
+              <dd><%= @pedido.fecha %></dd>
+              <dt>Distribuidor:</dt>
+              <dd><%= User.find(@pedido.distribuidor_id).razonSocial %></dd>
+              <dt>Cliente:</dt>
+              <dd><%= User.find(@pedido.user_id).razonSocial %></dd>
+              <dt>Cuit:</dt>
+              <dd><%= User.find(@pedido.user_id).cuit %></dd>
+             <dt>Remitido:</dt>
+              <dd><%= @pedido.remitido %></dd>         
+             <dt>Facturado:</dt>
+              <dd><%= @pedido.facturado %></dd>
+              <dt>Condicioncompra:</dt>
+              <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>
+              <dt>Sucursal:</dt>
+              <dd><%= UserSucursal.find(@pedido.sucursal).nombre %></dd>
 
-<dl class="dl-horizontal">
-  <dt>Fecha:</dt>
-  <dd><%= @pedido.fecha %></dd>
-
-  <dt>Cantidadtotal:</dt>
-  <dd><%= @pedido.cantidadTotal %></dd>
-
-  <dt>Tipo:</dt>
-  <dd><%= @pedido.tipo %></dd>
-
-  <dt>Titular:</dt>
-  <dd><%= User.find(@pedido.user_id).razonSocial %></dd>
-
-  <dt>Cuit:</dt>
-  <dd><%= User.find(@pedido.user_id).cuit %></dd>
-
-  <dt>Preciototal:</dt>
-  <dd><%= @pedido.precioTotal %></dd>
-
-  <dt>Remitido:</dt>
-  <dd><%= @pedido.remitido %></dd>
-
-  <dt>Facturado:</dt>
-  <dd><%= @pedido.facturado %></dd>
-
-  <dt>Comprobantenumero:</dt>
-  <dd><%= @pedido.comprobanteNumero %></dd>
-
-  <dt>Condicioncompra:</dt>
-  <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>
-
-  <dt>Sucursal:</dt>
-  <dd><%= UserSucursal.find(@pedido.sucursal).nombre %></dd>
-
-  <% @pedido.productos.each do |producto| %>
-    <%= producto.nombre %><br>
-  <% end %>
-
+              <dt>Articulos:</dt>
+              <dd>
+                <table>
+                  <thead>
+                <tr>
+                      <th>Nombre</th>
+                      <th>Cantidad</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <% @pedido.detalles.each do |producto| %>
+                    <tr>
+                    <td><%= Producto.find(producto.producto_id).nombre %></td>
+                  <td><%= producto.cantidad %></td>
+                </tr>
+                <% end %>
+                </tbody>
+                </table>
+              </dd>
+                <dt>Cantidad total:</dt>
+                <dd><%= @pedido.cantidadTotal %></dd>
+                <dt>Precio total:</dt>
+                <dd><%= @pedido.precioTotal %></dd>
 </dl>
+
+
+</div>
+      </div>
+    </div>
+      <%= link_to pedidos_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Pedidos
+      <% end %>
+      <%= link_to pedido_path(@pedido), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta moneda?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_pedido_path(@pedido),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>

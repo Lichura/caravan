@@ -20,7 +20,6 @@
   <li><a id="nosotros-link" href="#nosotros">Nosotros</a></li>
    <li><a id="productos-link" href="#productos">Productos</a></li>
   <li><a href="#contacto">Contacto</a></li>
-  <li>              <%= alert %></li>
   <li>
     <% if current_user %>
       <%= link_to "Desconectarse", log_out_path  %>
@@ -35,7 +34,7 @@
 </ul>
 
   <body>
-
+      <%= flash_messages %>
     <%= yield %>
   </body>
 </html>
