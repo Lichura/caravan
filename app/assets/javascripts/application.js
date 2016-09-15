@@ -31,7 +31,7 @@ function myFunction() {
 
 
 $(document).ready(function(){
-
+$(".spinner").hide();
   $(document).ajaxStart(function() {
     $(".spinner").fadeIn('slow');
   }).ajaxStop(function() {

@@ -1,5 +1,5 @@
 <tr>
-	<td data-title="Producto"><%= image_tag f.object.producto.imagen %><%= f.check_box :_destroy, {:checked => f.object.persisted?}, '1', '0' %><%= f.object.producto.nombre %><br>
+	<td data-title="Producto"><%= image_tag f.object.producto.imagen %><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
 	<td data-title="Precio" class="precio"><%= f.object.producto.precio %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad, class: "cantidad form-control" %></td>
