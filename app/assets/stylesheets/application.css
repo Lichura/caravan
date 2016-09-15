@@ -19,7 +19,7 @@
     src:url(Chandstate.otf) format("truetype");
     font-weight: normal;
     font-style: normal;
-}  
+}
 
 
 body{
@@ -93,7 +93,7 @@ ul.topnav li a {
 	ul.topnav li a:hover{
 			color: orange;
 			border-bottom: 3px solid white;
-			
+
 	}
 
 /* Hide the list item that contains the link that should open and close the topnav on small screens */
@@ -215,9 +215,29 @@ video {
 
 
 .table td {
-   text-align: center;   
-}	
+   text-align: center;
+}
 
 .table th {
-   text-align: center;   
+   text-align: center;
+}
+
+
+
+.spinner{
+  position:absolute;
+  z-index: 100;
+  background-color: rgba(0,0,0,0.3);
+  width: 150px;
+  height: 150px;
+  border-radius: 5px 5px 5px 5px;
+
+  top: 50%;
+  left: 50%;
+
+  margin: -75px 0 0 -75px;
+}
+
+.spinner i{
+  margin: 50px 50px;
 }

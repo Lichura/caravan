@@ -31,6 +31,15 @@ function myFunction() {
 
 
 $(document).ready(function(){
+$(".spinner").hide();
+  $(document).ajaxStart(function() {
+    $(".spinner").fadeIn('slow');
+  }).ajaxStop(function() {
+      $(".spinner").hide();
+  });
+
+
+
 $(window).scroll(function() {
 	if ($(window).scrollTop() >= 50 ) {
         $('.topnav').addClass('fondo');
