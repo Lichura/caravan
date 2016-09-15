@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
 //= require_tree .
 
@@ -34,10 +33,10 @@ function myFunction() {
 $(document).ready(function(){
 $(window).scroll(function() {
 	if ($(window).scrollTop() >= 50 ) {
-        $('.topnav').addClass('fondo'); 
+        $('.topnav').addClass('fondo');
     }
     else {
-        $('.topnav').removeClass('fondo');   
+        $('.topnav').removeClass('fondo');
     }
 });
 });

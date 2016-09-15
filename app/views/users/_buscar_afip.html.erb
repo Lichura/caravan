@@ -4,12 +4,6 @@
     <%= @afip['error']['mensaje'] %>
   <% else %>
     <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Cuit</label>
-      <div class="col-sm-10">
-      <%= f.text_field :cuit, placeholder: "CUIT", value: @afip['data']['idPersona'] , class: "form-control" %>
-      </div>
-    </div>
-    <div class="form-group row">
       <label for="inputEmail3" class="col-sm-2 col-form-label">Razon Social</label>
       <div class="col-sm-10">
       <%= f.text_field :razonSocial, placeholder: "CUIT", value: @afip['data']['nombre'] , class: "form-control" %>
@@ -32,7 +26,7 @@
       <div class="col-sm-10">
       <%= f.select :provincia_id, options_from_collection_for_select(Provincia.all, "id", "nombre", Provincia.find_by(codigoAfip: @afip['data']['domicilioFiscal']['idProvincia']).id), {}, {:multiple => false, :class => "form-control"} %>
       </div>
-    </div>   
+    </div>
      <div class="form-group row">
       <label for="input" class="col-sm-2 col-form-label">Codigo Postal</label>
       <div class="col-sm-10">

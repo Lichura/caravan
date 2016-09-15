@@ -40,4 +40,3 @@ jQuery ->
   				data:
   					search_afip: $('#buscarAfip').val()
   				success: (data) ->
-	  				alert(data)

@@ -23,4 +23,3 @@ jQuery ->
   				data:
   					cliente_id: $('#pedido_user_id option:selected').val()
   				success: (data) ->
-            alert(data)

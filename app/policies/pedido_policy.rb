@@ -17,7 +17,7 @@ class PedidoPolicy < ApplicationPolicy
 	end
 
 	def edit?
-		is_admin?
+		is_admin? || is_distribuidor?
 	end
 
 	def destroy?
