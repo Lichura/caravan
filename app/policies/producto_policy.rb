@@ -13,7 +13,7 @@ class ProductoPolicy < ApplicationPolicy
   end
 
   def destroy?
-    us_admin?
+    is_admin?
   end
 
 end
