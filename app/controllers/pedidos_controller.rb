@@ -1,7 +1,7 @@
 class PedidosController < ApplicationController
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
 
- 
+
   def get_precios
     @producto = Producto.find params[:producto_id]
     @precio = @producto.precio
@@ -144,7 +144,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :_destroy, :precio, :cantidad, :producto_id])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :_destroy])
     end
 
 end
