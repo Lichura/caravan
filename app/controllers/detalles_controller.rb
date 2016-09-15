@@ -1,6 +1,6 @@
 class DetallesController < ApplicationController
   before_action :set_detalle, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required
+
   # GET /detalles
   # GET /detalles.json
   def index

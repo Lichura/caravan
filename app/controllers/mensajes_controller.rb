@@ -1,6 +1,6 @@
 class MensajesController < ApplicationController
   before_action :set_mensaje, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required
+
   # GET /mensajes
   # GET /mensajes.json
   def index

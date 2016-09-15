@@ -1,6 +1,6 @@
 class PaisesController < ApplicationController
   before_action :set_pais, only: [:show, :edit, :update, :destroy]
-before_filter :admin_required
+
   # GET /paises
   # GET /paises.json
   def index

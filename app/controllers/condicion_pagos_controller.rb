@@ -1,6 +1,6 @@
 class CondicionPagosController < ApplicationController
   before_action :set_condicion_pago, only: [:show, :edit, :update, :destroy]
-  before_filter :admin_required
+
   # GET /condicion_pagos
   # GET /condicion_pagos.json
   def index
