@@ -1,5 +1,8 @@
 class UserPolicy < ApplicationPolicy
 
+  def index?
+    is_admin? || is_distribuidor?
+  end
 
   class Scope < Scope
     attr_reader :user, :scope
@@ -12,7 +15,7 @@ class UserPolicy < ApplicationPolicy
       if user.admin?
         scope.all
       else
-           scope.where(:id => user.relacions.select(:user_id))
+        user.clientes
       end
     end
 

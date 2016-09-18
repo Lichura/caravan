@@ -11,13 +11,14 @@ class UsersController < ApplicationController
     end
   end
   def index
-
-    @user = User.paginate(:page => params[:page], :per_page => 10)
-    authorize @user, :mostrar_usuarios?
+    @user = policy_scope(User).paginate(:page => params[:page], :per_page => 10)
+    authorize current_user
+    #@user = User.paginate(:page => params[:page], :per_page => 10)
+    #authorize @user, :mostrar_usuarios?
       if params[:search]
-        @user = User.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+        @user = policy_scope(User).search(params[:search]).paginate(:page => params[:page], :per_page => 10)
       else
-        @user = User.all.paginate(:page => params[:page], :per_page => 10)
+        @user = policy_scope(User).all.paginate(:page => params[:page], :per_page => 10)
       end
   end
   def show

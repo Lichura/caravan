@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     #protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
 
-  before_filter :require_login
+  before_action :require_login
 
 
   helper_method :current_user

@@ -18,14 +18,7 @@
 
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
+
 
 
 
@@ -37,15 +30,6 @@ $(".spinner").hide();
   }).ajaxStop(function() {
       $(".spinner").hide();
   });
-
-
-
-$(window).scroll(function() {
-	if ($(window).scrollTop() >= 50 ) {
-        $('.topnav').addClass('fondo');
-    }
-    else {
-        $('.topnav').removeClass('fondo');
-    }
 });
-});
+
+

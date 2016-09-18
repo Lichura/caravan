@@ -4,7 +4,7 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-sm-offset-3">
-            <%= form_tag(provincias_path, :method => "get", id: "search-form") do %>
+            <%= form_tag(users_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar usuarios", class: "form-control"%>
               <span class="input-group-btn">
@@ -14,32 +14,30 @@
            <% end %>
           </div>
         </div>
-        <%= form_tag edit_multiple_users_path, method: :get do %>
           <div class="row" style="height: 50px;"></div>
            <div class="table-responsive">
              <table class="table table-hover">
                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
                 <tr>
                   <th>Mail</th>
-                  <th colspan="3"></th>
+                  <th>Razon Social</th>
+                  <th>CUIT</th>
+                  <th>Detalles</th>
                 </tr>
                </thead>
                <tbody>
                  <% @user.each do |user| %>
                    <tr>
-                      <td><%= check_box_tag "users_ids[]", user.id %></td>
-                      <td><%= user.id %></td>
                       <td><%= user.email %></td>
-                      <td><%= user.condicion_id %></td>
-                      <td><%= link_to 'Show', user %></td>
-                      <td><%= link_to 'Edit', edit_user_path(user) %></td>
-                      <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      <td><%= user.razonSocial %></td>
+                      <td><%= user.cuit %></td>
+                    <td><%= link_to user_path(user) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %></td>
                     </tr>
                 <% end %>
               </tbody>
             </table>
-          <%= submit_tag "Edit check" %>
-        <% end %>
       </div>
     <%= will_paginate @user, renderer: BootstrapPagination::Rails %>
       <button type="button" class="btn btn-primary pull-right">

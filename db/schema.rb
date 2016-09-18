@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914185245) do
+ActiveRecord::Schema.define(version: 20160917181445) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160914185245) do
     t.float    "precio"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "rango_desde"
+    t.string   "rango_hasta"
   end
 
   create_table "familia", force: :cascade do |t|
@@ -64,6 +66,32 @@ ActiveRecord::Schema.define(version: 20160914185245) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "models", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_models_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true
+  end
+
+  create_table "monedas", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.string   "simbolo"
+    t.float    "tipoDeCambio"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "paises", force: :cascade do |t|
     t.string   "nombre"
     t.string   "abreviacion"
@@ -72,12 +100,12 @@ ActiveRecord::Schema.define(version: 20160914185245) do
   end
 
   create_table "pedido_items", force: :cascade do |t|
+    t.integer  "item_id"
     t.integer  "pedido_id"
     t.integer  "cantidad"
     t.float    "precio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "producto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pedidos", force: :cascade do |t|
@@ -97,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160914185245) do
     t.integer  "user_id"
     t.integer  "distribuidor_id"
     t.integer  "pendiente_remitir"
+    t.string   "estado"
   end
 
   create_table "producto_historicos", force: :cascade do |t|
@@ -171,7 +200,7 @@ ActiveRecord::Schema.define(version: 20160914185245) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
+    t.string   "email",                  default: "", null: false
     t.string   "password_hash"
     t.string   "password_salt"
     t.datetime "created_at",                          null: false
@@ -206,6 +235,7 @@ ActiveRecord::Schema.define(version: 20160914185245) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

@@ -67,6 +67,7 @@ class PedidosController < ApplicationController
   def create
     @pedido = Pedido.new(pedido_params)
     authorize @pedido
+    @pedido.estado = "A confirmar"
     @pedido.distribuidor_id = current_user.id
     respond_to do |format|
       if @pedido.save
@@ -89,9 +90,16 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
-
+        estado = "Pendiente de remitir"
+        params[:pedido][:detalles_attributes].each do |producto, params|
+          if params[:rango_desde].empty? || params[:rango_hasta].empty?
+            estado = "A confirmar"
+          end
+        end
+        @pedido.estado = estado
     respond_to do |format|
       if @pedido.update(pedido_params)
+
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
       else
@@ -150,7 +158,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :_destroy])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :_destroy])
     end
 
 end

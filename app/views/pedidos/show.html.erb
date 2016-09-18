@@ -22,7 +22,8 @@
               <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>
               <dt>Sucursal:</dt>
               <dd><%= UserSucursal.find(@pedido.sucursal).nombre %></dd>
-
+              <dt>Estado:</td>
+              <dd><%= @pedido.estado %></dd>
               <dt>Articulos:</dt>
               <dd>
                 <table>
@@ -30,6 +31,8 @@
                 <tr>
                       <th>Nombre</th>
                       <th>Cantidad</th>
+                      <th>Rango Desde</th>
+                      <th>Rango Hasta</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,6 +40,8 @@
                     <tr>
                     <td><%= Producto.find(producto.producto_id).nombre %></td>
                   <td><%= producto.cantidad %></td>
+                  <td><%= producto.rango_desde %></td>
+                  <td><%= producto.rango_hasta %></td>
                 </tr>
                 <% end %>
                 </tbody>

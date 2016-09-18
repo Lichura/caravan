@@ -26,6 +26,10 @@ class User < ApplicationRecord
 	#validates :condicionPago, presence: false
 	validates :password, :presence     => false
 	validates :password_confirmation, :presence     => false
+	validates :cuit, presence: true, uniqueness: true
+	validates :cuig, presence: true, uniqueness: true
+	validates :numeroCv, presence: true, uniqueness: true
+	validates :renspa, presence: true, uniqueness: true
 	validates :telefono, format: { with: /([0-9]{5,15})/, message: "El telefono que ingreso no es correcto" }, :allow_blank => true
 	validates :celular, format: { with: /([0-9]{5,15})/, message: "El celular que ingreso no es correcto" }, :allow_blank => true
 

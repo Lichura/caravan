@@ -11,25 +11,24 @@
               </ul>
             </div>
           <% end %>
-            <div id="accordion" role="tablist" aria-multiselectable="false">
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="ClienteCollapse">
-                  <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#ClienteCollapse" aria-expanded="true" aria-controls="afipCollapse">
-                      Cliente
-                    </a>
-                  </h3>
-                </div>
-                <div id="ClienteCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="ClienteCollapse">
+
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#collapse1">Cliente</a>
+                </h4>
+              </div>
+              <div id="collapse1" class="panel-collapse collapse in">
                   <%= render partial: 'cabecera', locals: {f: f} %>
-                </div>
               </div>
             </div>
-
+          </div>
   <div class="table-responsive-vertical shadow-z-1">
   <!-- Table starts here -->
   <table id="table" class="table table-hover">
-              <thead>
+      <% if @pedido.new_record? %>
+            <thead>
               <tr>
               <th>Producto</th>
               <th>Precio</th>
@@ -38,15 +37,23 @@
             </tr>
             </thead>
             <tbody>
-              <% if @pedido.new_record? %>
                 <%= f.fields_for :detalles do |ff| %>
                    <% render 'detalle', f: ff %>
                 <% end %>
-              <% else %>
+      <% else %>
+            <thead>
+              <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Rango desde</th>
+              <th>Rango Hasta</th>
+            </tr>
+            </thead>
+            <tbody>
                 <%= f.fields_for :detalles do |ff| %>
                    <% render 'detalle_edit', f: ff %>
                 <% end %>
-              <% end %>
+      <% end %>
             </tbody>
           </table>
         </div>
@@ -65,7 +72,7 @@
 <div class="total" disabled></div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Generar pedido", class: "btn btn-primary pull-right" %>
+      <%= f.submit "Enviar", class: "btn btn-primary pull-right" %>
     </div>
   </div>
 <% end %>

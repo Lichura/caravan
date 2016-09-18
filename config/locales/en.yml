@@ -22,6 +22,29 @@
 en:
   hello: "Hello world"
 
+  activerecord:
+    attributes:
+      user:
+        email: ""
+        cuit: ""
+        cuig: ""
+        renspa: ""
+        numeroCV: ""
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Por favor complete su Direccion de email"
+              taken: "El email ingresado se encuentra en uso, por favor verifiquelo"
+            cuit:
+              blank: "El numero de CUIT no puede estar vacio"
+            cuig:  
+              blank: "El numero de CUIG no puede estar vacio"
+            renspa:
+              blank: "El numero de RENSPA no puede estar vacio"
+            numeroCv:
+              blank: "El numero de CV no puede estar vacio"
 
 
 errors:
