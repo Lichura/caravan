@@ -55,7 +55,11 @@ class StockPedidosController < ApplicationController
       if @stock_pedido.update(stock_pedido_params)
        params[:stock_pedido][:stock_items_attributes].each do |producto, params|
           @producto = Producto.find(params[:producto_id])
-          @producto.stock_pedido += params[:cantidad].to_i
+           if params[:recibido]
+             @producto.stock_disponible += params[:cantidad].to_i
+           else
+              @producto.stock_pedido += params[:cantidad].to_i
+           end
           @producto.save
         end
         format.html { redirect_to @stock_pedido, notice: 'Stock pedido was successfully updated.' }
@@ -97,6 +101,6 @@ class StockPedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_pedido_params
-      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :producto_id, :cantidad, :precio, :_destroy])
+      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :producto_id, :cantidad, :precio, :recibido, :_destroy])
     end
 end

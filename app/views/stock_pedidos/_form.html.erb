@@ -21,6 +21,7 @@
   </div>
  <div class="table-responsive-vertical shadow-z-1">
   <table id="table" class="table table-hover">
+     <% if @stock_pedido.new_record? %>
     <thead>
               <tr>
               <th>Producto</th>
@@ -33,6 +34,20 @@
                 <%= f.fields_for :stock_items do |ff| %>
                    <% render 'stock_items', f: ff %>
                 <% end %>
+              <% else %>
+                          <thead>
+              <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Rango desde</th>
+              <th>Rango Hasta</th>
+            </tr>
+            </thead>
+            <tbody>
+                <%= f.fields_for :stock_items do |ff| %>
+                   <% render 'stock_items_edit', f: ff %>
+                <% end %>
+      <% end %>
     </tbody>
    </table>
 </div>
