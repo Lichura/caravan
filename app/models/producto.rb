@@ -2,6 +2,8 @@ class Producto < ApplicationRecord
   belongs_to :familium
   has_many :pedidos, :through => :detalles
   has_many :detalles
+  has_many :remito_items
+  has_many :remitos, :through => :remito_items
 
   mount_uploader :imagen, ImagenUploader
 

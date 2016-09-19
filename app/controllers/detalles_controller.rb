@@ -4,7 +4,7 @@ class DetallesController < ApplicationController
   # GET /detalles
   # GET /detalles.json
   def index
-    @detalles = Detalle.all
+    @detalles = Detalle.all.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /detalles/1

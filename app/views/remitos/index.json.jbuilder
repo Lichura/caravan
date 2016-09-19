@@ -1,0 +1,1 @@
+json.array! @remitos, partial: 'remitos/remito', as: :remito

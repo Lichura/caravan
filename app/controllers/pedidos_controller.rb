@@ -70,10 +70,12 @@ class PedidosController < ApplicationController
     @pedido.estado = "A confirmar"
     @pedido.distribuidor_id = current_user.id
     respond_to do |format|
+    pendiente_remision
       if @pedido.save
         params[:pedido][:detalles_attributes].each do |producto, params|
           @producto = Producto.find(params[:producto_id])
-          @producto.stock_disponible = params[:cantidad].to_i
+          @producto.stock_disponible -= params[:cantidad].to_i
+          @producto.stock_reservado += params[:cantidad].to_i
           @producto.save
         end
         enviar_mensaje_por_slack
@@ -90,13 +92,26 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
-        estado = "Pendiente de remitir"
-        params[:pedido][:detalles_attributes].each do |producto, params|
-          if params[:rango_desde].empty? || params[:rango_hasta].empty?
-            estado = "A confirmar"
-          end
-        end
-        @pedido.estado = estado
+    estado = "Pendiente de remitir"
+    params[:pedido][:detalles_attributes].each do |producto, params|
+      if params[:rango_desde].empty? || params[:rango_hasta].empty?
+        estado = "A confirmar"
+      end
+      @producto = Producto.find(params[:producto_id])
+      @producto.stock_disponible -= params[:cantidad].to_i
+      @producto.stock_reservado += params[:cantidad].to_i
+      @producto.save
+    end
+    @pedido.detalles.each do |producto|
+       @producto = Producto.find(producto.producto_id)
+       @producto.stock_reservado -= producto.cantidad
+       @producto.stock_disponible += producto.cantidad
+       @producto.save
+    end
+    #con esta linea actualizo los valores de cantidad a pendiente de remitir
+    @pedido.detalles.update_all "pendiente_remitir = cantidad"
+    @pedido.estado = estado
+
     respond_to do |format|
       if @pedido.update(pedido_params)
 
@@ -113,19 +128,21 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1.json
   def destroy
         authorize @pedido
-    @pedido.destroy
-
         @pedido.detalles.each do |producto|
-         Producto.find(producto.id).stock_reservado = producto.cantidad
-         Producto.find(producto.id).stock_disponible = producto.cantidad
+         Producto.find(producto.id).stock_reservado -= producto.cantidad
+         Producto.find(producto.id).stock_disponible += producto.cantidad
         end
+    @pedido.destroy
     respond_to do |format|
       format.html { redirect_to pedidos_url, notice: 'El pedido se ha eliminado correctamente' }
       format.json { head :no_content }
     end
   end
 
-  def create_pedidos
+
+
+  private
+    def create_pedidos
       Producto.all.each do |obj|
         if !@pedido.producto_ids.include?(obj.id)
           @pedido.detalles.build(:producto_id => obj.id)
@@ -134,7 +151,11 @@ class PedidosController < ApplicationController
   end
 
 
-  private
+    def pendiente_remision
+      @pedido.detalles.each do |producto|
+        producto.pendiente_remitir = producto.cantidad
+      end
+    end
 
     def enviar_mensaje_por_slack
        articulos = Hash.new
@@ -142,11 +163,13 @@ class PedidosController < ApplicationController
           nombre = Producto.find(params[:producto_id]).nombre
           articulos[nombre] = params[:cantidad]
         end
-            SLACK.ping "Nuevo pedido del cliente: #{User.find(@pedido.user_id).razonSocial}\n
-            Articulos:"
+
+        mensaje = "Nuevo pedido del cliente #{User.find(@pedido.user_id).razonSocial}\n"
             articulos.each do |k,v|
-            "#{k} #{v}", parse: "full"
+            mensaje += "#{k}: #{v} unidades\n"
             end
+
+      SLACK.ping mensaje , parse: "full"
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
@@ -161,7 +184,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :_destroy])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy])
     end
 
 end

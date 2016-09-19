@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading"><h3>Stock</h3></div>
@@ -18,33 +17,28 @@
             <table class="table table-hover">
                 <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
                   <tr>
-                                            <th>Vendedor</th>
-                        <th>Cantidadtotal</th>
-                        <th>Preciototal</th>
-
+                    <th>Vendedor</th>
+                    <th>Cantidadtotal</th>
+                    <th>Preciototal</th>
                     <th>Mostrar</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                   </tr>
                 </thead>
-
-
                 <tbody>
                   <% @stock_pedidos.each do |stock_pedido| %>
-                                            <td><%= stock_pedido.vendedor %></td>
-                                            <td><%= stock_pedido.cantidadTotal %></td>
-                                            <td><%= stock_pedido.precioTotal %></td>
-                                      <td>
-                    <%= link_to stock_pedido_path(stock_pedido) do %>
+                  <tr>
+                    <td><%= stock_pedido.vendedor %></td>
+                    <td><%= stock_pedido.cantidadTotal %></td>
+                    <td><%= stock_pedido.precioTotal %></td>
+                    <td><%= link_to stock_pedido_path(stock_pedido) do %>
                       <i class="glyphicon glyphicon-list-alt"></i>
-                    <% end %>
-                  </td>
-                  <td>
+                      <% end %></td>
+                    <td>
                     <%= link_to edit_stock_pedido_path(stock_pedido) do %>
                       <i class="glyphicon glyphicon-pencil"></i>
-                    <% end %>
-                  </td>
-                  <td>
+                    <% end %></td>
+                    <td>
                     <%= link_to stock_pedido_path(stock_pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta stock_pedido?' }, remote: true do %>
                       <i class="glyphicon glyphicon-trash"></i>
                     <% end %>
@@ -56,7 +50,7 @@
           </div>
           <%= will_paginate @stock_pedidos, renderer: BootstrapPagination::Rails %>
           <button type="button" class="btn btn-primary pull-right">
-            <%= link_to 'Nueva stock_pedido', new_stock_pedido_path %>
+            <%= link_to 'Nuevo pedido de stock', new_stock_pedido_path %>
           </button>
         </div>
       </div>

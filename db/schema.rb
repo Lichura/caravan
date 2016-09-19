@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919084546) do
+ActiveRecord::Schema.define(version: 20160919195412) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -34,10 +34,11 @@ ActiveRecord::Schema.define(version: 20160919084546) do
     t.integer  "producto_id"
     t.integer  "cantidad"
     t.float    "precio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "rango_desde"
     t.string   "rango_hasta"
+    t.integer  "pendiente_remitir"
   end
 
   create_table "familia", force: :cascade do |t|
@@ -66,6 +67,32 @@ ActiveRecord::Schema.define(version: 20160919084546) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "models", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_models_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true
+  end
+
+  create_table "monedas", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.string   "simbolo"
+    t.float    "tipoDeCambio"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "numeradors", force: :cascade do |t|
     t.string   "comprobante"
     t.integer  "puntoDeVenta"
@@ -82,12 +109,12 @@ ActiveRecord::Schema.define(version: 20160919084546) do
   end
 
   create_table "pedido_items", force: :cascade do |t|
+    t.integer  "item_id"
     t.integer  "pedido_id"
     t.integer  "cantidad"
     t.float    "precio"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "producto_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pedidos", force: :cascade do |t|
@@ -159,6 +186,30 @@ ActiveRecord::Schema.define(version: 20160919084546) do
     t.integer  "cliente_id"
   end
 
+  create_table "remito_items", force: :cascade do |t|
+    t.integer  "remito_id"
+    t.integer  "producto_id"
+    t.integer  "cantidad"
+    t.float    "precio"
+    t.float    "subtotal"
+    t.float    "iva"
+    t.float    "precioNeto"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "remitos", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.string   "numero"
+    t.datetime "fecha"
+    t.string   "transporte"
+    t.float    "ivaTotal"
+    t.float    "total"
+    t.integer  "cantidadTotal"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
   create_table "stock_items", force: :cascade do |t|
     t.integer  "producto_id"
     t.integer  "stock_pedido_id"
@@ -202,7 +253,7 @@ ActiveRecord::Schema.define(version: 20160919084546) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
+    t.string   "email",                  default: "", null: false
     t.string   "password_hash"
     t.string   "password_salt"
     t.datetime "created_at",                          null: false
@@ -237,6 +288,7 @@ ActiveRecord::Schema.define(version: 20160919084546) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
