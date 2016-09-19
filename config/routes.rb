@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :numeradors
+  resources :stock_pedidos
   resources :condicion_pagos
   resources :transportista
   resources :monedas

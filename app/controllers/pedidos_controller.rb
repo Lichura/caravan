@@ -39,9 +39,9 @@ class PedidosController < ApplicationController
     authorize @pedido
     create_pedidos
     if Pedido.last.present?
-      @numeroDePedido = (Pedido.last.id + 1)
+      @numeroDePedido = (Pedido.last.id + 1) #si existe algun numero de pedido, utilizo el ultimo y le sumo 1
     else
-      @numeroDePedido = 1
+      @numeroDePedido = 1 #sino existe, empiezo el numerador por 1
     end
     #@productos = Producto.all
     #@detalles = @pedido.detalles.build
@@ -49,7 +49,7 @@ class PedidosController < ApplicationController
     @usuarios = User.all
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
     if params[:cliente_id]
-    @cliente = User.find(params[:cliente_id])
+    @cliente = User.find(params[:cliente_id])  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente
       respond_to do |format|
        format.js {render "get_cliente"}
       end
@@ -143,7 +143,10 @@ class PedidosController < ApplicationController
           articulos[nombre] = params[:cantidad]
         end
             SLACK.ping "Nuevo pedido del cliente: #{User.find(@pedido.user_id).razonSocial}\n
-            Articulos: #{articulos}", parse: "full"
+            Articulos:"
+            articulos.each do |k,v|
+            "#{k} #{v}", parse: "full"
+            end
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido

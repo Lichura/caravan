@@ -1,0 +1,34 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>stock_pedido</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Vendedor:</dt>
+          <dd><%= @stock_pedido.vendedor %></dd>
+
+          <dt>Cantidadtotal:</dt>
+          <dd><%= @stock_pedido.cantidadTotal %></dd>
+
+          <dt>Preciototal:</dt>
+          <dd><%= @stock_pedido.precioTotal %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to edit_stock_pedido_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        stock_pedidos
+      <% end %>
+      <%= link_to stock_pedido_path(@stock_pedido), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_stock_pedido_path(@stock_pedido),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>

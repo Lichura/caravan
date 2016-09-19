@@ -1,0 +1,1 @@
+json.array! @stock_pedidos, partial: 'stock_pedidos/stock_pedido', as: :stock_pedido
