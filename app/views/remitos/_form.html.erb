@@ -11,11 +11,12 @@
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
     <%= f.label :pedido_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
+      <% if @pedido %>
       <%= f.number_field :pedido_id, :value => @pedido.id, class: "form-control" %>
+      <% end %>
     </div>
   </div>
   <div class="form-group">
@@ -38,9 +39,29 @@
   </div>
 
 
-  <%= f.fields_for :remito_items do |ff| %>
-    <% render 'remito_items', f: ff %>
-  <% end %>
+
+  <div class="table-responsive-vertical shadow-z-1">
+  <table id="table" class="table table-hover">
+      <% if @remito.new_record? %>
+            <thead>
+              <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Pendiente</th>
+              <th>Cantidad</th>
+              <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+              <%= f.fields_for :remito_items do |ff| %>
+                  <% render 'remito_items', f: ff %>
+                <% end %>
+              <% end%>
+            </tbody>
+          </table>
+        </div>
+
+
 
   <div class="form-group">
     <%= f.label :ivaTotal, class: "col-sm-2 control-label" %>

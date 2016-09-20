@@ -109,12 +109,12 @@ class PedidosController < ApplicationController
        @producto.save
     end
     #con esta linea actualizo los valores de cantidad a pendiente de remitir
-    @pedido.detalles.update_all "pendiente_remitir = cantidad"
+
     @pedido.estado = estado
 
     respond_to do |format|
       if @pedido.update(pedido_params)
-
+        @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
       else

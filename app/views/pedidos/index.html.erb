@@ -36,8 +36,8 @@
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
           <td><%= pedido.cantidadTotal %></td>
           <td>
-              <% if pedido.remitido %>
-                <span class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
+              <% if pedido.estado == "Pendiente de remitir" %>
+                <span class="glyphicon glyphicon-check"><%= link_to "Remito", {controller:"remitos", action:"new", id: pedido} %></span>
               <% else %>
                 <span class="glyphicon glyphicon-unchecked"></span>
               <% end %>

@@ -1,6 +1,6 @@
 class RemitosController < ApplicationController
   before_action :set_remito, only: [:show, :edit, :update, :destroy]
-  before_action :set_pedido, only: [:show, :edit, :new]
+
 
   # GET /remitos
   # GET /remitos.json
@@ -15,7 +15,8 @@ class RemitosController < ApplicationController
 
   # GET /remitos/new
   def new
-    @remito = Remito.new    
+    @remito = Remito.new
+    @pedido = Pedido.find(params[:id])     
     create_remitos
   end
 
@@ -27,9 +28,14 @@ class RemitosController < ApplicationController
   # POST /remitos.json
   def create
     @remito = Remito.new(remito_params)
+    modificar_estado
+    modificar_stock
+
+
 
     respond_to do |format|
       if @remito.save
+
         format.html { redirect_to @remito, notice: 'Remito was successfully created.' }
         format.json { render :show, status: :created, location: @remito }
       else
@@ -65,6 +71,24 @@ class RemitosController < ApplicationController
 
   private
 
+  def modificar_estado
+        @pedido = Pedido.find(@remito.pedido_id)
+        @pedido.estado = "Remitido - Pendiente de facturar"
+        @pedido.save
+  end
+
+  def modificar_stock
+    @pedido = Pedido.find(@remito.pedido_id)
+    @pedido.detalles.each do |producto|
+      @remito.remito_items.each do |item|
+        if producto.producto_id = item.producto_id
+          producto.pendiente_remitir -= item.cantidad
+        end
+      end
+    end
+    @pedido.save
+  end
+
    def create_remitos
         @pedido.detalles.each do |obj|
           if !@remito.producto_ids.include?(obj.producto_id)
@@ -76,12 +100,9 @@ class RemitosController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_remito
-      @remito = Remito.find(params[:id])
+      @remito = Remito.find(params[:id]) 
     end
 
-    def set_pedido
-      @pedido = Pedido.find(22)
-    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def remito_params

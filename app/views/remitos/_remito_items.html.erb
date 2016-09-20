@@ -1,1 +1,8 @@
-<h1>bla bla bla</h1>
+<tr>	<td data-title="Producto"><%= f.object.producto.nombre %><br>
+	<%= f.object.producto.descripcion %></td>
+	<td data-title="Precio"><%= f.text_field :precio, :value => @pedido.detalles.find_by(producto_id: f.object.producto.id).precio , class: "precio form-control" %></td>
+	<td data-title="Pendiente"><%= @pedido.detalles.find_by(producto_id: f.object.producto.id).pendiente_remitir  %></td>
+	<td data-title="Cantidad"><%= f.text_field :cantidad, :value => @pedido.detalles.find_by(producto_id: f.object.producto.id).cantidad , class: "cantidad form-control" %></td>
+	<td data-title="Subtotal" ><div class="subtotal" style="widht: 40px" value=0></div></td>
+	<%= f.hidden_field :producto_id %>
+</tr>

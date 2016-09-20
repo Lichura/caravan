@@ -17,6 +17,12 @@
           <dt>Transporte:</dt>
           <dd><%= @remito.transporte %></dd>
 
+          <% @remito.remito_items.each do |item| %>
+            <%= item.producto_id %>
+            <%= item.cantidad %>
+            <%= item.precio %>
+          <% end %>
+
           <dt>Ivatotal:</dt>
           <dd><%= @remito.ivaTotal %></dd>
 
