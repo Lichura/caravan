@@ -20,6 +20,7 @@
     <div class="col-sm-10">
       <% if @pedido.new_record? %>
         <%= f.collection_select(:user_id, current_user.clientes.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
+      <%= link_to "Nuevo Cliente", new_user_path, remote: true, class: "btn btn-primary" %>
       <% else %>
       <%= f.collection_select(:user_id, User.all, :id, :razonSocial,  {include_blank: true, :selected => @pedido.user_id}, {:class => "form-control"}) %>
       <% end %>

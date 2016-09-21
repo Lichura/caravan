@@ -140,7 +140,10 @@ class PedidosController < ApplicationController
   end
 
 
-
+  def nuevo_usuario
+     @usuario = User.new
+  end
+  
   private
     def create_pedidos
       Producto.all.each do |obj|
