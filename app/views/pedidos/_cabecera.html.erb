@@ -20,7 +20,13 @@
     <div class="col-sm-10">
       <% if @pedido.new_record? %>
         <%= f.collection_select(:user_id, current_user.clientes.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
-      <%= link_to "Nuevo Cliente", new_user_path, remote: true, class: "btn btn-primary" %>
+
+
+        <%= link_to 'Nuevo usuario', nuevo_usuario_pedido_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-usuario'}  %>
+
+
+      <div id="modal-usuario" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
       <% else %>
       <%= f.collection_select(:user_id, User.all, :id, :razonSocial,  {include_blank: true, :selected => @pedido.user_id}, {:class => "form-control"}) %>
       <% end %>
@@ -36,6 +42,8 @@
   $(document).ready(function(){
     $('#pedido_pedido_cuit').combobox();
 
-
+      $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+      })
   });
 </script>

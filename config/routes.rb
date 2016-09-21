@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   get 'menu' => "menu#index", :as => "menu"
 
-
+  get 'users/new_pedido' => "users#new_pedido", :as=> "nuevo_usuario_pedido"
   get 'password_resets/new'
   get 'password_resets/show'
   get 'password_resets/edit'

@@ -10,6 +10,20 @@ class UsersController < ApplicationController
      format.js {render "buscar_afip"}
     end
   end
+
+  def new_pedido
+    @user = User.new
+    @sucursales = @user.user_sucursals.build(:user_id => @user.id)
+    @provincias = Provincia.all
+    @afip = User.search_afip(params[:search_afip])
+    respond_to do |format|
+     format.html
+     format.js
+     if @afip
+     format.js {render "buscar_afip"}
+    end
+    end
+  end
   def index
     @user = policy_scope(User).paginate(:page => params[:page], :per_page => 10)
     authorize current_user

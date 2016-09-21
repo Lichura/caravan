@@ -1,1 +1,3 @@
 $('<%= j render "modal", title: "Nuevo usuario" %>').modal();
+$('#Cliente').html( "<%=j render('cliente', :locals => {:cliente => @cliente, :pedido => @pedido}) %>" );
+$('#Cliente').slideDown(350);

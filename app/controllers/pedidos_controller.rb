@@ -94,8 +94,10 @@ class PedidosController < ApplicationController
   def update
     estado = "Pendiente de remitir"
     params[:pedido][:detalles_attributes].each do |producto, params|
-      if params[:rango_desde].empty? || params[:rango_hasta].empty?
-        estado = "A confirmar"
+      if Producto.find(params[:producto_id]).rango
+        if params[:rango_desde].empty? || params[:rango_hasta].empty?
+          estado = "A confirmar"
+        end
       end
       @producto = Producto.find(params[:producto_id])
       @producto.stock_disponible -= params[:cantidad].to_i

@@ -2,7 +2,9 @@
 	<td data-title="Producto"><%= image_tag f.object.producto.imagen %><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad, class: "cantidad form-control" %></td>
+	<% if f.object.producto.rango %>
 	<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" %></td>
 	<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "form-control" %></td>
+	<% end %>
 	<%= f.hidden_field :producto_id %>
 </tr>

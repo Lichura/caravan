@@ -23,3 +23,9 @@ jQuery ->
   				data:
   					cliente_id: $('#pedido_user_id option:selected').val()
   				success: (data) ->
+
+
+jQuery ->
+  $(document).ready ->
+      $("#buscarAfip1").on "change", ->
+        alert("cambio")
