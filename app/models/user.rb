@@ -97,6 +97,7 @@ class User < ApplicationRecord
 
 	#xml de la afip
 		if cuit
+			cuit = cuit.chars.select {|c| c =~ /\d/}.join.to_s
 			base_uri 'https://soa.afip.gob.ar/sr-padron/v2/persona/'+cuit
 			format :json
 

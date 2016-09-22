@@ -45,7 +45,7 @@ usuarios = User.create!([{
     direccion: "bla bla",
     cuig: "321321312",
     renspa: "131232321",
-    cuit: 20335067623,
+    cuit: 20335067622,
     telefono: "144132312",
     codigoPostal: "08018",
     provincia_id: 1,
@@ -61,14 +61,14 @@ usuarios = User.create!([{
     password_confirmation: "distribuidor",
     razonSocial: "Distribuidor 1",
     direccion: "bla bla",
-    cuig: "321321312",
-    renspa: "131232321",
+    cuig: "3213213",
+    renspa: "1312323",
     cuit: 20335067623,
     telefono: "144132312",
     codigoPostal: "08018",
     provincia_id: 1,
     pais_id: 1,
-    numeroCv: "23123"
+    numeroCv: "23122"
   }])
 paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
 
@@ -289,7 +289,7 @@ ciudades = Ciudad.create!([
 {pais_id:1,	provincia_id:1,	nombre:"Villa Riachuelo"},
 {pais_id:1,	provincia_id:1,	nombre:"Villa Santa Rita"},
 {pais_id:1,	provincia_id:1,	nombre:"Villa Soldati"},
-{pais_id:1,	provincia_id:1,	nombre:"Villa Urquiza"}
+{pais_id:1,	provincia_id:1,	nombre:"Villa Urquiza"},
 {pais_id:1, provincia_id:3 ,  nombre:"Aconquija"},
 {pais_id:1, provincia_id:3 ,  nombre:"Ancasti"},
 {pais_id:1, provincia_id:3 ,  nombre:"Andalgalá"},

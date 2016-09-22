@@ -18,9 +18,13 @@ class UsersController < ApplicationController
     @afip = User.search_afip(params[:search_afip])
     respond_to do |format|
      format.html
-     format.js
-     if @afip
+    #con esto logro que apenas llamo a new_pedido como no existe la variable afip me carga el
+    #modal para un nuevo usuario, luego al realizar una llamada ajax para buscar el numero de afip
+    #si me carga el partial de buscar_afip
+    if @afip
      format.js {render "buscar_afip"}
+    else
+     format.js
     end
     end
   end
@@ -126,8 +130,10 @@ end
       if @user.profile_id == 2
         UserMailer.envio_de_password(@user, @user.password).deliver_later
       end
-  		redirect_to edit_multiple_users_path, :notice => "Se creo el cliente #{@user.razonSocial}"
-  	else
+  		  session[:return_to] ||= request.referer
+        redirect_to session.delete(:return_to), :notice => "Se creo el cliente #{@user.razonSocial}"
+
+    else
   		render "new"
   	end
   end
