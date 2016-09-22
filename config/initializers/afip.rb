@@ -1,13 +1,10 @@
-require 'bravo'
+require 'rubygems'
+gem 'soap4r'
+require File.join(Rails.root, "lib", "wsafip", "wsaa_driver.rb")
+require File.join(Rails.root, "lib", "wsafip", "wsaa_request.rb")
+require File.join(Rails.root, "lib", "wsafip", "wsaa_service.rb")
 
-Bravo.pkey                           = 'config/certs/pkey.key'
-Bravo.cert                           = 'config/certs/cert.crt'
-Bravo.cuit                           = '20335067623'
-Bravo.sale_point                     = '0002'
-Bravo.default_concepto               = 'Productos y Servicios'
-Bravo.default_documento              = 'CUIT'
-Bravo.default_moneda                 = :peso
-Bravo.own_iva_cond                   = :responsable_inscripto
-Bravo.verbose                        = 'true'
-#Bravo.openssl_bin                    = '/usr/local/openssl-1.0.2h/bin'
-#Bravo::AuthData.environment      	  = :test
+
+ticket = WSAA::WSAAService.request_ticket( :service => 'wsaa',
+	                                           :certificate => 'config/certs/cert.crt',
+	                                           :private_key => 'config/certs/pkey.key')

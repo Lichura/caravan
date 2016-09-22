@@ -35,8 +35,8 @@ gem "mini_magick"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 # gema para las facturas de afip
-gem 'bravo'
-gem 'savon'
+gem 'soap4r', :git => 'git://github.com/felipec/soap4r.git'
+
 # gema para parsear las api de afip
 gem 'httparty'
 gem 'bootstrap-generators', '~> 3.3.4'
