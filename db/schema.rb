@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922085711) do
+ActiveRecord::Schema.define(version: 20160922130421) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20160922085711) do
     t.integer  "cantidadTotal"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.boolean  "finalizado"
   end
 
   create_table "stock_items", force: :cascade do |t|

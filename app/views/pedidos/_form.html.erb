@@ -24,9 +24,9 @@
               </div>
             </div>
           </div>
-  <div class="table-responsive-vertical shadow-z-1">
+  <div class="tabla-responsive-vertical shadow-z-1">
   <!-- Table starts here -->
-  <table id="table" class="table table-hover">
+  <table id="tabla" class="tabla tabla-hover">
       <% if @pedido.new_record? %>
             <thead>
               <tr>
@@ -91,30 +91,30 @@
 
 $(document).ready(function() {
 
-    var table = $('#table');
+    var table = $('#tabla');
 
     // Table bordered
-    $('#table-bordered').change(function() {
+    $('#tabla-bordered').change(function() {
         var value = $( this ).val();
-        table.removeClass('table-bordered').addClass(value);
+        table.removeClass('tabla-bordered').addClass(value);
     });
 
     // Table striped
-    $('#table-striped').change(function() {
+    $('#tabla-striped').change(function() {
         var value = $( this ).val();
-        table.removeClass('table-striped').addClass(value);
+        table.removeClass('tabla-striped').addClass(value);
     });
 
     // Table hover
-    $('#table-hover').change(function() {
+    $('#tabla-hover').change(function() {
         var value = $( this ).val();
-        table.removeClass('table-hover').addClass(value);
+        table.removeClass('tabla-hover').addClass(value);
     });
 
     // Table color
-    $('#table-color').change(function() {
+    $('#tabla-color').change(function() {
         var value = $(this).val();
-        table.removeClass(/^table-mc-/).addClass(value);
+        table.removeClass(/^tabla-mc-/).addClass(value);
     });
 });
 
@@ -147,13 +147,6 @@ $(document).ready(function() {
 })(jQuery.fn.removeClass);
 
 
-$('#product-modal').on('shown.bs.modal', function () {  
-
-    $('#buscarAfip1').change(function() {
-        alert("hola");
-    });
-    
-})
 
 </script>
 

@@ -31,11 +31,9 @@ class RemitosController < ApplicationController
     modificar_estado
     modificar_stock
 
-
-
     respond_to do |format|
       if @remito.save
-
+        finalizado_por_ajuste
         format.html { redirect_to @remito, notice: 'Remito was successfully created.' }
         format.json { render :show, status: :created, location: @remito }
       else
@@ -50,6 +48,7 @@ class RemitosController < ApplicationController
   def update
     respond_to do |format|
       if @remito.update(remito_params)
+        finalizado_por_ajuste
         format.html { redirect_to @remito, notice: 'Remito was successfully updated.' }
         format.json { render :show, status: :ok, location: @remito }
       else
@@ -70,6 +69,13 @@ class RemitosController < ApplicationController
   end
 
   private
+
+  def finalizado_por_ajuste
+    if @remito.finalizado
+      @pedido.estado = "Finalizado por ajuste - Pendiente de facturar"
+      @pedido.save
+    end
+  end
 
   def modificar_estado
         @pedido = Pedido.find(@remito.pedido_id)
@@ -106,6 +112,6 @@ class RemitosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def remito_params
-      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
+      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :finalizado, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
     end
 end

@@ -1,17 +1,17 @@
-<%= form_for(@numeradors, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <% if @numeradors.errors.any? %>
+<%= form_for(@numerador, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @numerador.errors.any? %>
     <div class="alert alert-danger alert-dismissable" role="alert">
       <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
-      <h4><%= pluralize(@numeradors.errors.count, "error") %> prohibited this pais from being saved:</h4>
+      <h4><%= pluralize(@numerador.errors.count, "error") %> prohibited this pais from being saved:</h4>
 
       <ul>
-      <% @numeradors.errors.full_messages.each do |msg| %>
+      <% @numerador.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
-  <% end %>
+
 
   <div class="form-group">
     <%= f.label :comprobante, class: "col-sm-2 control-label" %>
@@ -34,7 +34,7 @@
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit class: "btn btn-primary" %>
-      <%= link_to plural_table_name_path, class: 'btn btn-default pull-right' do %>
+      <%= link_to numeradors_path, class: 'btn btn-default pull-right' do %>
           Cancelar
       <% end -%>
     </div>

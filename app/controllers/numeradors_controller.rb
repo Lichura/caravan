@@ -4,7 +4,7 @@ class NumeradorsController < ApplicationController
   # GET /numeradors
   # GET /numeradors.json
   def index
-    @numeradors = Numerador.all
+    @numeradors = Numerador.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /numeradors/1
