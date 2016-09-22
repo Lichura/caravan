@@ -5,6 +5,8 @@ module Bravo
                   :due_date, :aliciva_id, :fch_serv_desde, :fch_serv_hasta,
                   :body, :response
 
+                  require 'savon'
+
     def initialize(attrs = {})
       Bravo::AuthData.fetch
       @client         = Savon::Client.new(Bravo.service_url)

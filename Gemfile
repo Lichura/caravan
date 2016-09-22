@@ -36,6 +36,7 @@ gem "mini_magick"
 # gem 'bcrypt', '~> 3.1.7'
 # gema para las facturas de afip
 gem 'bravo'
+gem 'savon'
 # gema para parsear las api de afip
 gem 'httparty'
 gem 'bootstrap-generators', '~> 3.3.4'
