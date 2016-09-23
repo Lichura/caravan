@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cuit: 1
+  fecha: 2016-09-23 12:28:44
+  control: MyString
+  vendedor: MyString
+  subtotal: 1.5
+  bonificacion: 1.5
+  neto: 1.5
+  iva: 1.5
+  iibb: 1.5
+  total: 1.5
+  cae: MyString
+  vencimiento_cae: MyString
+  pto_venta: 1
+  numero: 1
+  tipo: MyString
+
+two:
+  cuit: 1
+  fecha: 2016-09-23 12:28:44
+  control: MyString
+  vendedor: MyString
+  subtotal: 1.5
+  bonificacion: 1.5
+  neto: 1.5
+  iva: 1.5
+  iibb: 1.5
+  total: 1.5
+  cae: MyString
+  vencimiento_cae: MyString
+  pto_venta: 1
+  numero: 1
+  tipo: MyString

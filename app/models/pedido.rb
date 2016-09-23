@@ -1,6 +1,7 @@
 class Pedido < ApplicationRecord
 	has_many :productos, :through => :detalles
 	has_many :detalles
+  has_many :remitos
 
 	accepts_nested_attributes_for :detalles,  allow_destroy: true
 

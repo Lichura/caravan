@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :facturas
   resources :remitos
   resources :numeradors
   resources :stock_pedidos

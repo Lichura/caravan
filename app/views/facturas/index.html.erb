@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>facturas</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                                            <th>Cuit</th>
+                        <th>Fecha</th>
+                        <th>Control</th>
+                        <th>Vendedor</th>
+                        <th>Subtotal</th>
+                        <th>Bonificacion</th>
+                        <th>Neto</th>
+                        <th>Iva</th>
+                        <th>Iibb</th>
+                        <th>Total</th>
+                        <th>Cae</th>
+                        <th>Vencimiento cae</th>
+                        <th>Pto venta</th>
+                        <th>Numero</th>
+                        <th>Tipo</th>
+
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+                  <%= @facturas.each do |factura| %>
+                                            <td><%= factura.cuit %></td>
+                                            <td><%= factura.fecha %></td>
+                                            <td><%= factura.control %></td>
+                                            <td><%= factura.vendedor %></td>
+                                            <td><%= factura.subtotal %></td>
+                                            <td><%= factura.bonificacion %></td>
+                                            <td><%= factura.neto %></td>
+                                            <td><%= factura.iva %></td>
+                                            <td><%= factura.iibb %></td>
+                                            <td><%= factura.total %></td>
+                                            <td><%= factura.cae %></td>
+                                            <td><%= factura.vencimiento_cae %></td>
+                                            <td><%= factura.pto_venta %></td>
+                                            <td><%= factura.numero %></td>
+                                            <td><%= factura.tipo %></td>
+                                      <td>
+                    <%= link_to factura_path(factura) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_factura_path(factura) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to factura_path(factura.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta factura?' }, remote: true do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @facturas, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nueva factura', new_factura_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

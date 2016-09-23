@@ -21,6 +21,7 @@
     font-style: normal;
 }
 
+@color: #4D926F;
 
 body{
 	padding: 0 0 0 0;
@@ -134,6 +135,7 @@ video {
 .alert{
   margin-top: 5%;
 }
+
 
 
 

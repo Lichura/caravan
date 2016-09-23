@@ -1,4 +1,5 @@
 class PedidosController < ApplicationController
+
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
 
 
@@ -78,7 +79,7 @@ class PedidosController < ApplicationController
           @producto.stock_reservado += params[:cantidad].to_i
           @producto.save
         end
-        enviar_mensaje_por_slack
+        #enviar_mensaje_por_slack
 
         format.html { redirect_to @pedido, notice: 'El pedido se creo correctamente' }
         format.json { render :show, status: :created, location: @pedido }
@@ -131,14 +132,21 @@ class PedidosController < ApplicationController
   def destroy
         authorize @pedido
         @pedido.detalles.each do |producto|
-         Producto.find(producto.id).stock_reservado -= producto.cantidad
-         Producto.find(producto.id).stock_disponible += producto.cantidad
+         Producto.find(producto.producto_id).stock_reservado -= producto.cantidad
+         Producto.find(producto.producto_id).stock_disponible += producto.cantidad
         end
-    @pedido.destroy
-    respond_to do |format|
-      format.html { redirect_to pedidos_url, notice: 'El pedido se ha eliminado correctamente' }
-      format.json { head :no_content }
-    end
+      if !@pedido.remitos.any?
+        @pedido.destroy
+        respond_to do |format|
+          format.html { redirect_to pedidos_url, notice: 'El pedido se elimino correctamente' }
+          format.json { render :show, status: :ok, location: @pedido }
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to pedidos_url, alert: 'El pedido no puede ser eliminado ya que contiene remitos asociados.' }
+          format.json { render :show, status: :error, location: @pedido }
+        end
+      end
   end
 
 

@@ -1,0 +1,2 @@
+class FacturaItem < ApplicationRecord
+end

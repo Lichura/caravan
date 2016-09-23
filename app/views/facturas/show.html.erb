@@ -1,0 +1,70 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>factura</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Cuit:</dt>
+          <dd><%= @factura.cuit %></dd>
+
+          <dt>Fecha:</dt>
+          <dd><%= @factura.fecha %></dd>
+
+          <dt>Control:</dt>
+          <dd><%= @factura.control %></dd>
+
+          <dt>Vendedor:</dt>
+          <dd><%= @factura.vendedor %></dd>
+
+          <dt>Subtotal:</dt>
+          <dd><%= @factura.subtotal %></dd>
+
+          <dt>Bonificacion:</dt>
+          <dd><%= @factura.bonificacion %></dd>
+
+          <dt>Neto:</dt>
+          <dd><%= @factura.neto %></dd>
+
+          <dt>Iva:</dt>
+          <dd><%= @factura.iva %></dd>
+
+          <dt>Iibb:</dt>
+          <dd><%= @factura.iibb %></dd>
+
+          <dt>Total:</dt>
+          <dd><%= @factura.total %></dd>
+
+          <dt>Cae:</dt>
+          <dd><%= @factura.cae %></dd>
+
+          <dt>Vencimiento cae:</dt>
+          <dd><%= @factura.vencimiento_cae %></dd>
+
+          <dt>Pto venta:</dt>
+          <dd><%= @factura.pto_venta %></dd>
+
+          <dt>Numero:</dt>
+          <dd><%= @factura.numero %></dd>
+
+          <dt>Tipo:</dt>
+          <dd><%= @factura.tipo %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to edit_factura_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        facturas
+      <% end %>
+      <%= link_to factura_path(@factura), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_factura_path(@factura),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>
