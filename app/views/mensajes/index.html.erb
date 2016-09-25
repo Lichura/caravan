@@ -3,7 +3,7 @@
     <div class="panel-heading"><h3>Mensajes</h3><p id="notice"><%= notice %></p></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
           <%= form_tag(mensajes_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar mensajes", class: "form-control"%>

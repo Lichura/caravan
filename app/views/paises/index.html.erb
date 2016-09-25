@@ -5,7 +5,7 @@
     <p id="notice"><%= notice %></p>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
           <%= form_tag(paises_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar paises", class: "form-control"%>

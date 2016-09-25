@@ -1,5 +1,5 @@
 class IndexController < ApplicationController
-	skip_before_filter :require_login
+	skip_before_action :require_login
 	def index
 		@mensaje = Mensaje.new
 	end

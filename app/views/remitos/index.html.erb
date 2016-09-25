@@ -1,30 +1,28 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>remitos</h3></div>
+    <div class="panel-heading remitos"><h3>Remitos</h3></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
+          <%= form_tag(remitos_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
-              <input type="text" class="form-control">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar remitos", class: "form-control"%>
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Buscar</button>
+              <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
+            <% end %>
           </div>
         </div>
-        <div class="row" style="height: 100px;"></div>
-          <div class="table-responsive">
-            <table class="table table-hover">
-                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+      <div class="row" style="height: 100px;"></div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+                <thead class="remitos">
                   <tr>
-                                            <th>Pedido</th>
-                        <th>Numero</th>
+                        <th>Pedido</th>
+                        <th>Razon Social</th>
                         <th>Fecha</th>
-                        <th>Transporte</th>
-                        <th>Ivatotal</th>
-                        <th>Total</th>
-                        <th>Cantidadtotal</th>
+                        <th>Cantidad total</th>
 
                     <th>Mostrar</th>
                     <th>Editar</th>
@@ -35,12 +33,9 @@
 
                 <tbody>
                   <% @remitos.each do |remito| %>
-                                            <td><%= remito.pedido_id %></td>
                                             <td><%= remito.numero %></td>
-                                            <td><%= remito.fecha %></td>
-                                            <td><%= remito.transporte %></td>
-                                            <td><%= remito.ivaTotal %></td>
-                                            <td><%= remito.total %></td>
+                                            <td><%= User.find_by(cuit: remito.pedido.cuit).razonSocial %></td>
+                                            <td><%= remito.fecha.to_formatted_s(:day_month_and_year) %></td>
                                             <td><%= remito.cantidadTotal %></td>
                                       <td>
                     <%= link_to remito_path(remito) do %>
@@ -64,7 +59,7 @@
           </div>
           <%= will_paginate @remitos, renderer: BootstrapPagination::Rails %>
           <button type="button" class="btn btn-primary pull-right">
-            <%= link_to 'Nueva remito', new_remito_path %>
+            <%= link_to 'Nuevo remito', new_remito_path %>
           </button>
         </div>
       </div>

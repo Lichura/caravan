@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922130421) do
+ActiveRecord::Schema.define(version: 20160923103947) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -39,6 +39,39 @@ ActiveRecord::Schema.define(version: 20160922130421) do
     t.string   "rango_desde"
     t.string   "rango_hasta"
     t.integer  "pendiente_remitir"
+  end
+
+  create_table "factura_items", force: :cascade do |t|
+    t.integer  "factura_id"
+    t.integer  "producto_id"
+    t.integer  "cantidad"
+    t.float    "precio"
+    t.float    "neto"
+    t.float    "iva"
+    t.float    "subtotal"
+    t.integer  "descuento"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "facturas", force: :cascade do |t|
+    t.integer  "cuit"
+    t.datetime "fecha"
+    t.string   "control"
+    t.string   "vendedor"
+    t.float    "subtotal"
+    t.float    "bonificacion"
+    t.float    "neto"
+    t.float    "iva"
+    t.float    "iibb"
+    t.float    "total"
+    t.string   "cae"
+    t.string   "vencimiento_cae"
+    t.integer  "pto_venta"
+    t.integer  "numero"
+    t.string   "tipo"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "familia", force: :cascade do |t|

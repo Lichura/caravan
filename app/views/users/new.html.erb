@@ -1,7 +1,7 @@
 <%= form_for @user do |f| %>
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading">
+    <div class="panel-heading usuarios">
       <h3>Nuevo Cliente</h3>
       <% if @user.errors.any? %>
         <div class="error_messages">
@@ -21,7 +21,7 @@
       <br>
       <div id="accordion" role="tablist" aria-multiselectable="true">
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="afipcollapse">
+          <div class="panel-heading usuarios" role="tab" id="afipcollapse">
             <h3 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#afipCollapse" aria-expanded="true" aria-controls="afipCollapse">Datos AFIP</a>
             </h3>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="senasa">
+          <div class="panel-heading usuarios" role="tab" id="senasa">
             <h3 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#senasaCollapse" aria-expanded="true" aria-controls="senasaCollapse">Datos SENASA</a>
             </h3>
@@ -71,7 +71,7 @@
           </div>
          </div>
         <div class="panel panel-default">
-          <div class="panel-heading" role="tab" id="cliente">
+          <div class="panel-heading usuarios" role="tab" id="cliente">
             <h3 class="panel-title">
               <a data-toggle="collapse" data-parent="#accordion" href="#clienteCollapse" aria-expanded="true" aria-controls="clienteCollapse">Datos Cliente</a>
             </h3>

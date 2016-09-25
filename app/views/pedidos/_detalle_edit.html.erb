@@ -7,4 +7,54 @@
 	<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "form-control" %></td>
 	<% end %>
 	<%= f.hidden_field :producto_id %>
+	<%= f.hidden_field :precio, class: "precio"%>
+	<td data-title="Subtotal" style="display:none"><div class="subtotal" style="widht: 40px" value=0></div></td>
 </tr>
+
+<script>
+$('document').ready(function(){
+
+	 $('.subtotal').change(function() {
+    	UpdateTotal();
+    });
+
+	$('.cantidad').on('change', function() {
+        UpdateSubTotal(this);
+    });
+
+
+
+
+function UpdateSubTotal(elem) {
+    // This will give the tr of the Element Which was changed
+    var $container = $(elem).parent().parent();
+    var quantity = $container.find('.cantidad').val();
+    var price = $container.find('.precio').val();
+    var subtotal = parseInt(quantity) * parseFloat(price);
+    $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+}
+
+
+ function UpdateTotal() {
+	var sum = 0;
+	var cantidad = 0;
+	$(".subtotal").each(function() {
+	    var val = $.trim( $(this).text() );
+	    if ( val ) {
+	        val = parseFloat( val.replace( /^\$/, "" ) );
+	        sum += !isNaN( val ) ? val : 0;
+	    }
+	});
+
+	$(".cantidad").each(function(){
+		var val = $.trim( $(this).val() );
+		cantidad += parseFloat(val);
+	});
+
+	$("input.total").val( sum );
+	$("input.cantidadTotal").val( cantidad );
+}
+
+	
+});
+</script>

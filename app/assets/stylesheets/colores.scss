@@ -1,1 +1,34 @@
-@color: #4D926F;
+	$pedidos: #3498db;
+	$remitos: #e67e22;
+	$usuarios: #1abc9c;
+
+
+	.panel-heading.pedidos {
+			color: white;
+			background-color: $pedidos;
+	}
+
+	.pedidos{
+		color: white;
+		background-color: $pedidos;
+	}
+
+	.panel-heading.usuarios {
+		color: white;
+		background-color: $usuarios;
+	}
+
+	.usuarios{
+		color: white;
+		background-color: $usuarios;
+	}
+
+	.panel-heading.remitos {
+			color: white;
+			background-color: $remitos;
+	}
+
+	.remitos{
+		color: white;
+		background-color: $remitos;
+	}

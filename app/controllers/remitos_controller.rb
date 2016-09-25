@@ -6,6 +6,12 @@ class RemitosController < ApplicationController
   # GET /remitos.json
   def index
     @remitos = Remito.paginate(:page => params[:page], :per_page => 10)
+    if params[:search]
+        @remitos = Remito.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @remitos = Remito.all.paginate(:page => params[:page], :per_page => 10)
+      end
+
   end
 
   # GET /remitos/1
