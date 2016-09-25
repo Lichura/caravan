@@ -25,6 +25,14 @@ class PedidosController < ApplicationController
       else
         @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
       end
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data generate_pedidos_report(@pedidos), filename: 'pedidos.pdf',
+                                                 type: 'application/pdf',
+                                                 disposition: 'attachment'
+      end
+    end
     authorize @pedidos
   end
 
@@ -200,4 +208,18 @@ class PedidosController < ApplicationController
         params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy])
     end
 
+
+
+    def generate_remitos_report(pedidos)
+      report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'pedidos', 'list.tlf')
+
+      pedidos.each do |pedido|
+        report.list.add_row do |row|
+          row.values no: pedido.id,
+                     name: pedido.cuit
+        end
+      end
+
+      report.generate
+    end
 end

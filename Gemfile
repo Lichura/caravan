@@ -27,7 +27,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 #gema para los reportes
-gem 'thinreports'
+gem 'thinreports-rails'
 #gema para uploadear fotos
 gem 'carrierwave'
 #gema para achicar la imagenes

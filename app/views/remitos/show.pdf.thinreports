@@ -1,0 +1,6 @@
+report.start_new_page do |page|
+  page.values task: @remito.id,
+              name: @remito.pedido.cuit,
+              created_at: @remito.created_at,
+              updated_at: @remito.updated_at
+end

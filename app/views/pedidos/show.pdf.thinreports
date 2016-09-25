@@ -1,0 +1,4 @@
+report.start_new_page do |page|
+  page.values id: @pedido.id,
+              cuit: @pedido.cuit
+end
