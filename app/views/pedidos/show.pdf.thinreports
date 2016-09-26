@@ -1,4 +1,9 @@
-report.start_new_page do |page|
-  page.values id: @pedido.id,
-              cuit: @pedido.cuit
-end
+	@pedido.detalles.each do |detalle|
+		report.list.add_row do |row|
+			row.item(:producto_id).value(detalle.producto_id)
+			row.item(:nombre).value(Producto.find(detalle.producto_id).nombre)
+			row.item(:precio).value(detalle.precio)
+			row.item(:cantidad).value(detalle.cantidad)
+		end
+	end
+

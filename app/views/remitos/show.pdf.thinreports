@@ -1,6 +1,16 @@
 report.start_new_page do |page|
-  page.values task: @remito.id,
-              name: @remito.pedido.cuit,
-              created_at: @remito.created_at,
-              updated_at: @remito.updated_at
+  page.values razonSocial: User.find(Pedido.find(@remito.pedido_id).user_id).razonSocial, 
+ 		 	  cuit: User.find(Pedido.find(@remito.pedido_id).user_id).cuit, 
+ 		 	  direccion: User.find(Pedido.find(@remito.pedido_id).user_id).direccion,
+              fecha: @remito.fecha, 
+              numero: @remito.numero,
+              cantidadTotal: @remito.cantidadTotal
 end
+
+	@remito.remito_items.each do |producto|
+		report.list.add_row do |row|
+			row.item(:producto_id).value(producto.producto_id)
+			row.item(:nombre).value(Producto.find(producto.producto_id).nombre)
+			row.item(:cantidad).value(producto.cantidad)
+		end
+	end
