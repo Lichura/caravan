@@ -1,0 +1,6 @@
+<tr>	<td data-title="Producto"><%= f.object.producto.nombre %><br>
+	<%= f.object.producto.descripcion %></td>
+	<td data-title="Cantidad"><%= f.text_field :cantidad, :value=> 0, class: "cantidad form-control" %></td>
+	<td data-title="Stock disponible"><%= f.object.producto.stock_disponible %></td>
+	<%= f.hidden_field :producto_id %>
+</tr>

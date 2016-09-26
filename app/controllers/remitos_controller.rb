@@ -30,8 +30,12 @@ class RemitosController < ApplicationController
   # GET /remitos/new
   def new
     @remito = Remito.new
-    @pedido = Pedido.find(params[:id])     
-    create_remitos
+    if params[:id]
+      @pedido = Pedido.find(params[:id])     
+      crear_remitos
+    else
+      crear_remitos_sin_pedido
+    end
   end
 
   # GET /remitos/1/edit
@@ -135,7 +139,7 @@ class RemitosController < ApplicationController
     @pedido.save
   end
 
-   def create_remitos
+   def crear_remitos
         @pedido.detalles.each do |obj|
           if !@remito.producto_ids.include?(obj.producto_id) && (obj.pendiente_remitir > 0)
             @remito.remito_items.build(:producto_id => obj.producto_id)
@@ -143,6 +147,13 @@ class RemitosController < ApplicationController
       end
     end
 
+    def crear_remitos_sin_pedido
+      Producto.all.each do |obj|
+        if !@remito.producto_ids.include?(obj.id)
+          @remito.remito_items.build(:producto_id => obj.id)
+        end
+    end
+  end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_remito
