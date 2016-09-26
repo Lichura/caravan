@@ -47,7 +47,7 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         Usuarios
       <% end %>
-      <%= link_to user_path(@user), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este usuario?' }, class: 'btn btn-danger pull-right', remote: true do %>
+      <%= link_to user_path(@user), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este usuario?' }, class: 'btn btn-danger pull-right'do %>
         <span class="glyphicon glyphicon-trash"></span>
         Eliminar
       <% end %>

@@ -141,7 +141,7 @@ end
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'Usuario was successfully updated.' }
+        format.html { redirect_to @user, notice: 'El usuario se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }

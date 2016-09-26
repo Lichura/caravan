@@ -11,12 +11,20 @@ class RemitosController < ApplicationController
       else
         @remitos = Remito.all.paginate(:page => params[:page], :per_page => 10)
       end
-
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data generate_pedidos_report(@remitos), filename: 'remitos.pdf',
+                                                 type: 'application/pdf',
+                                                 disposition: 'attachment'
+      end
+    end
   end
 
   # GET /remitos/1
   # GET /remitos/1.json
   def show
+
   end
 
   # GET /remitos/new
@@ -34,13 +42,12 @@ class RemitosController < ApplicationController
   # POST /remitos.json
   def create
     @remito = Remito.new(remito_params)
-    modificar_estado
-    modificar_stock
-
     respond_to do |format|
       if @remito.save
+        modificar_stock
         finalizado_por_ajuste
-        format.html { redirect_to @remito, notice: 'Remito was successfully created.' }
+        finalizar_pedido
+        format.html { redirect_to @remito, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
       else
         format.html { render :new }
@@ -54,8 +61,10 @@ class RemitosController < ApplicationController
   def update
     respond_to do |format|
       if @remito.update(remito_params)
+        modificar_stock
         finalizado_por_ajuste
-        format.html { redirect_to @remito, notice: 'Remito was successfully updated.' }
+        finalizar_pedido
+        format.html { redirect_to @remito, notice: 'El remito se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @remito }
       else
         format.html { render :edit }
@@ -67,14 +76,27 @@ class RemitosController < ApplicationController
   # DELETE /remitos/1
   # DELETE /remitos/1.json
   def destroy
+    modificar_stock_destruir
     @remito.destroy
     respond_to do |format|
-      format.html { redirect_to remitos_url, notice: 'Remito was successfully destroyed.' }
+      format.html { redirect_to remitos_url, notice: 'El remito se elimino correctamente' }
       format.json { head :no_content }
     end
   end
 
   private
+
+  def finalizar_pedido
+    @pedido = Pedido.find(@remito.pedido_id)
+    estado = "Remitido - Pendiente de facturar"
+      @pedido.detalles.each do |producto|
+        if producto.pendiente_remitir > 0
+          estado = "Remitido parcial"
+        end
+      end
+    @pedido.estado = estado
+    @pedido.save
+  end
 
   def finalizado_por_ajuste
     if @remito.finalizado
@@ -93,8 +115,20 @@ class RemitosController < ApplicationController
     @pedido = Pedido.find(@remito.pedido_id)
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
-        if producto.producto_id = item.producto_id
+        if producto.producto_id == item.producto_id
           producto.pendiente_remitir -= item.cantidad
+        end
+      end
+    end
+    @pedido.save
+  end
+
+  def modificar_stock_destruir
+    @pedido = Pedido.find(@remito.pedido_id)
+    @pedido.detalles.each do |producto|
+      @remito.remito_items.each do |item|
+        if producto.producto_id == item.producto_id
+          producto.pendiente_remitir += item.cantidad
         end
       end
     end
@@ -103,7 +137,7 @@ class RemitosController < ApplicationController
 
    def create_remitos
         @pedido.detalles.each do |obj|
-          if !@remito.producto_ids.include?(obj.producto_id)
+          if !@remito.producto_ids.include?(obj.producto_id) && (obj.pendiente_remitir > 0)
             @remito.remito_items.build(:producto_id => obj.producto_id)
           end
       end

@@ -40,7 +40,7 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         remitos
       <% end %>
-      <%= link_to remito_path(@remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+      <%= link_to remito_path(@remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right' do %>
         <span class="glyphicon glyphicon-trash"></span>
         Eliminar
       <% end %>
@@ -48,5 +48,7 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>
+      <%= link_to "PDF", remito_path(@remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
+
