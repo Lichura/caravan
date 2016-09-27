@@ -39,7 +39,7 @@
               <% if pedido.estado == "Pendiente de remitir" or pedido.estado == "Remitido parcial" %>
                 <span class="glyphicon glyphicon-check"><%= link_to "Remito", {controller:"remitos", action:"new", id: pedido} %></span>
               <% else %>
-                <span class="glyphicon glyphicon-check"><%= link_to "show", mostrar_remitos_path(:pedido => pedido.id) %></span>
+                <span class="glyphicon glyphicon-check"><%= link_to "show", mostrar_remitos_path(:pedido => pedido.id), method: "post" %></span>
               <% end %>
           </td>
           <td>

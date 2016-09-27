@@ -26,6 +26,9 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+#gema para graficos
+gem "chartkick"
+gem 'groupdate'
 #gema para los reportes
 gem 'thinreports-rails'
 #gema para uploadear fotos

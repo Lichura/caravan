@@ -17,6 +17,9 @@
           <dt>Transporte:</dt>
           <dd><%= @remito.transporte %></dd>
 
+          <dt>Dni Retira:</dt>
+          <dd><%= @remito.dniRetira %></dd>
+
           <% @remito.remito_items.each do |item| %>
             <%= item.producto_id %>
             <%= item.cantidad %>

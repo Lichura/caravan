@@ -1,6 +1,6 @@
 class RemitosController < ApplicationController
-  before_action :set_remito, only: [:show, :show_all, :edit, :update, :destroy]
-
+  before_action :set_remito, only: [:show, :edit, :update, :destroy]
+  before_action :set_transporte
 
   # GET /remitos
   # GET /remitos.json
@@ -29,19 +29,14 @@ class RemitosController < ApplicationController
   #esto es para la llamada desde un pedido, que muestre todos los remitos asociados
   def show_all
     @pedido = Pedido.find(params[:pedido])
-    @remitos = @pedido.remitos.all
+    respond_to do |format|
+      format.html {render "show_all"}
+    end
   end
 
   # GET /remitos/new
   def new
     @remito = Remito.new
-    @remito.increment!(:numero)
-    @transporte = ["Retira Cliente", "Retira distribuidor", "Envío por correo", "Envío por transporte", "Otros"]
-    @transporte_fields = {"Retira Cliente" => [:empresa, :dniRetira, :telefono],
-                          "Retira distribuidor" => [:empresa, :dniRetira, :telefono],
-                          "Envío por correo" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
-                          "Envío por transporte" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
-                          "Otros" => [:comentarios]}
     if params[:id]
       @pedido = Pedido.find(params[:id])     
       crear_remitos
@@ -107,6 +102,14 @@ class RemitosController < ApplicationController
   end
 
   private
+  def set_transporte
+  @transporte = ["Retira Cliente", "Retira distribuidor", "Envío por correo", "Envío por transporte", "Otros"]
+  @transporte_fields = {"Retira Cliente" => [:empresa, :dniRetira, :telefono],
+                          "Retira distribuidor" => [:empresa, :dniRetira, :telefono],
+                          "Envío por correo" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
+                          "Envío por transporte" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
+                          "Otros" => [:comentarios]}
+  end
 
   def finalizar_pedido
     @pedido = Pedido.find(@remito.pedido_id)

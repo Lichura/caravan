@@ -6,10 +6,15 @@ class Pedido < ApplicationRecord
 	accepts_nested_attributes_for :detalles,  allow_destroy: true
 
 
-    before_validation :marcar_productos_para_destruir
-
+  before_validation :marcar_productos_para_destruir
+  after_initialize :aumentar_numerador
 
   private
+
+
+  def aumentar_numerador
+    self.comprobanteNumero = Pedido.maximum(:comprobanteNumero).next || 1
+  end
   def marcar_productos_para_destruir
     detalles.each do |producto|
       if producto.cantidad.blank? or (producto.cantidad == 0)

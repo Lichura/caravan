@@ -47,14 +47,6 @@ class PedidosController < ApplicationController
     @pedido = Pedido.new
     authorize @pedido
     create_pedidos
-    if Pedido.last.present?
-      @numeroDePedido = (Pedido.last.id + 1) #si existe algun numero de pedido, utilizo el ultimo y le sumo 1
-    else
-      @numeroDePedido = 1 #sino existe, empiezo el numerador por 1
-    end
-    #@productos = Producto.all
-    #@detalles = @pedido.detalles.build
-    #@productos = @detalles.build_producto
     @usuarios = User.all
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
     if params[:cliente_id]

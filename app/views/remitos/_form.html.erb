@@ -118,8 +118,10 @@
 
 <script>
 $('document').ready(function(){
+  UpdateTotal();
     $('.cantidad').on('change', function() {
           UpdateTotal(this);
+          ValidarCantidad(this);
       });
    function UpdateTotal() {
     var cantidad = 0;
@@ -128,6 +130,16 @@ $('document').ready(function(){
       cantidad += parseFloat(val);
     });
     $("input.cantidadTotal").val( cantidad );
+  }
+
+  function ValidarCantidad(elem){
+    var $container = $(elem).parent().parent();
+    var cantidad = $container.find('.cantidad').val();
+    var pendiente = $container.find('.pendiente').text();
+    if (parseFloat(cantidad) > parseFloat(pendiente)){
+      $(elem).addClass("cantidad_no_permitida");
+      alert("La cantidad a remitir supera la cantidad pedida.")
+  }
   }
 });
 $(function() {

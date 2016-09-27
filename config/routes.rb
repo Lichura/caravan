@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :mensajes
 
   get 'menu' => "menu#index", :as => "menu"
-  get 'remitos/show_all' => "remitos#show_all", :as => "mostrar_remitos"
+  post 'remitos/show_all' => "remitos#show_all", :as => "mostrar_remitos"
   get 'users/new_pedido' => "users#new_pedido", :as=> "nuevo_usuario_pedido"
   get 'password_resets/new'
   get 'password_resets/show'

@@ -1,4 +1,5 @@
-<% @remitos.each do |remito| %>
+
+<% @pedido.remitos.each do |remito| %>
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
@@ -36,9 +37,9 @@
         </div>
       </div>
     </div>
-      <%= link_to edit_remito_path, class: 'btn btn-default pull-right' do %>
+      <%= link_to pedidos_path, class: 'btn btn-default pull-right' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
-        remitos
+        pedidos
       <% end %>
       <%= link_to remito_path(remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right' do %>
         <span class="glyphicon glyphicon-trash"></span>

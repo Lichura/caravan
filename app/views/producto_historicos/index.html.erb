@@ -31,3 +31,11 @@
 <br>
 
 <%= link_to 'New Producto Historico', new_producto_historico_path %>
+
+
+
+
+<%= line_chart @producto_historicos.map{|goal|
+    {name: goal.producto_id, data: goal.precio}
+} %>
+

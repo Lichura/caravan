@@ -1,4 +1,6 @@
+
 <%= form_for @remito do |f| %>
+<% if @transporte_elegido %>
   <% @transporte_elegido.each do |key| %>
   <div class="form-group">
     <%= f.label key , class: "col-sm-2 control-label"%>
@@ -6,5 +8,6 @@
     	<%= f.text_field key , class: "form-control"%> 
     </div>
   </div>
+<% end %>
 <% end %>
 <% end %>
