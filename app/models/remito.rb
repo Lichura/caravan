@@ -4,7 +4,10 @@ class Remito < ApplicationRecord
 	belongs_to :pedido
 	has_many :facturas
 
+
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
+
+	private
 
 	def self.search(remito)
 		usuario = "" || User.where("CUIT LIKE ? OR razonSocial LIKE ?", "%#{remito}%", "%#{remito}%").first.id 

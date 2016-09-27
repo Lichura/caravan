@@ -1,5 +1,5 @@
 class RemitosController < ApplicationController
-  before_action :set_remito, only: [:show, :edit, :update, :destroy]
+  before_action :set_remito, only: [:show, :show_all, :edit, :update, :destroy]
 
 
   # GET /remitos
@@ -24,12 +24,18 @@ class RemitosController < ApplicationController
   # GET /remitos/1
   # GET /remitos/1.json
   def show
+  end
 
+  #esto es para la llamada desde un pedido, que muestre todos los remitos asociados
+  def show_all
+    @pedido = Pedido.find(params[:pedido])
+    @remitos = @pedido.remitos.all
   end
 
   # GET /remitos/new
   def new
     @remito = Remito.new
+    @remito.increment!(:numero)
     @transporte = ["Retira Cliente", "Retira distribuidor", "Envío por correo", "Envío por transporte", "Otros"]
     @transporte_fields = {"Retira Cliente" => [:empresa, :dniRetira, :telefono],
                           "Retira distribuidor" => [:empresa, :dniRetira, :telefono],

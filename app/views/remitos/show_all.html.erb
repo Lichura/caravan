@@ -1,0 +1,54 @@
+<% @remitos.each do |remito| %>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading remitos"><h2>remito</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Pedido:</dt>
+          <dd><%= remito.pedido_id %></dd>
+
+          <dt>Numero:</dt>
+          <dd><%= remito.numero %></dd>
+
+          <dt>Fecha:</dt>
+          <dd><%= remito.fecha %></dd>
+
+          <dt>Transporte:</dt>
+          <dd><%= remito.transporte %></dd>
+
+          <% remito.remito_items.each do |item| %>
+            <%= item.producto_id %>
+            <%= item.cantidad %>
+            <%= item.precio %>
+          <% end %>
+
+          <dt>Ivatotal:</dt>
+          <dd><%= remito.ivaTotal %></dd>
+
+          <dt>Total:</dt>
+          <dd><%= remito.total %></dd>
+
+          <dt>Cantidadtotal:</dt>
+          <dd><%= remito.cantidadTotal %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to edit_remito_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        remitos
+      <% end %>
+      <%= link_to remito_path(remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right' do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_remito_path(remito),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
+  </div>
+</div>
+<% end %>

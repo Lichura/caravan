@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160926211145) do
+ActiveRecord::Schema.define(version: 20160927131113) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(version: 20160926211145) do
 
   create_table "remitos", force: :cascade do |t|
     t.integer  "pedido_id"
-    t.string   "numero"
+    t.integer  "numero"
     t.datetime "fecha"
     t.string   "transporte"
     t.float    "ivaTotal"
