@@ -30,11 +30,23 @@ class RemitosController < ApplicationController
   # GET /remitos/new
   def new
     @remito = Remito.new
+    @transporte = ["Retira Cliente", "Retira distribuidor", "Envío por correo", "Envío por transporte", "Otros"]
+    @transporte_fields = {"Retira Cliente" => [:empresa, :dniRetira, :telefono],
+                          "Retira distribuidor" => [:empresa, :dniRetira, :telefono],
+                          "Envío por correo" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
+                          "Envío por transporte" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
+                          "Otros" => [:comentarios]}
     if params[:id]
       @pedido = Pedido.find(params[:id])     
       crear_remitos
     else
       crear_remitos_sin_pedido
+    end
+    if params[:transporte]
+     @transporte_elegido = @transporte_fields[params[:transporte]]  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente
+      respond_to do |format|
+       format.js {render "get_transporte"}
+      end
     end
   end
 
@@ -163,6 +175,6 @@ class RemitosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def remito_params
-      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :finalizado, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
+      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :finalizado, :empresa, :dniRetira, :telefono, :numeroGuia, :destino, :retira, :comentarios, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
     end
 end

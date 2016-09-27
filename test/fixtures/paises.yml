@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  nombre: MyString
-  abreviacion: MyString
+  nombre: Argentina
+  abreviacion: AR
 
 two:
-  nombre: MyString
-  abreviacion: MyString
+  nombre: España
+  abreviacion: ES
