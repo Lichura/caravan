@@ -6,8 +6,15 @@ class ProductoHistoricosController < ApplicationController
   def index
     @producto_historicos = ProductoHistorico.all
     @historico = ProductoHistorico.group(:producto_id).count 
-    @productos = Producto.all
+    @productos = ProductoHistorico.hashify
+
+    @prueba = {}
+    @producto_historicos.each do |producto|
+      @prueba.merge!(:name => producto.producto_id, :data => {producto.created_at => producto.precio})
+    end
+
   end
+
 
   def evolucion_precios
     result = ProductoHistoricos.group_by(&:created_at).count
