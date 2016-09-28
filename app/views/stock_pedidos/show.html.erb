@@ -18,11 +18,11 @@
         </div>
       </div>
     </div>
-      <%= link_to edit_stock_pedido_path, class: 'btn btn-default pull-right' do %>
+      <%= link_to stock_pedidos_path, class: 'btn btn-default pull-right' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
-        stock_pedidos
+        Stock
       <% end %>
-      <%= link_to stock_pedido_path(@stock_pedido), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+      <%= link_to stock_pedido_path(@stock_pedido), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right' do %>
         <span class="glyphicon glyphicon-trash"></span>
         Eliminar
       <% end %>

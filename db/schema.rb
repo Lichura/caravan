@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160927131113) do
+ActiveRecord::Schema.define(version: 20160928121213) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20160927131113) do
     t.datetime "updated_at",      null: false
   end
 
+  create_table "facturas_remitos", id: false, force: :cascade do |t|
+    t.integer "remito_id",  null: false
+    t.integer "factura_id", null: false
+    t.index ["factura_id", "remito_id"], name: "index_facturas_remitos_on_factura_id_and_remito_id"
+    t.index ["remito_id", "factura_id"], name: "index_facturas_remitos_on_remito_id_and_factura_id"
+  end
+
   create_table "familia", force: :cascade do |t|
     t.string   "nombre"
     t.string   "descripcion"
@@ -98,32 +105,6 @@ ActiveRecord::Schema.define(version: 20160927131113) do
     t.string   "texto"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "models", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_models_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_models_on_reset_password_token", unique: true
-  end
-
-  create_table "monedas", force: :cascade do |t|
-    t.string   "nombre"
-    t.string   "descripcion"
-    t.string   "simbolo"
-    t.float    "tipoDeCambio"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "numeradors", force: :cascade do |t|
@@ -295,11 +276,11 @@ ActiveRecord::Schema.define(version: 20160927131113) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                            default: "", null: false
+    t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "auth_token"
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
@@ -321,17 +302,6 @@ ActiveRecord::Schema.define(version: 20160927131113) do
     t.integer  "condicion_id"
     t.integer  "distribuidor_id"
     t.integer  "role"
-    t.string   "encrypted_password",               default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                    default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

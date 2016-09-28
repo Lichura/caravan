@@ -54,6 +54,13 @@ Rails.application.routes.draw do
   resources :relacions
   resources :password_resets
   resources :sessions
+
+
+  resources :charts, only: [] do
+  collection do
+    get 'evolucion_precios'
+  end
+end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 

@@ -18,7 +18,7 @@ module StatisticsHelper
 
 
   def historico_por_anio
-  line_chart @producto_historicos.group(:precio).count, library: {
+  line_chart @producto_historicos.group(&:producto_id), library: {
       title: {text: 'Precios por anio', x: -20},
       yAxis: {
           crosshair: true,
@@ -35,19 +35,24 @@ module StatisticsHelper
   }
 
 
-  def results_by_country
-  result = ProductoHistorico.all.map do |c|
-    places = {}
-    (1..6).each do |place|
-      places[place] = c.producto_historicos.joins(:producto_id).
-          where("competition_results.place = #{place}").count
-    end
-    {
-        name: c.name,
-        data: places
-    }
-  end
-  render json: result
+def evolucion_precios
+  line_chart evolucion_precios_path, library: {
+      title: {text: 'Competitions by year', x: -20},
+      yAxis: {
+          crosshair: true,
+          title: {
+              text: 'Competitions count'
+          }
+      },
+      xAxis: {
+          crosshair: true,
+          title: {
+              text: 'Year'
+          }
+      }
+  }
 end
+
 end
+
 end

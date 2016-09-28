@@ -35,7 +35,6 @@
 
 
 
-<%= line_chart @producto_historicos.map{|goal|
-    {name: goal.producto_id, data: goal.precio}
-} %>
+<%= column_chart @historico %>
+<%= evolucion_precios_charts_url %>
 

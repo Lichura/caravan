@@ -2,7 +2,7 @@ class Remito < ApplicationRecord
 	has_many :remito_items
 	has_many :productos, :through => :remito_items
 	belongs_to :pedido
-	has_many :facturas
+	has_and_belongs_to_many :facturas, optional: true
 
 	after_initialize :aumentar_numerador
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true

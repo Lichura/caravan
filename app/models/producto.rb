@@ -8,7 +8,7 @@ class Producto < ApplicationRecord
   has_many :factura_items
   mount_uploader :imagen, ImagenUploader
 
-  before_save :agregar_a_historico
+  after_update :agregar_a_historico
 
   private
   def self.search(producto)
@@ -16,7 +16,8 @@ class Producto < ApplicationRecord
 	end
 
   def agregar_a_historico
-
-    @historico = ProductoHistorico.create!([{producto_id: self.id, precio: self.precio, fechaDesde: self.updated_at, fechaHasta: DateTime.now}])
+    if self.precio_changed?
+      @historico = ProductoHistorico.create!([{producto_id: self.id, precio: self.precio, fechaDesde: self.updated_at, fechaHasta: DateTime.now}])
+    end
   end
 end

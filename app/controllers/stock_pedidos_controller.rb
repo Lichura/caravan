@@ -15,7 +15,7 @@ class StockPedidosController < ApplicationController
   # GET /stock_pedidos/new
   def new
     @stock_pedido = StockPedido.new
-    create_pedidos
+    crear_pedidos
   end
 
   # GET /stock_pedidos/1/edit
@@ -26,15 +26,9 @@ class StockPedidosController < ApplicationController
   # POST /stock_pedidos.json
   def create
     @stock_pedido = StockPedido.new(stock_pedido_params)
-    #Se debe iterar por cada producto y adicionar el total al stock.
     respond_to do |format|
       if @stock_pedido.save
-        params[:stock_pedido][:stock_items_attributes].each do |producto, params|
-          @producto = Producto.find(params[:producto_id])
-          @producto.stock_pedido += params[:cantidad].to_i
-          @producto.save
-        end
-        format.html { redirect_to @stock_pedido, notice: 'Stock pedido was successfully created.' }
+        format.html { redirect_to @stock_pedido, notice: 'El pedido de stock se creo correctamente' }
         format.json { render :show, status: :created, location: @stock_pedido }
       else
         format.html { render :new }
@@ -46,23 +40,9 @@ class StockPedidosController < ApplicationController
   # PATCH/PUT /stock_pedidos/1
   # PATCH/PUT /stock_pedidos/1.json
   def update
-    @stock_pedido.stock_items.each do |producto|
-       @producto = Producto.find(producto.producto_id)
-       @producto.stock_pedido -= producto.cantidad
-       @producto.save
-    end
     respond_to do |format|
-      if @stock_pedido.update(stock_pedido_params)
-       params[:stock_pedido][:stock_items_attributes].each do |producto, params|
-          @producto = Producto.find(params[:producto_id])
-           if params[:recibido]
-             @producto.stock_disponible += params[:cantidad].to_i
-           else
-              @producto.stock_pedido += params[:cantidad].to_i
-           end
-          @producto.save
-        end
-        format.html { redirect_to @stock_pedido, notice: 'Stock pedido was successfully updated.' }
+        if @stock_pedido.update(stock_pedido_params)
+        format.html { redirect_to @stock_pedido, notice: 'El pedido de stock se modifico correctamente.' }
         format.json { render :show, status: :ok, location: @stock_pedido }
       else
         format.html { render :edit }
@@ -74,20 +54,15 @@ class StockPedidosController < ApplicationController
   # DELETE /stock_pedidos/1
   # DELETE /stock_pedidos/1.json
   def destroy
-    @stock_pedido.stock_items.each do |producto|
-       @producto = Producto.find(producto.producto_id)
-       @producto.stock_pedido -= producto.cantidad
-       @producto.save
-    end
     @stock_pedido.destroy
     respond_to do |format|
-      format.html { redirect_to stock_pedidos_url, notice: 'Stock pedido was successfully destroyed.' }
+      format.html { redirect_to stock_pedidos_url, notice: 'El pedido de stock se elimino correctamente.' }
       format.json { head :no_content }
     end
   end
 
   private
-      def create_pedidos
+      def crear_pedidos
         Producto.all.each do |obj|
           if !@stock_pedido.producto_ids.include?(obj.id)
             @stock_pedido.stock_items.build(:producto_id => obj.id)

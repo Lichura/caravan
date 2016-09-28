@@ -5,6 +5,13 @@ class ProductoHistoricosController < ApplicationController
   # GET /producto_historicos.json
   def index
     @producto_historicos = ProductoHistorico.all
+    @historico = ProductoHistorico.group(:producto_id).count 
+    @productos = Producto.all
+  end
+
+  def evolucion_precios
+    result = ProductoHistoricos.group_by(&:created_at).count
+    render json: [{name: 'Count', data: result}]
   end
 
   # GET /producto_historicos/1
