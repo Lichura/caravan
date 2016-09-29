@@ -6,12 +6,19 @@ class ProductoHistoricosController < ApplicationController
   def index
     @producto_historicos = ProductoHistorico.all
     @historico = ProductoHistorico.group(:producto_id).count 
-    @productos = ProductoHistorico.hashify
 
-    @prueba = {}
-    @producto_historicos.each do |producto|
-      @prueba.merge!(:name => producto.producto_id, :data => {producto.created_at => producto.precio})
+    @final = []
+    Producto.all.each do |producto|
+      @prueba = {:name => producto.nombre, :data => {}}
+      @producto_historicos.each do |historico|
+        if historico.producto_id == producto.id
+          @linea = {:name => producto.nombre, data: {historico.created_at => historico.precio}}
+          @prueba.deep_merge!(@linea)
+        end
+      end
+    @final << @prueba
     end
+
 
   end
 
