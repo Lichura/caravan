@@ -112,18 +112,9 @@ end
   def create
   	@user = User.new(user_params)
     @user.condicion_id = 1
-    if current_user.present?
-      if current_user.profile_id == 1
-        @user.profile_id = 2
-      else
-        @user.profile_id = 3
-      end
-    end
-    if @user.password.blank?
-      randomstring = SecureRandom.hex(5)
-      @user.password = randomstring
-      @user.password_confirmation = randomstring
-    end
+    randomstring = SecureRandom.hex(5)
+    @user.password = randomstring
+    @user.password_confirmation = randomstring
   	if @user.save
       @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
       @distribuidor.save
@@ -170,7 +161,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
+			params.require(:user).permit( :email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
 		end
 
 end

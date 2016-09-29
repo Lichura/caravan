@@ -1,0 +1,11 @@
+<tr>	
+	<td data-title="Producto"><%= f.object.producto.nombre %><br>
+	<%= f.object.producto.descripcion %></td>
+	<td data-title="Cantidad"><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
+	<td data-title="Precio"><%= f.text_field :precio, :value => 0 , class: "form-control" %></td>
+	<td data-title="IVA"><%= f.text_field :iva, :value => 0, class: "form-control" %></td>
+	<td data-title="Neto"><%= f.text_field :neto, :value => 0, class: "form-control" %></td>
+	<td data-title="descuento"><%= f.text_field :neto, :value => 0, class: "form-control" %></td>
+	<td data-title="Subtotal"><%= f.text_field :subtotal, :value => 0, class: "form-control" %></td>
+	<%= f.hidden_field :producto_id %>
+</tr>

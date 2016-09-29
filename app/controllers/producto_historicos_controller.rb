@@ -6,8 +6,10 @@ class ProductoHistoricosController < ApplicationController
   def index
     @producto_historicos = ProductoHistorico.all
     @historico = ProductoHistorico.group(:producto_id).count 
+    @pedidos = Pedido.all
+    @historico = []
+    @ventas = []
 
-    @final = []
     Producto.all.each do |producto|
       @prueba = {:name => producto.nombre, :data => {}}
       @producto_historicos.each do |historico|
@@ -16,7 +18,7 @@ class ProductoHistoricosController < ApplicationController
           @prueba.deep_merge!(@linea)
         end
       end
-    @final << @prueba
+    @historico << @prueba
     end
 
 

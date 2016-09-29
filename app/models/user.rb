@@ -24,8 +24,8 @@ class User < ApplicationRecord
 	validates_presence_of :email
 	validates_uniqueness_of :email
 	#validates :condicionPago, presence: false
-	validates :password, :presence     => false
-	validates :password_confirmation, :presence     => false
+	#validates :password, :presence     => false
+	#validates :password_confirmation, :presence     => false
 	validates :cuit, presence: true, uniqueness: true
 	validates :cuig, presence: true, uniqueness: true
 	validates :numeroCv, presence: true, uniqueness: true
@@ -55,9 +55,6 @@ class User < ApplicationRecord
 		if self.profile_id == 2
 
 		end
-	end
-	def set_defaults
-		self.profile_id = Profile.first[:id]
 	end
 	def self.search(usuario)
 		where("CUIT LIKE ? OR razonSocial LIKE ? OR email LIKE ?", "%#{usuario}%", "%#{usuario}%", "%#{usuario}%")

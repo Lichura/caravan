@@ -4,7 +4,7 @@ class FacturasController < ApplicationController
   # GET /facturas
   # GET /facturas.json
   def index
-    @facturas = Factura.all
+    @facturas = Factura.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /facturas/1
@@ -15,6 +15,7 @@ class FacturasController < ApplicationController
   # GET /facturas/new
   def new
     @factura = Factura.new
+    crear_factura_sin_remito
   end
 
   # GET /facturas/1/edit
@@ -62,6 +63,13 @@ class FacturasController < ApplicationController
   end
 
   private
+    def crear_factura_sin_remito
+      Producto.all.each do |obj|
+        if !@factura.producto_ids.include?(obj.id)
+          @factura.factura_items.build(:producto_id => obj.id)
+        end
+      end
+   end
     # Use callbacks to share common setup or constraints between actions.
     def set_factura
       @factura = Factura.find(params[:id])
