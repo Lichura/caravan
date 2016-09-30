@@ -116,8 +116,13 @@ end
     @user.password = randomstring
     @user.password_confirmation = randomstring
   	if @user.save
-      @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
-      @distribuidor.save
+      if params[:distribuidor_id]
+        @distribuidor = current_user.relacions.build(:user_id => @distribuidor_id, :cliente_id => @user.id )
+        @distribuidor.save
+      else
+        @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
+        @distribuidor.save
+      end
       if @user.profile_id == 2
         UserMailer.envio_de_password(@user, @user.password).deliver_later
       end

@@ -23,7 +23,13 @@
       <div class="form-group row">
         <label class="col-sm-2 col-form-label">Seleccionar perfil</label>
         <div class="col-sm-10">
-             <%= f.select(:profile_id, Profile.all.collect {|u| [u.nombre, u.id]}, :prompt => 'Seleccione el tipo de usuario', :class => "form-control") %>
+            <%= f.collection_select(:profile_id, Profile.all, :id, :nombre,  {include_blank: true}, {:class => "form-control"}) %>
+        </div>
+        <div id="seleccionar_distribuidor">
+          <label class="col-sm-2 col-form-label">Seleccione distribuidor</label>
+          <div class="col-sm-10">
+             <%= f.collection_select(:distribuidor_id, User.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
+          </div>
         </div>
       </div>
       <% end %>
@@ -116,5 +122,17 @@ $(document).ready(function(){
   $('#user_renspa').mask('00.000.0.00000/00');
   $('#user_numeroCv').mask('000');
   $('#user_cuig').mask('SS000');
+
+  $('#seleccionar_distribuidor').hide();
+
+  $('#user_profile_id').change(function(){
+    if ($('#user_profile_id').val() == 3 ){
+      $('#seleccionar_distribuidor').show();
+      $('#seleccionar_distribuidor').combobox();
+    } else {
+      $('#seleccionar_distribuidor').hide();
+    }
+  });
+
 });
 </script>
