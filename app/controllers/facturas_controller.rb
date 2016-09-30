@@ -1,6 +1,5 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
-
   # GET /facturas
   # GET /facturas.json
   def index
@@ -15,6 +14,7 @@ class FacturasController < ApplicationController
   # GET /facturas/new
   def new
     @factura = Factura.new
+    @remitos = Remito.all
     crear_factura_sin_remito
   end
 
@@ -74,6 +74,8 @@ class FacturasController < ApplicationController
     def set_factura
       @factura = Factura.find(params[:id])
     end
+
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def factura_params

@@ -1,0 +1,21 @@
+<script>
+$('document').ready(function(){
+	$('.cantidad').on('change', function(){
+		UpdateSubTotal(this);
+	});
+
+
+	function UpdateSubTotal(elem) {
+	    // This will give the tr of the Element Which was changed
+	    var $container = $(elem).parent().parent();
+	    var cantidad = $container.find('.cantidad').val();
+	    var precio = $container.find('.precio').val();
+	    var subtotal = parseInt(cantidad) * parseFloat(precio);
+	    var neto = parseInt(subtotal) / (1,21);
+	    var iva = subtotal - neto;
+	    $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+	    $container.find('.iva').text(iva.toFixed(2)).trigger('change');
+	    $container.find('.neto').text(neto.toFixed(2)).trigger('change');
+	}
+});
+</script>

@@ -13,6 +13,20 @@
   <% end %>
 
 
+
+
+  <!-- pasar esto a un modal -->
+      <% @remitos.each do |remito| %>
+        <tr>
+          <td><%= remito.id %><%= check_box_tag "remitos[]", remito.id %></td>
+        </tr>
+      <% end %>
+
+
+
+  <!-- el modal iria hasta aqui -->
+
+
   <div class="form-group">
     <%= f.label :cuit, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -117,7 +131,7 @@
               <th>Precio</th>
               <th>IVA</th>
               <th>Neto</th>
-              <th>Descuento</th>
+              <th>Descuento en %</th>
               <th>Subtotal</th>
             </tr>
             </thead>
@@ -130,7 +144,11 @@
               <tr>
               <th>Producto</th>
               <th>Cantidad</th>
-              <th>Stock disponible</th>
+              <th>Precio</th>
+              <th>IVA</th>
+              <th>Neto</th>
+              <th>Descuento en %</th>
+              <th>Subtotal</th>
             </tr>
             </thead>
             <tbody>
