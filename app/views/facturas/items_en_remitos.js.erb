@@ -1,0 +1,4 @@
+
+$('#items').html("<%= j render('factura_items', :locals => { :factura => @factura, :remitos_seleccionados => @remitos_seleccionados  }) %>");
+$('#items').slideDown(350);
+$('#ocultar_detalle').hide();

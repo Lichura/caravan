@@ -38,22 +38,20 @@
                       <li><%= link_to "Acceso distribuidores", distribuidores_path %></li>
                     <% end %>
                   <% end %>
-                <% else %>                    
+                <% else %>
                   <% if current_user.profile_id == 1 %>
-                      <%= render "administradores" %>
+                    <%= render "layouts/administradores" %>
                   <% else %>
-                      <%= render "distribuidores" %>
+                    <%= render "layouts/distribuidores" %>
                   <% end %>
                 <% end %>
-                 <% if current_user %>
-                <li>
-                    <%= link_to log_out_path do %>
-                      <i class="glyphicon glyphicon-off"></i>
-                    <% end %>
-                  <% else %>
-                    <li><%= link_to "Acceso usuarios", log_in_path %></li>
+                <% if current_user %>
+                  <li><%= link_to log_out_path do %>
+                    <i class="glyphicon glyphicon-off"></i></li>
                   <% end %>
-                </li>
+                <% else %>
+                    <li><%= link_to "Acceso usuarios", log_in_path %></li>
+                <% end %>
             </ul>
         </div>
     </div>

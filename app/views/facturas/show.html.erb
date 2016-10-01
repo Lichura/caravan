@@ -50,6 +50,13 @@
           <dt>Tipo:</dt>
           <dd><%= @factura.tipo %></dd>
 
+          <% @factura.factura_items.each do |items| %>
+          <dt>producto:</dt>
+            <dd><%= items.producto_id %></dt>
+            <dt>cantidad:</dt>
+            <dt><%= items.cantidad %></dt>
+          <% end %>
+
         </dl>
         </div>
       </div>

@@ -4,7 +4,7 @@ class Remito < ApplicationRecord
 	belongs_to :pedido
 	has_and_belongs_to_many :facturas, optional: true
 
-	after_initialize :aumentar_numerador
+	before_create :aumentar_numerador
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 
 	private
@@ -12,6 +12,7 @@ class Remito < ApplicationRecord
 	def aumentar_numerador
 		self.numero = Remito.maximum(:numero).next || 1
 	end
+
 	def self.search(remito)
 		usuario = "" || User.where("CUIT LIKE ? OR razonSocial LIKE ?", "%#{remito}%", "%#{remito}%").first.id 
 		where("pedido_id LIKE ? OR numero LIKE ?", "%#{remito}%", "%#{remito}%")

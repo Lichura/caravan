@@ -88,8 +88,24 @@ body{
   border: 3px solid red;
 }
 
+@media screen and (min-width: 768px) {
+.totales{
+  width: 250px;
+  text-align: right;
+  td input{
+    border: none;
+    transition: border 0.3s;
+    background-color:rgba(255,255,255,0);
+    text-align: right;
+  }
+}
+}
+@media screen and (max-width: 768px) {
+  .totales{
+    width: 100%;
 
-
+  }
+}
 
 @import "https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic";
 /* -- You can use this tables in Bootstrap (v3) projects. -- */

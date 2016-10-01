@@ -1,5 +1,6 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
+  before_action :set_tipo, only: [:show, :edit, :update, :new, :nueva_factura]
   # GET /facturas
   # GET /facturas.json
   def index
@@ -17,6 +18,22 @@ class FacturasController < ApplicationController
     @remitos = Remito.all
     crear_factura_sin_remito
   end
+
+  def nueva_factura
+    @factura = Factura.new
+    @remitos_seleccionados = Remito.find(params[:remito_ids])
+      @remitos_seleccionados.each do |remito|
+        remito.remito_items.each do |obj|
+          if !@factura.producto_ids.include?(obj.producto_id)
+            @factura.factura_items.build(:producto_id => obj.producto_id, :remito_id => remito.id)
+          end
+        end
+    end
+    respond_to do |format|
+      format.html {render "nueva_factura"}
+    end
+  end
+
 
   # GET /facturas/1/edit
   def edit
@@ -79,6 +96,12 @@ class FacturasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def factura_params
-      params.require(:factura).permit(:cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo)
+      params.require(:factura).permit(:cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
     end
+
+
+
+  def set_tipo
+    @tipos = ["Factura A", "Factura B"]
+  end
 end

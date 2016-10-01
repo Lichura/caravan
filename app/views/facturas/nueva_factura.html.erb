@@ -1,5 +1,10 @@
-   
-<%= link_to "Buscar Remitos", new_factura_path, remote: true, :style => "color:white", class: "btn btn-block btn-primary" %><br>
+   <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading facturas"><h3>Nueva factura</h3></div>
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+<%= link_to "Buscar Remitos", nueva_factura_path, remote: true, :style => "color:white", class: "btn btn-block btn-primary" %><br>
 
 <%= form_for(@factura, html: { class: "form-horizontal", role: "form" }) do |f| %>
   <% if @factura.errors.any? %>
@@ -14,6 +19,8 @@
       </ul>
     </div>
   <% end %>
+
+
 
 
 
@@ -43,15 +50,16 @@
   <div class="form-group">
     <%= f.label :cuit, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.number_field :cuit, :value => "Poner un selector de clientes", class: "form-control" %>
+      <%= f.number_field :cuit, :value => @remitos_seleccionados.first.pedido.cuit, class: "form-control" %>
     </div>
     <%= f.label :vendedor, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_field :vendedor, :value=> "Poner un selector de distribuidores", class: "form-control" %>
+      <%= f.text_field :vendedor, :value=> User.find(@remitos_seleccionados.first.pedido.distribuidor_id).razonSocial, class: "form-control" %>
     </div>
   </div>
+\
 
-    <div class="form-group">
+  <div class="form-group">
     <%= f.label :control, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.text_field :control, class: "form-control" %>
@@ -59,35 +67,69 @@
   </div>
 
 
+  <!-- Hasta que no consiga enviar fc electronica no puedo habilitar estos campos
+  <div class="form-group">
+    <%= f.label :cae, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :cae, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :vencimiento_cae, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :vencimiento_cae, class: "form-control" %>
+    </div>
+  </div>-->
+
+
+
+
+
+
 <div class="panel-group">
   <div class="panel panel-default">
+         <% @remitos_seleccionados.each do |remito| %>
           <div class="panel-heading facturas">
             <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse">Articulos</a>
+              <a data-toggle="collapse" href="#collapse-<%= remito.id %>">Remito N: <%= remito.numero %> - Razon social: <%= User.find(remito.pedido.user_id).razonSocial %> </a>
             </h4>
           </div>
-          <div id="collapse" class="panel-collapse collapse in">
-            <div class="tabla-responsive-vertical shadow-z-1">
-              <table class="tabla tabla-hover">
-                <thead>
-                    <tr>
-                      <th>Producto</th>
-                      <th>Cantidad</th>
-                      <th>Precio</th>
-                      <th>IVA</th>
-                      <th>Neto</th>
-                      <th>Descuento en %</th>
-                      <th>Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <%= f.fields_for :factura_items do |ff| %>
-                    <% render 'detalle_sin_remito', f: ff %>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
+          <div id="collapse-<%= remito.id %>" class="panel-collapse collapse in">
+<div class="tabla-responsive-vertical shadow-z-1">
+  <table class="tabla tabla-hover">
+          <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>IVA</th>
+                    <th>Neto</th>
+                    <th>Descuento en %</th>
+                    <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :factura_items do |ff| %>
+                  <% if ff.object.remito_id == remito.id %>
+              <tr>  
+                <td data-title="Producto"><%= ff.object.producto.nombre %><br>
+                <%= ff.object.producto.descripcion %></td>
+                <td data-title="Cantidad"><%= ff.text_field :cantidad, :value =>  Remito.find(ff.object.remito_id).remito_items.find_by(:producto_id => ff.object.producto.id).cantidad , class: "cantidad form-control" %></td>
+                <td data-title="Precio"><%= ff.text_field :precio, :value =>  Producto.find(ff.object.producto.id).precio   , class: "precio form-control" %></td>
+                <td data-title="IVA"><%= ff.text_field :iva, :value => 0, class: "iva form-control" %></td>
+                <td data-title="Neto"><%= ff.text_field :neto, :value => 0, class: "neto form-control" %></td>
+                <td data-title="descuento"><%= ff.text_field :neto, :value => 0, class: "descuento form-control" %></td>
+                <td data-title="Subtotal"><%= ff.text_field :subtotal, :value => 0, class: "subtotal form-control" %></td>
+                <%= ff.hidden_field :producto_id %>
+                <%= ff.hidden_field :remito_id %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+        </table>
+        </div>
           </div>
+          <% end %>
   </div>
 </div>
 
@@ -116,17 +158,20 @@
 </div>
 </div>
 
-
-
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit "Enviar",  class: "btn btn-primary" %>
-      <%= link_to facturas_path, class: 'btn btn-default pull-right' do %>
+      <%= f.submit "Enviar",  class: "btn btn-success  pull-right" %>
+      <%= link_to facturas_path, class: 'btn btn-default' do %>
           Cancelar
       <% end -%>
     </div>
   </div>
 <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script>
@@ -189,4 +234,3 @@ $('document').ready(function(){
 
 });
 </script>
-

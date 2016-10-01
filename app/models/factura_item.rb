@@ -1,4 +1,4 @@
 class FacturaItem < ApplicationRecord
-	belongs_to :factura
-	belongs_to :producto
+	belongs_to :factura,  optional: true
+	belongs_to :producto,  optional: true
 end

@@ -20,10 +20,14 @@
           <dt>Dni Retira:</dt>
           <dd><%= @remito.dniRetira %></dd>
 
+
           <% @remito.remito_items.each do |item| %>
-            <%= item.producto_id %>
-            <%= item.cantidad %>
-            <%= item.precio %>
+            <dt>ID</dt>
+            <dd><%= item.producto_id %></dd>
+            <dt>cantidad</dt>
+            <dd><%= item.cantidad %></dd>
+            <dt>precio</dt>
+            <dd><%= item.precio %></dd>
           <% end %>
 
           <dt>Ivatotal:</dt>

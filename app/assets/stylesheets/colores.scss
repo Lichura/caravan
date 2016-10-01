@@ -1,7 +1,7 @@
 	$pedidos: #3498db;
 	$remitos: #e67e22;
 	$usuarios: #1abc9c;
-
+	$facturas : #34495E;
 
 	.panel-heading.pedidos {
 			color: white;
@@ -31,4 +31,14 @@
 	.remitos{
 		color: white;
 		background-color: $remitos;
+	}
+
+	.panel-heading.facturas {
+			color: white;
+			background-color: $facturas;
+	}
+
+	.facturas{
+		color: white;
+		background-color: $facturas;
 	}

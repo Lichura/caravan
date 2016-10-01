@@ -51,6 +51,13 @@ Rails.application.routes.draw do
     end 
   end
 
+  get 'nueva_factura' => "facturas#nueva_factura", :as => "nueva_factura"
+  resources :facturas do
+    collection do
+      post :remitos
+    end
+  end
+
   resources :relacions
   resources :password_resets
   resources :sessions
