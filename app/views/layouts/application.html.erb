@@ -39,11 +39,13 @@
                     <% end %>
                   <% end %>
                 <% else %>
+                <% if current_user %>
                   <% if current_user.profile_id == 1 %>
                     <%= render "layouts/administradores" %>
                   <% else %>
                     <%= render "layouts/distribuidores" %>
                   <% end %>
+                <% end %>
                 <% end %>
                 <% if current_user %>
                   <li><%= link_to log_out_path do %>

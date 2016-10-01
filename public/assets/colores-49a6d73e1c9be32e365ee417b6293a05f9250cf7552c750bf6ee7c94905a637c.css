@@ -1,0 +1,47 @@
+/* line 6, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.panel-heading.pedidos {
+  color: white;
+  background-color: #3498db;
+}
+
+/* line 11, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.pedidos {
+  color: white;
+  background-color: #3498db;
+}
+
+/* line 16, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.panel-heading.usuarios {
+  color: white;
+  background-color: #1abc9c;
+}
+
+/* line 21, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.usuarios {
+  color: white;
+  background-color: #1abc9c;
+}
+
+/* line 26, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.panel-heading.remitos {
+  color: white;
+  background-color: #e67e22;
+}
+
+/* line 31, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.remitos {
+  color: white;
+  background-color: #e67e22;
+}
+
+/* line 36, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.panel-heading.facturas {
+  color: white;
+  background-color: #34495E;
+}
+
+/* line 41, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/colores.scss */
+.facturas {
+  color: white;
+  background-color: #34495E;
+}
