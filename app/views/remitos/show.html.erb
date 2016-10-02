@@ -28,6 +28,8 @@
             <dd><%= item.cantidad %></dd>
             <dt>precio</dt>
             <dd><%= item.precio %></dd>
+            <dt>facturado</dt>
+            <dd><%= item.facturado %></dd>
           <% end %>
 
           <dt>Ivatotal:</dt>
@@ -58,4 +60,5 @@
       <%= link_to "PDF", remito_path(@remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
-
+<%= @remito.facturado %>
+<h1> aca deberia aparecer algo <%= @remito.estado %></h1>

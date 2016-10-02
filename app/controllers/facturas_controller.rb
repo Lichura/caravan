@@ -15,7 +15,7 @@ class FacturasController < ApplicationController
   # GET /facturas/new
   def new
     @factura = Factura.new
-    @remitos = Remito.all
+    @remitos = Remito.where(:facturado => false, :facturado => nil)
     crear_factura_sin_remito
   end
 
@@ -24,8 +24,10 @@ class FacturasController < ApplicationController
     @remitos_seleccionados = Remito.find(params[:remito_ids])
       @remitos_seleccionados.each do |remito|
         remito.remito_items.each do |obj|
-          if !@factura.producto_ids.include?(obj.producto_id)
-            @factura.factura_items.build(:producto_id => obj.producto_id, :remito_id => remito.id)
+          if obj.facturado == false or obj.facturado == nil
+            if !@factura.producto_ids.include?(obj.producto_id)
+              @factura.factura_items.build(:producto_id => obj.producto_id, :remito_id => remito.id)
+            end
           end
         end
     end

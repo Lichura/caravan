@@ -24,6 +24,10 @@ class RemitosController < ApplicationController
   # GET /remitos/1
   # GET /remitos/1.json
   def show
+    @prueba = @remito.remito_items.all? {|item| item.facturado == true }
+    if @prueba
+      @probando = "bla"
+    end
   end
 
   #esto es para la llamada desde un pedido, que muestre todos los remitos asociados

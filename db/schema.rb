@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930183215) do
+ActiveRecord::Schema.define(version: 20161002192726) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20160930183215) do
   end
 
   create_table "facturas", force: :cascade do |t|
-    t.integer  "cuit"
+    t.integer  "cuit",            limit: 8
     t.datetime "fecha"
     t.string   "control"
     t.string   "vendedor"
@@ -71,8 +71,8 @@ ActiveRecord::Schema.define(version: 20160930183215) do
     t.integer  "pto_venta"
     t.integer  "numero"
     t.string   "tipo"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "facturas_remitos", id: false, force: :cascade do |t|
@@ -238,6 +238,7 @@ ActiveRecord::Schema.define(version: 20160930183215) do
     t.float    "precioNeto"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.boolean  "facturado"
   end
 
   create_table "remitos", force: :cascade do |t|
@@ -259,6 +260,7 @@ ActiveRecord::Schema.define(version: 20160930183215) do
     t.string   "retira"
     t.string   "comentarios"
     t.boolean  "facturado"
+    t.string   "estado"
   end
 
   create_table "stock_items", force: :cascade do |t|

@@ -7,13 +7,13 @@ class Pedido < ApplicationRecord
 
 
   before_validation :marcar_productos_para_destruir
-  after_initialize :aumentar_numerador
+  #after_initialize :aumentar_numerador
 
   private
 
 
   def aumentar_numerador
-    self.comprobanteNumero = Pedido.maximum(:comprobanteNumero).next || 1
+   
   end
   def marcar_productos_para_destruir
     detalles.each do |producto|
