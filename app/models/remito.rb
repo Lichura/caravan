@@ -7,6 +7,7 @@ class Remito < ApplicationRecord
 	before_create :aumentar_numerador
 	after_create :generar_estado
 	after_update :modificar_estado
+	before_validation :marcar_productos_para_destruir
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 
 	private
@@ -19,6 +20,14 @@ class Remito < ApplicationRecord
 		self.estado = "Pendiente de remitir"
 		self.facturado = false
 	end
+
+	def marcar_productos_para_destruir
+    remito_items.each do |producto|
+      if producto.cantidad.blank? or (producto.cantidad == 0)
+	        producto.mark_for_destruction
+	      end
+	    end
+	  end
 
 	def modificar_estado
 		@pedido = Pedido.find(self.pedido_id)

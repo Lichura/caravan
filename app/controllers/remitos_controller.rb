@@ -41,6 +41,7 @@ class RemitosController < ApplicationController
   # GET /remitos/new
   def new
     @remito = Remito.new
+    @numero = Remito.maximum(:numero) + 1 || 1
     if params[:id]
       @pedido = Pedido.find(params[:id])     
       crear_remitos

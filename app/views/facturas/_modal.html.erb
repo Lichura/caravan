@@ -6,11 +6,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">Buscar Remitos</h4>
-      <%= select_tag "Cliente_factura", options_from_collection_for_select(User.all, "id", "razonSocial")  %>
-
-
-
-      
       </div>
       <%= form_tag nueva_factura_path, method: :get do %>
       <div class="modal-body">
@@ -48,6 +43,8 @@
     </div>
   </div>
 </div>
+<script>
 
+</script>
 
 

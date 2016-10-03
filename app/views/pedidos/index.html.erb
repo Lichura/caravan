@@ -46,7 +46,10 @@
               <% if pedido.facturado %>
                 <span class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
               <% else %>
-                <span class="glyphicon glyphicon-unchecked"></span>
+                <span class="glyphicon glyphicon-unchecked">
+                  <%= link_to "facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %>
+
+                </span>
               <% end %>
           </td>
           <td>

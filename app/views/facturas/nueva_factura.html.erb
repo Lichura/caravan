@@ -50,11 +50,11 @@
   <div class="form-group">
     <%= f.label :cuit, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.number_field :cuit, :value => @remitos_seleccionados.first.pedido.cuit, class: "form-control" %>
+      <%= f.number_field :cuit, :value => User.find(@remitos_seleccionados.first.pedido.distribuidor_id).cuit, class: "form-control" %>
     </div>
     <%= f.label :vendedor, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_field :vendedor, :value=> User.find(@remitos_seleccionados.first.pedido.distribuidor_id).razonSocial, class: "form-control" %>
+      <%= f.text_field :vendedor, :value=> current_user.razonSocial, class: "form-control" %>
     </div>
   </div>
 

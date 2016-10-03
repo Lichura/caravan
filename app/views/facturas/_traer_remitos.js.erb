@@ -1,1 +1,2 @@
-$('#remitos').html("<%= escape_javascript(render('traer_remitos', remitos: @remitos})) %>");
+$('#remitos').html("<%= j render('traer_remitos', :locals => { :remitos => @remitos }) %>");
+

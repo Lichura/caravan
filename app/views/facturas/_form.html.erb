@@ -40,14 +40,14 @@
   </div>
 
 
-  <div class="form-group">
+   <div class="form-group">
     <%= f.label :cuit, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.number_field :cuit, :value => "Poner un selector de clientes", class: "form-control" %>
+      <%= f.number_field :cuit, :value => 3123, class: "form-control" %>
     </div>
     <%= f.label :vendedor, class: "col-sm-2 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_field :vendedor, :value=> "Poner un selector de distribuidores", class: "form-control" %>
+      <%= f.text_field :vendedor, :value=> current_user.razonSocial, class: "form-control" %>
     </div>
   </div>
 
@@ -186,18 +186,24 @@ $('document').ready(function(){
     $('#iibb').val(iibb.toFixed(2)).trigger('change');
     $('#total').val(total.toFixed(2)).trigger('change');
   }
-
-
     $(document).on('change', '#Cliente_factura', function(){
-      $.ajax({
-         url: "/facturas/new",
-         data: {
-            distribuidor: $('#Cliente_factura').val()
-         },
-         type: 'get',
-         dataType: "script"
-      });
+        $.ajax({
+           url: '/facturas/new',
+           data: {
+              distribuidor: $('#Cliente_factura').val()
+           },
+           error: function() {
+              alert($('#Cliente_factura').val());
+           },
+           dataType: 'script',
+           success: function(data) {
+              alert(data);
+           },
+           type: 'GET'
+        });
     });
+
+
 
 });
 </script>
