@@ -4,12 +4,21 @@
     <%= f.date_field :fecha, :value => Date.today, :class => 'datetimepicker' %>
   </div>
 </div>
+<% if @numero %>
 <div class="form-group">
   <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
   <div class="col-sm-8">
-      <%= f.text_field :comprobanteNumero, class: "form-control"  %>
+      <%= f.text_field :comprobanteNumero, :value => @numero,  class: "form-control"  %>
   </div>
 </div>
+<% else %>
+<div class="form-group">
+  <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
+  <div class="col-sm-8">
+      <%= f.text_field :comprobanteNumero,  class: "form-control"  %>
+  </div>
+</div>
+<% end %>
 <div class="form-group">
   <%= f.label :user_id, "Seleccionar cliente", class: "col-sm-2 control-label" %>
 

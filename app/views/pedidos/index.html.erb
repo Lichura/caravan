@@ -21,7 +21,7 @@
         <th>Cuit</th>
         <th>Comprobante</th>
         <th>Fecha</th>
-        <th>Cantidad</th>
+        <th>Estado</th>
         <th>Remitido</th>
         <th>Facturado</th>
         <th>Mostrar</th>
@@ -34,7 +34,7 @@
           <td><%= pedido.cuit %></td>
           <td><%= pedido.comprobanteNumero %></td>
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
-          <td><%= pedido.cantidadTotal %></td>
+          <td><%= pedido.estado %></td>
           <td>
               <% if pedido.estado == "Pendiente de remitir" or pedido.estado == "Remitido parcial" %>
                 <span class="glyphicon glyphicon-check"><%= link_to "Remito", {controller:"remitos", action:"new", id: pedido} %></span>

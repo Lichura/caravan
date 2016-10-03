@@ -28,6 +28,7 @@ class UsersController < ApplicationController
     end
     end
   end
+
   def index
     @user = policy_scope(User).paginate(:page => params[:page], :per_page => 10)
     authorize current_user
@@ -117,7 +118,7 @@ end
     @user.password_confirmation = randomstring
   	if @user.save
       if params[:distribuidor_id]
-        @distribuidor = current_user.relacions.build(:user_id => @distribuidor_id, :cliente_id => @user.id )
+        @distribuidor = current_user.relacions.build(:user_id => params[:distribuidor_id], :cliente_id => @user.id )
         @distribuidor.save
       else
         @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
@@ -166,7 +167,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit( :email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
+			params.require(:user).permit(:distribuidor_id, :email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
 		end
 
 end

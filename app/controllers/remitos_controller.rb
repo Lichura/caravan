@@ -144,7 +144,7 @@ class RemitosController < ApplicationController
     @pedido = Pedido.find(@remito.pedido_id)
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
-        if producto.producto_id == item.producto_id
+        if producto.producto_id == item.producto_id && !item.cantidad.blank?
           producto.pendiente_remitir -= item.cantidad
         end
       end
@@ -156,7 +156,7 @@ class RemitosController < ApplicationController
     @pedido = Pedido.find(@remito.pedido_id)
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
-        if producto.producto_id == item.producto_id
+        if producto.producto_id == item.producto_id && !item.cantidad.blank?
           producto.pendiente_remitir += item.cantidad
         end
       end

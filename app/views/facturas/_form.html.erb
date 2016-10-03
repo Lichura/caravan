@@ -187,6 +187,18 @@ $('document').ready(function(){
     $('#total').val(total.toFixed(2)).trigger('change');
   }
 
+
+    $(document).on('change', '#Cliente_factura', function(){
+      $.ajax({
+         url: "/facturas/new",
+         data: {
+            distribuidor: $('#Cliente_factura').val()
+         },
+         type: 'get',
+         dataType: "script"
+      });
+    });
+
 });
 </script>
 

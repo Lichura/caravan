@@ -7,7 +7,8 @@
          <dl class="dl-horizontal">
           <dt>Pedido:</dt>
           <dd><%= @remito.pedido_id %></dd>
-
+          <dt>Facturado:</dt>
+          <dd><%= @remito.facturado %>
           <dt>Numero:</dt>
           <dd><%= @remito.numero %></dd>
 
@@ -45,7 +46,7 @@
         </div>
       </div>
     </div>
-      <%= link_to edit_remito_path, class: 'btn btn-default pull-right' do %>
+      <%= link_to remitos_path, class: 'btn btn-default pull-right' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
         remitos
       <% end %>
@@ -60,5 +61,3 @@
       <%= link_to "PDF", remito_path(@remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
-<%= @remito.facturado %>
-<h1> aca deberia aparecer algo <%= @remito.estado %></h1>

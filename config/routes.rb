@@ -51,6 +51,7 @@ Rails.application.routes.draw do
     end 
   end
 
+  post 'facturas/new' => "facturas#new"
   get 'nueva_factura' => "facturas#nueva_factura", :as => "nueva_factura"
   resources :facturas do
     collection do

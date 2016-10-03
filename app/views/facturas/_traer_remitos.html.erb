@@ -1,0 +1,11 @@
+
+  <% remitos.each do |remito| %>
+      <tr>
+                        <td><%= check_box_tag "remito_ids[]", remito.id %></td>
+                        <td><%= remito.numero %></td>
+                        <td><%= remito.pedido.cuit %></td>
+                        <td><%= User.find(remito.pedido.user_id).razonSocial %></td>
+                        <td><%= remito.fecha %></td>
+                        <td><%= remito.pedido.distribuidor_id %>
+    </tr>
+  <% end %>

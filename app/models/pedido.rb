@@ -11,10 +11,6 @@ class Pedido < ApplicationRecord
 
   private
 
-
-  def aumentar_numerador
-   
-  end
   def marcar_productos_para_destruir
     detalles.each do |producto|
       if producto.cantidad.blank? or (producto.cantidad == 0)

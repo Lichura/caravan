@@ -6,6 +6,7 @@ class Remito < ApplicationRecord
 
 	before_create :aumentar_numerador
 	after_create :generar_estado
+	after_update :modificar_estado
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 
 	private
@@ -17,6 +18,19 @@ class Remito < ApplicationRecord
 	def generar_estado
 		self.estado = "Pendiente de remitir"
 		self.facturado = false
+	end
+
+	def modificar_estado
+		@pedido = Pedido.find(self.pedido_id)
+		if @pedido.remitos.all? {|remito| remito.facturado == true }
+			@pedido.estado = "Facturado"
+			@pedido.facturado = true
+		elsif @pedido.remitos.any? {|remito| remito.facturado == true}
+			@pedido.estado = "Facturado parcial - Pendiente de facturar"
+		else
+			@pedido.estado = "Pendiente de facturar"
+		end
+		@pedido.save
 	end
 
 	def self.search(remito)

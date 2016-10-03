@@ -6,6 +6,11 @@
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">Buscar Remitos</h4>
+      <%= select_tag "Cliente_factura", options_from_collection_for_select(User.all, "id", "razonSocial")  %>
+
+
+
+      
       </div>
       <%= form_tag nueva_factura_path, method: :get do %>
       <div class="modal-body">
@@ -19,15 +24,18 @@
               <th>Fecha</th>
             </thead>
             <tbody>
-            <% @remitos.each do |remito| %>
-              <tr>
+              <div id="remitos">
+                <% @remitos.each do |remito| %>
+      <tr>
                         <td><%= check_box_tag "remito_ids[]", remito.id %></td>
                         <td><%= remito.numero %></td>
                         <td><%= remito.pedido.cuit %></td>
                         <td><%= User.find(remito.pedido.user_id).razonSocial %></td>
                         <td><%= remito.fecha %></td>
-              </tr>
-              <% end %>
+                        <td><%= remito.pedido.distribuidor_id %>
+    </tr>
+  <% end %>
+              </div>
             </tbody>
           </table>
         </div>

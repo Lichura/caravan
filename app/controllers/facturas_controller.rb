@@ -15,8 +15,16 @@ class FacturasController < ApplicationController
   # GET /facturas/new
   def new
     @factura = Factura.new
-    @remitos = Remito.where(:facturado => false, :facturado => nil)
     crear_factura_sin_remito
+    if params[:distribuidor]
+      @remitos = Remito.joins(:pedido).where('pedidos.distribuidor_id' => params[:distribuidor])
+      respond_to do |format|
+          format.js {render "traer_remitos"}
+      end
+    else
+      @remitos = Remito.where(:facturado => false, :facturado => nil)
+    end
+      
   end
 
   def nueva_factura
