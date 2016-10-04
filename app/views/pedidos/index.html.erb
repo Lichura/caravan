@@ -7,9 +7,13 @@
             <%= form_tag(pedidos_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar pedidos", class: "form-control"%>
+
               <span class="input-group-btn">
                 <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
+            </div>
+            <div class="input-group">
+                          <%= collection_select(:filtrar, 0, @estados, :to_s, :to_s, {include_blank: true}, {class: "form-control"}) %>
             </div>
            <% end %>
           </div>
@@ -49,8 +53,10 @@
           <td>
               <% if pedido.facturado %>
                 <span style="color:green" class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
-              <% else %>
+              <% elsif current_user.profile_id == 1 && pedido.estado == "Pendiente de facturar" %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
+              <% else %>
+                <span class="glyphicon glyphicon-check"></span>
               <% end %>
           </td>
           <td>

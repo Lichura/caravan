@@ -37,4 +37,8 @@ def bootstrap_class_for flash_type
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     link_to title, {:sort => column, :direction => direction}, {:class => css_class}
   end
+
+  def estados
+    
+  end
 end

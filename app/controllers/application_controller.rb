@@ -40,4 +40,8 @@ private
   def logged_in?
    current_user != nil
   end
+
+  def estados
+    
+  end
 end

@@ -1,6 +1,7 @@
 class PedidosController < ApplicationController
 
   before_action :set_pedido, only: [:show, :edit, :update, :destroy]
+  before_action :estados, only: [:index]
   helper_method :sort_column, :sort_direction
 
   def get_precios
@@ -215,7 +216,9 @@ class PedidosController < ApplicationController
 
       report.generate
     end
-
+      def estados
+        @estados = ["A confirmar","Pendiente de remitir", "Pendiente de facturar", "Remitido - Pendiente de facturar", "Facturar", "Facturado parcial - Pendiente de facturar"]
+      end
 
       def sort_column
         Pedido.column_names.include?(params[:sort]) ? params[:sort] : "name"

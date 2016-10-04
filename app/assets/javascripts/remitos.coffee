@@ -14,12 +14,12 @@ jQuery ->
   					transporte: $('#remito_transporte option:selected').text()
   				success: (data) ->
 
-jQuery ->
-	$(document).ready ->
-  			$.ajax
-  				url: "/remitos/new"
-  				type: "GET"
-  				dataType: "script"
-  				data:
-  					transporte: $('#remito_transporte option:selected').text()
-  				success: (data) ->
+#jQuery ->
+#	$(document).ready ->
+# 			$.ajax
+#  				url: "/remitos/new"
+# 				type: "GET"
+#  				dataType: "script"
+#  				data:
+#  					transporte: $('#remito_transporte option:selected').text()
+#  				success: (data) ->

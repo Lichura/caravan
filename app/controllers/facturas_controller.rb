@@ -47,7 +47,8 @@ class FacturasController < ApplicationController
   # POST /facturas.json
   def create
     @factura = Factura.new(factura_params)
-
+    #selecciono univocamente los ids de remitos que se asociaron
+    #luego genero la asociacion a la factura
     @remitos = @factura.factura_items.uniq.pluck(:remito_id)
     @remitos.each do |remito|
       @remito = Remito.find(remito)
