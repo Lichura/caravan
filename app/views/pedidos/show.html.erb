@@ -54,9 +54,12 @@
                 <dt>Precio total:</dt>
                 <dd><%= @pedido.precioTotal %></dd>
                 <dt>Remitos Asociados:</dt>
-                <dd>
+                <dt>
         <% @pedido.remitos.each do |remito| %>
           <%= link_to "remito #{remito.id}", remito_path(remito), class: "btn btn-warning" %>
+          <% remito.facturas.each do |factura| %>
+            <%= factura.id %>
+          <% end %>
         <% end %></dt>
 </dl>
 </div>

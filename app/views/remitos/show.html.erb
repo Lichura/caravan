@@ -42,6 +42,10 @@
           <dt>Cantidadtotal:</dt>
           <dd><%= @remito.cantidadTotal %></dd>
 
+          <%= @remito.facturas.each do |factura| %>
+            <%= factura.id %>
+          <% end %>
+
         </dl>
         </div>
       </div>

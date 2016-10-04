@@ -27,4 +27,14 @@ def bootstrap_class_for flash_type
     end
     nil
   end
+
+
+  #Metodo para poder ordenar las columnas
+  #Toma la columna y un titulo y luego lo transforma en un link_To con posibilidad de ordenar
+  def sortable(column, title = nil)
+    title ||= column.titleize
+    css_class = column == sort_column ? "current #{sort_direction}" : nil
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    link_to title, {:sort => column, :direction => direction}, {:class => css_class}
+  end
 end

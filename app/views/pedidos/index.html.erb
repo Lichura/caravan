@@ -18,38 +18,39 @@
         <div class="table-responsive">
           <table class="table table-hover">
               <thead class="pedidos">
-        <th>Cuit</th>
         <th>Comprobante</th>
+        <th><%= sortable "CUIT" %></th>
         <th>Fecha</th>
         <th>Estado</th>
         <th>Remitido</th>
         <th>Facturado</th>
         <th>Mostrar</th>
-        <th>Editar</th>
+        <th>Confirmado</th>
         <th>Eliminar</th>
       </thead>
       <tbody>
+
         <% @pedidos.each do |pedido| %>
-        <tr><!-- se podria utilizar para ver el proximo turno -->
-          <td><%= pedido.cuit %></td>
+        <!-- se podria utilizar para ver el proximo turno -->
+        <tr>
           <td><%= pedido.comprobanteNumero %></td>
+          <td><%= pedido.cuit %></td>
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
           <td><%= pedido.estado %></td>
           <td>
               <% if pedido.estado == "Pendiente de remitir" or pedido.estado == "Remitido parcial" %>
-                <span class="glyphicon glyphicon-check"><%= link_to "Remito", {controller:"remitos", action:"new", id: pedido} %></span>
+                <span class="glyphicon glyphicon-unchecked"><%= link_to "Remitir", {controller:"remitos", action:"new", id: pedido} %></span>
               <% else %>
-                <span class="glyphicon glyphicon-check"><%= link_to "show", mostrar_remitos_path(:pedido => pedido.id), method: "post" %></span>
+                <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
+                  <i style="color:green" class="glyphicon glyphicon-check"></i>
+                <% end %>
               <% end %>
           </td>
           <td>
               <% if pedido.facturado %>
-                <span class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
+                <span style="color:green" class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
               <% else %>
-                <span class="glyphicon glyphicon-unchecked">
-                  <%= link_to "facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %>
-
-                </span>
+                <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
               <% end %>
           </td>
           <td>
@@ -58,18 +59,24 @@
                 <% end %>
           </td>
           <td>
+          <% if current_user.profile_id == 1 && pedido.estado == "A confirmar" %>
             <%= link_to edit_pedido_path(pedido) do %>
-             <i class="glyphicon glyphicon-pencil"></i>
+             <i class="glyphicon glyphicon-ok"></i>
             <% end %>
+          <% else %>
+            <i style="color:green" class="glyphicon glyphicon-ok"></i>
+          <% end %>
           </td>
           <td>
-
+          <% if pedido.estado == "A confirmar" %>
             <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' } do %>
               <i class="glyphicon glyphicon-trash"></i>
             <% end %>
+          <% end %>
           </td>
-        </tr>
-        <% end %>
+          </tr>
+          <% end %>
+
       </tbody>
       </table>
       </div>

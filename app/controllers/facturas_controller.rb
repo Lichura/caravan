@@ -48,6 +48,12 @@ class FacturasController < ApplicationController
   def create
     @factura = Factura.new(factura_params)
 
+    @remitos = @factura.factura_items.uniq.pluck(:remito_id)
+    @remitos.each do |remito|
+      @remito = Remito.find(remito)
+      @factura.remitos << @remito
+    end
+
     respond_to do |format|
       if @factura.save
         format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
@@ -100,7 +106,7 @@ class FacturasController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def factura_params
-      params.require(:factura).permit(:cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
+      params.require(:factura).permit(:remito_id, :cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
     end
 
 
