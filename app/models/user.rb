@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   	enum role: [:admin, :distribuidor, :cliente]
-  	before_create :set_default_role
+  	before_validation :set_default_role
     before_create :set_default_condicion_de_pago
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile

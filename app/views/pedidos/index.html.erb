@@ -40,7 +40,7 @@
           <td><%= pedido.comprobanteNumero %></td>
           <td><%= pedido.cuit %></td>
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
-          <td><%= pedido.estado %></td>
+          <td><%= pedido.status %></td>
           <td>
               <% if pedido.estado == "Pendiente de remitir" or pedido.estado == "Remitido parcial" %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Remitir", {controller:"remitos", action:"new", id: pedido} %></span>
@@ -65,7 +65,7 @@
                 <% end %>
           </td>
           <td>
-          <% if current_user.profile_id == 1 && pedido.estado == "A confirmar" %>
+          <% if current_user.profile_id == 1 && pedido.activo? %>
             <%= link_to edit_pedido_path(pedido) do %>
              <i class="glyphicon glyphicon-ok"></i>
             <% end %>

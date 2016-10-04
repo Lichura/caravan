@@ -32,14 +32,13 @@ class Remito < ApplicationRecord
 	def modificar_estado
 		@pedido = Pedido.find(self.pedido_id)
 		if @pedido.remitos.all? {|remito| remito.facturado == true }
-			@pedido.estado = "Facturado"
+			@pedido.facturado!
 			@pedido.facturado = true
 		elsif @pedido.remitos.any? {|remito| remito.facturado == true}
-			@pedido.estado = "Facturado parcial - Pendiente de facturar"
+			@pedido.facturado_parcial!
 		else
-			@pedido.estado = "Pendiente de facturar"
+			@pedido.remitido!
 		end
-		@pedido.save
 	end
 
 	def self.search(remito)

@@ -84,7 +84,7 @@
             </thead>
             <tbody>
               <%= f.fields_for :remito_items do |ff| %>
-                  <% render 'detalle_sin_remito', f: ff %>
+                  <% render 'remito_items_sin_pedido', f: ff %>
               <% end %>
 
               <% end %>

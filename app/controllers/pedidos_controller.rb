@@ -70,7 +70,6 @@ class PedidosController < ApplicationController
   def create
     @pedido = Pedido.new(pedido_params)
     authorize @pedido
-    @pedido.estado = "A confirmar"
     @pedido.distribuidor_id = current_user.id
     respond_to do |format|
     pendiente_remision
@@ -95,13 +94,13 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
-    estado = "Pendiente de remitir"
+    #estado = "Pendiente de remitir"
     params[:pedido][:detalles_attributes].each do |producto, params|
-      if Producto.find(params[:producto_id]).rango
-        if params[:rango_desde].empty? || params[:rango_hasta].empty?
-          estado = "A confirmar"
-        end
-      end
+    #  if Producto.find(params[:producto_id]).rango
+    #    if params[:rango_desde].empty? || params[:rango_hasta].empty?
+    #      estado = "A confirmar"
+    #    end
+    #  end
       @producto = Producto.find(params[:producto_id])
       @producto.stock_disponible -= params[:cantidad].to_i
       @producto.stock_reservado += params[:cantidad].to_i
@@ -115,7 +114,7 @@ class PedidosController < ApplicationController
     end
     #con esta linea actualizo los valores de cantidad a pendiente de remitir
 
-    @pedido.estado = estado
+    #@pedido.estado = estado
 
     respond_to do |format|
       if @pedido.update(pedido_params)

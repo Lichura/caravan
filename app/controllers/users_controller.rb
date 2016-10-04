@@ -116,14 +116,16 @@ end
     randomstring = SecureRandom.hex(5)
     @user.password = randomstring
     @user.password_confirmation = randomstring
+
+    #si existe un distribuidor_id entonces busco el usuario y le agrego el nuevo.
+    #En caso de no existir, el distribuidor es el usuario actual
+    if @user.distribuidor_id
+      @distribuidor = User.find(@user.distribuidor_id)
+    else
+      @distribuidor = current_user
+    end
   	if @user.save
-      if params[:distribuidor_id]
-        @distribuidor = current_user.relacions.build(:user_id => params[:distribuidor_id], :cliente_id => @user.id )
-        @distribuidor.save
-      else
-        @distribuidor = current_user.relacions.build(:user_id => @user.id, :cliente_id => @user.id )
-        @distribuidor.save
-      end
+       @distribuidor.clientes << @user
       if @user.profile_id == 2
         UserMailer.envio_de_password(@user, @user.password).deliver_later
       end
@@ -156,9 +158,6 @@ end
   end
 
   	private
-    def relacions_params
-      params.require(:user).permit(:id, current_user.id)
-    end
     def set_multiple_ids
       params[:user_ids]
     end
@@ -167,7 +166,7 @@ end
       @user = User.find(params[:id])
     end
 		def user_params
-			params.require(:user).permit(:distribuidor_id, :email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
+			params.require(:user).permit(:profile_id, :distribuidor_id, :email, :localidad_id, :cuit, :razonSocial, :codigoPostal, :direccion, :cuig, :renspa, :telefono, :pais_id, :encargado, :celular, :numeroCv, :profile_id, :razonSocial, :direccion, :provincia_id, :user_sucursals_attributes => [:id, :_destroy, :nombre, :encargado, :direccion, :telefono])
 		end
 
 end

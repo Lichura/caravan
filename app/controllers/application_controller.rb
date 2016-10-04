@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
     #protect_from_forgery with: :null_session, only: Proc.new { |c| c.request.format.json? }
 
-
   before_action :require_login
 
 
@@ -41,7 +40,5 @@ private
    current_user != nil
   end
 
-  def estados
-    
-  end
+
 end
