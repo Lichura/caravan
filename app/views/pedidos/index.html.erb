@@ -42,7 +42,7 @@
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
           <td><%= pedido.status %></td>
           <td>
-              <% if pedido.confirmado? %>
+              <% if pedido.confirmado? || pedido.remitido_parcial? %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Remitir", {controller:"remitos", action:"new", id: pedido} %></span>
               <% elsif !pedido.activo? %>
                 <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
@@ -55,7 +55,7 @@
           <td>
               <% if pedido.facturado? %>
                 <span style="color:green" class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
-              <% elsif current_user.profile_id == 1 && (pedido.remitido? || pedido.remitido_parcial?) %>
+              <% elsif current_user.profile_id == 1 && (pedido.remitido? || pedido.remitido_parcial? || pedido.facturado_parcial?) %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
               <% else %>
                 <span class="glyphicon glyphicon-check"></span>

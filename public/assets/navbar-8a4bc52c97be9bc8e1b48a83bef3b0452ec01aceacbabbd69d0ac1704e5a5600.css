@@ -1,0 +1,67 @@
+/* line 4, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu {
+  background-color: white;
+}
+
+/* line 7, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+  color: black;
+}
+
+/* line 10, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default {
+  font-size: 14px;
+  background-color: white;
+  border-width: 0px;
+  border-radius: 0px;
+}
+
+/* line 16, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a {
+  color: black;
+  background-color: white;
+}
+
+/* line 23, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav > li > a:focus {
+  color: white;
+  background-color: #BDC3C7;
+}
+
+/* line 28, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a,
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav > .active > a:focus {
+  color: white;
+  background-color: #ffbb00;
+}
+
+/* line 34, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+  border-color: #000000;
+}
+
+/* line 37, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+  background-color: #ECECEC;
+}
+
+/* line 41, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+  background-color: #000000;
+}
+
+/* line 44, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+  background-color: #000000;
+}
+
+/* line 49, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/navbar.scss */
+.navbar-brand img {
+  width: 50px;
+  height: 50px;
+  margin-top: -10px;
+}

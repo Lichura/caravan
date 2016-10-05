@@ -4,6 +4,8 @@ class Pedido < ApplicationRecord
 	has_many :detalles
   has_many :remitos
 
+  validates :cuit, presence: true
+
     enum status: {
     activo: 0,
     confirmado_parcial: 1,
@@ -17,7 +19,6 @@ class Pedido < ApplicationRecord
 	accepts_nested_attributes_for :detalles,  allow_destroy: true
   
   before_validation :marcar_productos_para_destruir
-  after_create :crear_pedido
 
   #after_initialize :aumentar_numerador
 
@@ -31,17 +32,10 @@ class Pedido < ApplicationRecord
     end
   end
 
-  def crear_pedido
-    self.activo!
-  end
-
-
 
 	def self.search(pedido)
 		where("cuit LIKE ? OR comprobanteNumero LIKE ?", "%#{pedido}%", "%#{pedido}%")
 	end
-
-
 
 end
 

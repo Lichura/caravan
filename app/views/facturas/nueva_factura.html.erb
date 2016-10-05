@@ -120,7 +120,6 @@
                 <td data-title="descuento"><%= ff.text_field :neto, :value => 0, class: "descuento form-control" %></td>
                 <td data-title="Subtotal"><%= ff.text_field :subtotal, :value => 0, class: "subtotal form-control" %></td>
                 <%= ff.hidden_field :producto_id %>
-                <%= ff.hidden_field :_destroy %>
                 <%= ff.hidden_field :remito_id %>
               </tr>
             <% end %>

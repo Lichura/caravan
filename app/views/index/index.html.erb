@@ -1,12 +1,5 @@
 <section class="seccion-principal" data-section-name="principal">
-	<video playsinline autoplay muted loop poster="<%= asset_path('fondo.png') %>" id="video">
-	    <source src="<%= asset_path('video.mp4') %>"type="video/mp4">
-	</video>
-
-	<div class="titulo-principal">
-		<h1>CARAVANAS</h1>
-		<h3>TRENQUE LAUQUEN</h3>
-	</div>
+<%= render 'principal' %>
 </section>
 <section class="seccion-inicio" data-section-name="inicio" id="seccion-inicio">
 	<p>seccion de inicio</p>
@@ -29,8 +22,8 @@
 </section>
 
 <script>
-$(function() {
-  $.scrollify({
+//$(function() {
+/*  $.scrollify({
 		section:"section",
 });
 
@@ -41,7 +34,7 @@ $(function() {
 
 
 
-});
+});*/
 
 
 </script>

@@ -54,9 +54,10 @@ class FacturasController < ApplicationController
       @remito = Remito.find(remito)
       @factura.remitos << @remito
     end
-    actualizar_estado
+
     respond_to do |format|
       if @factura.save
+        actualizar_estado
         format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
         format.json { render :show, status: :created, location: @factura }
       else
@@ -70,8 +71,8 @@ class FacturasController < ApplicationController
   # PATCH/PUT /facturas/1.json
   def update
     respond_to do |format|
-      actualizar_estado
       if @factura.update(factura_params)
+        actualizar_estado
         format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
         format.json { render :show, status: :ok, location: @factura }
       else
@@ -117,8 +118,18 @@ class FacturasController < ApplicationController
         @remito = Remito.find(remito)
         @pedido = Pedido.find(@remito.pedido_id)
         if @remito.remito_items.all? {|item| item.facturado?}
-          @pedido.facturado!
+          @remito.estado = "Facturado"
+          @remito.facturado = true
         elsif @remito.remito_items.any? {|item| item.facturado?}
+          @remito.estado = "Facturado parcial"
+        else
+          @remito.estado = "Pendiente"
+        end
+        @remito.save
+
+        if @pedido.remitos.all? {|remito| remito.facturado?}
+          @pedido.facturado!
+        elsif @pedido.remitos.any? {|remito| remito.facturado? || remito.estado == "Pendiente" || remito.estado == "Facturado parcial"}
           @pedido.facturado_parcial!
         else
           @pedido.remitido!

@@ -33,6 +33,13 @@
           <dt>Cantidadtotal:</dt>
           <dd><%= remito.cantidadTotal %></dd>
 
+          <dt>Facturas:</dt>
+          <% remito.facturas.each do |factura| %>
+            <dd><%= factura.id %></dd>
+          <% end %>
+
+          <h1><%= remito.estado %></h1>
+
         </dl>
         </div>
       </div>

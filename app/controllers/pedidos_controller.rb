@@ -74,6 +74,7 @@ class PedidosController < ApplicationController
     respond_to do |format|
     pendiente_remision
       if @pedido.save
+        @pedido.activo!
         params[:pedido][:detalles_attributes].each do |producto, params|
           @producto = Producto.find(params[:producto_id])
           @producto.stock_disponible -= params[:cantidad].to_i
@@ -108,8 +109,8 @@ class PedidosController < ApplicationController
     end
     #con esta linea actualizo los valores de cantidad a pendiente de remitir
     respond_to do |format|
-      @pedido.confirmado!
       if @pedido.update(pedido_params)
+        estado_pedido_update
         @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
@@ -148,6 +149,14 @@ class PedidosController < ApplicationController
   end
   
   private
+    def estado_pedido_update
+        if @pedido.detalles.any? { |item| Producto.find(item.producto_id).rango == true && (item.rango_desde.blank? || item.rango_hasta.blank?)}
+          @pedido.activo!
+        else
+          @pedido.confirmado!
+        end
+    end
+
     def create_pedidos
       Producto.all.each do |obj|
         if !@pedido.producto_ids.include?(obj.id)

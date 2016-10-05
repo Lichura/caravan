@@ -98,7 +98,7 @@
                         <%= render 'user_sucursal_fields', f: sucursal %>
                       <% end %>
                       <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals,  :class => "btn btn-success pull-right" %>
-
+                      <%= f.hidden_field :condicionCompra, :value => 1 %>
                     </div>
                   </div>
                   <%= f.submit 'Crear Usuario', :class => "btn btn-primary pull-right" %>

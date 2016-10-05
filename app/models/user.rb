@@ -33,8 +33,8 @@ class User < ApplicationRecord
 	validates :telefono, format: { with: /([0-9]{5,15})/, message: "El telefono que ingreso no es correcto" }, :allow_blank => true
 	validates :celular, format: { with: /([0-9]{5,15})/, message: "El celular que ingreso no es correcto" }, :allow_blank => true
 
-
 	include HTTParty
+
 
 
   def set_default_condicion_de_pago

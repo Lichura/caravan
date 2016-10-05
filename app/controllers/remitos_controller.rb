@@ -65,7 +65,7 @@ class RemitosController < ApplicationController
     modificar_stock
     respond_to do |format|
       if @remito.save
-
+        estado_pedido_remito
         format.html { redirect_to @remito, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
       else
@@ -81,6 +81,7 @@ class RemitosController < ApplicationController
     modificar_stock
     respond_to do |format|
       if @remito.update(remito_params)
+        estado_pedido_remito
         format.html { redirect_to @remito, notice: 'El remito se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @remito }
       else
@@ -95,6 +96,7 @@ class RemitosController < ApplicationController
   def destroy
     modificar_stock_destruir
     @remito.destroy
+    estado_pedido_remito
     respond_to do |format|
       format.html { redirect_to remitos_url, notice: 'El remito se elimino correctamente' }
       format.json { head :no_content }
@@ -111,7 +113,14 @@ class RemitosController < ApplicationController
                           "Otros" => [:comentarios]}
   end
 
-
+   def estado_pedido_remito
+        @pedido = Pedido.find(@remito.pedido_id)
+        if @pedido.detalles.all? {|producto| producto.pendiente_remitir == 0}
+          @pedido.remitido!
+        else
+          @pedido.remitido_parcial!
+        end
+  end
 
 
   def modificar_stock
@@ -119,7 +128,7 @@ class RemitosController < ApplicationController
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
         if producto.producto_id == item.producto_id && !item.cantidad.blank?
-          producto.update_attribute :pendiente_remitir, "pendiente_remitir -= item.cantidad"
+          producto.pendiente_remitir -= item.cantidad
         end
       end
     end
@@ -131,7 +140,7 @@ class RemitosController < ApplicationController
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
         if producto.producto_id == item.producto_id && !item.cantidad.blank?
-          producto.update_attribute :pendiente_remitir, "pendiente_remitir += item.cantidad"
+          producto.pendiente_remitir += item.cantidad
         end
       end
     end

@@ -1,0 +1,21 @@
+/* line 1, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/principal.scss */
+.seccion-principal {
+  width: 100%;
+  height: 100%;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
+  position: absolute;
+  display: block;
+}
+
+/* line 10, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/principal.scss */
+#principal-arriba {
+  width: 100%;
+  height: 70%;
+}
+
+/* line 16, /Users/Lichus/Documents/proyectos/caravanas/app/assets/stylesheets/principal.scss */
+#principal-arriba img {
+  width: 10%;
+  height: 10%;
+}
