@@ -42,18 +42,20 @@
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
           <td><%= pedido.status %></td>
           <td>
-              <% if pedido.estado == "Pendiente de remitir" or pedido.estado == "Remitido parcial" %>
+              <% if pedido.confirmado? %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Remitir", {controller:"remitos", action:"new", id: pedido} %></span>
-              <% else %>
+              <% elsif !pedido.activo? %>
                 <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
                   <i style="color:green" class="glyphicon glyphicon-check"></i>
                 <% end %>
+              <% else %>
+                <i class="glyphicon glyphicon-uncheck"></i>
               <% end %>
           </td>
           <td>
-              <% if pedido.facturado %>
+              <% if pedido.facturado? %>
                 <span style="color:green" class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
-              <% elsif current_user.profile_id == 1 && pedido.estado == "Pendiente de facturar" %>
+              <% elsif current_user.profile_id == 1 && (pedido.remitido? || pedido.remitido_parcial?) %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
               <% else %>
                 <span class="glyphicon glyphicon-check"></span>
@@ -74,7 +76,7 @@
           <% end %>
           </td>
           <td>
-          <% if pedido.estado == "A confirmar" %>
+          <% if pedido.activo? %>
             <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' } do %>
               <i class="glyphicon glyphicon-trash"></i>
             <% end %>

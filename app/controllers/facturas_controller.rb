@@ -54,7 +54,7 @@ class FacturasController < ApplicationController
       @remito = Remito.find(remito)
       @factura.remitos << @remito
     end
-
+    actualizar_estado
     respond_to do |format|
       if @factura.save
         format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
@@ -70,6 +70,7 @@ class FacturasController < ApplicationController
   # PATCH/PUT /facturas/1.json
   def update
     respond_to do |format|
+      actualizar_estado
       if @factura.update(factura_params)
         format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
         format.json { render :show, status: :ok, location: @factura }
@@ -110,7 +111,20 @@ class FacturasController < ApplicationController
       params.require(:factura).permit(:remito_id, :cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
     end
 
-
+    def actualizar_estado
+      @remitos = @factura.factura_items.uniq.pluck(:remito_id)
+      @remitos.each do |remito|
+        @remito = Remito.find(remito)
+        @pedido = Pedido.find(@remito.pedido_id)
+        if @remito.remito_items.all? {|item| item.facturado?}
+          @pedido.facturado!
+        elsif @remito.remito_items.any? {|item| item.facturado?}
+          @pedido.facturado_parcial!
+        else
+          @pedido.remitido!
+        end
+      end
+    end
 
   def set_tipo
     @tipos = ["Factura A", "Factura B"]

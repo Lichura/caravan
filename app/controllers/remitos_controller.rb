@@ -25,9 +25,7 @@ class RemitosController < ApplicationController
   # GET /remitos/1.json
   def show
     @prueba = @remito.remito_items.all? {|item| item.facturado == true }
-    if @prueba
-      @probando = "bla"
-    end
+
   end
 
   #esto es para la llamada desde un pedido, que muestre todos los remitos asociados
@@ -64,11 +62,10 @@ class RemitosController < ApplicationController
   # POST /remitos.json
   def create
     @remito = Remito.new(remito_params)
+    modificar_stock
     respond_to do |format|
       if @remito.save
-        modificar_stock
-        finalizado_por_ajuste
-        finalizar_pedido
+
         format.html { redirect_to @remito, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
       else
@@ -81,11 +78,9 @@ class RemitosController < ApplicationController
   # PATCH/PUT /remitos/1
   # PATCH/PUT /remitos/1.json
   def update
+    modificar_stock
     respond_to do |format|
       if @remito.update(remito_params)
-        modificar_stock
-        finalizado_por_ajuste
-        finalizar_pedido
         format.html { redirect_to @remito, notice: 'El remito se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @remito }
       else
@@ -116,37 +111,15 @@ class RemitosController < ApplicationController
                           "Otros" => [:comentarios]}
   end
 
-  def finalizar_pedido
-    @pedido = Pedido.find(@remito.pedido_id)
-    estado = "Remitido - Pendiente de facturar"
-      @pedido.detalles.each do |producto|
-        if producto.pendiente_remitir > 0
-          estado = "Remitido parcial"
-        end
-      end
-    @pedido.estado = estado
-    @pedido.save
-  end
 
-  def finalizado_por_ajuste
-    if @remito.finalizado
-      @pedido.estado = "Finalizado por ajuste - Pendiente de facturar"
-      @pedido.save
-    end
-  end
 
-  def modificar_estado
-        @pedido = Pedido.find(@remito.pedido_id)
-        @pedido.estado = "Remitido - Pendiente de facturar"
-        @pedido.save
-  end
 
   def modificar_stock
     @pedido = Pedido.find(@remito.pedido_id)
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
         if producto.producto_id == item.producto_id && !item.cantidad.blank?
-          producto.pendiente_remitir -= item.cantidad
+          producto.update_attribute :pendiente_remitir, "pendiente_remitir -= item.cantidad"
         end
       end
     end
@@ -158,23 +131,23 @@ class RemitosController < ApplicationController
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
         if producto.producto_id == item.producto_id && !item.cantidad.blank?
-          producto.pendiente_remitir += item.cantidad
+          producto.update_attribute :pendiente_remitir, "pendiente_remitir += item.cantidad"
         end
       end
     end
     @pedido.save
   end
 
-   def crear_remitos
-        @pedido.detalles.each do |obj|
-          if !@remito.producto_ids.include?(obj.producto_id) && (obj.pendiente_remitir > 0)
-            @remito.remito_items.build(:producto_id => obj.producto_id)
-          end
+  def crear_remitos
+    @pedido.detalles.each do |obj|
+      if !@remito.producto_ids.include?(obj.producto_id) && (obj.pendiente_remitir > 0)
+        @remito.remito_items.build(:producto_id => obj.producto_id)
       end
     end
+  end
 
-    def crear_remitos_sin_pedido
-      Producto.all.each do |obj|
+  def crear_remitos_sin_pedido
+    Producto.all.each do |obj|
         if !@remito.producto_ids.include?(obj.id)
           @remito.remito_items.build(:producto_id => obj.id)
         end

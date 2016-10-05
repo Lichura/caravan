@@ -10,8 +10,9 @@ class Pedido < ApplicationRecord
     confirmado: 2,
     remitido: 3,
     remitido_parcial: 4,
-    facturado: 5,
-    facturado_parcial: 6
+    finalizado_por_ajuste: 5,
+    facturado: 6,
+    facturado_parcial: 7
     }
 	accepts_nested_attributes_for :detalles,  allow_destroy: true
   
@@ -33,6 +34,7 @@ class Pedido < ApplicationRecord
   def crear_pedido
     self.activo!
   end
+
 
 
 	def self.search(pedido)
