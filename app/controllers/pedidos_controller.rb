@@ -56,7 +56,11 @@ class PedidosController < ApplicationController
     authorize @pedido
     create_pedidos
     @usuarios = User.all
-    @numero = Pedido.maximum(:comprobanteNumero) + 1 || 1
+    if Pedido.maximum(:comprobanteNumero)
+      @numero = Pedido.maximum(:comprobanteNumero) + 1
+    else
+      @numero.comprobanteNumero = 1
+    end
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
     if params[:cliente_id]
     @cliente = User.find(params[:cliente_id])  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente
