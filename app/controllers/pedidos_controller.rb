@@ -59,7 +59,7 @@ class PedidosController < ApplicationController
     if Pedido.maximum(:comprobanteNumero)
       @numero = Pedido.maximum(:comprobanteNumero) + 1
     else
-      @numero.comprobanteNumero = 1
+      @numero = 1
     end
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
     if params[:cliente_id]
