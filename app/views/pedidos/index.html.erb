@@ -12,8 +12,9 @@
                 <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
-            <div class="input-group">
-                          <%= collection_select(:filtrar, 0, @estados, :to_s, :to_s, {include_blank: true}, {class: "form-control"}) %>
+            <div class="form-group">
+              <label  class="col-sm-2 control-label">Filtrar</label>
+                <%= collection_select(:filtrar, 0, @estados, :to_s, :to_s, {include_blank: true}, {class: "col-sm-10 form-control"}) %>
             </div>
            <% end %>
           </div>
@@ -33,7 +34,7 @@
         <th>Eliminar</th>
       </thead>
       <tbody>
-
+      <div id="datos">
         <% @pedidos.each do |pedido| %>
         <!-- se podria utilizar para ver el proximo turno -->
         <tr>
@@ -74,6 +75,7 @@
           <% else %>
             <i style="color:green" class="glyphicon glyphicon-ok"></i>
           <% end %>
+
           </td>
           <td>
           <% if pedido.activo? %>
@@ -84,7 +86,7 @@
           </td>
           </tr>
           <% end %>
-
+          </div>
       </tbody>
       </table>
       </div>
@@ -93,5 +95,21 @@
         <%= link_to 'Nuevo Pedido', new_pedido_path %>
       </button>
 </div>
-
+<script>
+$('document').ready(function(){
+    $(document).on('change', '#filtrar_0', function(){
+        $.ajax({
+           url: '/pedidos',
+           data: {
+              filtrar: $('#filtrar_0').val()
+           },
+           success: function() {
+              alert($('#filtrar_0').val());
+              $("#datos").toggle().toggle();
+           },
+           type: 'GET'
+        });
+    });
+  });
+</script>
 

@@ -28,28 +28,31 @@
               <dd><%= @pedido.status %></dd>
               <dt>Articulos:</dt>
               <dd>
-                <table>
-                  <thead>
-                <tr>
-                      <th>Nombre</th>
+                <div class="tabla-responsive-vertical shadow-z-1">
+                  <!-- Table starts here -->
+                  <table id="tabla" class="tabla tabla-hover">
+                    <thead>
+                      <tr>
+                      <th>Producto</th>
                       <th>Cantidad</th>
                       <th>Rango Desde</th>
                       <th>Rango Hasta</th>
                       <th>Pendiente de remitir</th>
                     </tr>
-                  </thead>
-                  <tbody>
-                  <% @pedido.detalles.each do |producto| %>
-                    <tr>
-                    <td><%= Producto.find(producto.producto_id).nombre %></td>
-                  <td><%= producto.cantidad %></td>
-                  <td><%= producto.rango_desde %></td>
-                  <td><%= producto.rango_hasta %></td>
-                  <td><%= producto.pendiente_remitir %></td>
-                </tr>
-                <% end %>
-                </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      <% @pedido.detalles.each do |producto| %>
+                        <tr>
+                          <td data-title="Producto"><%= Producto.find(producto.producto_id).nombre %></td>
+                          <td data-title="Cantidad"><%= producto.cantidad %></td>
+                          <td data-title="Rango Desde"><%= producto.rango_desde %></td>
+                          <td data-title="Rango Hasta"><%= producto.rango_hasta %></td>
+                          <td data-title="Pendiente de remitir"><%= producto.pendiente_remitir %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
               </dd>
                 <dt>Cantidad total:</dt>
                 <dd><%= @pedido.cantidadTotal %></dd>
@@ -58,11 +61,15 @@
                 <dt>Remitos Asociados:</dt>
                 <dd>
         <% @pedido.remitos.each do |remito| %>
-          <%= link_to "remito #{remito.id}", remito_path(remito), class: "btn btn-warning" %>
+          <dd><%= link_to "Remito #{remito.id}", remito_path(remito), class: "btn btn-warning" %></dd>
+        <% end %> 
+        <dt>Facturas Asociadas:</dt>
+        <% @pedido.remitos.each do |remito| %> 
           <% remito.facturas.each do |factura| %>
-            <%= factura.id %>
+            <%= link_to "Factura #{factura.id}", factura_path(factura), class: "btn btn-warning" %>
           <% end %>
-        <% end %></dd>
+        <% end %>
+
 </dl>
 </div>
       </div>

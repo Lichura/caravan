@@ -129,11 +129,13 @@ class FacturasController < ApplicationController
 
         if @pedido.remitos.all? {|remito| remito.facturado?}
           @pedido.facturado!
+          @pedido.facturado = true
         elsif @pedido.remitos.any? {|remito| remito.facturado? || remito.estado == "Pendiente" || remito.estado == "Facturado parcial"}
           @pedido.facturado_parcial!
         else
           @pedido.remitido!
         end
+        @pedido.save
       end
     end
 

@@ -26,6 +26,15 @@ class PedidosController < ApplicationController
       else
         @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
       end
+
+      if params[:filtrar] 
+        @estado = Pedido.statuses[params[:filtrar]]
+        @pedidos = Pedido.filtrar(@estado).paginate(:page => params[:page], :per_page => 10)
+        respond_to do |format|
+          format.html
+          format.js {render "cargar_pedidos"}
+        end
+      end
     respond_to do |format|
       format.html
       format.pdf do
@@ -217,7 +226,7 @@ class PedidosController < ApplicationController
       report.generate
     end
       def estados
-        @estados = ["A confirmar","Pendiente de remitir", "Pendiente de facturar", "Remitido - Pendiente de facturar", "Facturar", "Facturado parcial - Pendiente de facturar"]
+        @estados = ["activo","confirmado_parcial", "confirmado", "remitido", "remitido_parcial", "facturado_parcial", "facturado"]
       end
 
       def sort_column

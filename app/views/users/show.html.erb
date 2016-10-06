@@ -12,30 +12,34 @@
               <dt>Razon Social:</dt>
             <dd><%= @user.razonSocial %></dd>
             <dt>Pais:</dt>
-            <dd><%= @user.pais_id %></dd>
+            <dd><%= Pais.find(@user.pais_id).nombre %></dd>
             <dt>Provincia:</dt>
-            <dd><%= @user.provincia_id %></dd>
+            <dd><%= Provincia.find(@user.provincia_id).nombre %></dd>
             <dt>Ciudad:</dt>
             <dd><%= @user.localidad_id %></dd>
+            <dt>Codigo Postal:</dt>
+            <dd><%= @user.codigoPostal %></dd>
             <% @user.user_sucursals.each do |sucursal| %>
-              <dt>Nombre:</dt>
+              <dt>Sucursal:</dt>
               <dd><%= sucursal.nombre %></dd>
               <dt>Encargado:</dt>
               <dd><%= sucursal.encargado %></dd>
               <dt>Telefono:</dt>
               <dd><%= sucursal.telefono %></dd>
-               <dt>Direccion:</dt>
+              <dt>Direccion:</dt>
               <dd><%= sucursal.direccion %></dd>
-              <dt>Codigo Postal:</dt>
-            <dd><%= @user.codigoPostal %></dd>
             <% end %>
             <% if current_user.profile_id == 3 %>
               <dt>Distribuidor:</dt>
+              <dd><%= @user.distribuidor.id %>
             <% else %>
               <dt>Clientes:</dt>
             <% end %>
-            <% for cliente in @user.clientes do %>
-              <dd><%= cliente.razonSocial %></dd>
+            <% @user.clientes.each do |cliente| %>
+              <dd><%= link_to cliente do %>
+                  <%= cliente.razonSocial %>
+                <% end %>
+              </dd>
             <% end %>
 
 
@@ -47,13 +51,15 @@
         <span class="glyphicon glyphicon-list-alt"></span>
         Usuarios
       <% end %>
-      <%= link_to user_path(@user), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este usuario?' }, class: 'btn btn-danger pull-right' do %>
-        <span class="glyphicon glyphicon-trash"></span>
-        Eliminar
-      <% end %>
-      <%= link_to edit_user_path(@user),  class: 'btn btn-primary' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Editar
+      <% if current_user.profile_id == 1 %>
+        <%= link_to user_path(@user), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este usuario?' }, class: 'btn btn-danger pull-right' do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          Eliminar
+        <% end %>
+        <%= link_to edit_user_path(@user),  class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Editar
+        <% end %>
       <% end %>
   </div>
 </div>

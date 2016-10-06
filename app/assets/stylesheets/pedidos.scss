@@ -200,6 +200,12 @@ body {
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
 }
+
+.tabla > thead > tr > td,
+.tabla > tbody > tr > td,
+.tabla > tfoot > tr > td {
+  margin: 0px;
+}
 .tabla > thead > tr > th {
   font-weight: 400;
   color: #757575;

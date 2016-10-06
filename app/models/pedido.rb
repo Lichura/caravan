@@ -37,5 +37,9 @@ class Pedido < ApplicationRecord
 		where("cuit LIKE ? OR comprobanteNumero LIKE ?", "%#{pedido}%", "%#{pedido}%")
 	end
 
+  def self.filtrar(pedido)
+    where("status = ?", "#{pedido}")
+  end
+
 end
 

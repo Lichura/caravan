@@ -117,9 +117,11 @@ class RemitosController < ApplicationController
         @pedido = Pedido.find(@remito.pedido_id)
         if @pedido.detalles.all? {|producto| producto.pendiente_remitir == 0}
           @pedido.remitido!
+          @pedido.remitido = true
         else
           @pedido.remitido_parcial!
         end
+        @pedido.save
   end
 
 
