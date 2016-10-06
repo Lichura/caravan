@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'cuenta_corriente/index'
+  get 'cuenta_corriente/index', :as => 'cuentascorrientes'
 
   resources :facturas
   resources :remitos

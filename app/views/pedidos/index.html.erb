@@ -58,11 +58,13 @@
           </td>
           <td>
               <% if pedido.facturado? %>
-                <span style="color:green" class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
+                <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
+                  <i style="color:green" class="glyphicon glyphicon-check"></i>
+                <% end %>
               <% elsif current_user.profile_id == 1 && (pedido.remitido? || pedido.remitido_parcial? || pedido.facturado_parcial?) %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
               <% else %>
-                <span class="glyphicon glyphicon-check"></span>
+                <span class="glyphicon glyphicon-uncheck"></span>
               <% end %>
           </td>
           <td>
