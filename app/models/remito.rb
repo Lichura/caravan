@@ -6,7 +6,7 @@ class Remito < ApplicationRecord
 	has_and_belongs_to_many :facturas, optional: true
 
 
-	after_create :generar_estado
+	before_create :generar_estado
 	after_save :finalizar_pedido
 
 	after_update :modificar_estado
