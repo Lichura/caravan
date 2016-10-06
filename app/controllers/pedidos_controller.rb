@@ -242,15 +242,15 @@ class PedidosController < ApplicationController
 
       def actualizar_pedido_cuenta_corriente
         @ccdown = CuentaCorriente.new
-        @ccdown.user_id = self.user_id
-        @ccdown.monto = self.precioTotal_was
-        @ccdown.concepto = "Se modifico el pedido Nº #{self.comprobanteNumero}"
-        @ccdown.conceptoNumero = self.comprobanteNumero
+        @ccdown.user_id = @pedido.user_id
+        @ccdown.monto = @pedido.precioTotal_was
+        @ccdown.concepto = "Se modifico el pedido Nº #{@pedido.comprobanteNumero}"
+        @ccdown.conceptoNumero = @pedido.comprobanteNumero
         @ccup = CuentaCorriente.new
-        @ccup.user_id = self.user_id
-        @ccup.monto = -1 * (self.precioTotal)
-        @ccup.concepto = "Se modifico el pedido Nº #{self.comprobanteNumero}"
-        @ccup.conceptoNumero = self.comprobanteNumero
+        @ccup.user_id = @pedido.user_id
+        @ccup.monto = -1 * (@pedido.precioTotal)
+        @ccup.concepto = "Se modifico el pedido Nº #{@pedido.comprobanteNumero}"
+        @ccup.conceptoNumero = @pedido.comprobanteNumero
         @ccdown.save
         @ccup.save
       end
