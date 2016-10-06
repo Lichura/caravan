@@ -15,9 +15,9 @@
               <dt>Cuit:</dt>
               <dd><%= User.find(@pedido.user_id).cuit %></dd>
              <dt>Remitido:</dt>
-              <dd><%= @pedido.remitido %></dd>         
+              <dd><%= @pedido.remitido.to_sino %></dd>         
              <dt>Facturado:</dt>
-              <dd><%= @pedido.facturado %></dd>
+              <dd><%= @pedido.facturado.to_sino %></dd>
               <% if @pedido.condicionCompra %>
               <dt>Condicioncompra:</dt>
               <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>

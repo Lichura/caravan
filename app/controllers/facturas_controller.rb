@@ -5,8 +5,15 @@ class FacturasController < ApplicationController
   # GET /facturas.json
   def index
     @facturas = Factura.paginate(:page => params[:page], :per_page => 10)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        send_data generate_pedidos_report(@facturas), filename: 'facturas.pdf',
+                                                 type: 'application/pdf',
+                                                 disposition: 'attachment'
+      end
+    end
   end
-
   # GET /facturas/1
   # GET /facturas/1.json
   def show

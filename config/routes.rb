@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'cuenta_corriente/index'
+
   resources :facturas
   resources :remitos
   resources :numeradors

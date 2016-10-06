@@ -23,3 +23,14 @@ end
 
 end
 
+class TrueClass
+   def to_sino
+     'Si'
+    end
+end
+
+class FalseClass
+   def to_sino
+     'No'
+    end
+end

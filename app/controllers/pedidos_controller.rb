@@ -30,10 +30,8 @@ class PedidosController < ApplicationController
       if params[:filtrar] 
         @estado = Pedido.statuses[params[:filtrar]]
         @pedidos = Pedido.filtrar(@estado).paginate(:page => params[:page], :per_page => 10)
-        respond_to do |format|
-          format.html
-          format.js {render "cargar_pedidos"}
-        end
+      else
+        @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
       end
     respond_to do |format|
       format.html
@@ -120,6 +118,7 @@ class PedidosController < ApplicationController
     respond_to do |format|
       if @pedido.update(pedido_params)
         estado_pedido_update
+        actualizar_pedido_cuenta_corriente
         @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
@@ -235,5 +234,20 @@ class PedidosController < ApplicationController
       
       def sort_direction
         %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      end
+
+      def actualizar_pedido_cuenta_corriente
+        @ccdown = CuentaCorriente.new
+        @ccdown.user_id = self.user_id
+        @ccdown.monto = self.precioTotal_was
+        @ccdown.concepto = "Se modifico el pedido Nº #{self.comprobanteNumero}"
+        @ccdown.conceptoNumero = self.comprobanteNumero
+        @ccup = CuentaCorriente.new
+        @ccup.user_id = self.user_id
+        @ccup.monto = -1 * (self.precioTotal)
+        @ccup.concepto = "Se modifico el pedido Nº #{self.comprobanteNumero}"
+        @ccup.conceptoNumero = self.comprobanteNumero
+        @ccdown.save
+        @ccup.save
       end
 end

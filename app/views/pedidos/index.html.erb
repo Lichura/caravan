@@ -7,14 +7,17 @@
             <%= form_tag(pedidos_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar pedidos", class: "form-control"%>
-
               <span class="input-group-btn">
                 <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
-            <div class="form-group">
-              <label  class="col-sm-2 control-label">Filtrar</label>
-                <%= collection_select(:filtrar, 0, @estados, :to_s, :to_s, {include_blank: true}, {class: "col-sm-10 form-control"}) %>
+            <% end %><br>
+             <%= form_tag(pedidos_path, :method => "get", id: "filtrar-form") do %>
+            <div class="input-group">
+                <%=select_tag :filtrar, options_from_collection_for_select(@estados, :to_s, :to_s, {:selected => params[:filtrar], include_blank: true}), {class: "form-control"} %>
+              <span class="input-group-btn">
+                <%= submit_tag "Filtrar", class: 'btn btn-default'%>
+              </span>
             </div>
            <% end %>
           </div>
@@ -95,21 +98,5 @@
         <%= link_to 'Nuevo Pedido', new_pedido_path %>
       </button>
 </div>
-<script>
-$('document').ready(function(){
-    $(document).on('change', '#filtrar_0', function(){
-        $.ajax({
-           url: '/pedidos',
-           data: {
-              filtrar: $('#filtrar_0').val()
-           },
-           success: function() {
-              alert($('#filtrar_0').val());
-              $("#datos").toggle().toggle();
-           },
-           type: 'GET'
-        });
-    });
-  });
-</script>
+
 

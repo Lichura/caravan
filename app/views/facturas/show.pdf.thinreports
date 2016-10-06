@@ -1,0 +1,21 @@
+report.start_new_page do |page|
+  page.values razonSocial: User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id).razonSocial, 
+ 		 	  cuit: @factura.cuit, 
+              fecha: @factura.fecha,
+              numero: @factura.numero,
+              neto: @factura.neto,
+              iva: @factura.iva,
+              total: @factura.total
+end
+
+	@factura.factura_items.each do |producto|
+		report.list.add_row do |row|
+			row.item(:producto_id).value(producto.producto_id)
+			row.item(:nombre).value(Producto.find(producto.producto_id).nombre)
+			row.item(:cantidad).value(producto.cantidad)
+			row.item(:precio).value(producto.precio)
+			row.item(:neto).value(producto.neto)
+			row.item(:iva).value(producto.iva)
+			row.item(:subtotal).value(producto.subtotal)
+		end
+	end

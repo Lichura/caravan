@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161004194107) do
+ActiveRecord::Schema.define(version: 20161006130816) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20161004194107) do
     t.integer  "dias"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "cuenta_corrientes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "concepto"
+    t.integer  "conceptoNumero"
+    t.float    "monto"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "detalles", force: :cascade do |t|
