@@ -5,7 +5,7 @@ class Remito < ApplicationRecord
 	belongs_to :pedido
 	has_and_belongs_to_many :facturas, optional: true
 
-	before_create :aumentar_numerador
+
 	after_create :generar_estado
 	after_save :finalizar_pedido
 
@@ -16,9 +16,6 @@ class Remito < ApplicationRecord
 
 	private
 
-	def aumentar_numerador
-		self.numero = Remito.maximum(:numero).next || 1
-	end
 
 	def generar_estado
 		self.estado = "Pendiente de remitir"
