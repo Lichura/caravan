@@ -2,14 +2,14 @@ class Remito < ApplicationRecord
 	include ActiveModel::Dirty
 	has_many :remito_items
 	has_many :productos, :through => :remito_items
-	belongs_to :pedido
+	belongs_to :pedido, optional: true
 	has_and_belongs_to_many :facturas, optional: true
 
 
 	before_create :generar_estado
 	after_save :finalizar_pedido
 
-	after_update :modificar_estado
+	#after_update :modificar_estado
 	after_update :finalizado_por_ajuste
 	before_validation :marcar_productos_para_destruir
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true

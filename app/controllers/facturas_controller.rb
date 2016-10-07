@@ -64,7 +64,9 @@ class FacturasController < ApplicationController
 
     respond_to do |format|
       if @factura.save
-        actualizar_estado
+        modificar_stock
+        actualizar_estado_remito
+        actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
         format.json { render :show, status: :created, location: @factura }
       else
@@ -79,7 +81,8 @@ class FacturasController < ApplicationController
   def update
     respond_to do |format|
       if @factura.update(factura_params)
-        actualizar_estado
+        actualizar_estado_remito
+        actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
         format.json { render :show, status: :ok, location: @factura }
       else
@@ -119,32 +122,56 @@ class FacturasController < ApplicationController
       params.require(:factura).permit(:remito_id, :cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
     end
 
-    def actualizar_estado
-      @remitos = @factura.factura_items.uniq.pluck(:remito_id)
-      @remitos.each do |remito|
-        @remito = Remito.find(remito)
-        @pedido = Pedido.find(@remito.pedido_id)
-        if @remito.remito_items.all? {|item| item.facturado?}
-          @remito.estado = "Facturado"
-          @remito.facturado = true
-        elsif @remito.remito_items.any? {|item| item.facturado?}
-          @remito.estado = "Facturado parcial"
+    def actualizar_estado_remito
+      @factura.remitos.each do |remito|
+        if remito.remito_items.all? {|producto| producto.pendiente_facturar == 0}
+          remito.estado = "Facturado"
+          remito.facturado = true
         else
-          @remito.estado = "Pendiente"
+          remito.estado = "Facturado parcia"
         end
-        @remito.save
-
-        if @pedido.remitos.all? {|remito| remito.facturado?}
-          @pedido.facturado!
-          @pedido.facturado = true
-        elsif @pedido.remitos.any? {|remito| remito.facturado? || remito.estado == "Pendiente" || remito.estado == "Facturado parcial"}
-          @pedido.facturado_parcial!
-        else
-          @pedido.remitido!
-        end
-        @pedido.save
+        remito.save
       end
     end
+
+    def actualizar_estado_pedido
+      @factura.remitos.each do |remito|
+        if remito.pedido.remitos.all? {|remito| remito.facturado?}
+          remito.pedido.facturado!
+          remito.pedido.facturado = true
+        elsif remito.pedido.remitos.any? {|remito| remito.facturado? || remito.estado == "Pendiente" || remito.estado == "Facturado parcial"}
+          remito.pedido.facturado_parcial!
+        else
+          remito.pedido.remitido!
+        end
+        remito.pedido.save
+      end
+    end
+
+  def modificar_stock
+    @factura.factura_items.each do |item|
+      @remito = Remito.find(item.remito_id)
+      @remito.remito_items.each do |producto|
+        if producto.producto_id == item.producto_id && !item.cantidad.blank?
+          producto.pendiente_facturar -= item.cantidad
+          producto.save
+        end
+      end
+    end
+  end
+
+  def modificar_stock_destruir
+    @factura.factura_items.each do |item|
+      @remito = Remito.find(item.remito_id)
+      @remito.remito_items.each do |producto|
+        if producto.producto_id == item.producto_id && !item.cantidad.blank?
+          producto.pendiente_facturar += item.cantidad
+          producto.save
+        end
+      end
+    end
+  end
+
 
   def set_tipo
     @tipos = ["Factura A", "Factura B"]
