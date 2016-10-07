@@ -77,6 +77,8 @@
             <%= link_to edit_pedido_path(pedido) do %>
              <i class="glyphicon glyphicon-ok"></i>
             <% end %>
+          <% elsif pedido.activo? %>
+            <i class="glyphicon glyphicon-ok"></i>
           <% else %>
             <i style="color:green" class="glyphicon glyphicon-ok"></i>
           <% end %>
