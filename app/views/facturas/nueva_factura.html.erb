@@ -117,7 +117,7 @@
                 <td data-title="Precio"><%= ff.text_field :precio, :value =>  Producto.find(ff.object.producto.id).precio   , class: "precio form-control" %></td>
                 <td data-title="IVA"><%= ff.text_field :iva, :value => 0, class: "iva form-control" %></td>
                 <td data-title="Neto"><%= ff.text_field :neto, :value => 0, class: "neto form-control" %></td>
-                <td data-title="descuento"><%= ff.text_field :neto, :value => 0, class: "descuento form-control" %></td>
+                <td data-title="descuento"><%= ff.text_field :descuento, :value => 0, class: "descuento form-control" %></td>
                 <td data-title="Subtotal"><%= ff.text_field :subtotal, :value => 0, class: "subtotal form-control" %></td>
                 <%= ff.hidden_field :producto_id %>
                 <%= ff.hidden_field :remito_id %>

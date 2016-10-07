@@ -71,7 +71,7 @@ class RemitosController < ApplicationController
     respond_to do |format|
       if @remito.save
         estado_pedido_remito
-        format.html { redirect_to @remito, notice: 'El remito se creo correctamente' }
+        format.html { redirect_to pedidos_path, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
       else
         format.html { render :new }

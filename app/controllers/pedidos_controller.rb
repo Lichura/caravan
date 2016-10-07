@@ -20,18 +20,18 @@ class PedidosController < ApplicationController
   # GET /pedidos.json
   def index
 
-    @pedidos = Pedido.order(sort_column + " " + sort_direction).paginate(:page => params[:page], :per_page => 10)
+    @pedidos = Pedido.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       if params[:search]
-        @pedidos = Pedido.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+        @pedidos = Pedido.search(params[:search]).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       else
-        @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
+        @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
 
-      if params[:filtrar] 
+      if params[:filtrar] && params[:filtrar] != ""
         @estado = Pedido.statuses[params[:filtrar]]
-        @pedidos = Pedido.filtrar(@estado).paginate(:page => params[:page], :per_page => 10)
+        @pedidos = Pedido.filtrar(@estado).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       else
-        @pedidos = Pedido.all.paginate(:page => params[:page], :per_page => 10)
+        @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
     respond_to do |format|
       format.html

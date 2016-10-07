@@ -66,18 +66,14 @@
         </div>
       </div>
     </div>
-      <%= link_to edit_factura_path, class: 'btn btn-default pull-right' do %>
+      <%= link_to pedidos_path, class: 'btn btn-default pull-right' do %>
         <span class="glyphicon glyphicon-list-alt"></span>
-        facturas
+        Pedidos
       <% end %>
       <% if current_user.profile_id == 1 %>
         <%= link_to factura_path(@factura), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
           <span class="glyphicon glyphicon-trash"></span>
-          Eliminar
-        <% end %>
-        <%= link_to edit_factura_path(@factura),  class: 'btn btn-primary' do %>
-          <span class="glyphicon glyphicon-pencil"></span>
-          Editar
+          Anular
         <% end %>
       <% end %>
       <%= link_to "PDF", factura_path(@factura, :format => 'pdf'),  {class: "btn btn-warning"} %>

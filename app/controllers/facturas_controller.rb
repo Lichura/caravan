@@ -61,11 +61,9 @@ class FacturasController < ApplicationController
       @remito = Remito.find(remito)
       @factura.remitos << @remito
     end
-
     respond_to do |format|
       if @factura.save
-        modificar_stock
-        actualizar_estado_remito
+        #actualizar_estado_remito
         actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
         format.json { render :show, status: :created, location: @factura }
@@ -81,8 +79,6 @@ class FacturasController < ApplicationController
   def update
     respond_to do |format|
       if @factura.update(factura_params)
-        actualizar_estado_remito
-        actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
         format.json { render :show, status: :ok, location: @factura }
       else
@@ -105,7 +101,7 @@ class FacturasController < ApplicationController
   private
     def crear_factura_sin_remito
       Producto.all.each do |obj|
-        if !@factura.producto_ids.include?(obj.id)
+        if !@factura.producto_ids.include?(obj.id) && (obj.pendiente_facturar > 0)
           @factura.factura_items.build(:producto_id => obj.id)
         end
       end

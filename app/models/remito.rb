@@ -18,7 +18,7 @@ class Remito < ApplicationRecord
 
 
 	def generar_estado
-		self.estado = "Pendiente de remitir"
+		self.estado = "Pendiente de facturar"
 		self.facturado = false
 	end
 

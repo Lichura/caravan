@@ -14,7 +14,7 @@
             <% end %><br>
              <%= form_tag(pedidos_path, :method => "get", id: "filtrar-form") do %>
             <div class="input-group">
-                <%=select_tag :filtrar, options_from_collection_for_select(@estados, :to_s, :to_s, {:selected => params[:filtrar], include_blank: true}), {class: "form-control"} %>
+                <%=select_tag :filtrar, options_from_collection_for_select(@estados, :to_s, :to_s, :selected => params[:filtrar]), {include_blank: true, class: "form-control"} %>
               <span class="input-group-btn">
                 <%= submit_tag "Filtrar", class: 'btn btn-default'%>
               </span>
@@ -27,7 +27,7 @@
           <table class="table table-hover">
               <thead class="pedidos">
         <th>Comprobante</th>
-        <th><%= sortable "CUIT" %></th>
+        <th>CUIT</th>
         <th>Fecha</th>
         <th>Estado</th>
         <th>Remitido</th>
