@@ -2,7 +2,9 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header usuarios">
-        <button id="cerrar-modal" type="button" class="close" data-dismiss="modal"  aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
         <h4 class="modal-title"><%= title %></h4>
       </div>
         <div class="modal-body">
@@ -12,7 +14,7 @@
                 <h3>Nuevo Cliente</h3>
                 <% if @user.errors.any? %>
                   <div class="error_messages">
-                    <h2> Form ins invalid</h2>
+                    <h2> El formulario no es valido</h2>
                     <ul>
                       <% for message in @user.errors.full_messages %>
                         <li><%= message %></li>
@@ -114,15 +116,7 @@
 
 <script>
 $(document).ready(function(){
-  $(document).on('change', '#buscarAfip1', function(){
-    $.ajax({
-       url: "/users/new_pedido",
-       data: {
-          search_afip: $('#buscarAfip1').val()
-       },
-       dataType: 'script',
-       type: 'GET'
-    });
+
   });
  
 

@@ -74,6 +74,22 @@
  */
 
 $(document).ready(function() {
+  $(document).on('change', '#buscarAfip1', function(){
+       $.ajax({
+           url: '/users/new_pedido',
+           data: {
+              search_afip: $('#buscarAfip1').val()
+           },
+           error: function() {
+              alert($('#buscarAfip1').val());
+           },
+           dataType: 'script',
+           type: 'GET'
+        });
+     });
+
+
+
 
     var table = $('#tabla');
 
