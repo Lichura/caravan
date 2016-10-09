@@ -39,3 +39,12 @@ jQuery ->
   				data:
   					search_afip: $('#buscarAfip').val()
 
+jQuery ->
+	$(document).ready ->
+  			$.ajax
+  				url: "/users/new"
+  				type: "GET"
+  				dataType: "script"
+  				data:
+  					search_afip: $('#buscarAfip').val()
+

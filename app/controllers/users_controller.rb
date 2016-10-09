@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     @user = User.new
     @sucursales = @user.user_sucursals.build(:user_id => @user.id)
     @provincias = Provincia.all
-    @afip = User.search_afip(params[:search_afip])
+    @afip = User.search_afip(params[:search_afip]) 
     respond_to do |format|
      format.html
      format.js {render "buscar_afip"}
@@ -131,9 +131,8 @@ end
       end
   		  session[:return_to] ||= request.referer
         redirect_to session.delete(:return_to), :notice => "Se creo el cliente #{@user.razonSocial}"
-
     else
-  		render "new"
+  		render :new 
   	end
   end
 

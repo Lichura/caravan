@@ -47,10 +47,10 @@
                 <div class="form-group row">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Cuit</label>
                   <div class="col-sm-10">
-                  <input placeholder="CUIT", id="buscarAfip", class="form-control"></input>
-                </div>
-                </div>
+                  <%= f.text_field :cuit, id: "buscarAfip", class: "form-control" %>
 
+                </div>
+                </div>
 
                       <div id="afip"></div>
               </div>
@@ -133,6 +133,8 @@ $(document).ready(function(){
       $('#seleccionar_distribuidor').hide();
     }
   });
+
+  $( ".has-error" ).first().focus();
 
 });
 </script>

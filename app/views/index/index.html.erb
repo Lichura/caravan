@@ -1,22 +1,23 @@
+<head>
+    <%= stylesheet_link_tag 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
 <section class="seccion-principal" data-section-name="principal">
 <%= render 'principal' %>
 </section>
 <section class="seccion-inicio" data-section-name="inicio" id="seccion-inicio">
-	<p>seccion de inicio</p>
-</section>
-<section class="seccion-nosotros" data-section-name="nosotros" id="seccion-nosotros">
-	<p>seccion de nosotros</p>
+	<%= render 'nosotros' %>
 </section>
 <section class="seccion-productos" data-section-name="productos" id="seccion-productos">
 	<p>seccion de productos</p>
 	<div>
-		<img src=<%= asset_path('caravana.png') %>>
+
 	</div>
 </section>
 
 <section class="seccion-contacto" data-section-name="contacto" id="seccion-contacto">
 	<p>seccion de contacto</p>
-	<div>
+	<div class="contacto-mensajes">
 		<%= render 'mensajes/form', mensaje: @mensaje %>
 	</div>
 </section>

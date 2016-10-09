@@ -29,7 +29,11 @@ en:
         cuit: ""
         cuig: ""
         renspa: ""
-        numeroCV: ""
+        numeroCv: ""
+      user_sucursals:
+        nombre: ""
+      pedidos:
+        cuit: ""
     errors:
       models:
         user:
@@ -39,12 +43,24 @@ en:
               taken: "El email ingresado se encuentra en uso, por favor verifiquelo"
             cuit:
               blank: "El numero de CUIT no puede estar vacio"
+              taken: "El CUIT ingresado se encuentra registrado, por favor verifiquelo"
             cuig:  
               blank: "El numero de CUIG no puede estar vacio"
+              taken: "El numero de CUIG se encuentra registrado, por favor verifiquelo"
             renspa:
               blank: "El numero de RENSPA no puede estar vacio"
+              taken: "El numero de RENSPA se encuentra registrado, por favor verifiquelo"
             numeroCv:
               blank: "El numero de CV no puede estar vacio"
+              taken: "El numero de CV se encuentra registrado, por favor verifiquelo"
+        user_sucursals:
+          attributes:
+            nombre:
+              blank: "El nombre de la sucursal no puede estar vacio."
+        pedidos:
+          attributes:
+            cuit:
+              blank: "Debe ingresar un cliente para procesar un pedido"
 
 
 errors:

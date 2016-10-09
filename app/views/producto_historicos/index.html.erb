@@ -35,6 +35,6 @@
 
 <%= line_chart @historico,  { library: {width: 600} }%>
 
-<%= column_chart @pedidos %>
+<%= column_chart Pedido.group(:distribuidor_id).count, stacked: true, xtitle: "Distribuidores", ytitle: "Cantidad de pedidos" %>
 
 
