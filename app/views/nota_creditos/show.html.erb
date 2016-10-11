@@ -1,0 +1,55 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>nota_credito</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Cliente:</dt>
+          <dd><%= @nota_credito.cliente_id %></dd>
+
+          <dt>Factura:</dt>
+          <dd><%= @nota_credito.factura_id %></dd>
+
+          <dt>Distribuidor:</dt>
+          <dd><%= @nota_credito.distribuidor_id %></dd>
+
+          <dt>Vendedor:</dt>
+          <dd><%= @nota_credito.vendedor_id %></dd>
+
+          <dt>Fecha:</dt>
+          <dd><%= @nota_credito.fecha %></dd>
+
+          <dt>Estado:</dt>
+          <dd><%= @nota_credito.estado %></dd>
+
+          <dt>Tipo:</dt>
+          <dd><%= @nota_credito.tipo %></dd>
+
+          <dt>Neto:</dt>
+          <dd><%= @nota_credito.neto %></dd>
+
+          <dt>Iva:</dt>
+          <dd><%= @nota_credito.iva %></dd>
+
+          <dt>Total:</dt>
+          <dd><%= @nota_credito.total %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to edit_nota_credito_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        nota_creditos
+      <% end %>
+      <%= link_to nota_credito_path(@nota_credito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_nota_credito_path(@nota_credito),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>

@@ -37,4 +37,6 @@
 
 <%= column_chart Pedido.group(:distribuidor_id).count, stacked: true, xtitle: "Distribuidores", ytitle: "Cantidad de pedidos" %>
 
+<%= pie_chart Detalle.group(:producto_id).count %>
+
 

@@ -1,0 +1,2 @@
+json.extract! nota_credito, :id, :cliente_id, :factura_id, :distribuidor_id, :vendedor_id, :fecha, :estado, :tipo, :neto, :iva, :total, :created_at, :updated_at
+json.url nota_credito_url(nota_credito, format: :json)

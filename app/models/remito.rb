@@ -12,7 +12,7 @@ class Remito < ApplicationRecord
 	#after_update :modificar_estado
 	after_update :finalizado_por_ajuste
 	before_validation :marcar_productos_para_destruir
-	accepts_nested_attributes_for :remito_items,  allow_destroy: true
+	accepts_nested_attributes_for :remito_items,  allow_destroy: true, reject_if: proc{ |att| att.all? { att[:cantidad].blank? } }
 
 	private
 

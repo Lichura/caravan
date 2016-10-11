@@ -6,6 +6,8 @@ class Producto < ApplicationRecord
   has_many :remitos, :through => :remito_items
   has_many :facturas, :through => :factura_items
   has_many :factura_items
+  has_many :nota_creditos, :through => :nota_credito_items
+  has_many :nota_credito_items
   mount_uploader :imagen, ImagenUploader
 
   after_update :agregar_a_historico

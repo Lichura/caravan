@@ -1,0 +1,79 @@
+
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>nota_creditos</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                                            <th>Cliente</th>
+                        <th>Factura</th>
+                        <th>Distribuidor</th>
+                        <th>Vendedor</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Tipo</th>
+                        <th>Neto</th>
+                        <th>Iva</th>
+                        <th>Total</th>
+
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+                  <% @nota_creditos.each do |nota_credito| %>
+                                            <td><%= nota_credito.cliente_id %></td>
+                                            <td><%= nota_credito.factura_id %></td>
+                                            <td><%= nota_credito.distribuidor_id %></td>
+                                            <td><%= nota_credito.vendedor_id %></td>
+                                            <td><%= nota_credito.fecha %></td>
+                                            <td><%= nota_credito.estado %></td>
+                                            <td><%= nota_credito.tipo %></td>
+                                            <td><%= nota_credito.neto %></td>
+                                            <td><%= nota_credito.iva %></td>
+                                            <td><%= nota_credito.total %></td>
+                                      <td>
+                    <%= link_to nota_credito_path(nota_credito) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_nota_credito_path(nota_credito) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to nota_credito_path(nota_credito.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta nota_credito?' }, remote: true do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @nota_creditos, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nueva nota_credito', new_nota_credito_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

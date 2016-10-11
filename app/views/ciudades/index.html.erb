@@ -30,6 +30,7 @@
 
     <tbody>
       <% @ciudades.each do |ciudad| %>
+      <tr>
             <td><%= ciudad.pais_id %></td>
             <td><%= ciudad.provincia_id %></td>
             <td><%= ciudad.nombre %></td>
@@ -49,6 +50,7 @@
                   <i class="glyphicon glyphicon-trash"></i>
                 <% end %>
               </td>
+              </tr>
       <% end %>
     </tbody>
   </table>

@@ -1,0 +1,104 @@
+<%= form_for(@nota_credito, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @nota_credito.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Cerrar</span></button>
+      <h4><%= pluralize(@nota_credito.errors.count, "error") %> prohibited this pais from being saved:</h4>
+
+      <ul>
+      <% @nota_credito.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :cliente_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :cliente_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :factura_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :factura_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :distribuidor_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :distribuidor_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :vendedor_id, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :vendedor_id, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :fecha, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.datetime_select :fecha, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :estado, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :estado, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :tipo, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :tipo, class: "form-control" %>
+    </div>
+  </div>
+  <div class="tabla-responsive-vertical shadow-z-1">
+  <!-- Table starts here -->
+    <table id="tabla" class="tabla tabla-hover">
+            <thead>
+              <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>IVA</th>
+              <th>Neto</th>
+              <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+              <%=  f.fields_for :nota_credito_items do |ff| %>
+                <%= render 'nota_credito_items', f: ff %>
+                <% end %>
+            </tbody>
+    </table>
+  </div>
+  <div class="form-group">
+    <%= f.label :neto, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :neto, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :iva, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :iva, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :total, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :total, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= link_to nota_creditos_path, class: 'btn btn-default pull-right' do %>
+          Cancelar
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+
