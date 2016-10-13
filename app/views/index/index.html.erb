@@ -5,6 +5,7 @@
 <section class="seccion-principal" data-section-name="principal">
 <%= render 'principal' %>
 </section>
+<div class="container">
 <section class="seccion-inicio" data-section-name="inicio" id="seccion-inicio">
 	<%= render 'nosotros' %>
 </section>
@@ -16,10 +17,12 @@
 </section>
 
 <section class="seccion-contacto" data-section-name="contacto" id="seccion-contacto">
-<%= render 'contacto' %>
-
+	<%= render 'contacto' %>
 </section>
-
+</div>
+<footer>
+	<%= render 'footer' %>
+</footer>
 <script>
 //$(function() {
 /*  $.scrollify({

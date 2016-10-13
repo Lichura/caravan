@@ -163,14 +163,14 @@ background-color: rgba(255,255,255,1);
    #nosotros-texto{
 
    	text-align: left;
-  
-     	span{
-     		line-height: 200%;
-     		font-size: 120%;
-     		margin-top: 2%;
-     		display: block;
-     	}
+ 	span{
+ 		line-height: 200%;
+ 		font-size: 120%;
+ 		margin-top: 10%;
+ 		display: block;
+ 	}
    }
+
 
 #nosotros-imagen video{
   
@@ -243,9 +243,11 @@ background-color: rgba(255,255,255,1);
 
 /*=======================*/
 
+
 #seccion-productos h1{
   margin-bottom: 5%;
 }
+
 
 /*clearfixes*/
 
@@ -273,24 +275,28 @@ background-color: rgba(255,255,255,1);
   margin-bottom: 10%;
   width: 90%;
   margin-left: 5%;
-  
+  height: 100%;
+
 }
 
 .expandir {
-  height: 200vh;
-  transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
-    -moz-transition: all 1s ease-in-out; /** Firefox **/
-    -o-transition: all 1s ease-in-out; /** Opera **/
+  height: 200%;
+  overflow: hidden;
+  transition: height 2s;
+    -moz-transition: height 2s; /* Firefox 4 */
+    -webkit-transition: height 2s; /* Safari and Chrome */
+    -o-transition: height 2s; /* Opera */
 }
 
 .contenedor:last-of-type {
   padding-top: 0px;
 }
 
+
 /*bounce up animation for the subject*/
 
 .bounce-up .subject {
+  margin-top: 10%;
   opacity: 0;
   -moz-transition: all 700ms ease-out;
   -webkit-transition: all 700ms ease-out;
@@ -720,3 +726,28 @@ background-color: rgba(255,255,255,1);
         height: 250px;
         width: 100%;
        }
+
+/* ====================
+    seccion footer
+   ==================== */
+   footer{
+    width: 100%;
+    height: 200px;
+    background-color: black;
+    color: white;
+    margin: 0 auto;
+    display: flex;
+    align-items: center; 
+    text-align: center;
+   }
+
+   footer img{
+    widht: 50px;
+    height: 80px;
+   }
+
+   @media screen and (max-width: 678px) {
+      footer{
+        text-align: center;
+      }
+   }
