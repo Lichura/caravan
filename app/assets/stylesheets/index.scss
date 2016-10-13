@@ -61,12 +61,13 @@ html, body{
 #custom-bootstrap-menu{
 	all: revert;
 	margin-top: 10%;
+  position: fixed;
+  z-index: 20000;
 	background-color: rgba(255,255,255,0.1);
 	transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
     -moz-transition: all 1s ease-in-out; /** Firefox **/
     -o-transition: all 1s ease-in-out; /** Opera **/
-
 }
 
 
@@ -86,6 +87,7 @@ html, body{
     }
 
 #custom-bootstrap-menu.fixed{
+background-color: rgba(255,255,255,1);
 	margin-top: 0;
 	transition: all 1s ease-in-out;
     -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
@@ -169,10 +171,13 @@ html, body{
  	}
    }
 
-video {
-    object-fit: fill;
-}
 
+#nosotros-imagen video{
+  
+    width: 100%    !important;
+    height: 50%   !important;
+
+}
 
 
 /*clearfixes*/
@@ -239,6 +244,10 @@ video {
 /*=======================*/
 
 
+#seccion-productos h1{
+  margin-bottom: 5%;
+}
+
 
 /*clearfixes*/
 
@@ -267,32 +276,8 @@ video {
 .contenedor:last-of-type {
   padding-top: 0px;
 }
-/*animation element*/
 
-.animations-element {
-  position: relative;
-  width: 45%;
-  margin: 0% 1.33 2.66% 1.33%;
-  float: left;
-}
-/*3 grid layout*/
 
-.animations-element:nth-of-type(3n-2) {
-  width: 45%;
-  margin: 0% 1.375% 2.75% 0%;
-  clear: left;
-}
-
-.animations-element:nth-of-type(3n-1) {
-  width: 45%;
-  margin: 0% 1.375% 2.75% 1.375%;
-}
-
-.animations-element:nth-of-type(3n-0) {
-  width: 45%;
-  margin: 0% 0% 2.75% 1.375%;
-  clear: right;
-}
 /*bounce up animation for the subject*/
 
 .bounce-up .subject {
@@ -720,4 +705,9 @@ video {
 /* ====================
     seccion contacto
    ==================== */
+
+#map {
+        height: 250px;
+        width: 100%;
+       }
 

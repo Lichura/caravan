@@ -1,7 +1,24 @@
 <!--For our animations to look good, the animated elements need to be able to be scrolled to. For this example I've added dummy content to the top -->
-<div class="main-container">
+
+
   <div class="contenedor cfs">
     <!-- Course 1 -->
+    <div class="col-md-4">
+    <div class="animations-element bounce-up cfs">
+      <div class="subject development">
+        <div class="category-color"></div>
+        <div class="icon"><i class="fa fa-deaf"></i></div>
+        <div class="header cf">
+        </div>
+        <img src=<%= asset_path('caravanas.png') %>>
+        <h3 class="title">Caravanas oficiales</h3>
+        <div class="content">Caravanas para las orejas de las vaquitas.</div>
+        <div class="enrole">Ver mas</div>
+      </div>
+    </div>
+    </div>
+    <!-- Course 1 -->
+    <div class="col-md-4">
     <div class="animations-element bounce-up cfs">
       <div class="subject development">
         <div class="category-color"></div>
@@ -14,7 +31,9 @@
         <div class="enrole">Ver mas</div>
       </div>
     </div>
+    </div>
     <!-- Course 2 -->
+    <div class="col-md-4">
     <div class="animations-element bounce-up cfs">
       <div class="subject design">
         <div class="category-color"></div>
@@ -22,12 +41,15 @@
         <div class="header cf">
         </div>
         <img src=<%= asset_path('pinza.png') %>>
-        <h3 class="title">Pinzas </h3>
+        <h3 class="title"> Accesorios </h3>
         <div class="content">Se venden pinzas para instalar caravanas.</div>
         <div class="enrole">Ver mas</div>
       </div>
     </div>
-  </div>
+
+    </div>
+
+
 
   <script>
   var $animations_elements = $('.animations-element');
