@@ -1,6 +1,3 @@
-
-
-
 <tr>	
 	<td data-title="Producto"><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
@@ -9,7 +6,7 @@
 	<td data-title="IVA"><%= f.text_field :iva, :value => 0, class: "iva form-control", :readonly => true %></td>
 	<td data-title="Neto"><%= f.text_field :neto, :value => 0, class: "neto form-control", :readonly => true %></td>
 	<td data-title="descuento"><%= f.text_field :descuento, :value => 0, class: "descuento form-control" %></td>
-	<td data-title="Subtotal"><%= f.text_field :subtotal, :value => 0, class: "subtotal form-control", :readonly => true %></td>
+	<td data-title="Subtotal"><%= f.text_field :subtotal,  readonly: true,:value => 0, class: "subtotal form-control" %></td>
 	<%= f.hidden_field :producto_id %>
 </tr>
 
