@@ -269,6 +269,19 @@ background-color: rgba(255,255,255,1);
 .contenedor {
   position: relative;
   padding: 25px;
+  background-color: white;
+  margin-bottom: 10%;
+  width: 90%;
+  margin-left: 5%;
+  
+}
+
+.expandir {
+  height: 200vh;
+  transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 1s ease-in-out; /** Firefox **/
+    -o-transition: all 1s ease-in-out; /** Opera **/
 }
 
 .contenedor:last-of-type {
