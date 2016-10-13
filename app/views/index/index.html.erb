@@ -5,20 +5,28 @@
 <section class="seccion-principal" data-section-name="principal">
 <%= render 'principal' %>
 </section>
+<div class="container">
 <section class="seccion-inicio" data-section-name="inicio" id="seccion-inicio">
 	<%= render 'nosotros' %>
 </section>
 <section class="seccion-productos" data-section-name="productos" id="seccion-productos">
-		<%= render 'productos' %>
-</section>
-
-<section class="seccion-contacto" data-section-name="contacto" id="seccion-contacto">
-	<p>seccion de contacto</p>
-	<div class="contacto-mensajes">
-		<%= render 'mensajes/form', mensaje: @mensaje %>
+	<h1>Nuestros productos</h1>
+	<div>
+	<%= render 'prueba' %>
 	</div>
 </section>
 
+<section class="seccion-contacto" data-section-name="contacto" id="seccion-contacto">
+
+	<h3>seccion de contacto</h3>
+		<div class="row">
+			<div class="col-sm-6 contacto-mensajes">
+				<%= render 'mensajes/form', mensaje: @mensaje %>
+			</div>
+		</div>
+
+</section>
+	</div>
 <script>
 //$(function() {
 /*  $.scrollify({

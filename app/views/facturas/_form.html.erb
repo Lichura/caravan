@@ -97,11 +97,11 @@
   <tbody>
   <tr>
     <td><%= f.label :neto, "Neto:" %></td>
-    <td><%= f.text_field :neto, :id => "neto" %>$</td>
+    <td><%= f.text_field :neto, :id => "neto", :readonly => true %>$</td>
   </tr>
   <tr>
     <td><%= f.label :iva, "IVA:" %></td>
-    <td><%= f.text_field :iva, :id => "iva" %>$</td>
+    <td><%= f.text_field :iva, :id => "iva", :readonly => true %>$</td>
   </tr>
   <!-- Hasta que no se facturen 10mm no se utiliza<tr>
     <td><%= f.label :iibb, "IIBB:" %></td>
@@ -109,7 +109,7 @@
     </tr>
    <tr> -->
       <td><%= f.label :total, "Total:" %></td>
-      <td><%= f.text_field :total, :id => "total" %>$</td>
+      <td><%= f.text_field :total, :id => "total", :readonly => true %>$</td>
     </tr>
 </tbody>
 </table>

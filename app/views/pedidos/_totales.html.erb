@@ -2,13 +2,13 @@
   <div class="form-group">
     <%= f.label :cantidadTotal, "Cantidad Total", class: "col-sm-5 col-sm-offset-3 control-label" %>
     <div class="col-sm-4">
-      <%= f.text_field :cantidadTotal, class: "cantidadTotal campo form-control"%>
+      <%= f.text_field :cantidadTotal, class: "cantidadTotal campo form-control", :readonly => true%>
     </div>
   </div>
   <div class="form-group">
       <%= f.label :precioTotal, "Precio Total", class: "col-sm-5 col-sm-offset-3 control-label" %>
       <div class="col-sm-4">
-      <%= f.text_field :precioTotal, class: "total campo form-control" %>
+      <%= f.text_field :precioTotal, class: "total campo form-control", :readonly => true %>
     </div>
   </div>
   <div class="total" disabled></div>

@@ -1,13 +1,26 @@
-<div id="nosotros-texto">
-<h2>QUIENES SOMOS</h2>
-<span>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. <br><br>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</span>
-</div>
-<div id="nosotros-imagen" class="contenedor-animacion cf">
-<img src=<%= asset_path('caravana.png') %> class="animation-element slide-right imagen">
-</div>
 
+  <div id="nosotros-texto">
+    <h2>QUIENES SOMOS</h2>
+    <div class="row">
+    <div class="col-sm-6"> 
+    <span>
+    	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+    </span>
+    </div>
+    <div class="col-sm-6">
+    <span>
+      Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </span>
+    </div>
+    </div>
+  </div>
+<div class="row" >
+  <div id="nosotros-imagen" class="contenedor-animacion cf">
+    <video width="100%"  autoplay loop class="animation-element slide-right imagen">
+      <source src=<%= asset_path('caravana.mov') %>  />
+    </video>
+  </div>
+</div>
 
 <script>
 //Cache reference to window and animation items
