@@ -13,7 +13,7 @@
         <img src=<%= asset_path('caravanas.png') %>>
         <h3 class="title">Caravanas oficiales</h3>
         <div class="content">Caravanas para las orejas de las vaquitas.</div>
-        <div class="enrole">Ver mas</div>
+        <div class="enrole caravana_oficial">Ver mas</div>
       </div>
     </div>
     </div>
@@ -28,7 +28,7 @@
         <img src=<%= asset_path('caravanas.png') %>>
         <h3 class="title">Caravanas</h3>
         <div class="content">Caravanas para las orejas de las vaquitas.</div>
-        <div class="enrole">Ver mas</div>
+        <div class="enrole caravana">Ver mas</div>
       </div>
     </div>
     </div>
@@ -43,17 +43,18 @@
         <img src=<%= asset_path('pinza.png') %>>
         <h3 class="title"> Accesorios </h3>
         <div class="content">Se venden pinzas para instalar caravanas.</div>
-        <div class="enrole">Ver mas</div>
+        <div class="enrole accesorios">Ver mas</div>
       </div>
     </div>
-
+    </div>
+    <div id="producto-contenido"></div>
     </div>
 
 
 
   <script>
   var $animations_elements = $('.animations-element');
-var $window = $(window);
+  var $window = $(window);
 
 function check_if_in_views() {
   var window_height = $window.height();
@@ -70,12 +71,30 @@ function check_if_in_views() {
     if ((element_bottom_position >= window_top_position) &&
       (element_top_position <= window_bottom_position)) {
       $element.addClass('in-views');
-    } else {
-      $element.removeClass('in-views');
-    }
+    } //else {
+     // $element.removeClass('in-views');
+    //}
   });
 }
 
 $window.on('scroll resize', check_if_in_views);
 $window.trigger('scroll');
+
+
+// cargar productos dinamicamente en la ventana de ver mas
+$('.enrole.accesorios').click(function(){
+  vista_de_productos(this)
+  });
+$('.enrole.caravana').click(function(){
+  vista_de_productos(this)
+  });
+$('.enrole.caravana_oficial').click(function(){
+  vista_de_productos(this)
+  });
+
+
+
+function vista_de_productos(elemento){
+  $('#producto-contenido').html("bla");
+}
 </script>

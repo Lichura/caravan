@@ -59,7 +59,9 @@
         </div>
     </div>
   </nav>
+  <% if !current_page?(root_url) %>
     <%= flash_messages %>
+  <% end %>
     <%= yield %>
   </body>
 </html>
