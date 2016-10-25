@@ -1,9 +1,8 @@
-html, body{
-	width: 100%;
-	height: 100%;
-	padding-left: 0;
-	margin: 0 auto;
-}
+/*=====================
+
+    Fonts y constantes
+
+======================*/
 
 @font-face {
     font-family: 'Bauhaus';
@@ -15,92 +14,84 @@ html, body{
 }
 
 
-.titulo-principal{
-	font-family: 'Bauhaus';
-	text-align: center;
-	z-index: 20;
-	color: black;
-	position: absolute;
-	left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+
+/*=====================
+
+  Generales
+
+======================*/
+
+
+html, body{
+	width: 100%;
+	height: 100%;
+	padding-left: 0;
+	margin: 0 auto;
 }
 
 .container{
-	padding-top: 20px;
-	width: 100%;
+  padding-top: 20px;
+  width: 100%;
 }
 
 
-.seccion-inicio{
-	width: 100%;
-  height: 100%;
-	position: relative;
-    display: block;
-  float: left;
-}
+/*=================
 
-.seccion-productos{
-	width: 100%;
-	position: relative;
-  display: block;
-  float: left;
-}
-.seccion-contacto{
-	width: 100%;
-	position: relative;
-  float: left;
-}
+Navegador pagina inicio
 
-
-
-/* ====================
-    seccion principal
-   ==================== */
-
+===================*/
 #custom-bootstrap-menu{
-	all: revert;
-	margin-top: 10%;
+
+  margin-top: 10%;
   position: fixed;
   z-index: 20000;
-	background-color: rgba(255,255,255,0.1);
-	transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
-    -moz-transition: all 1s ease-in-out; /** Firefox **/
-    -o-transition: all 1s ease-in-out; /** Opera **/
+  background-color: rgba(255,255,255,0.1);
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+  -moz-transition: all 1s ease-in-out; /** Firefox **/
+  -o-transition: all 1s ease-in-out; /** Opera **/
 }
 
 
 .collapse navbar-collapse navbar-menubuilder{
-	background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.1);
 }
 
 #custom-bootstrap-menu.navbar-default .navbar-nav>li>a{
-	background-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0);
 }
 
 #custom-bootstrap-menu.navbar-default{
-    	background-color: rgba(255,255,255,0.1);
-    	.navbar-nav ul, .navbar-nav li, .navbar-nav a{
-    		background-color: rgba(255,255,255,0);
-    	}
-    }
+  background-color: rgba(255,255,255,0.1);
+  .navbar-nav ul, .navbar-nav li, .navbar-nav a{
+    background-color: rgba(255,255,255,0);
+  }
+}
 
 #custom-bootstrap-menu.fixed{
 background-color: rgba(255,255,255,1);
-	margin-top: 0;
-	transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
-    -moz-transition: all 1s ease-in-out; /** Firefox **/
-    -o-transition: all 1s ease-in-out; /** Opera **/
-    .navbar-default .navbar-nav>li>a{
-    	background-color: rgba(255,255,255,0.5);
-    }
+  margin-top: 0;
+  transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out; /** Chrome & Safari **/
+  -moz-transition: all 1s ease-in-out; /** Firefox **/
+  -o-transition: all 1s ease-in-out; /** Opera **/
+  .navbar-default .navbar-nav>li>a{
+    background-color: rgba(255,255,255,0.5);
+  }
 }
 
 .navbar{
-	background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255,255,255,0.1);
 }
+
+
+
+/*=================
+
+Seccion principal
+
+===================*/
+
 
 .seccion-principal{
 	width: 100%;
@@ -155,30 +146,36 @@ background-color: rgba(255,255,255,1);
 
 
 
-/* ====================
-    seccion nosotros
-   ==================== */
+/*=====================
 
+  Nosotros
 
-   #nosotros-texto{
+======================*/
+.seccion-inicio{
+  width: 100%;
+  height: 100%;
+  position: relative;
+    display: block;
+  float: left;
+}
 
-   	text-align: left;
- 	span{
- 		line-height: 200%;
- 		font-size: 120%;
- 		margin-top: 10%;
- 		display: block;
- 	}
-   }
+#nosotros-texto{
+  text-align: left;
+ 	  span{
+ 		 line-height: 200%;
+ 		 font-size: 120%;
+ 		 margin-top: 10%;
+ 		 display: block;
+ 	  }
+}
 
 
 #nosotros-imagen video{
-  
     width: 100%    !important;
     height: 50%   !important;
-
 }
 
+/* Animacion */
 
 /*clearfixes*/
 
@@ -192,11 +189,13 @@ background-color: rgba(255,255,255,1);
   clear: both;
 }
 
+
 .contenedor-animacion {
   position: relative;
   padding: 25px;
 }
-/*animation element*/
+
+/*elementos de la animacion*/
 
 .animation-element {
   opacity: 0;
@@ -208,6 +207,7 @@ background-color: rgba(255,255,255,1);
   width: 100%;
   margin-left: 10%
 }
+
 
 .producto{
 height: 100vh;
@@ -222,6 +222,7 @@ margin-left: 10%;
   }
  /*animation element sliding left*/
 }
+
 
 .animation-element.slide-right {
   opacity: 0;
@@ -248,13 +249,22 @@ margin-left: 10%;
 
 
 
+/*=====================
 
-/*=======================*/
+  Productos
 
+======================*/
+.seccion-productos{
+  width: 100%;
+  position: relative;
+  display: block;
+  float: left;
+}
 
 #seccion-productos h1{
   margin-bottom: 5%;
 }
+
 
 
 
@@ -284,28 +294,8 @@ margin-left: 10%;
     seccion productos
    ==================== */
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
-/*clearfixes*/
-
-.cf:before,
-.cf:after {
-  content: " ";
-  display: table;
-}
-
-.cf:after {
-  clear: both;
-}
 
 
-
-/*media queries for small devices*/
 
 @media screen and (max-width: 678px) {
   .main-container {
@@ -329,10 +319,16 @@ margin-left: 10%;
     seccion contacto
    ==================== */
 
-#map {
-        height: 250px;
-        width: 100%;
-       }
+  .seccion-contacto{
+    width: 100%;
+    position: relative;
+    float: left;
+  }
+
+  #map {
+    height: 250px;
+    width: 100%;
+  }
 
 /* ====================
     seccion footer
@@ -345,7 +341,6 @@ margin-left: 10%;
     margin: 0 auto;
     display: flex;
     align-items: center; 
-    text-align: center;
    }
 
    footer img{

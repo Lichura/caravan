@@ -6,12 +6,26 @@
     <h1>Nuestros productos</h1>
   </div>
     <!-- Course 1 -->
+<<<<<<< HEAD
     <div class="row producto">
     <h2>Caravanas SENASA</h2>
       <div class="col-md-6 col-lg-6">
         <span>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
         </span>
+=======
+    <div class="col-md-4">
+    <div class="animations-element bounce-up cfs">
+      <div class="subject development">
+        <div class="category-color"></div>
+        <div class="icon"><i class="fa fa-deaf"></i></div>
+        <div class="header cf">
+        </div>
+        <img src=<%= asset_path('caravanas.png') %>>
+        <h3 class="title">Caravanas oficiales</h3>
+        <div class="content">Caravanas para las orejas de las vaquitas.</div>
+        <div class="enrole caravana_oficial">Ver mas</div>
+>>>>>>> origin/refactorizar_css
       </div>
       <div class="col-md-6 col-lg-6">
         <div class="contenedor-animacion cf">
@@ -19,6 +33,13 @@
             <img  src=<%= asset_path('caravanas.png') %>>
           </div>
         </div>
+<<<<<<< HEAD
+=======
+        <img src=<%= asset_path('caravanas.png') %>>
+        <h3 class="title">Caravanas</h3>
+        <div class="content">Caravanas para las orejas de las vaquitas.</div>
+        <div class="enrole caravana">Ver mas</div>
+>>>>>>> origin/refactorizar_css
       </div>
     </div>
 
@@ -35,6 +56,7 @@
             <img  src=<%= asset_path('caravanas.png') %>>
           </div>
         </div>
+<<<<<<< HEAD
       </div>
     </div>
 
@@ -52,9 +74,68 @@
           </div>
         </div>
       </div>
+=======
+        <img src=<%= asset_path('pinza.png') %>>
+        <h3 class="title"> Accesorios </h3>
+        <div class="content">Se venden pinzas para instalar caravanas.</div>
+        <div class="enrole accesorios">Ver mas</div>
+      </div>
+    </div>
+    </div>
+    <div id="producto-contenido"></div>
+>>>>>>> origin/refactorizar_css
     </div>
   </div>
 
 
 
+<<<<<<< HEAD
 
+=======
+  <script>
+  var $animations_elements = $('.animations-element');
+  var $window = $(window);
+
+function check_if_in_views() {
+  var window_height = $window.height();
+  var window_top_position = $window.scrollTop();
+  var window_bottom_position = (window_top_position + window_height);
+
+  $.each($animations_elements, function() {
+    var $element = $(this);
+    var element_height = $element.outerHeight();
+    var element_top_position = $element.offset().top;
+    var element_bottom_position = (element_top_position + element_height);
+
+    //check to see if this current container is within viewport
+    if ((element_bottom_position >= window_top_position) &&
+      (element_top_position <= window_bottom_position)) {
+      $element.addClass('in-views');
+    } //else {
+     // $element.removeClass('in-views');
+    //}
+  });
+}
+
+$window.on('scroll resize', check_if_in_views);
+$window.trigger('scroll');
+
+
+// cargar productos dinamicamente en la ventana de ver mas
+$('.enrole.accesorios').click(function(){
+  vista_de_productos(this)
+  });
+$('.enrole.caravana').click(function(){
+  vista_de_productos(this)
+  });
+$('.enrole.caravana_oficial').click(function(){
+  vista_de_productos(this)
+  });
+
+
+
+function vista_de_productos(elemento){
+  $('#producto-contenido').html("bla");
+}
+</script>
+>>>>>>> origin/refactorizar_css
