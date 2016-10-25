@@ -1,21 +1,19 @@
-<div style="background-color: white" class="container">
-<h1>Contactanos</h1>
-	<div class="col-md-6">
-		<div class="contacto-mensajes">
-			<%= render 'mensajes/form', mensaje: @mensaje %>
-		</div>
-	</div>
-	<div class="col-md-6">
-    <div class="animations-element">
-      <div class="subject photography">
-        <div class="header cf">
-          <h4 class="date"><i class="fa fa-info"></i> Donde estamos?</h4>
-        </div>
-  	    <div id="map"></div>
-	    </div>
-	  </div>
-	</div>
+<div class="container">
+  <h1>Contactanos</h1>
+  <div class="row contacto">
+  	<div class="col-md-6">
+  		<div class="contacto-mensajes">
+  			<%= render 'mensajes/form', mensaje: @mensaje %>
+  		</div>
+  	</div>
+  	<div class="col-md-6">
+      <div class="animations-element">
+    	    <div id="map"></div>
+  	    </div>
+  	  </div>
+  	</div>
   </div>
+</div>
 
 
 

@@ -8,7 +8,7 @@ class Mensaje < ApplicationRecord
 
 
 	def no_leido
-		self.leido! = false
+		self.leido = false
 	end
 end
 
