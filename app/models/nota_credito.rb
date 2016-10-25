@@ -14,7 +14,7 @@ class NotaCredito < ApplicationRecord
     	end
   	end
 
-  	def estado_inicial
-  		self.confirmado!
-  	end
+  	#def estado_inicial
+  	#	self.confirmado!
+  	#end
 end
