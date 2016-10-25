@@ -23,7 +23,7 @@ class FacturasController < ApplicationController
   def new
     @factura = Factura.new
     crear_factura_sin_remito
-    @remitos = Remito.where(:facturado => false, :facturado => nil)
+    @remitos = Remito.where(:facturado => false)
     #end
       
   end
