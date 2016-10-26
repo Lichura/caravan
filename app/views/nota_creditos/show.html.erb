@@ -2,20 +2,13 @@
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
-      <div class="panel-heading"><h2>nota_credito</h2></div>
+      <div class="panel-heading"><h2><%= @tipos[@nota_credito.tipo] %></h2></div>
         <div class="panel-body">
          <dl class="dl-horizontal">
-          <dt>Cliente:</dt>
-          <dd><%= @nota_credito.cliente_id %></dd>
 
-          <dt>Factura:</dt>
-          <dd><%= @nota_credito.factura_id %></dd>
 
           <dt>Distribuidor:</dt>
-          <dd><%= @nota_credito.distribuidor_id %></dd>
-
-          <dt>Vendedor:</dt>
-          <dd><%= @nota_credito.vendedor_id %></dd>
+          <dd><%= User.find(@nota_credito.distribuidor_id).razonSocial %></dd>
 
           <dt>Fecha:</dt>
           <dd><%= @nota_credito.fecha %></dd>
@@ -23,8 +16,6 @@
           <dt>Estado:</dt>
           <dd><%= @nota_credito.estado %></dd>
 
-          <dt>Tipo:</dt>
-          <dd><%= @nota_credito.tipo %></dd>
 
           <dt>Neto:</dt>
           <dd><%= @nota_credito.neto %></dd>

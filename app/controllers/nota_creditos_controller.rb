@@ -1,6 +1,6 @@
 class NotaCreditosController < ApplicationController
   before_action :set_nota_credito, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_tipo, only: [:new, :show, :edit, :update, :destroy]
   # GET /nota_creditos
   # GET /nota_creditos.json
   def index
@@ -15,7 +15,7 @@ class NotaCreditosController < ApplicationController
   # GET /nota_creditos/new
   def new
     @nota_credito = NotaCredito.new
-    crear_items
+    crear_productos
   end
 
   # GET /nota_creditos/1/edit
@@ -70,14 +70,20 @@ class NotaCreditosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def nota_credito_params
-      params.require(:nota_credito).permit(:cliente_id, :factura_id, :distribuidor_id, :vendedor_id, :fecha, :estado, :tipo, :neto, :iva, :total, :nota_credito_items_attributes => [:id, :producto_id, :cantidad, :precio, :neto, :iva, :subtotal,  :_destroy])
+      params.require(:nota_credito).permit(:numero, :cliente_id, :factura_id, :distribuidor_id, :vendedor_id, :fecha, :estado, :tipo, :neto, :iva, :total, :tipo, :nota_credito_items_attributes => [:id, :producto_id, :cantidad, :precio, :neto, :iva, :subtotal,  :_destroy])
     end
 
-    def crear_items
+  def crear_productos
       Producto.all.each do |obj|
         if !@nota_credito.producto_ids.include?(obj.id)
           @nota_credito.nota_credito_items.build(:producto_id => obj.id)
         end
     end
   end
+
+
+     
+   def set_tipo
+      @tipos = ["Nota de credito", "Nota de debito"]
+    end
 end

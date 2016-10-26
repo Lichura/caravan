@@ -2,6 +2,8 @@ class ProductosController < ApplicationController
   before_action :set_producto, only: [:show, :edit, :update, :destroy]
   # GET /productos
   # GET /productos.json
+
+
   def index
      @productos = Producto.paginate(:page => params[:page], :per_page => 10)
       if params[:search]
@@ -74,6 +76,7 @@ class ProductosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def producto_params
-      params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango,  :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido)
+      params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango,  :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :tipo)
     end
+
 end

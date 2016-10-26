@@ -170,9 +170,9 @@ class PedidosController < ApplicationController
     end
 
     def create_pedidos
-      Producto.all.each do |obj|
+      Producto.where(tipo: 1).all.each do |obj|
         if !@pedido.producto_ids.include?(obj.id)
-          @pedido.detalles.build(:producto_id => obj.id)
+            @pedido.detalles.build(:producto_id => obj.id)
         end
     end
   end

@@ -11,29 +11,16 @@
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
-    <%= f.label :cliente_id, class: "col-sm-2 control-label" %>
+    <%= f.label :numero, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :cliente_id, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :factura_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :factura_id, class: "form-control" %>
+      <%= f.number_field :numero, class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :distribuidor_id, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :distribuidor_id, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :vendedor_id, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :vendedor_id, class: "form-control" %>
+       <%= f.collection_select(:distribuidor_id, current_user.clientes.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
@@ -43,37 +30,90 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :estado, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :estado, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
     <%= f.label :tipo, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :tipo, class: "form-control" %>
+      <%= f.select :tipo, @tipos, {}, { class: "form-control"} %>
     </div>
   </div>
-  <div class="tabla-responsive-vertical shadow-z-1">
-  <!-- Table starts here -->
-    <table id="tabla" class="tabla tabla-hover">
-            <thead>
-              <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-              <th>IVA</th>
-              <th>Neto</th>
-              <th>Subtotal</th>
-            </tr>
-            </thead>
-            <tbody>
-              <%=  f.fields_for :nota_credito_items do |ff| %>
-                <%= render 'nota_credito_items', f: ff %>
-                <% end %>
-            </tbody>
-    </table>
-  </div>
+
+
+
+
+
+
+<div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading ncs" role="tab" id="ncConceptocollapse">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#ncConceptosCollapse" aria-expanded="true" aria-controls="ncconceptosCollapse">Conceptos</a>
+            </h3>
+          </div>
+          <div id="ncConceptosCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="ncConceptosCollapse">
+            <div class="form-group row">
+              <div class="tabla-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                  <table id="tabla" class="tabla tabla-hover">
+                    <thead>
+                      <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>IVA</th>
+                      <th>Neto</th>
+                      <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <%=  f.fields_for :nota_credito_items do |ff| %>
+                        <% if ff.object.producto.tipo == 2 %>
+                          <%= render 'nota_credito_items', f: ff %>
+                        <% end %>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="panel panel-default">
+          <div class="panel-heading ncs" role="tab" id="ncProductocollapse">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#ncProductosCollapse" aria-expanded="true" aria-controls="ncProductosCollapse">Productos</a>
+            </h3>
+          </div>
+          <div id="ncProductosCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="ncProductosCollapse">
+            <div class="form-group row">
+              <div class="tabla-responsive-vertical shadow-z-1">
+                <!-- Table starts here -->
+                  <table id="tabla" class="tabla tabla-hover">
+                    <thead>
+                      <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>IVA</th>
+                      <th>Neto</th>
+                      <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <%=  f.fields_for :nota_credito_items do |ff| %>
+                        <% if ff.object.producto.tipo == 1 %>
+                          <%= render 'nota_credito_items', f: ff %>
+                        <% end %>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+
+
+
   <div class="form-group">
     <%= f.label :neto, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
@@ -94,7 +134,7 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit class: "btn btn-primary" %>
+      <%= f.submit "Enviar", class: "btn btn-primary" %>
       <%= link_to nota_creditos_path, class: 'btn btn-default pull-right' do %>
           Cancelar
       <% end -%>
@@ -102,3 +142,57 @@
   </div>
 <% end %>
 
+
+<script>
+$('document').ready(function(){
+  $('.cantidad').each(function(){
+    UpdateSubTotal(this);
+  });
+
+  UpdateTotal();
+  $('.cantidad').unbind();
+  $('.cantidad').on('change', function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+  $('.precio').on('change', function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+
+  function UpdateSubTotal(elem) {
+      // This will give the tr of the Element Which was changed
+      var $container = $(elem).parent().parent();
+      var cantidad = $container.find('.cantidad').val();
+      var precio = $container.find('.precio').val();
+      var subtotal = parseInt(cantidad) * parseFloat(precio)
+      var neto = (parseInt(subtotal) / (1.21));
+      var iva = (subtotal - neto);
+      $container.find('.subtotal').val(subtotal.toFixed(2)).trigger('change');
+      $container.find('.iva').val(iva.toFixed(2)).trigger('change');
+      $container.find('.neto').val(neto.toFixed(2)).trigger('change');
+  }
+
+
+  function UpdateTotal(){
+        var neto = 0;
+        var iva = 0;
+        var total = 0;
+        $(".neto").each(function(){
+          var val = $.trim( $(this).val() );
+          neto += parseFloat(val);
+        });
+        $(".iva").each(function(){
+          var val = $.trim( $(this).val() );
+          iva += parseFloat(val);
+        });
+        $(".subtotal").each(function(){
+          var val = $.trim( $(this).val() );
+          total += parseFloat(val);
+        });
+        $('#nota_credito_neto').val(neto.toFixed(2)).trigger('change');
+        $('#nota_credito_iva').val(iva.toFixed(2)).trigger('change');
+        $('#nota_credito_total').val(total.toFixed(2)).trigger('change');
+      }
+});
+</script>

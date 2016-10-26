@@ -7,6 +7,8 @@ class Factura < ApplicationRecord
 
 	after_initialize :aumentar_numerador
 	before_validation :marcar_productos_para_destruir
+	after_create :nueva_factura_cuenta_corriente
+  	after_destroy :eliminar_factura_cuenta_corriente
 
 	private
 	def aumentar_numerador
@@ -25,4 +27,22 @@ class Factura < ApplicationRecord
 	      end
     	end
   	end
+
+  	 def nueva_factura_cuenta_corriente
+	    @cc = CuentaCorriente.new
+	    @cc.user_id = User.find_by(cuit: self.distribuidor_id).id
+	    @cc.monto = -1 * (self.total)
+	    @cc.concepto = "Se creo la Factura Nº #{self.numero}"
+	    @cc.conceptoNumero = self.numero
+	    @cc.save
+ 	 end
+
+	  def eliminar_factura_cuenta_corriente
+	    @cc = CuentaCorriente.new
+	    @cc.user_id = User.find_by(cuit: self.distribuidor_id).id
+	    @cc.monto = self.total
+	    @cc.concepto = "Se anulo la factura Nº #{self.numero}"
+	    @cc.conceptoNumero = self.numero
+	    @cc.save
+	  end
 end

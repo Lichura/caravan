@@ -11,7 +11,7 @@ class Producto < ApplicationRecord
   mount_uploader :imagen, ImagenUploader
 
   after_update :agregar_a_historico
-
+  TIPOS = {1 => "Producto", 2 => "Concepto"}
   private
   def self.search(producto)
 		where("nombre LIKE ? OR descripcion LIKE ?", "%#{producto}%", "%#{producto}%")

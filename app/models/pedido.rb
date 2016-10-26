@@ -19,8 +19,6 @@ class Pedido < ApplicationRecord
 	accepts_nested_attributes_for :detalles,  allow_destroy: true
   
   before_validation :marcar_productos_para_destruir
-  after_create :nuevo_pedido_cuenta_corriente
-  after_destroy :eliminar_pedido_cuenta_corriente
   after_create :generar_boolean
   #after_initialize :aumentar_numerador
 
@@ -47,24 +45,6 @@ class Pedido < ApplicationRecord
 
   def self.filtrar(pedido)
     where("status = ?", "#{pedido}")
-  end
-
-  def nuevo_pedido_cuenta_corriente
-    @cc = CuentaCorriente.new
-    @cc.user_id = self.user_id
-    @cc.monto = -1 * (self.precioTotal)
-    @cc.concepto = "Se creo el pedido Nº #{self.comprobanteNumero}"
-    @cc.conceptoNumero = self.comprobanteNumero
-    @cc.save
-  end
-
-  def eliminar_pedido_cuenta_corriente
-    @cc = CuentaCorriente.new
-    @cc.user_id = self.user_id
-    @cc.monto = self.precioTotal
-    @cc.concepto = "Se elimino el pedido Nº #{self.comprobanteNumero}"
-    @cc.conceptoNumero = self.comprobanteNumero
-    @cc.save
   end
 
 
