@@ -239,19 +239,4 @@ class PedidosController < ApplicationController
       def sort_direction
         %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
       end
-
-      def actualizar_pedido_cuenta_corriente
-        @ccdown = CuentaCorriente.new
-        @ccdown.user_id = @pedido.user_id
-        @ccdown.monto = @pedido.precioTotal_was
-        @ccdown.concepto = "Se modifico el pedido Nº #{@pedido.comprobanteNumero}"
-        @ccdown.conceptoNumero = @pedido.comprobanteNumero
-        @ccup = CuentaCorriente.new
-        @ccup.user_id = @pedido.user_id
-        @ccup.monto = -1 * (@pedido.precioTotal)
-        @ccup.concepto = "Se modifico el pedido Nº #{@pedido.comprobanteNumero}"
-        @ccup.conceptoNumero = @pedido.comprobanteNumero
-        @ccdown.save
-        @ccup.save
-      end
 end
