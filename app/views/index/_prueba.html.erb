@@ -1,58 +1,52 @@
 <!--For our animations to look good, the animated elements need to be able to be scrolled to. For this example I've added dummy content to the top -->
 
 
-  <div class="contenedor cfs">
-    <!-- Course 1 -->
-    <div class="col-md-4">
-      <div class="animations-element bounce-up cfs">
-        <div class="subject development">
-          <div class="category-color"></div>
-          <div class="icon"><i class="fa fa-deaf"></i></div>
-          <div class="header cf">
-          </div>
-          <img src=<%= asset_path('caravanas.png') %>>
-          <h3 class="title">Caravanas oficiales</h3>
-          <div class="content">Caravanas para las orejas de las vaquitas.</div>
-          <div class="enrole">Ver mas</div>
-        </div>
-      </div>
+  <div style="background-color: white" class="container">
+    <div class="row">
+      <h1>Nuestros productos</h1>
     </div>
     <!-- Course 1 -->
-    <div class="col-md-4">
-      <div class="animations-element bounce-up cfs">
-        <div class="subject development">
-          <div class="category-color"></div>
-          <div class="icon"><i class="fa fa-deaf"></i></div>
-          <div class="header cf">
+    <div class="row producto">
+    <h2>Caravanas SENASA</h2>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+        </span>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-right imagen">
+            <img  src=<%= asset_path('caravanas.png') %>>
           </div>
-          <img src=<%= asset_path('caravanas.png') %>>
-          <h3 class="title">Caravanas</h3>
-          <div class="content">Caravanas para las orejas de las vaquitas.</div>
-          <div class="enrole">Ver mas</div>
         </div>
       </div>
     </div>
-    <!-- Course 2 -->
-    <div class="col-md-4">
-      <div class="animations-element bounce-up cfs">
-        <div class="subject design">
-          <div class="category-color"></div>
-          <div class="icon"><i class="fa fa-wrench"></i></div>
-          <div class="header cf"></div>
-          <img src=<%= asset_path('pinza.png') %>>
-          <h3 class="title"> Accesorios </h3>
-          <div class="content">Se venden pinzas para instalar caravanas.</div>
-          <div class="enrole">Ver mas</div>
+    <div class="row producto">
+    <h2>Caravanas</h2>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-left imagen">
+            <img  src=<%= asset_path('caravanas.png') %>>
+          </div>
         </div>
       </div>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+        </span>
+      </div>
     </div>
-    <div class="producto" >
-      <div class="col-md-12">
-        <div class="animations-element">
-          <div class="subject design">
-            <div class="content">
-              <h1>soy un producto</h1>
-            </div>
+    <div class="row producto">
+      <h2>Pinzas</h2>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+        </span>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-right imagen">
+            <img  src=<%= asset_path('pinza.png') %>>
           </div>
         </div>
       </div>
@@ -61,38 +55,3 @@
 
 
 
-
-  <script>
-$('.producto').hide();
-  $('.enrole').click(function(){
-    $('.contenedor').toggleClass('expandir');
-    $('.producto').toggle("slow");
-  });
-
-  var $animations_elements = $('.animations-element');
-var $window = $(window);
-
-function check_if_in_views() {
-  var window_height = $window.height();
-  var window_top_position = $window.scrollTop();
-  var window_bottom_position = (window_top_position + window_height);
-
-  $.each($animations_elements, function() {
-    var $element = $(this);
-    var element_height = $element.outerHeight();
-    var element_top_position = $element.offset().top;
-    var element_bottom_position = (element_top_position + element_height);
-
-    //check to see if this current container is within viewport
-    if ((element_bottom_position >= window_top_position) &&
-      (element_top_position <= window_bottom_position)) {
-      $element.addClass('in-views');
-    } else {
-      $element.removeClass('in-views');
-    }
-  });
-}
-
-$window.on('scroll resize', check_if_in_views);
-$window.trigger('scroll');
-</script>

@@ -1,7 +1,4 @@
 class NotaCredito < ApplicationRecord
-		enum estados = {confirmado: 1,
-					    anulado: 2}
-
 	has_many :productos, through: :nota_credito_items
 	has_many :nota_credito_items
 
@@ -17,7 +14,7 @@ class NotaCredito < ApplicationRecord
     	end
   	end
 
-  	def estado_inicial
-  		self.confirmado!
-  	end
+  	#def estado_inicial
+  	#	self.confirmado!
+  	#end
 end

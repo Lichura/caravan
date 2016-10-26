@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010084301) do
+ActiveRecord::Schema.define(version: 20161014085918) do
 
   create_table "ciudades", force: :cascade do |t|
     t.integer  "pais_id"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20161010084301) do
     t.string   "texto"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean  "leido"
   end
 
   create_table "models", force: :cascade do |t|
