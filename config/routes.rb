@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :familia
   resources :mensajes
 
+
+  get 'cheques' => 'cheques#index', :as => "cheques"
   get 'menu' => "menu#index", :as => "menu"
   post 'remitos/show_all' => "remitos#show_all", :as => "mostrar_remitos"
   get 'users/new_pedido' => "users#new_pedido", :as=> "nuevo_usuario_pedido"

@@ -1,0 +1,73 @@
+
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Cheques</h3></div>
+    <p id="notice"><%= notice %></p>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <%= form_tag(cheques_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar cheques", class: "form-control"%>
+              <span class="input-group-btn">
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
+          </div>
+        </div>
+      <div class="row" style="height: 50px;"></div>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>CUIT</th>
+            <% @estados.each do |k,v| %>
+              <th><%= v %></th>
+            <% end %>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </thead>
+          <%= form_tag cheques_path, method: :put do %>
+            <tbody>
+                <% @cheques.each do |user| %>
+                  <%= fields_for "cheques[]", cheque do |f| %>
+                    <% if cheque.errors.any? %>
+                      <div id="error_explanation">
+                        <h2><%= pluralize(cheque.errors.count, "error") %> prohibited this usuario from being saved:</h2>
+                        <ul>
+                          <% cheque.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                          <% end %>
+                        </ul>
+                      </div>
+                    <% end %>
+                    <tr>
+                      <td><%= cheque.numero %></td>
+                      <td><%= cheque.monto %></td>
+                      <td><%= cheque.fecha %></td>
+                      <% @profiles.each do |perfil| %>
+                        <td style="padding-left: 3%;"><%= f.radio_button :estado%></td>
+                      <% end %>
+                      <td>
+                        <%= link_to edit_cheque_path(cheque), class: "btn btn-default" do %>
+                          <span class="glyphicon glyphicon-pencil"></span>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%= link_to cheque, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el registro ' + cheque.numero.to_s + '?' }, class: "btn btn-danger" do %>
+                          <span class="glyphicon glyphicon-remove"></span>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %> 
+                <% end %>
+              </tbody>
+            <% end %>
+        </table>
+      </div>
+    <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+    </div>
+  </div>
+</div>
