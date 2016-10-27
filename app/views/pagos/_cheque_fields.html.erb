@@ -15,7 +15,7 @@
     <div class="form-group">
 	  <%= f.label :monto, "Monto", class: "col-sm-2 control-label" %>
 	  <div class="col-sm-10">
-	  <%= f.text_field :monto, class: "form-control" %>
+	  <%= f.text_field :monto, class: "monto-cheque form-control" %>
 	  </div>
 	  <div class="col-sm-2 col-sm-offset-10">
     	<%= f.hidden_field :_destroy %>
@@ -24,3 +24,33 @@
    </div>
 </fieldset>
 
+
+
+<script>
+  $('.monto-cheque').unbind();
+  $('.monto-cheque').on('change', function(){
+    UpdateTotal();
+  });
+
+  $('.remove_fields').on('click', function(){
+  	UpdateEliminar(this);
+  	UpdateTotal();
+  });
+
+  	function UpdateEliminar(elem){
+  	  var $container = $(elem).parent().parent();
+      var $monto = $container.find('.monto-cheque');
+      $monto.val(0).trigger('change');
+  	}
+
+    function UpdateTotal(){
+    var suma = 0;
+    $(".monto-cheque").each(function(){
+      var val = $.trim( $(this).val() );
+      suma += parseFloat(val);
+    });
+    $("#pago_monto").prop("readonly", false);
+    $('#pago_monto').val(suma.toFixed(2)).trigger('change');
+    $("#pago_monto").prop("readonly", true);
+  }
+  </script>

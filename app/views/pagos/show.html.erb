@@ -12,13 +12,17 @@
           <dd><%= @pago.numero %></dd>
 
           <dt>Mediodepago:</dt>
-          <dd><%= @pago.medioDePago %></dd>
+          <dd><%= @mediosDePago[@pago.medioDePago] %></dd>
 
           <dt>Monto:</dt>
           <dd><%= @pago.monto %></dd>
 
           <dt>Estado:</dt>
           <dd><%= @pago.estado %></dd>
+
+          <% if @pago.cheques.any? %>
+            <h1>tiene cheques!!</h1>
+          <% end %>
 
         </dl>
         </div>

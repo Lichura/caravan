@@ -27,7 +27,7 @@
   <div class="form-group">
     <%= f.label :medioDePago, "Medio de pago", class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.select :medioDePago, @mediosDePago, {}, { class: "form-control"} %>
+      <%= f.select :medioDePago, medioDePago, {}, { class: "form-control"} %>
     </div>
   </div>
   <div class="monto form-group">
@@ -60,17 +60,19 @@
 
 <script>
 $('document').ready(function(){
-        $('#cheques').hide();
+  $('#cheques').hide();
   $('#pago_medioDePago').change(function(){
     var seleccion = $('#pago_medioDePago option:selected').text();
     if (seleccion == "Efectivo"){
-      $('.monto').show();
       $('#cheques').hide();
+      $("#pago_monto").prop("readonly", false);
     } else {
-      $('.monto').hide();
+      $("#pago_monto").prop("readonly", true);
       $('#cheques').show();
     }
   });
+
+
 });
 
 </script>

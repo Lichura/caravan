@@ -70,7 +70,7 @@ usuarios = User.create!([{
     pais_id: 1,
     numeroCv: "23122"
   }])
-paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
+ paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
 
 provincias = Provincia.create!([{pais_id: 1, id:1, codigoAfip: 0 , nombre: 'Capital Federal', nombre_corto: 'CF'},
 	{pais_id: 1, id:2, codigoAfip: 1, nombre: 'Buenos Aires', nombre_corto: 'BA'},

@@ -5,7 +5,7 @@ class Cheque < ApplicationRecord
 	after_create :impactar_cuenta_corriente
 
 	def actualizar_cuenta_corriente
-		if self.rechazado.changed?
+		if self.rechazado_changed?
 			if self.rechazado?
 				distribuidor = User.find(self.pago.distribuidor_id)
 			    @cc = CuentaCorriente.new

@@ -24,6 +24,7 @@
             <th>Banco</th>
             <th>Numero</th>
             <th>Monto</th>
+            <th>Fecha</th>
             <th>Confirmado</th>
             <th>Rechazado</th>
             <th>Editar</th>
@@ -44,7 +45,7 @@
                       </div>
                     <% end %>
                     <tr>
-                      <td><%= cheque.pago.distribuidor_id %></td>
+                      <td><%= User.find(cheque.pago.distribuidor_id).razonSocial %></td>
                       <% if !Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nil? %>
                       <td><%= Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nombre %></td>
                       <% else %>
