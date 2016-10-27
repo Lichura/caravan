@@ -49,6 +49,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :cheques do
+    collection do
+      get :update_multiple
+    end
+  end
+
   resources :detalles
   resources :pedidos do
     collection do

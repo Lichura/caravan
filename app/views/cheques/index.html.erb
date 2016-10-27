@@ -20,18 +20,18 @@
       <div class="table-responsive">
         <table class="table table-hover">
           <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>CUIT</th>
-            <% @estados.each do |k,v| %>
-              <th><%= v %></th>
-            <% end %>
+            <th>Distribuidor</th>
+            <th>Banco</th>
+            <th>Numero</th>
+            <th>Monto</th>
+            <th>Confirmado</th>
+            <th>Rechazado</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </thead>
-          <%= form_tag cheques_path, method: :put do %>
+          <%= form_tag update_multiple_cheques_path, method: :get do %>
             <tbody>
-                <% @cheques.each do |user| %>
+                <% @cheques.each do |cheque| %>
                   <%= fields_for "cheques[]", cheque do |f| %>
                     <% if cheque.errors.any? %>
                       <div id="error_explanation">
@@ -44,19 +44,24 @@
                       </div>
                     <% end %>
                     <tr>
+                      <td><%= cheque.pago.distribuidor_id %></td>
+                      <% if !Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nil? %>
+                      <td><%= Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nombre %></td>
+                      <% else %>
+                      <td> No identificado </td>
+                      <% end %>
                       <td><%= cheque.numero %></td>
                       <td><%= cheque.monto %></td>
                       <td><%= cheque.fecha %></td>
-                      <% @profiles.each do |perfil| %>
-                        <td style="padding-left: 3%;"><%= f.radio_button :estado%></td>
-                      <% end %>
+                      <td style="padding-left: 3%;"><%= f.check_box :confirmado %></td>
+                      <td style="padding-left: 3%;"><%= f.check_box :rechazado %></td>
                       <td>
                         <%= link_to edit_cheque_path(cheque), class: "btn btn-default" do %>
                           <span class="glyphicon glyphicon-pencil"></span>
                         <% end %>
                       </td>
                       <td>
-                        <%= link_to cheque, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el registro ' + cheque.numero.to_s + '?' }, class: "btn btn-danger" do %>
+                        <%= link_to cheque, method: :delete, data: { confirm: 'Esta seguro que desea eliminar el cheque ' + cheque.numero+ '?' }, class: "btn btn-danger" do %>
                           <span class="glyphicon glyphicon-remove"></span>
                         <% end %>
                       </td>
@@ -64,10 +69,11 @@
                   <% end %> 
                 <% end %>
               </tbody>
-            <% end %>
+
         </table>
       </div>
-    <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+                  <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+            <% end %>
     </div>
   </div>
 </div>
