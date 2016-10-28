@@ -7,9 +7,12 @@
 	  </div>
   </div>
     <div class="form-group">
-	  <%= f.label :numero, "Numero", class: "col-sm-2 control-label" %>
-	  <div class="col-sm-10">
-	  <%= f.text_field :numero, class: "form-control" %>
+	  <%= f.label :numero, "Banco y Numero", class: "col-sm-2 control-label" %>
+	  <div class="col-sm-2">
+    <%= f.text_field :banco, class: "cheque-banco form-control" %>
+    </div>
+    <div class="col-sm-8">
+	  <%= f.text_field :numero, class: "cheque-numero form-control" %>
 	  </div>
   </div>
     <div class="form-group">
@@ -17,9 +20,11 @@
 	  <div class="col-sm-10">
 	  <%= f.text_field :monto, class: "monto-cheque form-control" %>
 	  </div>
-	  <div class="col-sm-2 col-sm-offset-10">
-    	<%= f.hidden_field :_destroy %>
-    	<%= link_to "Eliminar cheque", '#', class: "remove_fields btn btn-danger pull-right" %>
+    <div class="form-group">
+  	  <div class="col-sm-2 pull-right">
+      	<%= f.hidden_field :_destroy %>
+      	<%= link_to "Eliminar cheque", '#', class: "remove_fields btn btn-danger pull-right" %>
+      </div>
     </div>
    </div>
 </fieldset>
@@ -27,6 +32,10 @@
 
 
 <script>
+
+
+  $('.cheque-banco').mask('000');
+  $('.cheque-numero').mask('00000000');
   $('.monto-cheque').unbind();
   $('.monto-cheque').on('change', function(){
     UpdateTotal();

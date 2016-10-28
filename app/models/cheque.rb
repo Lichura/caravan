@@ -4,6 +4,10 @@ class Cheque < ApplicationRecord
 	after_update :actualizar_cuenta_corriente
 	after_create :impactar_cuenta_corriente
 
+	validates :fecha, presence: true
+	validates :banco, presence: true
+	validates :numero, presence: true
+
 	def actualizar_cuenta_corriente
 		if self.rechazado_changed?
 			if self.rechazado?

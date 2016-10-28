@@ -21,7 +21,14 @@
           <dd><%= @pago.estado %></dd>
 
           <% if @pago.cheques.any? %>
-            <h1>tiene cheques!!</h1>
+            <% @pago.cheques.all do |cheque| %>
+              <div class="cheque-formato">
+                <span class="cheque-fecha"><%= cheque.fecha %></span>
+                <span class="cheque-banco"><%= cheque.banco %></span>
+                <span class="cheque-numero"><%= cheque.numero %></span>
+                <span class="cheque-monto"><%= cheque.monto %></span>               
+              </div>
+            <% end %>
           <% end %>
 
         </dl>
@@ -40,5 +47,6 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>
+      <%= link_to "PDF", pago_path(@pago, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>

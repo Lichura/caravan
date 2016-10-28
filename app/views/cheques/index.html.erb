@@ -46,8 +46,8 @@
                     <% end %>
                     <tr>
                       <td><%= User.find(cheque.pago.distribuidor_id).razonSocial %></td>
-                      <% if !Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nil? %>
-                      <td><%= Banco.find_by(:codigo => cheque.numero.to_s[0...3]).nombre %></td>
+                      <% if !Banco.find_by(:codigo => cheque.banco).nil? %>
+                      <td><%= Banco.find_by(:codigo => cheque.banco).nombre %></td>
                       <% else %>
                       <td> No identificado </td>
                       <% end %>

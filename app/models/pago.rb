@@ -4,6 +4,9 @@ class Pago < ApplicationRecord
 	after_create :impactar_cuenta_corriente
 	before_validation :marcar_productos_para_destruir
 	after_initialize :aumentar_numerador
+
+	validates :distribuidor_id, presence: true
+	
 	
 	private
 	def impactar_cuenta_corriente

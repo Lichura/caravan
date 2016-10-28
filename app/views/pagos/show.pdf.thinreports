@@ -1,0 +1,6 @@
+report.start_new_page do |page|
+  page.values razonSocial: User.find(@pago.distribuidor_id).razonSocial, 
+              fecha: @pago.fecha,
+              numero: @pago.numero,
+              monto: @pago.monto
+end

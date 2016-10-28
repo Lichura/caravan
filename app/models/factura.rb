@@ -13,7 +13,7 @@ class Factura < ApplicationRecord
 	private
 	def aumentar_numerador
 		if Factura.maximum(:numero)
-			self.numero = Factura.maximum(:numero)
+			self.numero = Factura.maximum(:numero) + 1
 		else
 			self.numero = 1
 		end
