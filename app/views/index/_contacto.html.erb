@@ -6,31 +6,6 @@
   			<%= render 'mensajes/form', mensaje: @mensaje %>
   		</div>
   	</div>
-  	<div class="col-md-6">
-      <div class="animations-element">
-    	    <div id="map"></div>
-  	    </div>
-  	  </div>
-  	</div>
   </div>
 </div>
 
-
-
-<script>
-	function initMap() {
-        var uluru = {lat: -35.974579, lng: -62.731706};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: uluru
-        });
-        var marker = new google.maps.Marker({
-          position: uluru,
-          map: map
-        });
-      }
-
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD2Ohl5HJVRlp3Cx6PBubcoI7bBsX4_7x8&callback=initMap">
-</script>

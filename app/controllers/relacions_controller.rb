@@ -27,6 +27,18 @@ class RelacionsController < ApplicationController
 
   end
 
+  def update
+    respond_to do |format|
+      if @relacion.update(relacion_params)
+        format.html { redirect_to @relacion, notice: 'Relacion was successfully updated.' }
+        format.json { render :show, status: :ok, location: @relacion }
+      else
+        format.html { render :edit }
+        format.json { render json: @relacion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   def destroy
     @relacion.destroy
