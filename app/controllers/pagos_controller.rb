@@ -23,6 +23,7 @@ class PagosController < ApplicationController
   # GET /pagos/new
   def new
     @pago = Pago.new
+    @distribuidores = User.where(profile_id: 2).all
     @pago.aumentar_numerador
     cheque = @pago.cheques.build
   end
