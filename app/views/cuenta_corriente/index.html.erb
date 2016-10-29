@@ -3,20 +3,14 @@
     <div class="panel-heading"><h3>Cuenta Corriente</h3></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-lg-offset-3">
-          <%= form_tag(cuentascorrientes_path, :method => "get", id: "search-form") do %>
-            <div class="form-group">
-              <%= label_tag :fecha,  "Filtrar por fecha hasta", class: "col-sm-2 control-label" %>
-              <div class="col-sm-10">
-                <%= date_field_tag(:fecha, value = Date.today , options = {class: "form-control"}) %>
-              </div>
-              <%= label_tag :cliente, "Filtrar por cliente", class: "col-sm-2 control-label" %>
-    		      <div class="col-sm-10">
-              	<%= select_tag :cliente, options_from_collection_for_select(User.where(profile_id: 2).all, "id", "razonSocial", :selected => params[:cliente]), class: "form-control" %>
-              </div>
-              <%= submit_tag "Filtrar", class: 'btn btn-default pull-right'%>
-            </div>
-          <% end %>
+          <div class="col-lg-6">
+            <%= form_tag(cuentascorrientes_path, :method => "get", id: "search-form") do %>
+                <%= label_tag :fecha,  "Filtrar por fecha hasta", class: "col-sm-2 control-label" %>
+                  <%= date_field_tag(:fecha, value = Date.today + 1 , options = {class: "form-control"}) %>
+                <%= label_tag :cliente, "Filtrar por cliente", class: "col-sm-2 control-label" %>
+                	<%= select_tag :cliente, options_from_collection_for_select(User.where(profile_id: 2).all, "id", "razonSocial", :selected => params[:cliente]), class: "form-control" %>
+                <%= submit_tag "Filtrar", class: 'btn btn-default pull-right'%>
+            <% end %>
           </div>
         </div>
       <div class="row" style="height: 100px;"></div>
@@ -24,7 +18,7 @@
           <table class="table table-hover">
               <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
                 <th>id</th>
-                <th>usuario</th>
+                <th>Distribuidor</th>
                 <th>Fecha</th>
                 <th>Concepto</th>
                 <th>Concepto Numero</th>

@@ -6,11 +6,11 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-lg-offset-3">
-            <%= form_tag(cheques_path, :method => "get", id: "search-form") do %>
+          <%= form_tag(cheques_path, :method => "get", id: "filtrar-form") do %>
             <div class="input-group">
-              <%= text_field_tag :search,  params[:search], placeholder: "Buscar cheques", class: "form-control"%>
+                <%=select_tag :filtrar, options_from_collection_for_select(cheque_estados, :to_s, :to_s, :selected => params[:filtrar]), {include_blank: true, class: "form-control"} %>
               <span class="input-group-btn">
-                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+                <%= submit_tag "Filtrar", class: 'btn btn-default'%>
               </span>
             </div>
            <% end %>
@@ -45,11 +45,11 @@
                       </div>
                     <% end %>
                     <tr>
-                      <td><%= User.find(cheque.pago.distribuidor_id).razonSocial %></td>
+                      <td style="font-size: 0.5em"><%= User.find(cheque.pago.distribuidor_id).razonSocial %></td>
                       <% if !Banco.find_by(:codigo => cheque.banco).nil? %>
-                      <td><%= Banco.find_by(:codigo => cheque.banco).nombre %></td>
+                      <td style="font-size: 0.5em"><%= Banco.find_by(:codigo => cheque.banco).nombre %></td>
                       <% else %>
-                      <td> No identificado </td>
+                      <td style="font-size: 0.5em"> No identificado </td>
                       <% end %>
                       <td><%= cheque.numero %></td>
                       <td><%= cheque.monto %></td>
@@ -75,6 +75,8 @@
       </div>
                   <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
             <% end %>
-    </div>
+
+    <%= will_paginate @cheques, renderer: BootstrapPagination::Rails %>
+        </div>
   </div>
 </div>

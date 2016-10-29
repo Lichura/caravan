@@ -20,11 +20,9 @@
       <table class="table table-hover">
           <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
             <th>Nombre</th>
-            <th>Descripcion</th>
             <th>Precio</th>
-            <th>Activo</th>
-            <th>Familia</th>
             <th>Imagen</th>
+            <th>Stock disponible</th>
             <th>Mostrar</th>
             <th>Editar</th>
             <th>Eliminar</th>
@@ -33,19 +31,9 @@
             <% @productos.each do |producto| %>
             <tr><!-- se podria utilizar para ver el proximo turno -->
               <td><%= producto.nombre %></td>
-              <td><%= producto.descripcion %></td>
               <td><%= producto.precio %></td>
-              <td>
-                  <% if producto.activo %>
-                    <span class="glyphicon glyphicon-check"></span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-unchecked"></span>
-                  <% end %>
-              </td>
-
-              <td><%= producto.familium.nombre %></td>
-
-              <td><%= image_tag producto.imagen %></td> 
+              <td><%= image_tag producto.imagen %></td>
+              <td><%= producto.stock_disponible %></td>
               <td>
                 <%= link_to producto_path(producto) do %>
                   <i class="glyphicon glyphicon-list-alt"></i>

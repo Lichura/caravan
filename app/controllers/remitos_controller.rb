@@ -70,6 +70,7 @@ class RemitosController < ApplicationController
     pendiente_facturar
     respond_to do |format|
       if @remito.save
+        @remito.disminuir_stock_disponible
         estado_pedido_remito
         format.html { redirect_to pedidos_path, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
@@ -102,6 +103,7 @@ class RemitosController < ApplicationController
   # DELETE /remitos/1.json
   def destroy
     modificar_stock_destruir
+    @remito.disminuir_stock_disponible_en_remito_eliminado
     @remito.destroy
     estado_pedido_remito
     respond_to do |format|

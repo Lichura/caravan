@@ -1,6 +1,6 @@
 class PagosController < ApplicationController
   before_action :set_pago, only: [:show, :edit, :update, :destroy]
-  before_action :set_tipos, only: [:new, :create, :show, :edit, :update, :destroy]
+
   # GET /pagos
   # GET /pagos.json
   def index
@@ -23,7 +23,7 @@ class PagosController < ApplicationController
   # GET /pagos/new
   def new
     @pago = Pago.new
-    @numerador = 0
+    @pago.aumentar_numerador
     cheque = @pago.cheques.build
   end
 
@@ -82,7 +82,5 @@ class PagosController < ApplicationController
       params.require(:pago).permit(:distribuidor_id, :numero, :medioDePago, :monto, :estado, :cheques_attributes => [:id, :monto, :banco, :numero, :fecha, :_destroy ])
     end
 
-    def set_tipos
-      @mediosDePago =["Efectivo", "Cheque"]
-    end
+
 end

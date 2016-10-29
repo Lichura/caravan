@@ -2,7 +2,7 @@
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
-      <div class="panel-heading"><h2>pago</h2></div>
+      <div class="panel-heading"><h2>Comprobante de pago</h2></div>
         <div class="panel-body">
          <dl class="dl-horizontal">
           <dt>Distribuidor:</dt>
@@ -11,26 +11,27 @@
           <dt>Numero:</dt>
           <dd><%= @pago.numero %></dd>
 
-          <dt>Mediodepago:</dt>
-          <dd><%= @mediosDePago[@pago.medioDePago] %></dd>
+          <dt>Medio de pago:</dt>
+          <dd><%= @pago.medioDePago %></dd>
 
-          <dt>Monto:</dt>
+          <dt>Monto total:</dt>
           <dd><%= @pago.monto %></dd>
 
-          <dt>Estado:</dt>
-          <dd><%= @pago.estado %></dd>
 
           <% if @pago.cheques.any? %>
-            <% @pago.cheques.all do |cheque| %>
+          <dt>Cheques:</dt>
+          <dd>
+            <% @pago.cheques.each do |cheque| %>
               <div class="cheque-formato">
-                <span class="cheque-fecha"><%= cheque.fecha %></span>
-                <span class="cheque-banco"><%= cheque.banco %></span>
-                <span class="cheque-numero"><%= cheque.numero %></span>
-                <span class="cheque-monto"><%= cheque.monto %></span>               
-              </div>
+                <span class="cheque-fechas"><%= cheque.fecha %></span>
+                <span class="cheque-bancos"><%= Banco.find(cheque.banco).nombre %></span>
+                <span class="cheque-numeros"><%= cheque.numero %></span>
+                <span class="cheque-montos"><%= cheque.monto %></span>  
+                <span class="cheque-nombres">Caravanas - Trenque Lauquen</span>             
+              </div><br>
             <% end %>
           <% end %>
-
+          </dd>
         </dl>
         </div>
       </div>

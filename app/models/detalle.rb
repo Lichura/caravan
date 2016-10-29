@@ -11,4 +11,6 @@ class Detalle < ApplicationRecord
 			puts( "El stock para el articulo #{producto.nombre} es insuficiente")
 		end
 	end
+
+
 end

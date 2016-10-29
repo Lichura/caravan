@@ -22,6 +22,15 @@ class Pedido < ApplicationRecord
   after_create :generar_boolean
   #after_initialize :aumentar_numerador
 
+  def devolver_stock
+    self.detalles.each do |detalle|
+      producto = Producto.find(detalle.producto_id)
+      producto.stock_disponible += detalle.cantidad
+      producto.stock_reservado -= detalle.cantidad
+      producto.save
+    end
+  end
+
   private
 
   def generar_boolean 

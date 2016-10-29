@@ -47,7 +47,9 @@
           <td><%= pedido.status %></td>
           <td>
               <% if pedido.confirmado? || pedido.remitido_parcial? %>
+                <% if current_user.profile_id == 1 %>
                 <span class="glyphicon glyphicon-unchecked"><%= link_to "Remitir", {controller:"remitos", action:"new", id: pedido} %></span>
+                <% end %>
               <% elsif !pedido.activo? %>
                 <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
                   <i style="color:green" class="glyphicon glyphicon-check"></i>

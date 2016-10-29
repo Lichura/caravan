@@ -12,7 +12,26 @@ class Remito < ApplicationRecord
 	#after_update :modificar_estado
 	after_update :finalizado_por_ajuste
 	before_validation :marcar_productos_para_destruir
-	accepts_nested_attributes_for :remito_items,  allow_destroy: true, reject_if: proc{ |att| att.all? { att[:cantidad].blank? || (att[:cantidad] == 0) } }
+	accepts_nested_attributes_for :remito_items,  allow_destroy: true
+
+
+	def disminuir_stock_disponible
+		self.remito_items.each do |item|
+			producto = Producto.find(item.producto_id)
+			producto.stock_reservado -= item.cantidad
+			producto.stock_fisico -= item.cantidad
+			producto.save
+		end
+	end
+
+	def aumentar_stock_disponible_en_remito_eliminado
+		self.remito_items.each do |item|
+			producto = Producto.find(item.producto_id)
+			producto.stock_reservado += item.cantidad
+			producto.stock_fisico += item.cantidad
+			producto.save
+		end
+	end
 
 	private
 

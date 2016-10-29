@@ -1,14 +1,14 @@
 <div class="form-group">
   <%= f.label :fecha, "Fecha: ", class: "col-sm-2 control-label" %>
-  <div class="col-sm-10">
-    <%= f.date_field :fecha, :value => Date.today, :class => 'datetimepicker' %>
+  <div class="col-sm-8">
+    <%= f.date_field :fecha, :value => Date.today, :class => 'form-control' %>
   </div>
 </div>
 <% if @numero %>
 <div class="form-group">
   <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
   <div class="col-sm-8">
-      <%= f.text_field :comprobanteNumero, :value => @numero,  class: "form-control"  %>
+      <%= f.text_field :comprobanteNumero, :value => @numero, :readonly => true,   class: "form-control"  %>
   </div>
 </div>
 <% else %>

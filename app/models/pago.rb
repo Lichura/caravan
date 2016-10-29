@@ -3,11 +3,18 @@ class Pago < ApplicationRecord
 	accepts_nested_attributes_for :cheques,  allow_destroy: true
 	after_create :impactar_cuenta_corriente
 	before_validation :marcar_productos_para_destruir
-	after_initialize :aumentar_numerador
+
 
 	validates :distribuidor_id, presence: true
 	
-	
+	def aumentar_numerador
+		if Pago.maximum(:numero)
+			self.numero = Pago.maximum(:numero) + 1
+		else
+			self.numero = 1
+		end
+	end
+
 	private
 	def impactar_cuenta_corriente
 		if self.medioDePago == "Efectivo" or self.medioDePago == 0
@@ -30,11 +37,5 @@ class Pago < ApplicationRecord
   	end
 
 
-  	def aumentar_numerador
-		if Pago.maximum(:numero)
-			self.numero = Pago.maximum(:numero) + 1
-		else
-			self.numero = 1
-		end
-	end
+
 end

@@ -3,14 +3,20 @@ class Cheque < ApplicationRecord
 	belongs_to :pago, optional: true
 	after_update :actualizar_cuenta_corriente
 	after_create :impactar_cuenta_corriente
+	after_create :estado_inicial
 
 	validates :fecha, presence: true
 	validates :banco, presence: true
 	validates :numero, presence: true
 
+	def estado_inicial
+		self.recibido = true
+		self.save
+	end
+
 	def actualizar_cuenta_corriente
 		if self.rechazado_changed?
-			if self.rechazado?
+			if self.rechazado_was == false && self.rechazado == true
 				distribuidor = User.find(self.pago.distribuidor_id)
 			    @cc = CuentaCorriente.new
 			    @cc.user_id = distribuidor.id
@@ -18,7 +24,7 @@ class Cheque < ApplicationRecord
 			    @cc.concepto = "Se rechazo el cheque Nº #{self.numero}"
 			    @cc.conceptoNumero = self.numero
 			    @cc.save
-			else
+			elsif self.rechazado_was == true && self.rechazado == false
 				distribuidor = User.find(self.pago.distribuidor_id)
 			    @cc = CuentaCorriente.new
 			    @cc.user_id = distribuidor.id
@@ -40,4 +46,8 @@ class Cheque < ApplicationRecord
 		@cc.save
 	end
 
+
+		  def self.filtrar(cheque)
+		    where("? = true", "#{cheque}")
+		  end
 end

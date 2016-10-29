@@ -122,7 +122,6 @@ class PedidosController < ApplicationController
     respond_to do |format|
       if @pedido.update(pedido_params)
         estado_pedido_update
-        actualizar_pedido_cuenta_corriente
         @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
@@ -137,11 +136,8 @@ class PedidosController < ApplicationController
   # DELETE /pedidos/1.json
   def destroy
         authorize @pedido
-        @pedido.detalles.each do |producto|
-         Producto.find(producto.producto_id).stock_reservado -= producto.cantidad
-         Producto.find(producto.producto_id).stock_disponible += producto.cantidad
-        end
       if !@pedido.remitos.any?
+        @pedido.devolver_stock
         @pedido.destroy
         respond_to do |format|
           format.html { redirect_to pedidos_url, notice: 'El pedido se elimino correctamente' }

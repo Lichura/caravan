@@ -70,14 +70,15 @@
         <span class="glyphicon glyphicon-pencil"></span>
         Editar
       <% end %>
-      <% end %>
-      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
+
       <% if remito.estado != "Facturado" %>
-      <%= link_to nueva_factura_path("remito_ids[]" => remito.id),  class: 'btn btn-primary' do %>
-        <span class="glyphicon glyphicon-pencil"></span>
-        Facturar
+        <%= link_to nueva_factura_path("remito_ids[]" => remito.id),  class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Facturar
+        <% end %>
       <% end %>
-      <% end %>
+            <% end %>
+      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
 <% end %>

@@ -30,7 +30,7 @@ class Factura < ApplicationRecord
 
   	 def nueva_factura_cuenta_corriente
 	    @cc = CuentaCorriente.new
-	    @cc.user_id = User.find_by(cuit: self.distribuidor_id).id
+	    @cc.user_id = User.find_by(cuit: self.cuit).id
 	    @cc.monto = -1 * (self.total)
 	    @cc.concepto = "Se creo la Factura Nº #{self.numero}"
 	    @cc.conceptoNumero = self.numero
@@ -39,7 +39,7 @@ class Factura < ApplicationRecord
 
 	  def eliminar_factura_cuenta_corriente
 	    @cc = CuentaCorriente.new
-	    @cc.user_id = User.find_by(cuit: self.distribuidor_id).id
+	    @cc.user_id = User.find_by(cuit: self.cuit).id
 	    @cc.monto = self.total
 	    @cc.concepto = "Se anulo la factura Nº #{self.numero}"
 	    @cc.conceptoNumero = self.numero
