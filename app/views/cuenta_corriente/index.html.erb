@@ -3,12 +3,17 @@
     <div class="panel-heading"><h3>Cuenta Corriente</h3></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-8 col-lg-offset-2">
+
             <%= form_tag(cuentascorrientes_path, :method => "get", id: "search-form") do %>
-                <%= label_tag :fecha,  "Filtrar por fecha hasta", class: "col-sm-2 control-label" %>
+            <div class="form-group">
+                <%= label_tag :fecha,  "Filtrar por fecha hasta", class: "control-label" %>
                   <%= date_field_tag(:fecha, value = Date.today + 1 , options = {class: "form-control"}) %>
+            </div>
+            <div class="form-group">
                 <%= label_tag :cliente, "Filtrar por cliente", class: "col-sm-2 control-label" %>
                 	<%= select_tag :cliente, options_from_collection_for_select(User.where(profile_id: 2).all, "id", "razonSocial", :selected => params[:cliente]), class: "form-control" %>
+            </div>
                 <%= submit_tag "Filtrar", class: 'btn btn-default pull-right'%>
             <% end %>
           </div>

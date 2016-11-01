@@ -7,7 +7,8 @@
         <div class="row">
           <div class="col-lg-6 col-lg-offset-3">
           <%= form_tag(cheques_path, :method => "get", id: "filtrar-form") do %>
-            <div class="input-group">
+             <%= label_tag :filtrar,  "Filtrar por estado de cheque", class: "control-label" %>
+              <div class="input-group">
                 <%=select_tag :filtrar, options_from_collection_for_select(cheque_estados, :to_s, :to_s, :selected => params[:filtrar]), {include_blank: true, class: "form-control"} %>
               <span class="input-group-btn">
                 <%= submit_tag "Filtrar", class: 'btn btn-default'%>
