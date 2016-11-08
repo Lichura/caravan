@@ -40,11 +40,11 @@
 
   <div id="cheques">
 
-    <%= f.fields_for :cheques do |ff| %>
-      <% render 'cheque_fields', f: ff %>
-    <% end %>
-     </br>
-   <%= link_to_add_fields "Agregar Cheque", f, :cheques,  :class => "btn btn-success pull-right" %>
+      <%= f.fields_for :cheques do |ff| %>
+        <% render 'cheque_fields', f: ff %>
+      <% end %>
+       </br>
+     <%= link_to_add_fields "Agregar Cheque", f, :cheques,  :class => "btn btn-success pull-right" %>
   </div>
   </br>
   </br>
