@@ -50,4 +50,10 @@ class Cheque < ApplicationRecord
 		  def self.filtrar(cheque)
 		    where("? = true", "#{cheque}")
 		  end
+
+	def self.search(cheque)
+		distribuidores = User.where("razonSocial LIKE ?", "%#{cheque}%").pluck(:id)
+		pagos = Pago.find_by(distribuidor_id: distribuidores)
+		where("monto LIKE ? OR numero LIKE ? OR pago_id IN (?)", "%#{cheque}%", "%#{cheque}%", pagos)
+	end	  
 end

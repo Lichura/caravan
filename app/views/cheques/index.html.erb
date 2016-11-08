@@ -6,6 +6,15 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-lg-6 col-lg-offset-3">
+
+          <%= form_tag(cheques_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar cheques", class: "form-control"%>
+              <span class="input-group-btn">
+              <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+            <% end %>
           <%= form_tag(cheques_path, :method => "get", id: "filtrar-form") do %>
             <div class="input-group">
                 <%=select_tag :filtrar, options_from_collection_for_select(cheque_estados, :to_s, :to_s, :selected => params[:filtrar]), {include_blank: true, class: "form-control"} %>
@@ -53,7 +62,7 @@
                       <% end %>
                       <td><%= cheque.numero %></td>
                       <td><%= cheque.monto %></td>
-                      <td><%= cheque.fecha %></td>
+                      <td><%= cheque.fecha.to_formatted_s(:year) %></td>
                       <td style="padding-left: 3%;"><%= f.check_box :confirmado %></td>
                       <td style="padding-left: 3%;"><%= f.check_box :rechazado %></td>
                       <td>
