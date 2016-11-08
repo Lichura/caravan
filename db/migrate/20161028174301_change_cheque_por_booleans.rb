@@ -1,8 +1,8 @@
 class ChangeChequePorBooleans < ActiveRecord::Migration[5.0]
   def up
-    change_column :cheques, :recibido, 'bool USING CAST(recibido AS bool)'
-    change_column :cheques, :confirmado, 'bool USING CAST(confirmado AS bool)'
-    change_column :cheques, :rechazado, 'bool USING CAST(rechazado AS bool)'
+    change_column :cheques, :recibido, :boolean
+    change_column :cheques, :confirmado, :boolean
+    change_column :cheques, :rechazado, :boolean
   end
 
   def down

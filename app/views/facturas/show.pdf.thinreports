@@ -1,11 +1,15 @@
+usuario = User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id)
+
 report.start_new_page do |page|
-  page.values razonSocial: User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id).razonSocial, 
+  page.values razonSocial: usuario.razonSocial, 
  		 	  cuit: @factura.cuit, 
               fecha: @factura.fecha,
               numero: @factura.numero,
               neto: @factura.neto,
               iva: @factura.iva,
-              total: @factura.total
+              total: @factura.total,
+              direccion: usuario.user_sucursals.first.direccion,
+              telefono: usuario.user_sucursals.first.telefono
 end
 
 	@factura.factura_items.each do |producto|

@@ -30,6 +30,7 @@ class PagosController < ApplicationController
 
   # GET /pagos/1/edit
   def edit
+    @distribuidores = User.where(profile_id: 2).all
   end
 
   # POST /pagos
