@@ -54,6 +54,6 @@ class Cheque < ApplicationRecord
 	def self.search(cheque)
 		distribuidores = User.where('"users"."razonSocial" LIKE ?', "%#{cheque}%").pluck(:id)
 		pagos = Pago.find_by(distribuidor_id: distribuidores)
-		where("monto LIKE ? OR numero LIKE ? OR pago_id IN (?)", "%#{cheque}%", "%#{cheque}%", pagos)
+		where("cast(monto as text) LIKE ? OR cast(numero as text) LIKE ? OR cast(pago_id as text) IN (?)", "%#{cheque}%", "%#{cheque}%", pagos)
 	end	  
 end
