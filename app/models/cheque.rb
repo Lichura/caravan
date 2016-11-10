@@ -55,6 +55,6 @@ class Cheque < ApplicationRecord
 		distribuidores = User.where('"users"."razonSocial" LIKE ?', "%#{cheque}%").pluck(:id)
 		pagos = Pago.where(distribuidor_id: distribuidores).pluck(:id)
 		
-		where(pago_id: pagos).or(where(("numero >= ? AND numero <= ?) OR (monto <= ? AND monto >= ?)", "%#{cheque}%", "%#{cheque}%", "%#{cheque}%", "%#{cheque}%"))
+		where(pago_id: pagos).or(where("(numero >= ? AND numero <= ?) OR (monto <= ? AND monto >= ?)", "%#{cheque}%", "%#{cheque}%", "%#{cheque}%", "%#{cheque}%"))
 	end	  
 end
