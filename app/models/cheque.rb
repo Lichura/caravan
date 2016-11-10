@@ -56,7 +56,7 @@ class Cheque < ApplicationRecord
 		pagos = Pago.where(distribuidor_id: distribuidores).pluck(:id)
 		if cheque != "" && cheque.to_i > 0
 			cheque = cheque.to_f
-			where("(numero = ? OR monto = ?)", "%#{cheque}%", "%#{cheque}%")
+			where("(numero LIKE ? OR monto LIKE ?)", "%#{cheque}%", "%#{cheque}%")
 		else
 			where(pago_id: pagos)
 		end
