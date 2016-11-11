@@ -11,28 +11,32 @@ class ProductosController < ApplicationController
       else
         @productos = Producto.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @productos
   end
 
   # GET /productos/1
   # GET /productos/1.json
   def show
+    authorize Producto
   end
 
   # GET /productos/new
   def new
     @producto = Producto.new
+    authorize @producto
     @familia = Familium.all.collect {|x| [x.nombre, x.id]}
   end
 
   # GET /productos/1/edit
   def edit
+    authorize Producto
   end
 
   # POST /productos
   # POST /productos.json
   def create
     @producto = Producto.new(producto_params)
-
+    authorize @producto
     respond_to do |format|
       if @producto.save
         format.html { redirect_to @producto, notice: 'El producto se genero correctamente' }
@@ -49,6 +53,7 @@ class ProductosController < ApplicationController
   def update
     respond_to do |format|
       if @producto.update(producto_params)
+        authorize @producto
         format.html { redirect_to @producto, notice: 'El producto se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @producto }
       else
@@ -62,6 +67,7 @@ class ProductosController < ApplicationController
   # DELETE /productos/1.json
   def destroy
     @producto.destroy
+    authorize @producto
     respond_to do |format|
       format.html { redirect_to productos_url, notice: 'El producto se elimino correctamente' }
       format.json { head :no_content }

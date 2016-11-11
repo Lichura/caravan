@@ -5,6 +5,7 @@ class MedidasController < ApplicationController
   # GET /medidas.json
   def index
     @medidas = Medida.paginate(:page => params[:page], :per_page => 10)
+    authorize @medidas
   end
 
   # GET /medidas/1
@@ -15,6 +16,7 @@ class MedidasController < ApplicationController
   # GET /medidas/new
   def new
     @medida = Medida.new
+    authorize @medida
   end
 
   # GET /medidas/1/edit
@@ -25,7 +27,7 @@ class MedidasController < ApplicationController
   # POST /medidas.json
   def create
     @medida = Medida.new(medida_params)
-
+    authorize @medida
     respond_to do |format|
       if @medida.save
         format.html { redirect_to @medida, notice: 'Medida was successfully created.' }
@@ -42,6 +44,7 @@ class MedidasController < ApplicationController
   def update
     respond_to do |format|
       if @medida.update(medida_params)
+        authorize @medida
         format.html { redirect_to @medida, notice: 'Medida was successfully updated.' }
         format.json { render :show, status: :ok, location: @medida }
       else
@@ -55,6 +58,7 @@ class MedidasController < ApplicationController
   # DELETE /medidas/1.json
   def destroy
     @medida.destroy
+    authorize @medida
     respond_to do |format|
       format.html { redirect_to medidas_url, notice: 'Medida was successfully destroyed.' }
       format.json { head :no_content }

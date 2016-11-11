@@ -5,6 +5,7 @@ class ProductoHistoricosController < ApplicationController
   # GET /producto_historicos.json
   def index
     @producto_historicos = ProductoHistorico.all
+    authorize @producto_historicos
     @historico = ProductoHistorico.group(:producto_id).count 
     @pedidos = Pedido.all
     @historico = []
@@ -33,22 +34,25 @@ class ProductoHistoricosController < ApplicationController
   # GET /producto_historicos/1
   # GET /producto_historicos/1.json
   def show
+    authorize ProductoHistorico
   end
 
   # GET /producto_historicos/new
   def new
     @producto_historico = ProductoHistorico.new
+    authorize @producto_historico
   end
 
   # GET /producto_historicos/1/edit
   def edit
+    authorize ProductoHistorico
   end
 
   # POST /producto_historicos
   # POST /producto_historicos.json
   def create
     @producto_historico = ProductoHistorico.new(producto_historico_params)
-
+    authorize @producto_historico
     respond_to do |format|
       if @producto_historico.save
         format.html { redirect_to @producto_historico, notice: 'Producto historico was successfully created.' }
@@ -65,6 +69,7 @@ class ProductoHistoricosController < ApplicationController
   def update
     respond_to do |format|
       if @producto_historico.update(producto_historico_params)
+        authorize @producto_historico
         format.html { redirect_to @producto_historico, notice: 'Producto historico was successfully updated.' }
         format.json { render :show, status: :ok, location: @producto_historico }
       else
@@ -78,6 +83,7 @@ class ProductoHistoricosController < ApplicationController
   # DELETE /producto_historicos/1.json
   def destroy
     @producto_historico.destroy
+    authorize @producto_historico
     respond_to do |format|
       format.html { redirect_to producto_historicos_url, notice: 'Producto historico was successfully destroyed.' }
       format.json { head :no_content }

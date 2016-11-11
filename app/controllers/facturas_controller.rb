@@ -1,6 +1,7 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
   before_action :set_tipo, only: [:show, :edit, :update, :new, :nueva_factura]
+
   # GET /facturas
   # GET /facturas.json
   def index
@@ -13,6 +14,7 @@ class FacturasController < ApplicationController
                                                  disposition: 'attachment'
       end
     end
+    authorize @facturas
   end
   # GET /facturas/1
   # GET /facturas/1.json
@@ -22,6 +24,7 @@ class FacturasController < ApplicationController
   # GET /facturas/new
   def new
     @factura = Factura.new
+    authorize @factura
     crear_factura_sin_remito
     @remitos = Remito.where(:facturado => false)
     #end
@@ -30,6 +33,7 @@ class FacturasController < ApplicationController
 
   def nueva_factura
     @factura = Factura.new
+    authorize @factura
     @remitos_seleccionados = Remito.find(params[:remito_ids])
       @remitos_seleccionados.each do |remito|
         remito.remito_items.each do |obj|
@@ -54,6 +58,7 @@ class FacturasController < ApplicationController
   # POST /facturas.json
   def create
     @factura = Factura.new(factura_params)
+    authorize @factura
     #selecciono univocamente los ids de remitos que se asociaron
     #luego genero la asociacion a la factura
     @remitos = @factura.factura_items.uniq.pluck(:remito_id)
@@ -79,6 +84,7 @@ class FacturasController < ApplicationController
   def update
     respond_to do |format|
       if @factura.update(factura_params)
+        authorize @factura
         format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
         format.json { render :show, status: :ok, location: @factura }
       else
@@ -92,6 +98,7 @@ class FacturasController < ApplicationController
   # DELETE /facturas/1.json
   def destroy
     @factura.destroy
+    authorize @factura
     respond_to do |format|
       format.html { redirect_to facturas_url, notice: 'Factura was successfully destroyed.' }
       format.json { head :no_content }

@@ -10,6 +10,7 @@ class CondicionPagosController < ApplicationController
       else
         @condicion_pagos = CondicionPago.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @condicion_pagos
   end
 
   # GET /condicion_pagos/1
@@ -20,6 +21,7 @@ class CondicionPagosController < ApplicationController
   # GET /condicion_pagos/new
   def new
     @condicion_pago = CondicionPago.new
+    authorize @condicion_pago
     @users = User.all
   end
 
@@ -31,7 +33,7 @@ class CondicionPagosController < ApplicationController
   # POST /condicion_pagos.json
   def create
     @condicion_pago = CondicionPago.new(condicion_pago_params)
-
+    authorize @condicion_pago
     respond_to do |format|
       if @condicion_pago.save
         format.html { redirect_to @condicion_pago, notice: 'Condicion pago was successfully created.' }
@@ -48,6 +50,7 @@ class CondicionPagosController < ApplicationController
   def update
     respond_to do |format|
       if @condicion_pago.update(condicion_pago_params)
+        authorize @condicion_pago
         format.html { redirect_to @condicion_pago, notice: 'Condicion pago was successfully updated.' }
         format.json { render :show, status: :ok, location: @condicion_pago }
       else
@@ -61,6 +64,7 @@ class CondicionPagosController < ApplicationController
   # DELETE /condicion_pagos/1.json
   def destroy
     @condicion_pago.destroy
+    authorize @condicion_pago
     respond_to do |format|
       format.html { redirect_to condicion_pagos_url, notice: 'Condicion pago was successfully destroyed.' }
       format.json { head :no_content }
