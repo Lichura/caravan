@@ -8,8 +8,8 @@ class ChequesController < ApplicationController
 
 		if params[:search]
 			@cheques = Cheque.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
-		elsif params[:filtrar] && params[:filtrar] != ""
-	        @cheques = Cheque.where(params[:filtrar] => true).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+		elsif params[:estados]
+	        @cheques = Cheque.filtrar(params[:estados]).paginate(:page => params[:page], :per_page => 10)
 	    else
 	        @cheques = Cheque.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
 	    end

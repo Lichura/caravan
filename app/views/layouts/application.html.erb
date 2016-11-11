@@ -19,9 +19,6 @@
   <nav id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-          <%= link_to root_url, :class => "navbar-brand" do %>
-            <img src="<%= asset_path('logo.png') %>">
-          <% end %> 
             <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar" style='color:black'></span><span class="icon-bar"></span>
             </button>
         </div>
@@ -31,7 +28,9 @@
                   <li><a id="inicio-link" href="#inicio" >Inicio</a></li>
                   <li><a id="nosotros-link" href="#nosotros">Nosotros</a></li>
                   <li><a id="productos-link" href="#productos">Productos</a></li>
-                  <li><a href="#contacto">Contacto</a></li>
+                <%= link_to root_url, :class => "navbar-brand" do %>
+                  <img src="<%= asset_path('logo.png') %>">
+                <% end %> 
                   <% if current_user %>
                     <% if current_user.profile_id == 1 %>
                       <li><%= link_to "Acceso administradores", menu_path %></li>

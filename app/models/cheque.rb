@@ -47,9 +47,13 @@ class Cheque < ApplicationRecord
 	end
 
 
-		  def self.filtrar(cheque)
-		    where("? = true", "#{cheque}")
-		  end
+	def self.filtrar(cheque)
+		puts("prueba de cheques #{cheque}")
+		cheque.each do |estado|
+			where("? = true", "#{estado}")
+		end
+
+	end
 
 	def self.search(cheque)
 		distribuidores = User.where('"users"."razonSocial" LIKE ?', "%#{cheque}%").pluck(:id)
