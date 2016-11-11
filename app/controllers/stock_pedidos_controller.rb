@@ -5,6 +5,7 @@ class StockPedidosController < ApplicationController
   # GET /stock_pedidos.json
   def index
     @stock_pedidos = StockPedido.paginate(:page => params[:page], :per_page => 10)
+    authorize @stock_pedidos
   end
 
   # GET /stock_pedidos/1
@@ -15,17 +16,20 @@ class StockPedidosController < ApplicationController
   # GET /stock_pedidos/new
   def new
     @stock_pedido = StockPedido.new
+    authorize @stock_pedido
     crear_pedidos
   end
 
   # GET /stock_pedidos/1/edit
   def edit
+    authorize StockPedido
   end
 
   # POST /stock_pedidos
   # POST /stock_pedidos.json
   def create
     @stock_pedido = StockPedido.new(stock_pedido_params)
+    authorize @stock_pedido
     respond_to do |format|
       if @stock_pedido.save
         format.html { redirect_to @stock_pedido, notice: 'El pedido de stock se creo correctamente' }
@@ -42,6 +46,7 @@ class StockPedidosController < ApplicationController
   def update
     respond_to do |format|
         if @stock_pedido.update(stock_pedido_params)
+          authorize @stock_pedido
         format.html { redirect_to @stock_pedido, notice: 'El pedido de stock se modifico correctamente.' }
         format.json { render :show, status: :ok, location: @stock_pedido }
       else
@@ -55,6 +60,7 @@ class StockPedidosController < ApplicationController
   # DELETE /stock_pedidos/1.json
   def destroy
     @stock_pedido.destroy
+    authorize @stock_pedido
     respond_to do |format|
       format.html { redirect_to stock_pedidos_url, notice: 'El pedido de stock se elimino correctamente.' }
       format.json { head :no_content }

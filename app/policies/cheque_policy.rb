@@ -1,11 +1,11 @@
-class FacturaPolicy < ApplicationPolicy
+class ChequePolicy < ApplicationPolicy
 
-  def index?
+  def show?
     is_admin?
   end
 
-  def show?
-    is_admin? || is_distribuidor?
+  def index?
+    is_admin?
   end
 
   def edit?

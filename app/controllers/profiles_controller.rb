@@ -10,27 +10,31 @@ class ProfilesController < ApplicationController
       else
         @profiles = Profile.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @profiles
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    authorize Profile
   end
 
   # GET /profiles/new
   def new
     @profile = Profile.new
+    authorize @profile
   end
 
   # GET /profiles/1/edit
   def edit
+    authorize Profile
   end
 
   # POST /profiles
   # POST /profiles.json
   def create
     @profile = Profile.new(profile_params)
-
+    authorize @profile
     respond_to do |format|
       if @profile.save
         format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
@@ -47,6 +51,7 @@ class ProfilesController < ApplicationController
   def update
     respond_to do |format|
       if @profile.update(profile_params)
+        authorize @profile
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: @profile }
       else
@@ -60,6 +65,7 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1.json
   def destroy
     @profile.destroy
+    authorize @profile
     respond_to do |format|
       format.html { redirect_to profiles_url, notice: 'Profile was successfully destroyed.' }
       format.json { head :no_content }

@@ -13,16 +13,19 @@ class PagosController < ApplicationController
                                                  disposition: 'attachment'
       end
     end
+    authorize @pagos
   end
 
   # GET /pagos/1
   # GET /pagos/1.json
   def show
+    authorize Pago
   end
 
   # GET /pagos/new
   def new
     @pago = Pago.new
+    authorize @pago
     @distribuidores = User.where(profile_id: 2).all
     @pago.aumentar_numerador
     cheque = @pago.cheques.build
@@ -37,7 +40,7 @@ class PagosController < ApplicationController
   # POST /pagos.json
   def create
     @pago = Pago.new(pago_params)
-
+    authorize @pago
     respond_to do |format|
       if @pago.save
         format.html { redirect_to @pago, notice: 'Pago was successfully created.' }
@@ -54,6 +57,7 @@ class PagosController < ApplicationController
   def update
     respond_to do |format|
       if @pago.update(pago_params)
+        authorize @pago
         format.html { redirect_to @pago, notice: 'Pago was successfully updated.' }
         format.json { render :show, status: :ok, location: @pago }
       else
@@ -67,6 +71,7 @@ class PagosController < ApplicationController
   # DELETE /pagos/1.json
   def destroy
     @pago.destroy
+    authorize @pago
     respond_to do |format|
       format.html { redirect_to pagos_url, notice: 'Pago was successfully destroyed.' }
       format.json { head :no_content }

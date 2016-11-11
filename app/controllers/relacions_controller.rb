@@ -12,11 +12,12 @@ class RelacionsController < ApplicationController
       else
         @relacions = Relacion.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @relacions
   end
 
   def create
     @relacion = current_user.relacions.build(relacion_params)
-
+    authorize @relacion
       if @relacion.save
         format.html { redirect_to @relacion, notice: 'Detalle was successfully created.' }
         format.json { render :show, status: :created, location: @relacion }
@@ -28,6 +29,7 @@ class RelacionsController < ApplicationController
   end
 
   def update
+    authorize Relacion
     respond_to do |format|
       if @relacion.update(relacion_params)
         format.html { redirect_to @relacion, notice: 'Relacion was successfully updated.' }
@@ -42,6 +44,7 @@ class RelacionsController < ApplicationController
 
   def destroy
     @relacion.destroy
+    authorize @relacion
     respond_to do |format|
       format.html { redirect_to relacions_url, notice: 'Se elimino la relacion correctamente' }
       format.json { head :no_content }

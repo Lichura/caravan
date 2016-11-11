@@ -1,3 +1,20 @@
+distribuidor = User.find(distribuidor_id)
+cliente = User.find(user_id)
+
+report.start_new_page do |page|
+  page.values distribuidor: distribuidor.razonSocial, 
+  			  cliente: cliente.razonSocial,
+ 		 	  cuit: @pedido.cuit, 
+              fecha: @pedido.fecha,
+              numero: @pedido.comprobanteNumero,
+              total: @pedido.cantidadTotal,
+              sucursal: @pedido.sucursal
+              direccion: cliente.user_sucursals.first.direccion,
+              telefono: cliente.user_sucursals.first.telefono,
+              estado: @pedido.status
+end
+
+
 	@pedido.detalles.each do |detalle|
 		report.list.add_row do |row|
 			row.item(:producto_id).value(detalle.producto_id)

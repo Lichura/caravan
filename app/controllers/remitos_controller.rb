@@ -19,17 +19,19 @@ class RemitosController < ApplicationController
                                                  disposition: 'attachment'
       end
     end
+    authorize @remitos
   end
 
   # GET /remitos/1
   # GET /remitos/1.json
   def show
     @prueba = @remito.remito_items.all? {|item| item.facturado == true }
-
+    authorize Remito
   end
 
   #esto es para la llamada desde un pedido, que muestre todos los remitos asociados
   def show_all
+    authorize Remito
     @pedido = Pedido.find(params[:pedido])
     respond_to do |format|
       format.html {render "show_all"}
@@ -39,6 +41,7 @@ class RemitosController < ApplicationController
   # GET /remitos/new
   def new
     @remito = Remito.new
+    authorize @remito
     if Remito.maximum(:numero)
       @numero = Remito.maximum(:numero) + 1
     else
@@ -60,12 +63,14 @@ class RemitosController < ApplicationController
 
   # GET /remitos/1/edit
   def edit
+    authorize Remito
   end
 
   # POST /remitos
   # POST /remitos.json
   def create
     @remito = Remito.new(remito_params)
+    authorize @remito
     modificar_stock
     pendiente_facturar
     respond_to do |format|
@@ -88,6 +93,7 @@ class RemitosController < ApplicationController
 
     respond_to do |format|
       if @remito.update(remito_params)
+        authorize @remito
         pendiente_facturar
         estado_pedido_remito
         format.html { redirect_to @remito, notice: 'El remito se actualizo correctamente' }
@@ -105,6 +111,7 @@ class RemitosController < ApplicationController
     modificar_stock_destruir
     @remito.disminuir_stock_disponible_en_remito_eliminado
     @remito.destroy
+    @authorize @remito
     estado_pedido_remito
     respond_to do |format|
       format.html { redirect_to remitos_url, notice: 'El remito se elimino correctamente' }

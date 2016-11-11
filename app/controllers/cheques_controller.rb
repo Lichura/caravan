@@ -4,6 +4,7 @@ class ChequesController < ApplicationController
 	before_action :set_cheque, only: [:show, :edit, :update, :destroy]
 	
 	def index
+
 	@cheques = Cheque.paginate(:page => params[:page], :per_page => 10)
 
 		if params[:search]
@@ -13,6 +14,7 @@ class ChequesController < ApplicationController
 	    else
 	        @cheques = Cheque.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
 	    end
+	    authorize @cheques
 	end
 
 
@@ -27,12 +29,14 @@ class ChequesController < ApplicationController
 		  else
 		    redirect_to cheques_url
 		  end
+		  authorize @cheque
 	end
 
 
 def update
     respond_to do |format|
       if @cheque.update(cheque_params)
+      	authorize @cheque
         format.html { redirect_to cheques_url, notice: 'El usuario se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @cheque }
       else
@@ -44,6 +48,7 @@ def update
 
     def destroy
     @cheque.destroy
+    authorize @cheque
     respond_to do |format|
       format.html { redirect_to ciudades_url, notice: 'Se elimino el cheque correctamente' }
       format.json { head :no_content }

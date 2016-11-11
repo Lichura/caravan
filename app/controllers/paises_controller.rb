@@ -10,27 +10,31 @@ class PaisesController < ApplicationController
       else
         @paises = Pais.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @paises
   end
 
   # GET /paises/1
   # GET /paises/1.json
   def show
+    authorize Pais
   end
 
   # GET /paises/new
   def new
     @pais = Pais.new
+    authorize @pais
   end
 
   # GET /paises/1/edit
   def edit
+    authorize Pais
   end
 
   # POST /paises
   # POST /paises.json
   def create
     @pais = Pais.new(pais_params)
-
+    authorize @pais
     respond_to do |format|
       if @pais.save
         format.html { redirect_to @pais, notice: 'Pais was successfully created.' }
@@ -47,6 +51,7 @@ class PaisesController < ApplicationController
   def update
     respond_to do |format|
       if @pais.update(pais_params)
+        authorize @pais
         format.html { redirect_to @pais, notice: 'Pais was successfully updated.' }
         format.json { render :show, status: :ok, location: @pais }
       else
@@ -60,6 +65,7 @@ class PaisesController < ApplicationController
   # DELETE /paises/1.json
   def destroy
     @pais.destroy
+    authorize @pais
     respond_to do |format|
       format.html { redirect_to paises_url, notice: 'Pais was successfully destroyed.' }
       format.json { head :no_content }
