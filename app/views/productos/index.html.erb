@@ -32,7 +32,7 @@
             <tr><!-- se podria utilizar para ver el proximo turno -->
               <td><%= producto.nombre %></td>
               <td><%= producto.precio %></td>
-              <td><%= image_tag producto.imagen %></td>
+              <td class="producto-imagen"><%= image_tag producto.imagen %></td>
               <td><%= producto.stock_disponible %></td>
               <td>
                 <%= link_to producto_path(producto) do %>
@@ -45,7 +45,7 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to producto_path(producto.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este producto?' }, remote: true do %>
+                <%= link_to producto_path(producto.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este producto?' } do %>
                   <i class="glyphicon glyphicon-trash"></i>
                 <% end %>
               </td>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  producto_id: 1
+  insumo_id: 1
+  coeficiente: 1
+
+two:
+  producto_id: 1
+  insumo_id: 1
+  coeficiente: 1

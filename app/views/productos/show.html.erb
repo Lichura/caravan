@@ -31,7 +31,32 @@
             <dd><%= @producto.stock_disponible %></dd>
             <dt>Stock pedido:</dt>
             <dd><%= @producto.stock_pedido %></dd>
-
+            <% if @producto.insumos.any? %>
+            <dt>Insumos:</dt>
+            <dd>
+            <div class="row" style="height: 100px;"></div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                    <th>Insumo</th>
+                    <th>Coeficiente</th>
+                    <th>Defecto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% @producto.producto_insumos.each do |insumo| %>
+                    <tr>
+                      <td><%= Insumo.find(insumo.insumo_id).nombre %></td>
+                      <td><%= insumo.coeficiente %></td>
+                      <td><%= insumo.por_defecto.to_sino %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+              </table>
+            </div>
+            </dd>
+            <% end %>
           </dl>
         </div>
       </div>

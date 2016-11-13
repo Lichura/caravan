@@ -66,10 +66,17 @@
       <%= f.check_box :rango, class: "form-control" %>
     </div>
   </div>
+  <div id="mostrar_insumos">
+  <%= f.fields_for :producto_insumos do |ff| %>
+    <% render 'insumos', f: ff %>
+  <% end %>
+  </div>
+  <!--
   <%= f.hidden_field :stock_fisico, value: 0 %>
   <%= f.hidden_field :stock_disponible, value: 0 %>
   <%= f.hidden_field :stock_reservado, value: 0 %>
   <%= f.hidden_field :stock_pedido, value: 0 %>
+  -->
 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
@@ -81,5 +88,17 @@
     </div>
   </div>
 <% end %>
+<script>
+$(document).ready(function() {
 
+  $('#producto_tipo').change(function(){
+    if ($('#producto_tipo').val() == 1){
+      $('#mostrar_insumos').show();
+    }else{
+      $('#mostrar_insumos').hide();
+    }
+  });
+
+});
+</script>
 

@@ -1,0 +1,7 @@
+<tr>
+	<td data-title="Producto"><%= f.object.producto.insumos.each do |prueba| %>
+	<%= f.object.producto.nombre %>
+	<%= prueba.id %>
+	<% end %>
+</td>
+</tr>

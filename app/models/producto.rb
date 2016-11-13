@@ -8,10 +8,41 @@ class Producto < ApplicationRecord
   has_many :factura_items
   has_many :nota_creditos, :through => :nota_credito_items
   has_many :nota_credito_items
+  has_many :producto_insumos
+  has_many :insumos, :through => :producto_insumos
+  has_many :detalles, :through => :detalle_insumos
+  has_many :detalle_insumos
+
+
   mount_uploader :imagen, ImagenUploader
 
   after_update :agregar_a_historico
-  TIPOS = {1 => "Producto", 2 => "Concepto"}
+  #before_validation :marcar_productos_para_destruir
+
+  after_destroy { |record|
+            ProductoInsumo.destroy(record.producto_insumos.pluck(:id))
+          }
+
+  accepts_nested_attributes_for :producto_insumos,  allow_destroy: true
+
+  def prueba(producto)
+    producto.producto_insumos do |insumos|
+      insumo = Insumo.find(insumo.insumo_id)
+      producto.stock_disponible = insumo.stock_disponible / insumos.coeficiente
+    end
+    producto.save
+  end
+
+def marcar_productos_para_destruir
+    self.producto_insumos.each do |insumo|
+      if insumo.coeficiente.blank? or (insumo.coeficiente == 0)
+        insumo.mark_for_destruction
+      end
+    end
+  end
+
+  
+  TIPOS = {1 => "Producto", 2 => "Producto sin insumos", 3 => "Concepto"}
   private
   def self.search(producto)
 		where("nombre LIKE ? OR descripcion LIKE ?", "%#{producto}%", "%#{producto}%")
@@ -22,4 +53,9 @@ class Producto < ApplicationRecord
       @historico = ProductoHistorico.create!([{producto_id: self.id, precio: self.precio, fechaDesde: self.updated_at, fechaHasta: DateTime.now}])
     end
   end
+
+
+    def destruir_relacion_con_insumos
+     self.producto_insumos.delete_all   
+   end
 end

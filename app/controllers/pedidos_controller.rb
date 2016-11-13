@@ -86,14 +86,7 @@ class PedidosController < ApplicationController
     pendiente_remision
       if @pedido.save
         @pedido.activo!
-        params[:pedido][:detalles_attributes].each do |producto, params|
-          @producto = Producto.find(params[:producto_id])
-          @producto.stock_disponible -= params[:cantidad].to_i
-          @producto.stock_reservado += params[:cantidad].to_i
-          @producto.save
-        end
         #enviar_mensaje_por_slack
-
         format.html { redirect_to @pedido, notice: 'El pedido se creo correctamente' }
         format.json { render :show, status: :created, location: @pedido }
       else
@@ -106,21 +99,23 @@ class PedidosController < ApplicationController
   # PATCH/PUT /pedidos/1
   # PATCH/PUT /pedidos/1.json
   def update
-    params[:pedido][:detalles_attributes].each do |producto, params|
-      @producto = Producto.find(params[:producto_id])
-      @producto.stock_disponible -= params[:cantidad].to_i
-      @producto.stock_reservado += params[:cantidad].to_i
-      @producto.save
-    end
-    @pedido.detalles.each do |producto|
-       @producto = Producto.find(producto.producto_id)
-       @producto.stock_reservado -= producto.cantidad
-       @producto.stock_disponible += producto.cantidad
-       @producto.save
-    end
+    # params[:pedido][:detalles_attributes].each do |producto, params|
+    #   @producto = Producto.find(params[:producto_id])
+    #   @producto.stock_disponible -= params[:cantidad].to_i
+    #   @producto.stock_reservado += params[:cantidad].to_i
+    #   @producto.save
+    # end
+    # @pedido.detalles.each do |producto|
+    #    @producto = Producto.find(producto.producto_id)
+    #    @producto.stock_reservado -= producto.cantidad
+    #    @producto.stock_disponible += producto.cantidad
+    #    @producto.save
+    # end
+
     #con esta linea actualizo los valores de cantidad a pendiente de remitir
     respond_to do |format|
       if @pedido.update(pedido_params)
+
         estado_pedido_update
         @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
@@ -137,7 +132,6 @@ class PedidosController < ApplicationController
   def destroy
         authorize @pedido
       if !@pedido.remitos.any?
-        @pedido.devolver_stock
         @pedido.destroy
         respond_to do |format|
           format.html { redirect_to pedidos_url, notice: 'El pedido se elimino correctamente' }
@@ -166,12 +160,15 @@ class PedidosController < ApplicationController
     end
 
     def create_pedidos
-      Producto.where(tipo: 1).all.each do |obj|
-        if !@pedido.producto_ids.include?(obj.id)
-            @pedido.detalles.build(:producto_id => obj.id)
-        end
+      Producto.where(tipo: [1,2]).all.each do |obj|
+          if !@pedido.producto_ids.include?(obj.id)
+            detalle = @pedido.detalles.build(:producto_id => obj.id)
+            obj.producto_insumos.each do |insumo|
+              detalle.detalle_insumos.build(:pedido_id => @pedido.id, :insumo_id => insumo.insumo_id, :producto_id => obj.id)
+            end
+          end
+      end
     end
-  end
 
 
     def pendiente_remision
@@ -207,7 +204,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy, :detalle_insumos_attributes => [:id, :producto_id, :insumo_id, :cantidad_id, :detalle_id, :_destroy]])
     end
 
 

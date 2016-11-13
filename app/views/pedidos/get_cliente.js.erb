@@ -1,4 +1,7 @@
 
 
 $('#Cliente').html( "<%=j render('cliente', :locals => {:cliente => @cliente, :pedido => @pedido}) %>" );
+$('#Cliente').slideDown(1000);
+$('#collapse1').collapse()
+$('#collapse2').show(); 
 $('#Cliente').slideDown(350);

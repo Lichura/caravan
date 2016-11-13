@@ -69,9 +69,9 @@ class StockPedidosController < ApplicationController
 
   private
       def crear_pedidos
-        Producto.all.each do |obj|
-          if !@stock_pedido.producto_ids.include?(obj.id)
-            @stock_pedido.stock_items.build(:producto_id => obj.id)
+        Insumo.all.each do |obj|
+          if !@stock_pedido.insumo_ids.include?(obj.id)
+            @stock_pedido.stock_items.build(:insumo_id => obj.id)
           end
       end
     end
@@ -82,6 +82,6 @@ class StockPedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_pedido_params
-      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :producto_id, :cantidad, :precio, :recibido, :_destroy])
+      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :insumo_id, :cantidad, :precio, :recibido, :_destroy])
     end
 end

@@ -20,4 +20,8 @@ class StockPedidoPolicy < ApplicationPolicy
     is_admin?
   end
 
+  def update?
+    is_admin?
+  end
+
  end
