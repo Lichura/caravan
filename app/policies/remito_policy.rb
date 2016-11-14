@@ -20,4 +20,12 @@ class RemitoPolicy < ApplicationPolicy
     is_admin?
   end
 
+  def new?
+    is_admin?
+  end
+
+  def show_all?
+    is_admin? || is_distribuidor?
+  end
+
  end

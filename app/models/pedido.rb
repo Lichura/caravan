@@ -75,7 +75,7 @@ class Pedido < ApplicationRecord
             insumo.save
         end
       else
-        producto = Producto.find(detalle_insumo.producto_id)
+        producto = Producto.find(detalle.producto_id)
         producto.stock_disponible -= detalle.cantidad
         producto.stock_reservado += detalle.cantidad
         producto.save
@@ -95,7 +95,7 @@ class Pedido < ApplicationRecord
             insumo.save
         end
       else
-        producto = Producto.find(detalle_insumo.producto_id)
+        producto = Producto.find(detalle.producto_id)
         producto.stock_disponible += detalle.cantidad
         producto.stock_reservado -= detalle.cantidad
         producto.save

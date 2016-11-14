@@ -6,11 +6,7 @@
       <div class="panel-body">
         <div class="row">
 	        	<div class="col-lg-6 col-sm-offset-3">
-	        	<% if @stock_pedido.insumos.any? %>
-					<%= render 'form' %>
-				<% else %>
 					<%= render 'form_productos' %>
-				<% end %>	
 				</div>
 			</div>
 		</div>

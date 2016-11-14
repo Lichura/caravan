@@ -2,6 +2,7 @@ class StockItem < ApplicationRecord
   include ActiveModel::Dirty
   belongs_to :stock_pedido, optional: true
   belongs_to :insumo, optional: true
+  belongs_to :producto, optional: true
 
   after_update :chequear_recibido
   after_destroy :eliminar_pedido

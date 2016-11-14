@@ -44,7 +44,7 @@
           </div>
           </dd>
 
-          <dt>Cantidadtotal:</dt>
+          <dt>Cantidad total:</dt>
           <dd><%= remito.cantidadTotal %></dd>
 
           <dt>Facturas:</dt>
@@ -78,7 +78,7 @@
         <% end %>
       <% end %>
             <% end %>
-      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
+      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning", target: :_blank} %>
   </div>
 </div>
 <% end %>

@@ -12,6 +12,8 @@ class Producto < ApplicationRecord
   has_many :insumos, :through => :producto_insumos
   has_many :detalles, :through => :detalle_insumos
   has_many :detalle_insumos
+    has_many :stock_pedidos, :through => :stock_items
+    has_many :stock_items , dependent: :destroy
 
 
   mount_uploader :imagen, ImagenUploader
