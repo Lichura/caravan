@@ -17,7 +17,13 @@ class StockPedidosController < ApplicationController
   def new
     @stock_pedido = StockPedido.new
     authorize @stock_pedido
-    crear_pedidos
+    crear_pedidos_insumos
+  end
+
+  def new_producto
+    @stock_pedido = StockPedido.new
+    authorize @stock_pedido
+    crear_pedidos_productos
   end
 
   # GET /stock_pedidos/1/edit
@@ -68,11 +74,19 @@ class StockPedidosController < ApplicationController
   end
 
   private
-      def crear_pedidos
-        Insumo.all.each do |obj|
-          if !@stock_pedido.insumo_ids.include?(obj.id)
-            @stock_pedido.stock_items.build(:insumo_id => obj.id)
-          end
+    def crear_pedidos_insumos
+      Insumo.all.each do |obj|
+        if !@stock_pedido.insumo_ids.include?(obj.id)
+          @stock_pedido.stock_items.build(:insumo_id => obj.id)
+        end
+      end
+    end
+
+    def crear_pedidos_productos
+      Producto.all.each do |obj|
+        if !@stock_pedido.producto_ids.include?(obj.id)
+          @stock_pedido.producto_ids.build(:producto_id => obj.id)
+        end
       end
     end
     # Use callbacks to share common setup or constraints between actions.

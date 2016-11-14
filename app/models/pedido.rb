@@ -85,13 +85,20 @@ class Pedido < ApplicationRecord
 
   def devolver_stock_insumo
     self.detalles.each do |detalle|
-      detalle.detalle_insumos.each do |detalle_insumo|
+      if Producto.find(detalle.producto_id).tipo == 1
+        detalle.detalle_insumos.each do |detalle_insumo|
+          producto = Producto.find(detalle_insumo.producto_id)
+          insumo = Insumo.find(detalle_insumo.insumo_id)
+          coeficiente = ProductoInsumo.find_by(producto_id: producto.id, insumo_id: insumo.id).coeficiente
+            insumo.stock_disponible += detalle.cantidad_was * coeficiente
+            insumo.stock_reservado -= detalle.cantidad_was * coeficiente
+            insumo.save
+        end
+      else
         producto = Producto.find(detalle_insumo.producto_id)
-        insumo = Insumo.find(detalle_insumo.insumo_id)
-        coeficiente = ProductoInsumo.find_by(producto_id: producto.id, insumo_id: insumo.id).coeficiente
-          insumo.stock_disponible += detalle.cantidad_was * coeficiente
-          insumo.stock_reservado -= detalle.cantidad_was * coeficiente
-          insumo.save
+        producto.stock_disponible += detalle.cantidad
+        producto.stock_reservado -= detalle.cantidad
+        producto.save
       end
     end
   end
