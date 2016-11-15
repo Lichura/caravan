@@ -14,7 +14,7 @@
             <dd><%= @producto.descripcion %></dd>
 
             <dt>Precio:</dt>
-            <dd><%= @producto.precio %></dd>
+            <dd><%= number_to_currency(@producto.precio) %></dd>
 
             <dt>Imagen:</dt>
             <dd><%= image_tag @producto.imagen %></dd>

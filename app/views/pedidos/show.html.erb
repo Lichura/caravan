@@ -57,7 +57,7 @@
                 <dt>Cantidad total:</dt>
                 <dd><%= @pedido.cantidadTotal %></dd>
                 <dt>Precio total:</dt>
-                <dd><%= @pedido.precioTotal %></dd>
+                <dd><%= number_to_currency(@pedido.precioTotal) %></dd>
                 <dt>Remitos Asociados:</dt>
                 <dd>
         <% @pedido.remitos.each do |remito| %>

@@ -344,7 +344,7 @@ body {
   display: flex;
   
   -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .detalle-producto{
@@ -359,6 +359,12 @@ body {
   -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
     -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+@media (max-width: 768px) {
+  .detalle-producto {
+    display: block;
+  }
 }
 
 .detalle-producto-titulo{
@@ -416,6 +422,11 @@ font-size: 1.5em;
   justify-content: space-around;
   margin-top: 0;
 }
+
+
+
+
+
 
 .detalle-producto-informacion-insumo{
   font-size: 0.5em;

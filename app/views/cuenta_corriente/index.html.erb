@@ -38,8 +38,8 @@
 				<td><%= cc.created_at.to_formatted_s(:day_month_and_year) %></td>
 				<td><%= cc.concepto %></td>
 				<td><%= cc.conceptoNumero %></td>
-				<td><%= cc.monto %></td>
-				<td><%= @cuentacorrientes.where("user_id = ? AND created_at <= ?", cc.user_id, cc.created_at).sum(:monto) %></td>
+				<td><%= number_to_currency(cc.monto) %></td>
+				<td><%= number_to_currency(@cuentacorrientes.where("user_id = ? AND created_at <= ?", cc.user_id, cc.created_at).sum(:monto)) %></td>
             </tr>  
             <% end %>
           </tbody>

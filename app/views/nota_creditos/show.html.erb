@@ -18,13 +18,13 @@
 
 
           <dt>Neto:</dt>
-          <dd><%= @nota_credito.neto %></dd>
+          <dd><%= number_to_currency(@nota_credito.neto) %></dd>
 
           <dt>Iva:</dt>
-          <dd><%= @nota_credito.iva %></dd>
+          <dd><%= number_to_currency(@nota_credito.iva) %></dd>
 
           <dt>Total:</dt>
-          <dd><%= @nota_credito.total %></dd>
+          <dd><%= number_to_currency(@nota_credito.total) %></dd>
 
         </dl>
         </div>

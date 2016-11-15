@@ -12,7 +12,7 @@
           <dd><%= @insumo.descripcion %></dd>
 
           <dt>Precio:</dt>
-          <dd><%= @insumo.precio %></dd>
+          <dd><%= number_to_currency(@insumo.precio) %></dd>
 
           <dt>Unidad medida:</dt>
           <dd><%= @insumo.unidad_medida %></dd>

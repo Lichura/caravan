@@ -12,13 +12,15 @@ class Producto < ApplicationRecord
   has_many :insumos, :through => :producto_insumos
   has_many :detalles, :through => :detalle_insumos
   has_many :detalle_insumos
-    has_many :stock_pedidos, :through => :stock_items
-    has_many :stock_items , dependent: :destroy
+  has_many :stock_pedidos, :through => :stock_items
+  has_many :stock_items , dependent: :destroy
 
 
   mount_uploader :imagen, ImagenUploader
 
   after_update :agregar_a_historico
+  before_validation :destruir_insumos_si_no_necesita
+  before_destroy :chequear_uso_antes_de_eliminar
   #before_validation :marcar_productos_para_destruir
 
   after_destroy { |record|
@@ -35,6 +37,13 @@ class Producto < ApplicationRecord
     producto.save
   end
 
+    def chequear_uso_antes_de_eliminar
+    if Detalle.where(producto_id: self.id).any?
+      alert: "El producto no puede eliminarse ya que ha sido utilizado en un pedido."
+      return false
+    end
+  end
+
 def marcar_productos_para_destruir
     self.producto_insumos.each do |insumo|
       if insumo.coeficiente.blank? or (insumo.coeficiente == 0)
@@ -43,6 +52,13 @@ def marcar_productos_para_destruir
     end
   end
 
+  def destruir_insumos_si_no_necesita
+    if self.tipo == 2 or self.tipo == 3
+      self.producto_insumos.each do |insumo|
+        insumo.mark_for_destruction
+      end
+    end
+  end
   
   TIPOS = {1 => "Producto", 2 => "Producto sin insumos", 3 => "Concepto"}
   private
