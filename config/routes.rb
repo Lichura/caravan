@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  resources :insumos
   resources :pagos
   resources :nota_creditos
   get 'cuenta_corriente/index', :as => 'cuentascorrientes'
-
+get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto'
   resources :facturas
   resources :remitos
   resources :numeradors
@@ -20,7 +21,7 @@ Rails.application.routes.draw do
   resources :familia
   resources :mensajes
 
-
+  get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto', :as => 'new_producto_stock'
   get 'cheques' => 'cheques#index', :as => "cheques"
   get 'menu' => "menu#index", :as => "menu"
   post 'remitos/show_all' => "remitos#show_all", :as => "mostrar_remitos"

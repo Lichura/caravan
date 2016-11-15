@@ -1,69 +1,89 @@
         <%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
-          <% if @pedido.errors.any? %>
-            <div class="alert alert-danger alert-dismissable" role="alert">
-              <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-              <h4><%= pluralize(@pedido.errors.count, "error") %> impidieron que se genere el pedido:</h4>
+        <% if @pedido.errors.any? %>
+        <div class="alert alert-danger alert-dismissable" role="alert">
+          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4><%= pluralize(@pedido.errors.count, "error") %> impidieron que se genere el pedido:</h4>
 
-              <ul>
-              <% @pedido.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-              </ul>
+          <ul>
+            <% @pedido.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading pedidos">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse1">Cliente</a>
+              </h4>
             </div>
-          <% end %>
-
-          <div class="panel-group">
-            <div class="panel panel-default">
-              <div class="panel-heading pedidos">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" href="#collapse1">Cliente</a>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse in">
-                  <%= render partial: 'cabecera', locals: {f: f} %>
-              </div>
+            <div id="collapse1" class="panel-collapse collapse in">
+              <%= render partial: 'cabecera', locals: {f: f} %>
             </div>
           </div>
-  <div class="tabla-responsive-vertical shadow-z-1">
-  <!-- Table starts here -->
-  <table id="tabla" class="tabla tabla-hover">
-      <% if @pedido.new_record? %>
-            <thead>
-              <tr>
-              <th>Producto</th>
-              <th>Precio</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
-            </tr>
-            </thead>
-            <tbody>
-                <%= f.fields_for :detalles do |ff| %>
-                   <% render 'detalle', f: ff %>
-                <% end %>
-      <% else %>
-            <thead>
-              <tr>
-              <th>Producto</th>
-              <th>Cantidad</th>
-              <th>Rango desde</th>
-              <th>Rango Hasta</th>
-            </tr>
-            </thead>
-            <tbody>
-                <%= f.fields_for :detalles do |ff| %>
-                   <% render 'detalle_edit', f: ff %>
-                <% end %>
-      <% end %>
-            </tbody>
-          </table>
         </div>
-        <%= render partial: 'totales', locals: {f: f} %>
 
-<% end %>
+        <div class="panel-group">
+          <div class="panel panel-default">
+            <div class="panel-heading pedidos">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" href="#collapse2">Detalle</a>
+              </h4>
+            </div>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <% if @pedido.new_record? %>
+                  <% Familium.all.each do |familia| %>
+                    <div class="panel-group">
+                      <div class="panel panel-default">
+                        <div class="panel-heading pedidos">
+                          <h4 class="panel-title">
+                            <a data-toggle="collapse" href=<%= familia.nombre %>><%= familia.nombre %></a>
+                          </h4>
+                        </div>
+                        <div id=<%= familia.nombre %> class="panel-collapse collapse in">
+                        <div class="detalle-contenedor">
+                         <%= f.fields_for :detalles do |ff| %>
+                           <% if ff.object.producto.familium_id == familia.id %>
+                            <% render 'detalle_rediseno', f: ff %>
+                           <% end %>
+                         <% end %>
+                         </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+               <% else %>
+               <div id="collapse" class="panel-collapse collapse in">
+                <div class="tabla-responsive-vertical shadow-z-1">
+                  <table class="tabla tabla-hover">
+                    <thead>
+                      <tr>
+                        <th colspan="2">Producto</th>
+                        <th>Cantidad</th>
+                        <th>Rango Desde</th>
+                        <th>Rango Hasta</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <%= f.fields_for :detalles do |ff| %>
+                        <% render 'detalle_edit', f: ff %>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>   
+              <% end %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'totales', locals: {f: f} %>
+      <% end %>
 
 
-<!--<div class="subtotal">0$</div> -->
-<script>
+      <!--<div class="subtotal">0$</div> -->
+      <script>
 /**
  * Created by Kupletsky Sergey on 05.11.14.
  *
@@ -73,51 +93,56 @@
  * JS used only for table constructor: you don't need it in your project
  */
 
-$(document).ready(function() {
+ $(document).ready(function() {
+
+  if ( !$('#pedido_user_id').val() ){
+    $('#collapse2').hide();
+  }
 
   $(document).on('change', '#buscarAfip1', function(){
-       $.ajax({
-           url: '/users/new_pedido',
-           data: {
-              search_afip: $('#buscarAfip1').val()
-           },
-           error: function() {
-              alert($('#buscarAfip1').val());
-           },
-           dataType: 'script',
-           type: 'GET'
-        });
-     });
+   $.ajax({
+     url: '/users/new_pedido',
+     data: {
+      search_afip: $('#buscarAfip1').val()
+    },
+    error: function() {
+      alert($('#buscarAfip1').val());
+    },
+    dataType: 'script',
+    type: 'GET'
+  });
+
+ });
 
 
 
 
-    var table = $('#tabla');
+  var table = $('#tabla');
 
     // Table bordered
     $('#tabla-bordered').change(function() {
-        var value = $( this ).val();
-        table.removeClass('tabla-bordered').addClass(value);
+      var value = $( this ).val();
+      table.removeClass('tabla-bordered').addClass(value);
     });
 
     // Table striped
     $('#tabla-striped').change(function() {
-        var value = $( this ).val();
-        table.removeClass('tabla-striped').addClass(value);
+      var value = $( this ).val();
+      table.removeClass('tabla-striped').addClass(value);
     });
 
     // Table hover
     $('#tabla-hover').change(function() {
-        var value = $( this ).val();
-        table.removeClass('tabla-hover').addClass(value);
+      var value = $( this ).val();
+      table.removeClass('tabla-hover').addClass(value);
     });
 
     // Table color
     $('#tabla-color').change(function() {
-        var value = $(this).val();
-        table.removeClass(/^tabla-mc-/).addClass(value);
+      var value = $(this).val();
+      table.removeClass(/^tabla-mc-/).addClass(value);
     });
-});
+  });
 
 // jQuery’s hasClass and removeClass on steroids
 // by Nikita Vasilyev

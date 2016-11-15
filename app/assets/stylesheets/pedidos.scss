@@ -330,3 +330,157 @@ body {
 }
 
 
+/*===================================*/
+
+.detalle-contenedor{
+  margin-top: 5%;
+  margin-bottom: 5%;
+
+
+  
+   display: -webkit-flex;
+   display: flex;
+  -webkit-justify-content: space-around; /* Safari */
+  justify-content:         space-around;
+   -webkit-align-items: center; /* Safari */
+  align-items:         center;
+}
+
+.detalle-producto{
+  background: rgba(245,245,245,1);
+  width: 25%;
+  height: 300px;
+  display: inline-block;
+
+
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+.detalle-producto-titulo{
+  margin: 0 auto;
+  height: 50px;
+
+  background-color: $pedidos;
+  border-bottom: 1px solid rgb(220,220,220);
+}
+
+
+.detalle-producto-titulo-nombre{
+  color: white;
+  font-size: 1em;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.detalle-producto-titulo-descripcion{
+  color: white;
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+
+
+.detalle-producto-foto{
+  height: 100px;
+}
+.detalle-producto-foto img{
+  width: 100%;
+  height: 100%;
+}
+
+.detalle-producto-precio{
+  position: relative;
+  text-align: right;
+  font-size: 2em; 
+  margin-top: -10%;
+  margin-bottom: 10%;
+  color: rgb(100,100,100);
+}
+
+
+.detalle-producto-cantidad{
+text-align: right;
+font-size: 1.5em;
+  input{
+    width: 50px;
+    border: none;
+    text-align: right;
+  }
+}
+
+.detalle-producto-informacion-texto{
+  text-align: center;
+  margin-top: 10%;
+}
+
+.detalle-producto-informacion{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  
+  -webkit-flex-flow: row wrap;
+  justify-content: space-around;
+  margin-top: 0;
+}
+
+
+
+
+
+
+.detalle-producto-informacion-insumo{
+  font-size: 0.5em;
+
+  label {
+      position:relative;   
+      cursor:pointer;
+  }
+  label [type="checkbox"] {
+      display:none;
+  }
+  [type="checkbox"] + span {
+      display:inline-block;
+      background:rgb(255,255,255);
+      border: 1px solid rgb(200,200,200);
+      padding:1em;
+  }
+
+  label:hover{
+    background: $pedidos;
+      color: $pedidos; 
+      display:inline-block; 
+  }
+
+  :checked + span {
+      background:$pedidos;
+      color: white; 
+      display:inline-block;    
+  }
+  [type="checkbox"][disabled] + span {
+      background: rgb(200,200,200);  
+  }
+}
+
+.detalle-producto-total{
+  font-size: 1.5em;
+  text-align: right;
+  margin-top: 5%;
+}
+
+
+/*=======================*/
+
+.detalle_edit_foto{
+  img{
+    width: 50px;
+  }
+}
+
+.tabla{
+  text-align: center;
+}

@@ -1,0 +1,2 @@
+json.extract! insumo, :id, :nombre, :descripcion, :precio, :unidad_medida, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :created_at, :updated_at
+json.url insumo_url(insumo, format: :json)

@@ -57,7 +57,7 @@
                 <dt>Cantidad total:</dt>
                 <dd><%= @pedido.cantidadTotal %></dd>
                 <dt>Precio total:</dt>
-                <dd><%= @pedido.precioTotal %></dd>
+                <dd><%= number_to_currency(@pedido.precioTotal) %></dd>
                 <dt>Remitos Asociados:</dt>
                 <dd>
         <% @pedido.remitos.each do |remito| %>
@@ -70,8 +70,9 @@
           <% end %>
         <% end %>
 
-</dl>
-</div>
+      </dl>
+      </div>
+
       </div>
     </div>
       <%= link_to pedidos_path, class: 'btn btn-default pull-right' do %>
@@ -90,6 +91,7 @@
           <% end %>
         <% end %>
       <% end %>
+            <%= link_to "PDF", pedido_path(@pedido, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
 

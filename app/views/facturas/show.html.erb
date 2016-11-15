@@ -40,10 +40,10 @@
                       <tr>
                         <td data-title="Producto"><%= Producto.find(items.producto_id).nombre %></td>
                         <td data-title="Cantidad"><%= items.cantidad %></td>
-                        <td data-title="Precio"><%= items.precio %></td>
-                        <td data-title="Iva"><%= items.iva %></td>
-                        <td data-title="Neto"><%= items.neto %></td>
-                        <td data-title="Subtotal"><%= items.subtotal %></td>
+                        <td data-title="Precio"><%= number_to_currency(items.precio) %></td>
+                        <td data-title="Iva"><%= number_to_currency(items.iva) %></td>
+                        <td data-title="Neto"><%= number_to_currency(items.neto) %></td>
+                        <td data-title="Subtotal"><%= number_to_currency(items.subtotal) %></td>
                       </tr>
                       <% end %>
                       </tbody>
@@ -52,13 +52,13 @@
             </dd>
 
           <dt>Bonificacion:</dt>
-          <dd><%= @factura.bonificacion %></dd>
+          <dd><%= number_to_currency(@factura.bonificacion) %></dd>
           <dt>Neto:</dt>
-          <dd><%= @factura.neto %></dd>
+          <dd><%= number_to_currency(@factura.neto) %></dd>
           <dt>Iva:</dt>
-          <dd><%= @factura.iva %></dd>
+          <dd><%= number_to_currency(@factura.iva) %></dd>
           <dt>Total:</dt>
-          <dd><%= @factura.total %></dd>
+          <dd><%= number_to_currency(@factura.total) %></dd>
 
 
 

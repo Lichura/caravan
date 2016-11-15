@@ -23,13 +23,16 @@ class ProductosController < ApplicationController
   # GET /productos/new
   def new
     @producto = Producto.new
+    crear_o_editar_insumos
     authorize @producto
+    
     @familia = Familium.all.collect {|x| [x.nombre, x.id]}
   end
 
   # GET /productos/1/edit
   def edit
     authorize Producto
+    crear_o_editar_insumos
   end
 
   # POST /productos
@@ -82,7 +85,17 @@ class ProductosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def producto_params
-      params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango,  :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :tipo)
+        params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango,  :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :tipo, :producto_insumos_attributes => [:id, :insumo_id, :coeficiente, :por_defecto, :_destroy])
+     end
+
+
+
+    def crear_o_editar_insumos
+      Insumo.all.each do |obj|
+        if !@producto.insumo_ids.include?(obj.id)
+            @producto.producto_insumos.build(:insumo_id => obj.id)
+        end
+      end
     end
 
 end

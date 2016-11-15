@@ -2,7 +2,7 @@
 <div class="container">
   <div class="panel-group">
     <div class="panel panel-default">
-      <div class="panel-heading"><h2>stock_pedido</h2></div>
+      <div class="panel-heading"><h2>Pedido de stock</h2></div>
         <div class="panel-body">
          <dl class="dl-horizontal">
           <dt>Vendedor:</dt>
@@ -12,7 +12,7 @@
           <dd><%= @stock_pedido.cantidadTotal %></dd>
 
           <dt>Preciototal:</dt>
-          <dd><%= @stock_pedido.precioTotal %></dd>
+          <dd><%= number_to_currency(@stock_pedido.precioTotal) %></dd>
 
         </dl>
         </div>

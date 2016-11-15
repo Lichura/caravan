@@ -111,7 +111,7 @@ class RemitosController < ApplicationController
     modificar_stock_destruir
     @remito.disminuir_stock_disponible_en_remito_eliminado
     @remito.destroy
-    @authorize @remito
+    authorize @remito
     estado_pedido_remito
     respond_to do |format|
       format.html { redirect_to remitos_url, notice: 'El remito se elimino correctamente' }

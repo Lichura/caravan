@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161028174301) do
+ActiveRecord::Schema.define(version: 20161112233848) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 20161028174301) do
     t.float    "monto"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+  end
+
+  create_table "detalle_insumos", force: :cascade do |t|
+    t.integer  "pedido_id"
+    t.integer  "producto_id"
+    t.integer  "insumo_id"
+    t.integer  "cantidad_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "detalle_id"
   end
 
   create_table "detalles", force: :cascade do |t|
@@ -118,6 +128,19 @@ ActiveRecord::Schema.define(version: 20161028174301) do
     t.string   "descripcion"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "insumos", force: :cascade do |t|
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.float    "precio"
+    t.integer  "unidad_medida"
+    t.integer  "stock_fisico"
+    t.integer  "stock_reservado"
+    t.integer  "stock_disponible"
+    t.integer  "stock_pedido"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "medidas", force: :cascade do |t|
@@ -232,6 +255,15 @@ ActiveRecord::Schema.define(version: 20161028174301) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "producto_insumos", force: :cascade do |t|
+    t.integer  "producto_id"
+    t.integer  "insumo_id"
+    t.integer  "coeficiente"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "por_defecto"
+  end
+
   create_table "productos", force: :cascade do |t|
     t.string   "nombre"
     t.string   "descripcion"
@@ -320,6 +352,7 @@ ActiveRecord::Schema.define(version: 20161028174301) do
     t.float    "cantidadRecibida"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "insumo_id"
   end
 
   create_table "stock_pedidos", force: :cascade do |t|

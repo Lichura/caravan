@@ -1,5 +1,6 @@
 <tr>
-	<td data-title="Producto"><%= image_tag f.object.producto.imagen %><%= f.object.producto.nombre %><br>
+	<td data-title="Producto" class="detalle_edit_foto"><%= image_tag f.object.producto.imagen %></td>
+	<td><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad, class: "cantidad form-control" %></td>
 	<% if f.object.producto.rango %>

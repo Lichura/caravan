@@ -17,7 +17,13 @@ class StockPedidosController < ApplicationController
   def new
     @stock_pedido = StockPedido.new
     authorize @stock_pedido
-    crear_pedidos
+    crear_pedidos_insumos
+  end
+
+  def new_producto
+    @stock_pedido = StockPedido.new
+    authorize @stock_pedido
+    crear_pedidos_productos
   end
 
   # GET /stock_pedidos/1/edit
@@ -68,11 +74,19 @@ class StockPedidosController < ApplicationController
   end
 
   private
-      def crear_pedidos
-        Producto.all.each do |obj|
-          if !@stock_pedido.producto_ids.include?(obj.id)
-            @stock_pedido.stock_items.build(:producto_id => obj.id)
-          end
+    def crear_pedidos_insumos
+      Insumo.all.each do |obj|
+        if !@stock_pedido.insumo_ids.include?(obj.id)
+          @stock_pedido.stock_items.build(:insumo_id => obj.id)
+        end
+      end
+    end
+
+    def crear_pedidos_productos
+      Producto.where(tipo: 2).all.each do |obj|
+        if !@stock_pedido.producto_ids.include?(obj.id)
+          @stock_pedido.stock_items.build(:producto_id => obj.id)
+        end
       end
     end
     # Use callbacks to share common setup or constraints between actions.
@@ -82,6 +96,6 @@ class StockPedidosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def stock_pedido_params
-      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :producto_id, :cantidad, :precio, :recibido, :_destroy])
+      params.require(:stock_pedido).permit(:vendedor, :cantidadTotal, :precioTotal, :stock_items_attributes => [:id, :insumo_id, :producto_id, :cantidad, :precio, :recibido, :_destroy])
     end
 end

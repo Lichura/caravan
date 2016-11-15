@@ -55,14 +55,14 @@
                       </div>
                     <% end %>
                     <tr>
-                      <td style="font-size: 0.5em"><%= User.find(cheque.pago.distribuidor_id).razonSocial %></td>
+                      <td style="font-size: 0.5em"><%= User.find(cheque.pago.distribuidor_id).razonSocial.truncate_words(5) %></td>
                       <% if !Banco.find_by(:codigo => cheque.banco).nil? %>
-                      <td style="font-size: 0.5em"><%= Banco.find_by(:codigo => cheque.banco).nombre %></td>
+                      <td style="font-size: 0.5em"><%= Banco.find_by(:codigo => cheque.banco).nombre.truncate_words(7) %></td>
                       <% else %>
                       <td style="font-size: 0.5em"> No identificado </td>
                       <% end %>
                       <td><%= cheque.numero %></td>
-                      <td><%= cheque.monto %></td>
+                      <td><%= number_to_currency(cheque.monto) %></td>
                       <td><%= cheque.fecha %></td>
                       <td style="padding-left: 3%;"><%= f.check_box :confirmado %></td>
                       <td style="padding-left: 3%;"><%= f.check_box :rechazado %></td>

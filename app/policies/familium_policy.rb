@@ -1,4 +1,4 @@
-class FamiliaPolicy < ApplicationPolicy
+class FamiliumPolicy < ApplicationPolicy
 
   def show?
     is_admin?

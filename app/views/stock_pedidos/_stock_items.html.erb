@@ -1,10 +1,10 @@
 <tr>
-	<td data-title="Producto"><%= f.object.producto.nombre %><br>
-	<%= f.object.producto.descripcion %></td>
+	<td data-title="Producto"><%= f.object.insumo.nombre %><br>
+	<%= f.object.insumo.descripcion %></td>
 	<td data-title="Precio"><%= f.text_field :precio, class: "precio form-control" %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad, :value => 0, class: "cantidad form-control" %></td>
 	<td data-title="Subtotal" ><div class="subtotal" style="widht: 40px" value=0></div></td>
-	<%= f.hidden_field :producto_id %>
+	<%= f.hidden_field :insumo_id %>
   	<%= f.hidden_field :_destroy %>
   	<%= f.hidden_field :recibido, :value => false %> 
 </tr>
