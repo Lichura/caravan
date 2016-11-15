@@ -38,10 +38,7 @@ class Producto < ApplicationRecord
   end
 
     def chequear_uso_antes_de_eliminar
-    if Detalle.where(producto_id: self.id).any?
-      alert: "El producto no puede eliminarse ya que ha sido utilizado en un pedido."
-      return false
-    end
+    return false if Detalle.any? {|detalle| detalle.producto_id == self.id}
   end
 
 def marcar_productos_para_destruir

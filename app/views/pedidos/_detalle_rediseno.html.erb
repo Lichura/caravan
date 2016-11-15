@@ -1,35 +1,38 @@
-<li class="detalle-producto">
-	<div class="detalle-producto-titulo"><%= f.object.producto.nombre %></div>
+<div class="detalle-producto">
+	<div class="detalle-producto-titulo">
+		<div class="detalle-producto-titulo-nombre"><%= f.object.producto.nombre %></div>
+		<div class="detalle-producto-titulo-descripcion"><%= f.object.producto.descripcion %></div>
+	</div>
 	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen %></div>
-		<div class="precio detalle-producto-precio">
-			$<%= f.object.producto.precio %>
+	<div class="precio detalle-producto-precio">
+		<%= f.object.producto.precio %>
+	</div>
+	<% if f.object.producto.insumos.any? %>
+		<div class="detalle-producto-informacion-texto">Especifique su seleccion:</div>
+		<div class="detalle-producto-informacion">
+			<!-- iteracion -->
+			<%= f.fields_for :detalle_insumos do |ff| %>
+			<div class="detalle-producto-informacion-insumo">
+				<label class="precio-unitario" value=<%= ff.object.insumo.precio %>>
+					<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
+					<%= ff.check_box :_destroy, {checked: true}, '0', '1' %>
+					<% else %>
+					<%= ff.check_box :_destroy, {}, '0', '1' %>
+					<% end %>
+					<span><%= ff.object.insumo.nombre %></span>
+
+				</label>
+				<%= ff.hidden_field :insumo_id %>
+				<%= ff.hidden_field :producto_id %>
+			</div>
+			<% end %>
+			<!-- fin iteracion -->
 		</div>
+	<% end %>
 	<% if @pedido.errors.any? %>
 		<div class="detalle-producto-cantidad">Cantidad: <%= f.text_field :cantidad  ,  class: "cantidad"%></div>
 	<% else %>
 		<div class="detalle-producto-cantidad">Cantidad: <%= f.text_field :cantidad, :value => 0,  class: "cantidad"  %></div>
-	<% end %>
-	<% if f.object.producto.insumos.any? %>
-	<div class="detalle-producto-informacion-texto">Especifique su seleccion:</div>
-		<div class="detalle-producto-informacion">
-			<!-- iteracion -->
-				<%= f.fields_for :detalle_insumos do |ff| %>
-					<div class="detalle-producto-informacion-insumo">
-						<label class="precio-unitario" value=<%= ff.object.insumo.precio %>>
-							<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
-								<%= ff.check_box :_destroy, {checked: true}, '0', '1' %>
-							<% else %>
-				    			<%= ff.check_box :_destroy, {}, '0', '1' %>
-				    		<% end %>
-				    		<span><%= ff.object.insumo.nombre %></span>
-
-						</label>
-						<%= ff.hidden_field :insumo_id %>
-				        <%= ff.hidden_field :producto_id %>
-					</div>
-				<% end %>
-			<!-- fin iteracion -->
-		</div>
 	<% end %>
 	<div class="detalle-producto-total">
 		<span>Subtotal: $</span>
@@ -37,15 +40,22 @@
 	</div>
 	<%= f.hidden_field :precio, :value => f.object.producto.precio %>
 	<%= f.hidden_field :producto_id %>
-</li>
+</div>
+
 
 
 
 
 <script>
 $('document').ready(function(){
+	$(".precio-unitario").change(function(){
+		calcularPrecioArticulo(this);
+	});
+	
+	$(".precio-unitario").each(function(){
+		calcularPrecioArticulo(this);
+	});
 
-	calcularPrecioArticulo();
 
 	 $('.subtotal').change(function() {
     	UpdateTotal();
@@ -66,16 +76,23 @@ function UpdateSubTotal(elem) {
     $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
 
-function calcularPrecioArticulo() {
+function calcularPrecioArticulo(elem) {
 	var suma = 0;
-	$(".precio-unitario").each(function() {
-		var val = $(this).attr("value");
-	   	if ( val ) {
-	        val = parseFloat( val.replace( /^\$/, "" ) );
-	        suma += !isNaN( val ) ? val : 0;
-	    }
+	var $container = $(elem).parent().parent().parent();
+	var $elemento = $(elem).parent().parent();
+	$elemento.find('.detalle-producto-informacion-insumo').each(function() {
+			if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
+			var val = $(this).find('.precio-unitario').attr("value");
+			   	if ( val ) {
+			        val = parseFloat( val.replace( /^\$/, "" ) );
+			        suma += !isNaN( val ) ? val : 0;
+			    }
+		}
 	});
-	alert(suma);
+	var cantidad = $container.find('.cantidad').val();
+	var subtotal = parseInt(cantidad) * parseFloat(suma);
+	$container.find('.precio').text(suma.toFixed(2)).trigger('change');
+	$container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
 
  function UpdateTotal() {

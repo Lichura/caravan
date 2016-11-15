@@ -19,10 +19,7 @@ class Insumo < ApplicationRecord
 	end
 
 	def chequear_uso_antes_de_eliminar
-		if DetalleInsumo.where(insumo_id: self.id).any?
-			alert: "El insumo no puede eliminarse ya que ha sido utilizado en un pedido."
-			return false
-		end
+		return false if DetalleInsumo.any? {|detalle| detalle.insumo_id == self.id}
 	end
 
 	def actualizar_stock_producto
