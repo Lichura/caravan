@@ -16,31 +16,6 @@ class Remito < ApplicationRecord
 
 
 
-
-	def disminuir_stock_disponible
-		self.remito_items.each do |item|
-			producto = Producto.find(item.producto_id)
-			producto.producto_insumos.each do |insumos|
-				insumo = Insumo.find(insumos.insumo_id)
-				insumo.stock_reservado -= item.cantidad * insumos.coeficiente
-				insumo.stock_fisico -= item.cantidad * insumos.coeficiente
-				insumo.save
-			end
-		end
-	end
-
-	def aumentar_stock_disponible_en_remito_eliminado
-		self.remito_items.each do |item|
-			producto = Producto.find(item.producto_id)
-			producto.producto_insumos.each do |insumos|
-				insumo = Insumo.find(insumos.insumo_id)
-				insumo.stock_reservado += item.cantidad * insumos.coeficiente
-				insumo.stock_fisico += item.cantidad * insumos.coeficiente
-				insumo.save
-			end
-		end
-	end
-
 	private
 
 

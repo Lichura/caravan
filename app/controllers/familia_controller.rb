@@ -35,7 +35,7 @@ class FamiliaController < ApplicationController
     authorize @familium
     respond_to do |format|
       if @familium.save
-        format.html { redirect_to @familium, notice: 'Familium was successfully created.' }
+        format.html { redirect_to @familium, notice: 'Se creo la familia correctamente' }
         format.json { render :show, status: :created, location: @familium }
       else
         format.html { render :new }
@@ -50,7 +50,7 @@ class FamiliaController < ApplicationController
     respond_to do |format|
       if @familium.update(familium_params)
         authorize @familium
-        format.html { redirect_to @familium, notice: 'Familium was successfully updated.' }
+        format.html { redirect_to @familium, notice: 'Se actualizo la familia correctamente' }
         format.json { render :show, status: :ok, location: @familium }
       else
         format.html { render :edit }
@@ -65,7 +65,7 @@ class FamiliaController < ApplicationController
     @familium.destroy
     authorize @familium
     respond_to do |format|
-      format.html { redirect_to familia_url, notice: 'Familium was successfully destroyed.' }
+      format.html { redirect_to familia_url, notice: 'Se elimino la familia correctamente' }
       format.json { head :no_content }
     end
   end
