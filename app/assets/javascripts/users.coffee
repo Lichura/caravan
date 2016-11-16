@@ -31,16 +31,7 @@ jQuery ->
 
 jQuery ->
 	$(document).ready ->
-  		$("#buscarAfip").on "change", ->
-  			$.ajax
-  				url: "/users/new"
-  				type: "GET"
-  				dataType: "script"
-  				data:
-  					search_afip: $('#buscarAfip').val()
-
-jQuery ->
-	$(document).ready ->
+		if $('#buscarAfip').val() != ""
   			$.ajax
   				url: "/users/new"
   				type: "GET"

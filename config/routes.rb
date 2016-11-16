@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :pagos
   resources :nota_creditos
   get 'cuenta_corriente/index', :as => 'cuentascorrientes'
-get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto'
+  get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto'
   resources :facturas
   resources :remitos
   resources :numeradors
@@ -21,6 +21,7 @@ get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto'
   resources :familia
   resources :mensajes
 
+  get 'users/afip_fields' => 'users#afip_fields'
   get 'stock_pedidos/new_producto' => 'stock_pedidos#new_producto', :as => 'new_producto_stock'
   get 'cheques' => 'cheques#index', :as => "cheques"
   get 'menu' => "menu#index", :as => "menu"

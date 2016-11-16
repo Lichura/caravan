@@ -119,11 +119,13 @@
 <% end %>
 <script>
 $(document).ready(function(){
+
   $('#user_renspa').mask('00.000.0.00000/00');
   $('#user_numeroCv').mask('000');
   $('#user_cuig').mask('SS000');
-
   $('#seleccionar_distribuidor').hide();
+  $( ".has-error" ).first().focus();
+
 
   $('#user_profile_id').change(function(){
     if ($('#user_profile_id').val() == 3 ){
@@ -134,7 +136,22 @@ $(document).ready(function(){
     }
   });
 
-  $( ".has-error" ).first().focus();
+
+
+  $(document).on('change', '#buscarAfip', function(){
+     $.ajax({
+       url: "/users/new",
+       data: {
+        search_afip: $('#buscarAfip').val()
+      },
+      error: function() {
+          alert("En estos momentos no podemos procesar su solicitud, intente nuevamente en unos momentos o puede cargar el formulario a mano.");
+          $('#afip').html("<%= j(render 'afip_fields') %>");
+        },
+      dataType: 'script',
+      type: 'GET'
+    });
+  });
 
 });
 </script>

@@ -21,12 +21,18 @@ class UsersController < ApplicationController
     #con esto logro que apenas llamo a new_pedido como no existe la variable afip me carga el
     #modal para un nuevo usuario, luego al realizar una llamada ajax para buscar el numero de afip
     #si me carga el partial de buscar_afip
-    if @afip
-     format.js {render "buscar_afip"}
-    else
-     format.js
+      if @afip
+       format.js {render "buscar_afip"}
+      else
+       format.js
+      end
     end
-    end
+  end
+
+  def afip_fields
+  render "users/_afip_fields", 
+         locals: { user: @user },
+         layout: false
   end
 
   def index
