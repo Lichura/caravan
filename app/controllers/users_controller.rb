@@ -77,12 +77,8 @@ def edit_multiple
 end
 def update_multiple
   @user = User.update(params[:users].keys, params[:users].values)
-  @user.reject! { |u| u.errors.empty? }
-  if @user.empty?
+  #@user.reject! { |u| u.errors.empty? }
     redirect_to edit_multiple_users_url
-  else
-    redirect_to edit_multiple_users_url
-  end
 end
 
 def edit_multiple_condiciones
@@ -158,7 +154,7 @@ end
 
   	private
     def set_multiple_ids
-      params[:user_ids]
+      params[:users]
     end
 
     def set_user

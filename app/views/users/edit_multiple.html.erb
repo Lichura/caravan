@@ -16,6 +16,7 @@
            <% end %>
           </div>
         </div>
+                  <%= form_tag update_multiple_users_path, method: :put do %>
       <div class="row" style="height: 50px;"></div>
       <div class="table-responsive">
         <table class="table table-hover">
@@ -29,7 +30,7 @@
             <th>Editar</th>
             <th>Eliminar</th>
           </thead>
-          <%= form_tag update_multiple_users_path, method: :put do %>
+
             <tbody>
                 <% @user.each do |user| %>
                   <%= fields_for "users[]", user do |f| %>
@@ -64,10 +65,11 @@
                   <% end %> 
                 <% end %>
               </tbody>
-            <% end %>
+            
         </table>
       </div>
     <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+    <% end %>
     <%= link_to 'Nuevo usuario', new_user_path, class: "btn btn-default"  %>
     </div>
   </div>
