@@ -23,11 +23,11 @@ class Insumo < ApplicationRecord
 	end
 
 	def actualizar_stock_producto
-		insumo_disponible = []
-		insumo_fisico = []
-		insumo_reservado = []
-		insumo_pedido = []
 		self.producto_insumos.each do |productos|
+			insumo_disponible = []
+			insumo_fisico = []
+			insumo_reservado = []
+			insumo_pedido = []
 			producto = Producto.find(productos.producto_id)
 			producto.producto_insumos.each do |insumos|
 				insumo = Insumo.find(insumos.insumo_id)

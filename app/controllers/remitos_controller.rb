@@ -75,7 +75,7 @@ class RemitosController < ApplicationController
     pendiente_facturar
     respond_to do |format|
       if @remito.save
-        @remito.disminuir_stock_disponible
+        #@remito.disminuir_stock_disponible
         estado_pedido_remito
         format.html { redirect_to pedidos_path, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }

@@ -28,14 +28,16 @@
         <div class="collapse navbar-collapse navbar-menubuilder">
             <ul class="nav navbar-nav navbar-left">
                 <% if current_page?(root_url) %>
-                  <li><a id="inicio-link" href="#inicio" >Inicio</a></li>
-                  <li><a id="nosotros-link" href="#nosotros">Nosotros</a></li>
-                  <li><a id="productos-link" href="#productos">Productos</a></li>
+                  <li><a id="inicio-link" href="#inicio" >INICIO</a></li>
+                  <li><a id="nosotros-link" href="#nosotros">NOSOTROS</a></li>
+                  <li><a id="productos-link" href="#productos">PRODUCTOS</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
                   <% if current_user %>
                     <% if current_user.profile_id == 1 %>
-                      <li><%= link_to "Acceso administradores", menu_path %></li>
+                      <li><%= link_to "ACCESO ADMINISTRADORES", menu_path %></li>
                     <% else %>
-                      <li><%= link_to "Acceso distribuidores", distribuidores_path %></li>
+                      <li><%= link_to "ACCESO DISTRIBUIDORES", distribuidores_path %></li>
                     <% end %>
                   <% end %>
                 <% else %>
@@ -52,7 +54,7 @@
                     <i class="glyphicon glyphicon-off"></i></li>
                   <% end %>
                 <% else %>
-                    <li><%= link_to "Acceso usuarios", log_in_path %></li>
+                    <li><%= link_to "ACCESO USUARIOS", log_in_path %></li>
                 <% end %>
             </ul>
         </div>

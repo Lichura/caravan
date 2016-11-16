@@ -15,6 +15,8 @@ class Remito < ApplicationRecord
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 
 
+
+
 	def disminuir_stock_disponible
 		self.remito_items.each do |item|
 			producto = Producto.find(item.producto_id)
