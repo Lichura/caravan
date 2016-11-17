@@ -9,6 +9,10 @@ class Detalle < ApplicationRecord
   	has_many :detalle_insumos
   	accepts_nested_attributes_for :detalle_insumos,  allow_destroy: true
 
+  	 after_destroy { |record|
+              DetalleInsumo.destroy(record.detalle_insumos.pluck(:id))
+            }
+
 	def controlar_stock
 		producto = Producto.find(self.producto_id)
 		if self.cantidad > producto.stock_disponible

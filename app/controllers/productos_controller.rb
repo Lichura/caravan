@@ -69,11 +69,18 @@ class ProductosController < ApplicationController
   # DELETE /productos/1
   # DELETE /productos/1.json
   def destroy
+    if @producto.chequear_uso_antes_de_eliminar
     @producto.destroy
     authorize @producto
     respond_to do |format|
       format.html { redirect_to productos_url, notice: 'El producto se elimino correctamente' }
       format.json { head :no_content }
+    end
+    else
+      respond_to do |format|
+        format.html { redirect_to productos_url, notice: 'El producto ha sido utilizado en un pedido y no es posible eliminarlo.' }
+        format.json { head :no_content }
+      end
     end
   end
 

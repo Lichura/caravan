@@ -30,6 +30,10 @@ class Pedido < ApplicationRecord
   #after_initialize :aumentar_numerador
 
 
+  after_destroy { |record|
+              Detalle.destroy(record.detalles.pluck(:id))
+            }
+
   #deprecado por incorporacion de insumos..
   def devolver_stock
     self.detalles.each do |detalle|
@@ -118,6 +122,8 @@ class Pedido < ApplicationRecord
       end
     end
   end
+
+
 
 
 	def self.search(pedido)

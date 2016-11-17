@@ -19,7 +19,12 @@ class Insumo < ApplicationRecord
 	end
 
 	def chequear_uso_antes_de_eliminar
-		return false if DetalleInsumo.any? {|detalle| detalle.insumo_id == self.id}
+		if DetalleInsumo.any? {|detalle| detalle.insumo_id == self.id}
+			errors.add(:id, 'Se encuentra en uso.')
+			false
+		else
+      		true
+    	end
 	end
 
 	def actualizar_stock_producto
@@ -31,10 +36,12 @@ class Insumo < ApplicationRecord
 			producto = Producto.find(productos.producto_id)
 			producto.producto_insumos.each do |insumos|
 				insumo = Insumo.find(insumos.insumo_id)
-				insumo_disponible << insumo.stock_disponible / insumos.coeficiente
-				insumo_fisico << insumo.stock_fisico / insumos.coeficiente
-				insumo_reservado << insumo.stock_reservado / insumos.coeficiente
-				insumo_pedido << insumo.stock_pedido / insumos.coeficiente
+				if insumos.coeficiente != 0
+					insumo_disponible << insumo.stock_disponible / insumos.coeficiente
+					insumo_fisico << insumo.stock_fisico / insumos.coeficiente
+					insumo_reservado << insumo.stock_reservado / insumos.coeficiente
+					insumo_pedido << insumo.stock_pedido / insumos.coeficiente
+				end
 			end
 			producto.stock_disponible = insumo_disponible.min
 			producto.stock_fisico = insumo_fisico.min

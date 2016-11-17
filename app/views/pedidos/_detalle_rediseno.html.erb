@@ -5,26 +5,28 @@
 	</div>
 	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen %></div>
 	<div class="precio detalle-producto-precio">
-		<%= f.object.producto.precio %>
+		<%= number_to_currency(f.object.producto.precio) %>
 	</div>
 	<% if f.object.producto.insumos.any? %>
 		<div class="detalle-producto-informacion-texto">Especifique su seleccion:</div>
 		<div class="detalle-producto-informacion">
 			<!-- iteracion -->
 			<%= f.fields_for :detalle_insumos do |ff| %>
-			<div class="detalle-producto-informacion-insumo">
-				<label class="precio-unitario" value=<%= ff.object.insumo.precio %>>
-					<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
-					<%= ff.check_box :_destroy, {checked: true}, '0', '1' %>
-					<% else %>
-					<%= ff.check_box :_destroy, {}, '0', '1' %>
-					<% end %>
-					<span><%= ff.object.insumo.nombre %></span>
+				<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
+				<div class="detalle-producto-informacion-insumo">
+					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente) %>>
+						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
+						<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
+						<% else %>
+						<%= ff.check_box :_destroy, {}, '0', '1' %>
+						<% end %>
+						<span><%= ff.object.insumo.nombre %></span>
 
-				</label>
-				<%= ff.hidden_field :insumo_id %>
-				<%= ff.hidden_field :producto_id %>
-			</div>
+					</label>
+					<%= ff.hidden_field :insumo_id %>
+					<%= ff.hidden_field :producto_id %>
+				</div>
+				<% end %>
 			<% end %>
 			<!-- fin iteracion -->
 		</div>

@@ -42,7 +42,7 @@ class RemitoItem < ApplicationRecord
 			else
 				producto = Producto.find(self.producto_id)
 				producto.stock_reservado += self.cantidad
-				producto.stock_fisico -+= self.cantidad
+				producto.stock_fisico += self.cantidad
 				producto.save
 			end
 		end

@@ -90,6 +90,11 @@
 <% end %>
 <script>
 $(document).ready(function() {
+    if ($('#producto_tipo').val() == 1){
+      $('#mostrar_insumos').show();
+    }else{
+      $('#mostrar_insumos').hide();
+    }
 
   $('#producto_tipo').change(function(){
     if ($('#producto_tipo').val() == 1){

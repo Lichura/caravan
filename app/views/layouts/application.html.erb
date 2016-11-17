@@ -19,20 +19,9 @@
   <nav id="custom-bootstrap-menu" class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-        <div id="flip-container">
-          <div class="flipper">
-            <div class="front">
               <%= link_to root_url, :class => "navbar-brand" do %>
                 <img src="<%= asset_path('logo.png') %>">
-              <% end %> 
-            </div>
-            <div class="back">
-              <%= link_to root_url, :class => "navbar-brand" do %>
-                <img src="<%= asset_path('logo.png') %>">
-              <% end %> 
-            </div>    
-          </div>    
-        </div>
+              <% end %>   
             <button type="button" class="navbar-toggle"  data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar" style='color:black'></span><span class="icon-bar"></span>
             </button>
         </div>
@@ -78,22 +67,3 @@
   </body>
 </html>
 
-<script>
-
-
-
-        //window.setInterval(function(){  
-        //    flip();
-        //}, 4000); 
-
-
-
-    function flip()
-    {
-        if($('#flip-container').hasClass("hoverfixed")) {
-              $('#flip-container').removeClass('hoverfixed');
-            }else{
-              $('#flip-container').addClass('hoverfixed');
-         }
-    }
-</script>

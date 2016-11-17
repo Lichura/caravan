@@ -37,8 +37,13 @@ class Producto < ApplicationRecord
     producto.save
   end
 
-    def chequear_uso_antes_de_eliminar
-    return false if Detalle.any? {|detalle| detalle.producto_id == self.id}
+  def chequear_uso_antes_de_eliminar
+    if Detalle.any? {|detalle| detalle.producto_id == self.id}
+      errors.add(:id, 'Se encuentra en uso.')
+      false
+    else
+      true
+    end
   end
 
 def marcar_productos_para_destruir

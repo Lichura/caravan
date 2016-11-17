@@ -54,10 +54,17 @@ class InsumosController < ApplicationController
   # DELETE /insumos/1
   # DELETE /insumos/1.json
   def destroy
+    if @insumo.chequear_uso_antes_de_eliminar
     @insumo.destroy
     respond_to do |format|
       format.html { redirect_to insumos_url, notice: 'Insumo was successfully destroyed.' }
       format.json { head :no_content }
+    end
+    else
+    respond_to do |format|
+      format.html { redirect_to insumos_url, notice: 'El insumo ha sido utilizado en un pedido y no es posible eliminarlo.' }
+      format.json { head :no_content }
+    end
     end
   end
 
