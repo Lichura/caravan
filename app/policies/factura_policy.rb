@@ -20,4 +20,8 @@ class FacturaPolicy < ApplicationPolicy
     is_admin?
   end
 
+  def nueva_factura?
+    is_admin?
+  end
+
  end

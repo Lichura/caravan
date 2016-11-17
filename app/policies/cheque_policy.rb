@@ -20,4 +20,8 @@ class ChequePolicy < ApplicationPolicy
     is_admin?
   end
 
+  def update_multiple?
+    is_admin?
+  end
+
  end
