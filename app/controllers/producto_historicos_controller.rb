@@ -6,7 +6,7 @@ class ProductoHistoricosController < ApplicationController
   def index
     @producto_historicos = ProductoHistorico.all
     authorize @producto_historicos
-    @historico = ProductoHistorico.group(:producto_id).count 
+    #@historico = ProductoHistorico.group(:producto_id).count 
     @pedidos = Pedido.all
     @historico = []
     @ventas = []

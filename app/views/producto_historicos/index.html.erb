@@ -33,6 +33,8 @@
 <%= link_to 'New Producto Historico', new_producto_historico_path %>
 
 
+<%= @historico %>
+
 <%= line_chart @historico,  { library: {width: 600} }%>
 
 <%= column_chart Pedido.group(:distribuidor_id).count, stacked: true, xtitle: "Distribuidores", ytitle: "Cantidad de pedidos" %>

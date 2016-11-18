@@ -22,19 +22,33 @@ class Producto < ApplicationRecord
   before_validation :destruir_insumos_si_no_necesita
   before_destroy :chequear_uso_antes_de_eliminar
   #before_validation :marcar_productos_para_destruir
-
+  after_create :prueba
+  after_update :prueba
   after_destroy { |record|
             ProductoInsumo.destroy(record.producto_insumos.pluck(:id))
           }
 
   accepts_nested_attributes_for :producto_insumos,  allow_destroy: true
 
-  def prueba(producto)
-    producto.producto_insumos do |insumos|
-      insumo = Insumo.find(insumo.insumo_id)
-      producto.stock_disponible = insumo.stock_disponible / insumos.coeficiente
-    end
-    producto.save
+  def prueba
+      insumo_disponible = []
+      insumo_fisico = []
+      insumo_reservado = []
+      insumo_pedido = []
+      self.producto_insumos.each do |insumos|
+        insumo = Insumo.find(insumos.insumo_id)
+          if insumos.coeficiente != 0
+            insumo_disponible << insumo.stock_disponible / insumos.coeficiente
+            insumo_fisico << insumo.stock_fisico / insumos.coeficiente
+            insumo_reservado << insumo.stock_reservado / insumos.coeficiente
+            insumo_pedido << insumo.stock_pedido / insumos.coeficiente
+          end
+      end
+      self.stock_disponible = insumo_disponible.min
+      self.stock_fisico = insumo_fisico.min
+      self.stock_reservado = insumo_reservado.min
+      self.stock_pedido = insumo_pedido.min
+      self.save
   end
 
   def chequear_uso_antes_de_eliminar
