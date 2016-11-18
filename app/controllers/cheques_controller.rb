@@ -22,8 +22,9 @@ class ChequesController < ApplicationController
 	end
 
 	def update_multiple
+			authorize Cheque
 	@cheque = Cheque.update(params[:cheques].keys, params[:cheques].values)
-	#authorize @cheque
+
 		 @cheque.reject! { |u| u.errors.empty? }
 		  if @cheque.empty?
 		    redirect_to cheques_url

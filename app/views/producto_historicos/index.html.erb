@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+
 
 <h1>Producto Historicos</h1>
 
@@ -33,10 +33,18 @@
 <%= link_to 'New Producto Historico', new_producto_historico_path %>
 
 
+<h5>Variacion historica de insumos</h5>
+<%= line_chart @insumo_historico,  { library: {width: 600} }%>
+
+<h5>Variacion historica de productos</h5>
 <%= line_chart @historico,  { library: {width: 600} }%>
 
-<%= column_chart Pedido.group(:distribuidor_id).count, stacked: true, xtitle: "Distribuidores", ytitle: "Cantidad de pedidos" %>
+<h5>Cantidad de pedidos por distribuidor</h5>
+<%= pie_chart @pedidos_por_distribuidor, library: {legend: {labelFormat: '{name} : {y} ({percentage:.1f}%)'}} %>   
 
-<%= pie_chart Detalle.group(:producto_id).count %>
+
+
+<h5>Cantidad de productos pedidos</h5>
+<%= pie_chart @producto_pedidos %>
 
 

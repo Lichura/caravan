@@ -5,11 +5,16 @@ class ProductoHistoricosController < ApplicationController
   # GET /producto_historicos.json
   def index
     @producto_historicos = ProductoHistorico.all
+    @insumo_historicos = InsumoHistorico.all
+    @detalle_producto = Detalle.all
     authorize @producto_historicos
     @historico = ProductoHistorico.group(:producto_id).count 
     @pedidos = Pedido.all
     @historico = []
     @ventas = []
+    @insumo_historico = []
+    @pedidos_por_distribuidor = []
+    @producto_pedidos = []
 
     Producto.all.each do |producto|
       @prueba = {:name => producto.nombre, :data => {}}
@@ -22,6 +27,30 @@ class ProductoHistoricosController < ApplicationController
     @historico << @prueba
     end
 
+    Insumo.all.each do |insumo|
+      @datos = {:name => insumo.nombre, :data => {}}
+      @insumo_historicos.each do |historico|
+        if historico.insumo_id == insumo.id
+          @linea = {:name => insumo.nombre, data: {historico.created_at => historico.precio}}
+          @datos.deep_merge!(@linea)
+        end
+      end
+      @insumo_historico << @datos
+    end
+
+    distribuidores = Pedido.distinct.pluck(:distribuidor_id)
+    distribuidores.each do |distribuidor|
+      @data = []
+      suma = Pedido.where(distribuidor_id: distribuidor).count
+      @pedidos_por_distribuidor << [User.find(distribuidor).razonSocial, suma]
+    end
+
+    productos = Detalle.distinct.pluck(:producto_id)
+    productos.each do |producto|
+      @data = []
+      suma = Detalle.where(producto_id: producto).count
+      @producto_pedidos << [Producto.find(producto).nombre, suma]
+    end
 
   end
 

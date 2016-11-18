@@ -21,6 +21,7 @@ class Producto < ApplicationRecord
   after_update :agregar_a_historico
   before_validation :destruir_insumos_si_no_necesita
   before_destroy :chequear_uso_antes_de_eliminar
+  before_validation :precio_inicial
   #before_validation :marcar_productos_para_destruir
 
   after_destroy { |record|
@@ -43,6 +44,12 @@ class Producto < ApplicationRecord
       false
     else
       true
+    end
+  end
+
+  def precio_inicial 
+    if self.tipo == 1
+      self.precio = self.insumos.sum(&:precio)
     end
   end
 

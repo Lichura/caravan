@@ -33,33 +33,16 @@
   <div class="form-group">
     <%= f.label :unidad_medida, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :unidad_medida, class: "form-control" %>
+      <%= f.collection_select(:unidad_medida, Medida.all, :id, :nombre, {:class => "form-control"}) %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :stock_fisico, class: "col-sm-2 control-label" %>
+    <%= f.label :alerta, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.number_field :stock_fisico, class: "form-control" %>
+      <%= f.text_field :alerta, class: "form-control" %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :stock_reservado, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :stock_reservado, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :stock_disponible, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :stock_disponible, class: "form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :stock_pedido, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :stock_pedido, class: "form-control" %>
-    </div>
-  </div>
+ 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit "Enviar",  class: "btn btn-primary" %>

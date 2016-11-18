@@ -11,10 +11,21 @@ class Insumo < ApplicationRecord
 	after_destroy { |record|
   					ProductoInsumo.destroy(record.producto_insumos.pluck(:id))
 				  }
+	after_update :agregar_a_historico
+	after_update :actualizar_precio_producto
+	before_create :generar_stock_al_crear_insumo
+
 
 	def probando
 		self.productos do |producto|
 			Producto.prueba(producto)
+		end
+	end
+
+	def actualizar_precio_producto
+		self.productos.each do |producto|
+			producto.precio = producto.insumos.sum(&:precio)
+			producto.save
 		end
 	end
 
@@ -27,6 +38,8 @@ class Insumo < ApplicationRecord
     	end
 	end
 
+	
+	private
 	def actualizar_stock_producto
 		self.producto_insumos.each do |productos|
 			insumo_disponible = []
@@ -51,8 +64,22 @@ class Insumo < ApplicationRecord
 		end
 	end
 
-	private
+
 	def destruir_relacion_con_productos
      	self.producto_insumos.delete_all   
    	end
+
+
+   	def agregar_a_historico
+	    if self.precio_changed?
+	      @historico = InsumoHistorico.create!([{insumo_id: self.id, precio: self.precio, fechaDesde: self.updated_at, fechaHasta: DateTime.now}])
+	    end
+  	end
+
+  	def generar_stock_al_crear_insumo
+  		self.stock_pedido = 0
+  		self.stock_reservado = 0
+  		self.stock_fisico = 0
+  		self.stock_disponible = 0
+  	end
 end

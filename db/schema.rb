@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161112233848) do
+ActiveRecord::Schema.define(version: 20161118093136) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -130,6 +130,15 @@ ActiveRecord::Schema.define(version: 20161112233848) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "insumo_historicos", force: :cascade do |t|
+    t.integer  "insumo_id"
+    t.integer  "precio"
+    t.datetime "fechaDesde"
+    t.datetime "fechaHasta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "insumos", force: :cascade do |t|
     t.string   "nombre"
     t.string   "descripcion"
@@ -141,6 +150,7 @@ ActiveRecord::Schema.define(version: 20161112233848) do
     t.integer  "stock_pedido"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "alerta"
   end
 
   create_table "medidas", force: :cascade do |t|

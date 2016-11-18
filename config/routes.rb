@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   get "sign_up" => "users#new", :as => "sign_up"
   get "distribuidores" => "menu#distribuidores", :as => "distribuidores"
+  get "dashboard" => "menu#dashboard", :as => "dashboard"
   root :to => "index#index"
   resources :users do
     resource :user_sucursals

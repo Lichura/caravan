@@ -76,6 +76,6 @@ class InsumosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def insumo_params
-      params.require(:insumo).permit(:nombre, :descripcion, :precio, :unidad_medida, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido)
+      params.require(:insumo).permit(:nombre, :descripcion, :precio, :unidad_medida, :alerta, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido)
     end
 end
