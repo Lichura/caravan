@@ -15,33 +15,33 @@ class PaisTest < ActiveSupport::TestCase
   end
 
   test "crear pais con otro nombre" do
-    pais1 = Pais.new({nombre: 'Argentina', abreviacion: 'AR'})
-    assert_not_equal(pais1.nombre, 'Peru')
+    pais = Pais.new({nombre: 'Argentina', abreviacion: 'AR'})
+    assert_not_equal(pais.nombre, 'Peru')
   end
 
   test "crear pais sin nombre" do
-    pais1 = Pais.new({ abreviacion: 'AR'})
-    assert_not pais1.save
+    pais = Pais.new({ abreviacion: 'AR'})
+    assert_not pais.save
   end
 
   test "crear pais sin abreviacion" do
-    pais1 = Pais.new({ nombre: 'AR'})
-    assert_not pais1.save
+    pais = Pais.new({ nombre: 'AR'})
+    assert_not pais.save
   end
 
   test "crear pais sin datos" do
-    pais1 = Pais.new({})
-    assert_not pais1.save
+    pais = Pais.new({})
+    assert_not pais.save
   end
 
   test "crear pais con el mismo nombre" do
-    pais1 = Pais.new({ nombre: 'españa'})
-    assert_not pais1.save
+    pais = Pais.new({ nombre: 'españa'})
+    assert_not pais.save
   end
 
   test "crear pais con la misma abreviacion" do
     pais1 = Pais.new({ abreviacion: 'ES'})
-    assert_not pais1.save
+    assert_not pais.save
   end
 end
 

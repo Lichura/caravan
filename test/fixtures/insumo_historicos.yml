@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  insumo_id: 1
+  precio: 1
+  fechaDesde: 2016-11-18 08:32:45
+  fechaHasta: 2016-11-18 08:32:45
+
+two:
+  insumo_id: 1
+  precio: 1
+  fechaDesde: 2016-11-18 08:32:45
+  fechaHasta: 2016-11-18 08:32:45

@@ -1,0 +1,18 @@
+<div class="graficos">
+</div>
+<div class="dashboard-links">
+<%= render "links" %>
+</div>
+<div class="dashboard-pedidos">
+<!-- mostrar pedidos pendientes -->
+<% @pedidos.each do |pedido|%>
+	<%= pedido.id %>
+<% end %>
+</div>
+<div class="stock">
+<!-- mostrar stock proximo a faltar -->
+<% @insumos.each do |insumo|%>
+	<%= insumo.nombre %>
+	<%= insumo.stock_fisico %>
+<% end %>
+</div>
