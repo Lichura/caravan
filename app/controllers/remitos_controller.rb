@@ -172,7 +172,7 @@ class RemitosController < ApplicationController
   end
 
   def crear_remitos_sin_pedido
-    Producto.all.each do |obj|
+    Producto.where(activo: true).all.each do |obj|
         if !@remito.producto_ids.include?(obj.id)
           @remito.remito_items.build(:producto_id => obj.id)
         end

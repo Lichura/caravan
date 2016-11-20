@@ -74,7 +74,7 @@ class NotaCreditosController < ApplicationController
     end
 
   def crear_productos
-      Producto.all.each do |obj|
+      Producto.where(activo: true).all.each do |obj|
         if !@nota_credito.producto_ids.include?(obj.id)
           @nota_credito.nota_credito_items.build(:producto_id => obj.id)
         end

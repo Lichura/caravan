@@ -83,7 +83,7 @@ class StockPedidosController < ApplicationController
     end
 
     def crear_pedidos_productos
-      Producto.where(tipo: 2).all.each do |obj|
+      Producto.where(tipo: 2, activo: true).all.each do |obj|
         if !@stock_pedido.producto_ids.include?(obj.id)
           @stock_pedido.stock_items.build(:producto_id => obj.id)
         end

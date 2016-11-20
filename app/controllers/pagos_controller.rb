@@ -43,7 +43,7 @@ class PagosController < ApplicationController
     authorize @pago
     respond_to do |format|
       if @pago.save
-        format.html { redirect_to @pago, notice: 'Pago was successfully created.' }
+        format.html { redirect_to @pago, notice: 'Se creo el pago de manera exitosa.' }
         format.json { render :show, status: :created, location: @pago }
       else
         format.html { render :new }
@@ -58,7 +58,7 @@ class PagosController < ApplicationController
     respond_to do |format|
       if @pago.update(pago_params)
         authorize @pago
-        format.html { redirect_to @pago, notice: 'Pago was successfully updated.' }
+        format.html { redirect_to @pago, notice: 'Se actualizo el pago de manera exitosa.' }
         format.json { render :show, status: :ok, location: @pago }
       else
         format.html { render :edit }
@@ -73,7 +73,7 @@ class PagosController < ApplicationController
     @pago.destroy
     authorize @pago
     respond_to do |format|
-      format.html { redirect_to pagos_url, notice: 'Pago was successfully destroyed.' }
+      format.html { redirect_to pagos_url, notice: 'Se elimino el pago de manera exitosa.' }
       format.json { head :no_content }
     end
   end

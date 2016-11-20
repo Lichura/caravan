@@ -57,6 +57,7 @@ class ProductosController < ApplicationController
     respond_to do |format|
       if @producto.update(producto_params)
         authorize @producto
+        @producto.prueba
         format.html { redirect_to @producto, notice: 'El producto se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @producto }
       else

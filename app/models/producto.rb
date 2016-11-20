@@ -24,7 +24,6 @@ class Producto < ApplicationRecord
   before_validation :precio_inicial
   #before_validation :marcar_productos_para_destruir
   after_create :prueba
-  after_update :prueba
   after_destroy { |record|
             ProductoInsumo.destroy(record.producto_insumos.pluck(:id))
           }

@@ -34,7 +34,7 @@
             <% @cuentacorrientes.each do |cc| %>
             <tr><!-- se podria utilizar para ver el proximo turno -->
 				<td><%= cc.id %></td>
-				<td><%= User.find(cc.user_id).razonSocial %></td>
+				<td><%= User.find(cc.user_id).razonSocial.truncate_words(5) %></td>
 				<td><%= cc.created_at.to_formatted_s(:day_month_and_year) %></td>
 				<td><%= cc.concepto %></td>
 				<td><%= cc.conceptoNumero %></td>

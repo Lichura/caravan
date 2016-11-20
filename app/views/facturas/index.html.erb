@@ -20,17 +20,8 @@
                   <tr>
                                             <th>Cuit</th>
                         <th>Fecha</th>
-                        <th>Control</th>
                         <th>Vendedor</th>
-                        <th>Subtotal</th>
-                        <th>Bonificacion</th>
-                        <th>Neto</th>
-                        <th>Iva</th>
-                        <th>Iibb</th>
                         <th>Total</th>
-                        <th>Cae</th>
-                        <th>Vencimiento cae</th>
-                        <th>Pto venta</th>
                         <th>Numero</th>
                         <th>Tipo</th>
 
@@ -44,18 +35,9 @@
                 <tbody>
                   <% @facturas.each do |factura| %>
                                             <td><%= factura.cuit %></td>
-                                            <td><%= factura.fecha %></td>
-                                            <td><%= factura.control %></td>
+                                            <td><%= factura.fecha.to_formatted_s(:day_month_and_year) %></td>
                                             <td><%= factura.vendedor %></td>
-                                            <td><%= factura.subtotal %></td>
-                                            <td><%= factura.bonificacion %></td>
-                                            <td><%= factura.neto %></td>
-                                            <td><%= factura.iva %></td>
-                                            <td><%= factura.iibb %></td>
                                             <td><%= factura.total %></td>
-                                            <td><%= factura.cae %></td>
-                                            <td><%= factura.vencimiento_cae %></td>
-                                            <td><%= factura.pto_venta %></td>
                                             <td><%= factura.numero %></td>
                                             <td><%= factura.tipo %></td>
                                       <td>

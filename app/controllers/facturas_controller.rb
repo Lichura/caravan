@@ -107,8 +107,8 @@ class FacturasController < ApplicationController
 
   private
     def crear_factura_sin_remito
-      Producto.all.each do |obj|
-        if !@factura.producto_ids.include?(obj.id) && (obj.pendiente_facturar > 0)
+      Producto.where(activo: true).all.each do |obj|
+        if !@factura.producto_ids.include?(obj.id) #&& (obj.pendiente_facturar > 0)
           @factura.factura_items.build(:producto_id => obj.id)
         end
       end
