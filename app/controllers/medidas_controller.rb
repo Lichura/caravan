@@ -30,7 +30,7 @@ class MedidasController < ApplicationController
     authorize @medida
     respond_to do |format|
       if @medida.save
-        format.html { redirect_to @medida, notice: 'Medida was successfully created.' }
+        format.html { redirect_to @medida, notice: 'Se creo la medida correctamente' }
         format.json { render :show, status: :created, location: @medida }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class MedidasController < ApplicationController
     respond_to do |format|
       if @medida.update(medida_params)
         authorize @medida
-        format.html { redirect_to @medida, notice: 'Medida was successfully updated.' }
+        format.html { redirect_to @medida, notice: 'Se actualizo la medida correctamente' }
         format.json { render :show, status: :ok, location: @medida }
       else
         format.html { render :edit }
@@ -60,7 +60,7 @@ class MedidasController < ApplicationController
     @medida.destroy
     authorize @medida
     respond_to do |format|
-      format.html { redirect_to medidas_url, notice: 'Medida was successfully destroyed.' }
+      format.html { redirect_to medidas_url, notice: 'Se elimino la medida correctamente' }
       format.json { head :no_content }
     end
   end

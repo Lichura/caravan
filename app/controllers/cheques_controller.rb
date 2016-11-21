@@ -39,7 +39,7 @@ def update
     respond_to do |format|
       if @cheque.update(cheque_params)
       	authorize @cheque
-        format.html { redirect_to cheques_url, notice: 'El usuario se actualizo correctamente' }
+        format.html { redirect_to cheques_url, notice: 'El cheque se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @cheque }
       else
         format.html { render :index }

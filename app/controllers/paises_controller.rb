@@ -37,7 +37,7 @@ class PaisesController < ApplicationController
     authorize @pais
     respond_to do |format|
       if @pais.save
-        format.html { redirect_to @pais, notice: 'Pais was successfully created.' }
+        format.html { redirect_to @pais, notice: 'Se creo el pais de manera exitosa.' }
         format.json { render :show, status: :created, location: @pais }
       else
         format.html { render :new }
@@ -52,7 +52,7 @@ class PaisesController < ApplicationController
     respond_to do |format|
       if @pais.update(pais_params)
         authorize @pais
-        format.html { redirect_to @pais, notice: 'Pais was successfully updated.' }
+        format.html { redirect_to @pais, notice: 'Se actualizo el pais de forma exitosa.' }
         format.json { render :show, status: :ok, location: @pais }
       else
         format.html { render :edit }
@@ -67,7 +67,7 @@ class PaisesController < ApplicationController
     @pais.destroy
     authorize @pais
     respond_to do |format|
-      format.html { redirect_to paises_url, notice: 'Pais was successfully destroyed.' }
+      format.html { redirect_to paises_url, notice: 'Se elimino el pais de forma exitosa.' }
       format.json { head :no_content }
     end
   end

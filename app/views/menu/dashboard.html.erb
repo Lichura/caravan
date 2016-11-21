@@ -1,6 +1,6 @@
 <%= stylesheet_link_tag    'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
 <div class="dashboard-links">
-<%= render "links" %>
+	<%= render "links" %>
 </div>
 <div class="dashboard-contenedor container">
 	<div class="row">
@@ -8,84 +8,84 @@
 			<div class="dashboard-pedidos">
 				<h3>Pedidos pendientes</h3>
 				<div class="table-responsive">
-	          		<table class="table table-hover">
-	              		<thead class="pedidos">
-	              		        <th>Comprobante</th>
-						        <th>Razon Social</th>
-						        <th>Mostrar</th>
-						        <th>Confirmar</th>
-	              		</thead>
-	              		<tbody>
-						<% @pedidos.each do |pedido|%>
+					<table class="table table-hover">
+						<thead class="pedidos">
+							<th>Comprobante</th>
+							<th>Razon Social</th>
+							<th>Mostrar</th>
+							<th>Confirmar</th>
+						</thead>
+						<tbody>
+							<% @pedidos.each do |pedido|%>
 							<tr>
 								<td><%= pedido.comprobanteNumero %></td>
 								<td><%= User.find_by(cuit: pedido.cuit).razonSocial.truncate_words(5) %></td>
 								<td><%= link_to pedido_path(pedido) do %>
-	                  				<i class="glyphicon glyphicon-list-alt"></i>
-	                				<% end %></td>
-								<td><%= link_to edit_pedido_path(pedido) do %>
-								 	<i class="glyphicon glyphicon-ok"></i>
-	            				<% end %></td>
-	            			</tr>
-						<% end %>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-5">
-			<div class="dashboard-stock">
-			<h3>Alerta de stock</h3>
-				<div class="table-responsive">
-	          		<table class="table table-hover">
-	              		<thead class="pedidos">
-	              		        <th>Insumo</th>
-						        <th>Stock fisico</th>
-						        <th>Pedir stock</th>
-	              		</thead>
-	              		<tbody>
-						<% @insumos.each do |insumo|%>
-							<tr>
-								<td><%= insumo.nombre %></td>
-								<td><%= insumo.stock_fisico %></td>
-								<td><%= link_to new_stock_pedido_path do %>
-									 <i class="glyphicon glyphicon-ok"></i>
-		            			<% end %></td>
-	            			</tr>
-						<% end %>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-			<div class="graficos">
-				<div class="col-sm-12">
-					<div class="dashboard-graficos-contenedor">
-						<h5>Variacion historica de productos</h5>
-			<%= line_chart @historico,  { library: {width: 600} }%>
+									<i class="glyphicon glyphicon-list-alt"></i>
+									<% end %></td>
+									<td><%= link_to edit_pedido_path(pedido) do %>
+										<i class="glyphicon glyphicon-ok"></i>
+										<% end %></td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
-				<div class="col-sm-12">
-					<div class="dashboard-graficos-contenedor">
+				<div class="col-sm-5">
+					<div class="dashboard-stock">
+						<h3>Alerta de stock</h3>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead class="pedidos">
+									<th>Insumo</th>
+									<th>Stock fisico</th>
+									<th>Pedir stock</th>
+								</thead>
+								<tbody>
+									<% @insumos.each do |insumo|%>
+									<tr>
+										<td><%= insumo.nombre %></td>
+										<td><%= insumo.stock_fisico %></td>
+										<td><%= link_to new_stock_pedido_path do %>
+											<i class="glyphicon glyphicon-ok"></i>
+											<% end %></td>
+										</tr>
+										<% end %>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="graficos">
+						<div class="col-sm-12">
+							<div class="dashboard-graficos-contenedor">
+								<h5>Variacion historica de precio de productos</h5>
+								<%= line_chart @historico,  { library: {width: 600} }%>
+							</div>
+						</div>
+						<div class="col-sm-12">
+							<div class="dashboard-graficos-contenedor">
 
-				<h5>Variacion historica de insumos</h5>
-<%= line_chart @insumo_historico,  { library: {width: 600} }%>
-</div>
-</div>
-				<div class="col-sm-6">
-					<div class="dashboard-graficos-contenedor">
-<h5>Cantidad de pedidos por distribuidor</h5>
-<%= pie_chart @pedidos_por_distribuidor, library: {legend: {labelFormat: '{name} : {y} ({percentage:.1f}%)'}} %> 
+								<h5>Variacion historica de precio de insumos</h5>
+								<%= line_chart @insumo_historico,  { library: {width: 600} }%>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="dashboard-graficos-contenedor">
+								<h5>Cantidad de pedidos por distribuidor</h5>
+								<%= pie_chart @pedidos_por_distribuidor, library: {legend: {labelFormat: '{name} : {y} ({percentage:.1f}%)'}} %> 
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="dashboard-graficos-contenedor">
+								<h5>Cantidad de productos pedidos</h5>
+								<%= pie_chart @producto_pedidos %>
+							</div>
+						</div>
 					</div>
-					</div>
-									<div class="col-sm-6">
-					<div class="dashboard-graficos-contenedor">
-<h5>Cantidad de productos pedidos</h5>
-<%= pie_chart @producto_pedidos %>
-					</div>
-					</div>
+				</div>
 			</div>
-	</div>
-</div>

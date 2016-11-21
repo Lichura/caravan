@@ -33,7 +33,7 @@ class MonedasController < ApplicationController
 
     respond_to do |format|
       if @moneda.save
-        format.html { redirect_to @moneda, notice: 'Moneda was successfully created.' }
+        format.html { redirect_to @moneda, notice: 'Se creo la moneda correctamente' }
         format.json { render :show, status: :created, location: @moneda }
       else
         format.html { render :new }
@@ -47,7 +47,7 @@ class MonedasController < ApplicationController
   def update
     respond_to do |format|
       if @moneda.update(moneda_params)
-        format.html { redirect_to @moneda, notice: 'Moneda was successfully updated.' }
+        format.html { redirect_to @moneda, notice: 'Se actualizo la moneda correctamente' }
         format.json { render :show, status: :ok, location: @moneda }
       else
         format.html { render :edit }
@@ -61,7 +61,7 @@ class MonedasController < ApplicationController
   def destroy
     @moneda.destroy
     respond_to do |format|
-      format.html { redirect_to monedas_url, notice: 'Moneda was successfully destroyed.' }
+      format.html { redirect_to monedas_url, notice: 'Se elimino la moneda correctamente.' }
       format.json { head :no_content }
     end
   end

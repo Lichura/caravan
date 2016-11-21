@@ -70,7 +70,7 @@ class FacturasController < ApplicationController
       if @factura.save
         #actualizar_estado_remito
         actualizar_estado_pedido
-        format.html { redirect_to @factura, notice: 'Factura was successfully created.' }
+        format.html { redirect_to @factura, notice: 'Se creo la factura correctamente' }
         format.json { render :show, status: :created, location: @factura }
       else
         format.html { render :new }
@@ -85,7 +85,7 @@ class FacturasController < ApplicationController
     respond_to do |format|
       if @factura.update(factura_params)
         authorize @factura
-        format.html { redirect_to @factura, notice: 'Factura was successfully updated.' }
+        format.html { redirect_to @factura, notice: 'Se actualizo la factura correctamente' }
         format.json { render :show, status: :ok, location: @factura }
       else
         format.html { render :edit }
@@ -100,7 +100,7 @@ class FacturasController < ApplicationController
     @factura.destroy
     authorize @factura
     respond_to do |format|
-      format.html { redirect_to facturas_url, notice: 'Factura was successfully destroyed.' }
+      format.html { redirect_to facturas_url, notice: 'Se elimino la factura correctamente.' }
       format.json { head :no_content }
     end
   end

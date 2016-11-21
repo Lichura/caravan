@@ -38,7 +38,7 @@ class CiudadesController < ApplicationController
     authorize @ciudad
     respond_to do |format|
       if @ciudad.save
-        format.html { redirect_to @ciudad, notice: 'Ciudad was successfully created.' }
+        format.html { redirect_to @ciudad, notice: 'La ciudad se creo correctamente' }
         format.json { render :show, status: :created, location: @ciudad }
       else
         format.html { render :new }
@@ -53,7 +53,7 @@ class CiudadesController < ApplicationController
     respond_to do |format|
       if @ciudad.update(ciudad_params)
         authorize @ciudad
-        format.html { redirect_to @ciudad, notice: 'Ciudad was successfully updated.' }
+        format.html { redirect_to @ciudad, notice: 'La ciudad se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @ciudad }
       else
         format.html { render :edit }
@@ -68,7 +68,7 @@ class CiudadesController < ApplicationController
     @ciudad.destroy
     authorize @ciudad
     respond_to do |format|
-      format.html { redirect_to ciudades_url, notice: 'Ciudad was successfully destroyed.' }
+      format.html { redirect_to ciudades_url, notice: 'La ciudad se elimino correctamente.' }
       format.json { head :no_content }
     end
   end

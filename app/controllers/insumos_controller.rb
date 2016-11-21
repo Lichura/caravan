@@ -28,7 +28,7 @@ class InsumosController < ApplicationController
 
     respond_to do |format|
       if @insumo.save
-        format.html { redirect_to @insumo, notice: 'Insumo was successfully created.' }
+        format.html { redirect_to @insumo, notice: 'Se creo el insumo correctamente' }
         format.json { render :show, status: :created, location: @insumo }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class InsumosController < ApplicationController
   def update
     respond_to do |format|
       if @insumo.update(insumo_params)
-        format.html { redirect_to @insumo, notice: 'Insumo was successfully updated.' }
+        format.html { redirect_to @insumo, notice: 'Se actualizo el insumo correctamente' }
         format.json { render :show, status: :ok, location: @insumo }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class InsumosController < ApplicationController
     if @insumo.chequear_uso_antes_de_eliminar
     @insumo.destroy
     respond_to do |format|
-      format.html { redirect_to insumos_url, notice: 'Insumo was successfully destroyed.' }
+      format.html { redirect_to insumos_url, notice: 'Se elimino el insumo correctamente.' }
       format.json { head :no_content }
     end
     else

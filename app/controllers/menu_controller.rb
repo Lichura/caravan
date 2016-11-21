@@ -15,7 +15,7 @@ class MenuController < ApplicationController
 		@insumos = Insumo.where('stock_fisico < alerta').all 
 		@pedidos = Pedido.activo.order(:created_at).limit(5).all
 	
-@producto_historicos = ProductoHistorico.all
+    @producto_historicos = ProductoHistorico.all
     @insumo_historicos = InsumoHistorico.all
     @detalle_producto = Detalle.all
     #@historico = ProductoHistorico.group(:producto_id).count 
@@ -23,6 +23,7 @@ class MenuController < ApplicationController
     @historico = []
     @ventas = []
     @insumo_historico = []
+    @costo_insumo_historico = []
     @pedidos_por_distribuidor = []
     @producto_pedidos = []
 
@@ -46,6 +47,18 @@ class MenuController < ApplicationController
         end
       end
       @insumo_historico << @datos
+    end
+
+
+    StockPedido.all.each do |insumo|
+      @datos = {:name => insumo.nombre, :data => {}}
+      @insumo_historicos.each do |historico|
+        if historico.insumo_id == insumo.id
+          @linea = {:name => insumo.nombre, data: {historico.created_at => historico.precio}}
+          @datos.deep_merge!(@linea)
+        end
+      end
+      @costo_insumo_historico << @datos
     end
 
     distribuidores = Pedido.distinct.pluck(:distribuidor_id)

@@ -29,7 +29,7 @@ class NotaCreditosController < ApplicationController
 
     respond_to do |format|
       if @nota_credito.save
-        format.html { redirect_to @nota_credito, notice: 'Nota credito was successfully created.' }
+        format.html { redirect_to @nota_credito, notice: 'Se creo la nota de credito con exito.' }
         format.json { render :show, status: :created, location: @nota_credito }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class NotaCreditosController < ApplicationController
   def update
     respond_to do |format|
       if @nota_credito.update(nota_credito_params)
-        format.html { redirect_to @nota_credito, notice: 'Nota credito was successfully updated.' }
+        format.html { redirect_to @nota_credito, notice: 'Se actualizo la nota de credito con exito' }
         format.json { render :show, status: :ok, location: @nota_credito }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class NotaCreditosController < ApplicationController
   def destroy
     @nota_credito.destroy
     respond_to do |format|
-      format.html { redirect_to nota_creditos_url, notice: 'Nota credito was successfully destroyed.' }
+      format.html { redirect_to nota_creditos_url, notice: 'Se elimino la nota de credito con exito.' }
       format.json { head :no_content }
     end
   end

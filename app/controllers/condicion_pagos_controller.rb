@@ -36,7 +36,7 @@ class CondicionPagosController < ApplicationController
     authorize @condicion_pago
     respond_to do |format|
       if @condicion_pago.save
-        format.html { redirect_to @condicion_pago, notice: 'Condicion pago was successfully created.' }
+        format.html { redirect_to @condicion_pago, notice: 'La condicion de pago se creo correctamente.' }
         format.json { render :show, status: :created, location: @condicion_pago }
       else
         format.html { render :new }
@@ -51,7 +51,7 @@ class CondicionPagosController < ApplicationController
     respond_to do |format|
       if @condicion_pago.update(condicion_pago_params)
         authorize @condicion_pago
-        format.html { redirect_to @condicion_pago, notice: 'Condicion pago was successfully updated.' }
+        format.html { redirect_to @condicion_pago, notice: 'La condicion de pago se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @condicion_pago }
       else
         format.html { render :edit }
@@ -66,7 +66,7 @@ class CondicionPagosController < ApplicationController
     @condicion_pago.destroy
     authorize @condicion_pago
     respond_to do |format|
-      format.html { redirect_to condicion_pagos_url, notice: 'Condicion pago was successfully destroyed.' }
+      format.html { redirect_to condicion_pagos_url, notice: 'La condicion de pago se elimino correctamente.' }
       format.json { head :no_content }
     end
   end
