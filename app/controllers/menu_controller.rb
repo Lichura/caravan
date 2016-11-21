@@ -50,16 +50,6 @@ class MenuController < ApplicationController
     end
 
 
-    StockPedido.all.each do |insumo|
-      @datos = {:name => insumo.nombre, :data => {}}
-      @insumo_historicos.each do |historico|
-        if historico.insumo_id == insumo.id
-          @linea = {:name => insumo.nombre, data: {historico.created_at => historico.precio}}
-          @datos.deep_merge!(@linea)
-        end
-      end
-      @costo_insumo_historico << @datos
-    end
 
     distribuidores = Pedido.distinct.pluck(:distribuidor_id)
     distribuidores.each do |distribuidor|
