@@ -74,5 +74,10 @@
 <script>
 $(".dashboard-links-boton").click(function(){
 	$(".dashboard-links").toggleClass("open");
+	if ($(".dashboard-links-boton").text() === ">") {
+		$(this).text("<") 
+	}else{
+		$(this).text(">") 
+	}
 })
 </script>
