@@ -1,0 +1,22 @@
+/* line 1, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/login.scss */
+.login {
+  width: 40%;
+  height: 30%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 10% auto;
+}
+
+/* line 8, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/login.scss */
+.login_content {
+  margin: 10% auto;
+  text-align: center;
+  position: relative;
+  width: 80%;
+}
+
+@media screen and (max-width: 768px) {
+  /* line 19, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/login.scss */
+  .login {
+    width: 80%;
+  }
+}
