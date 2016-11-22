@@ -6,10 +6,49 @@
 	position: absolute;
 	margin-top: -5%;
 
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+
 	h2{
 		font-size: 1em;
 		color: rgb(255,255,255);
 		text-align: center;
+	}
+
+	.dashboard-links-boton{
+		display:none;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.dashboard-links{
+		width: 5%;
+		position: absolute;
+		h2{
+			display: none;
+		}
+
+		.dashboard-links-boton{
+			position: absolute;
+			display: block;
+			margin-top: 30px;
+			margin-left: 5px;
+		}
+	}
+
+	.dashboard-links.open{
+		width: 80%;
+		z-index: 1000;
+
+		-webkit-transition: all 0.5s ease;
+	    -moz-transition: all 0.5s ease;
+	    -o-transition: all 0.5s ease;
+	    transition: all 0.5s ease;
+		h2{
+			display: block;
+		}
 	}
 }
 
