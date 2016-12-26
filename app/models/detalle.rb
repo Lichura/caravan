@@ -5,6 +5,7 @@ class Detalle < ApplicationRecord
 	#after_create :controlar_stock
 	after_update :actualizar_stock_insumo
 	before_destroy :destruir_stock_insumo
+	before_update :calcular_rango_automatico
 
   	has_many :detalle_insumos
   	accepts_nested_attributes_for :detalle_insumos,  allow_destroy: true
@@ -19,6 +20,28 @@ class Detalle < ApplicationRecord
 			puts( "El stock para el articulo #{producto.nombre} es insuficiente")
 		end
 	end
+
+
+	def calcular_rango_automatico
+    	producto =  Producto.find(self.producto_id)
+    	usuario = self.pedido.user_id
+    	if producto.correlativo?
+    		if rango = UserRango.where(user_id: usuario, producto_id: producto.id).first
+    			self.rango_desde = rango.rango + 1
+    			self.rango_hasta = rango.rango + self.cantidad
+    			rango.rango += self.cantidad
+    			rango.save 
+    		else
+    			self.rango_desde = 1
+    			self.rango_hasta = self.cantidad
+    			rango_nuevo = UserRango.new
+    				rango_nuevo.user_id = usuario
+    				rango_nuevo.producto_id = producto.id
+    				rango_nuevo.rango = self.cantidad
+    			rango_nuevo.save
+    		end
+    	end 
+  	end
 
 	def destruir_stock_insumo
 	    producto = Producto.find(self.producto_id)

@@ -87,10 +87,10 @@ Rails.application.configure do
     config.action_mailer.delivery_method = :smtp
 # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
-   :address              => "smtp.zoho.com",
+   :address              => "smtp.migadu.com",
    :port                 => 587,
-   :user_name            => ENV['ZOHO_MAIL'],
-   :password             => ENV['ZOHO_PASSWORD'],
+   :user_name            => "test@caravanastrenquelauquen.com.ar",
+   :password             => "test1234",
    :authentication       => :login,
    :enable_starttls_auto => true
     }

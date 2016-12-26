@@ -4,8 +4,13 @@
 	<%= f.object.producto.descripcion %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad, class: "cantidad form-control" %></td>
 	<% if f.object.producto.rango %>
-	<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" %></td>
-	<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "form-control" %></td>
+		<% if f.object.producto.correlativo %>
+			<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" , readonly: true  %></td>
+			<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, readonly: true  ,class: "form-control" %></td>
+		<% else %>
+			<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" %></td>
+			<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "form-control" %></td>
+		<% end %>
 	<% end %>
 	<%= f.hidden_field :producto_id %>
 	<%= f.hidden_field :precio, class: "precio"%>

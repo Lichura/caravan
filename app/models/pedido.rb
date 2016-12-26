@@ -44,6 +44,8 @@ class Pedido < ApplicationRecord
     end
   end
 
+
+
   #con esto calculo el precio segun los insumos seleccionados para cada articulo.
   def calcularPrecioTotal
     precio = 0
@@ -53,7 +55,8 @@ class Pedido < ApplicationRecord
         precio_insumo = 0
         detalle.detalle_insumos.each do |insumos|
           insumo = Insumo.find(insumos.insumo_id)
-          precio_insumo += insumo.precio
+          coeficiente = ProductoInsumo.find_by(producto_id: detalle.producto_id, insumo_id: insumo.id).coeficiente
+          precio_insumo += insumo.precio * coeficiente
         end
         puts("el precio de los insumos suma #{precio_insumo}")
         precio += precio_insumo * detalle.cantidad

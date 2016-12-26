@@ -12,7 +12,7 @@
 
 <dl class="dl-horizontal">
   <dt>Pedido:</dt>
-  <dd><%= @detalle.pedido_id %></dd>
+  <dd><%= @detalle.pedido.id %></dd>
 
   <dt>Producto:</dt>
   <dd><%= @detalle.producto_id %></dd>
@@ -22,5 +22,12 @@
 
   <dt>Precio:</dt>
   <dd><%= @detalle.precio %></dd>
+
+
+    <dt>Rango Desde:</dt>
+  <dd><%= @detalle.rango_desde %></dd>
+
+    <dt>Rango Hasta:</dt>
+  <dd><%= @detalle.rango_hasta %></dd>
 
 </dl>

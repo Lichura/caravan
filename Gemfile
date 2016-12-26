@@ -48,7 +48,8 @@ gem 'bootstrap-generators', '~> 3.3.4'
 #se utiliza para el paginador con bootstrap
 gem 'will_paginate-bootstrap'
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+ gem 'capistrano-rails', group: :development
+ gem 'unicorn', group: :development
 
 #Integracion con slack
 gem 'slack-notifier'

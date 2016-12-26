@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118093136) do
+ActiveRecord::Schema.define(version: 20161223175610) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -316,6 +316,7 @@ ActiveRecord::Schema.define(version: 20161118093136) do
     t.string   "imagen"
     t.boolean  "rango"
     t.integer  "tipo"
+    t.boolean  "correlativo"
     t.index ["familia_id"], name: "index_productos_on_familia_id"
   end
 
@@ -411,6 +412,14 @@ ActiveRecord::Schema.define(version: 20161118093136) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "user_rangos", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "producto_id"
+    t.integer  "rango"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "user_sucursals", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "nombre"
@@ -457,6 +466,7 @@ ActiveRecord::Schema.define(version: 20161118093136) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "rango"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

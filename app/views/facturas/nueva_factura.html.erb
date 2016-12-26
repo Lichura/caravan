@@ -114,7 +114,7 @@
                 <td data-title="Producto"><%= ff.object.producto.nombre %><br>
                 <%= ff.object.producto.descripcion %></td>
                 <td data-title="Cantidad"><%= ff.text_field :cantidad, :value =>  Remito.find(ff.object.remito_id).remito_items.find_by(:producto_id => ff.object.producto.id).pendiente_facturar , class: "cantidad form-control" %></td>
-                <td data-title="Precio"><%= ff.text_field :precio, :value =>  Producto.find(ff.object.producto.id).precio   , class: "precio form-control" %></td>
+                 <td data-title="Precio"><%= ff.text_field :precio, :value =>  Remito.find(ff.object.remito_id).pedido.detalles.find_by(:producto_id => ff.object.producto.id).precio   , class: "precio form-control" %></td>
                 <td data-title="IVA"><%= ff.text_field :iva, :value => 0, class: "iva form-control", readonly: true %></td>
                 <td data-title="Neto"><%= ff.text_field :neto, :value => 0, class: "neto form-control", readonly: true %></td>
                 <td data-title="descuento"><%= ff.text_field :descuento, :value => 0, class: "descuento form-control" %></td>
@@ -188,10 +188,12 @@ $('document').ready(function(){
   });
   $('.precio').on('change', function(){
     UpdateSubTotal(this);
+    UpdateTotal();
   });
   $('.descuento').unbind();
   $('.descuento').change(function(){
     UpdateSubTotal(this);
+    UpdateTotal();
   });
 
   function UpdateSubTotal(elem) {

@@ -2,6 +2,7 @@ class User < ApplicationRecord
   	enum role: [:admin, :distribuidor, :cliente]
   	before_validation :set_default_role
     before_create :set_default_condicion_de_pago
+    after_create :asignar_rango_0
 	#after_initialize :set_defaults, unless: :persisted?
 	#belongs_to :profile
 
@@ -69,6 +70,11 @@ class User < ApplicationRecord
 		end
 	end
 
+
+	def asignar_rango_0
+		self.rango = 0
+	end
+	
 	def encrypt_password
 		if password.present?
 			self.password_salt = BCrypt::Engine.generate_salt
