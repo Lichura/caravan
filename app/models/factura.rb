@@ -9,6 +9,7 @@ class Factura < ApplicationRecord
 	before_validation :marcar_productos_para_destruir
 	after_create :nueva_factura_cuenta_corriente
   	after_destroy :eliminar_factura_cuenta_corriente
+  	after_create :actualizar_estado_pedido
 
 	private
 	def aumentar_numerador
@@ -45,4 +46,19 @@ class Factura < ApplicationRecord
 	    @cc.conceptoNumero = self.numero
 	    @cc.save
 	  end
+
+
+	  def actualizar_estado_pedido
+      	self.remitos.each do |remito|
+        if remito.pedido.remitos.all? {|remito| remito.facturado?}
+          remito.pedido.facturado!
+          remito.pedido.facturado = true
+        elsif remito.pedido.remitos.any? {|remito| remito.facturado? || remito.estado == "Pendiente" || remito.estado == "Facturado parcial"}
+          remito.pedido.facturado_parcial!
+        else
+          remito.pedido.remitido!
+        end
+        remito.pedido.save
+      end
+    end
 end

@@ -1,6 +1,6 @@
 class PedidosController < ApplicationController
 
-  before_action :set_pedido, only: [:show, :edit, :update, :destroy]
+  before_action :set_pedido, only: [:show, :edit, :rango_pedido, :update, :destroy]
   before_action :estados, only: [:index]
   helper_method :sort_column, :sort_direction
 
@@ -14,6 +14,14 @@ class PedidosController < ApplicationController
     respond_to do |format|
      format.js { render 'get_cliente', layout: false}
     end
+  end
+
+  def rango_pedido
+    @productos = Producto.all
+    authorize @productos
+
+
+
   end
 
   # GET /pedidos
@@ -74,6 +82,8 @@ class PedidosController < ApplicationController
   def edit
     @productos = Producto.all
     authorize @productos
+
+    calcular_nuevo_rango
   end
 
   # POST /pedidos
@@ -87,8 +97,12 @@ class PedidosController < ApplicationController
       if @pedido.save
         @pedido.activo!
         #enviar_mensaje_por_slack
-        format.html { redirect_to @pedido, notice: 'El pedido se creo correctamente' }
-        format.json { render :show, status: :created, location: @pedido }
+        if @pedido.detalles.any? {|producto| Producto.find(producto.producto_id).correlativo?}
+          format.html { render :rango_pedido }
+        else
+          format.html { redirect_to @pedido, notice: 'El pedido se creo correctamente' }
+          format.json { render :show, status: :created, location: @pedido }
+        end
       else
         format.html { render :new }
         format.json { render json: @pedido.errors, status: :unprocessable_entity }
@@ -117,6 +131,7 @@ class PedidosController < ApplicationController
       if @pedido.update(pedido_params)
 
         estado_pedido_update
+        calcular_nuevo_rango
         @pedido.detalles.update_all "pendiente_remitir = cantidad"
         format.html { redirect_to @pedido, notice: 'El pedido se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @pedido }
@@ -231,5 +246,25 @@ class PedidosController < ApplicationController
       
       def sort_direction
         %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      end
+
+
+      def calcular_nuevo_rango
+        puts("estoy calculando el nuevo rango =============================================================")
+        @pedido.detalles.each do |detalle|
+          producto = Producto.find(detalle.producto_id)
+          if producto.correlativo?
+            if rango = UserRango.find_by(user_id: @pedido.user_id, producto_id: producto.id)
+              rango.rango = detalle.rango_hasta
+              rango.save 
+            else
+              rango_nuevo = UserRango.new
+                rango_nuevo.user_id = @pedido.user_id
+                rango_nuevo.producto_id = producto.id
+                rango_nuevo.rango = detalle.rango_hasta
+              rango_nuevo.save
+            end
+          end 
+        end
       end
 end

@@ -26,6 +26,7 @@ class Pedido < ApplicationRecord
   after_create :reservar_stock_insumo
   before_destroy :devolver_stock_insumo
   before_create :calcularPrecioTotal
+  after_create :calcular_rango_automatico
   #after_update :actualizar_stock_insumo
   #after_initialize :aumentar_numerador
 
@@ -127,6 +128,29 @@ class Pedido < ApplicationRecord
   end
 
 
+
+  def calcular_rango_automatico
+      self.detalles.each do |detalle|
+        producto =  Producto.find(detalle.producto_id)
+        usuario = self.user_id
+        if producto.correlativo?
+          if rango = UserRango.where(user_id: usuario, producto_id: producto.id).first
+            detalle.rango_desde = rango.rango + 1
+            detalle.rango_hasta = rango.rango + detalle.cantidad
+            rango.rango += detalle.cantidad
+            rango.save 
+          else
+            detalle.rango_desde = 1
+            detalle.rango_hasta = detalle.cantidad
+            rango_nuevo = UserRango.new
+              rango_nuevo.user_id = usuario
+              rango_nuevo.producto_id = producto.id
+              rango_nuevo.rango = detalle.cantidad
+            rango_nuevo.save
+          end
+        end 
+      end
+    end
 
 
 	def self.search(pedido)

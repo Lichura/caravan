@@ -69,7 +69,7 @@ class FacturasController < ApplicationController
     respond_to do |format|
       if @factura.save
         #actualizar_estado_remito
-        actualizar_estado_pedido
+        #actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Se creo la factura correctamente' }
         format.json { render :show, status: :created, location: @factura }
       else
@@ -131,7 +131,7 @@ class FacturasController < ApplicationController
           remito.estado = "Facturado"
           remito.facturado = true
         else
-          remito.estado = "Facturado parcia"
+          remito.estado = "Facturado parcial"
         end
         remito.save
       end

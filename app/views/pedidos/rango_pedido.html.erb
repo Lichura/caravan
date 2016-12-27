@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading pedidos"><h3>Asignar rangos</h3>
+
+    </div>
+      <div class="panel-body">
+        <div class="row">
+        <p class="alert alert-warning"> Los rangos asignados por defecto corresponden a la ultima asignación realizada en Caravanas Trenque Lauquen. Los mismos pueden ser modificados en caso de ser necesario. </p>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+              <div class="tabla-responsive-vertical shadow-z-1">
+                       <table class="tabla tabla-hover">
+                        <thead>
+                          <tr>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th>Rango Desde</th>
+                            <th>Rango Hasta</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+
+
+
+            <%= form_for(@pedido) do |f| %>
+              <%= f.fields_for :detalles do |ff| %>
+              <tr>
+                <% if ff.object.producto.rango %>
+                  <% if ff.object.producto.correlativo %>
+                    <td><%= ff.object.producto.nombre %></td>
+                    <td data-title="Cantidad"><%= ff.text_field :cantidad, class: "cantidad form-control" %></td>
+                    <td data-title="Rango Desde"><%= ff.text_field :rango_desde, class: "rango_desde form-control"   %></td>
+                    <td data-title="Rango Hasta"><%= ff.text_field :rango_hasta, readonly: true  ,class: "rango_hasta form-control" %></td>
+                  <% end %>
+                <% end %>
+                <%= ff.hidden_field :producto_id %>
+              <% end %>
+              </tr>
+              </tbody>
+                      </table>
+                    </div>
+              <%= f.submit "Editar pedido", class: "btn btn-primary pull-right" %>
+            <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<script>
+$('document').ready(function(){
+  $('.rango_desde').on('change', function(){
+    UpdateSubTotal(this);
+  });
+
+
+  function UpdateSubTotal(elem) {
+      // This will give the tr of the Element Which was changed
+      var $container = $(elem).parent().parent();
+      var cantidad = $container.find('.cantidad').val();
+      var rango_desde = $container.find('.rango_desde').val();
+      var rango_hasta = parseInt(rango_desde) + parseInt(cantidad);
+      $container.find('.rango_hasta').val(rango_hasta).trigger('change');
+  }
+
+});
+</script>
