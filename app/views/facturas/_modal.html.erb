@@ -13,6 +13,7 @@
           <table class="table table-hover">
             <thead class="facturas">
               <th>Utilizar</th>
+              <th>Pedido N</th>
               <th>Remito N</th>
               <th>CUIT</th>
               <th>Razon Social</th>
@@ -23,11 +24,11 @@
                 <% @remitos.each do |remito| %>
       <tr>
                         <td><%= check_box_tag "remito_ids[]", remito.id %></td>
+                        <td><%= remito.pedido.comprobanteNumero %></td>
                         <td><%= remito.numero %></td>
                         <td><%= remito.pedido.cuit %></td>
                         <td><%= User.find(remito.pedido.user_id).razonSocial %></td>
                         <td><%= remito.fecha %></td>
-                        <td><%= remito.pedido.distribuidor_id %>
     </tr>
   <% end %>
               </div>

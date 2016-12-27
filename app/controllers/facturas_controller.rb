@@ -61,15 +61,19 @@ class FacturasController < ApplicationController
     authorize @factura
     #selecciono univocamente los ids de remitos que se asociaron
     #luego genero la asociacion a la factura
-    @remitos = @factura.factura_items.uniq.pluck(:remito_id)
-    @remitos.each do |remito|
-      @remito = Remito.find(remito)
-      @factura.remitos << @remito
-    end
+
     respond_to do |format|
       if @factura.save
-        #actualizar_estado_remito
-        #actualizar_estado_pedido
+        @remitos = @factura.factura_items.distinct.pluck(:remito_id)
+          @remitos.each do |remito|
+            @remito = Remito.find(remito)
+            @factura.remitos << @remito
+          end
+
+
+        actualizar_remito_item
+        actualizar_estado_remito
+        actualizar_estado_pedido
         format.html { redirect_to @factura, notice: 'Se creo la factura correctamente' }
         format.json { render :show, status: :created, location: @factura }
       else
@@ -123,6 +127,20 @@ class FacturasController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def factura_params
       params.require(:factura).permit(:remito_id, :cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :factura_items_attributes => [:id, :producto_id, :remito_id, :cantidad, :precio, :neto, :iva, :subtotal, :descuento, :_destroy])
+    end
+
+    def actualizar_remito_item
+             @factura.factura_items.each do |factura_item|
+        @factura.remitos.each do |remito|
+          remito.remito_items.each do |remito_item|
+
+            if (remito_item.producto_id == factura_item.producto_id) && (remito_item.remito_id == factura_item.remito_id)
+              remito_item.pendiente_facturar -= factura_item.cantidad
+              remito_item.save
+            end
+          end
+        end
+      end
     end
 
     def actualizar_estado_remito
