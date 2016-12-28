@@ -23,11 +23,24 @@ class FacturasController < ApplicationController
 
   # GET /facturas/new
   def new
+
     @factura = Factura.new
+    
+    @cuit = params[:cuit]
     authorize @factura
     crear_factura_sin_remito
-    @remitos = Remito.where(:facturado => false)
-    #end
+    if !params[:cuit].nil?
+      pedidos = Pedido.where(cuit: @cuit).pluck(:id)
+      @remitos = Remito.where(pedido_id: [pedidos], facturado: false)
+      puts("esto esta haciendo algo!!!!!")
+      respond_to do |format|
+        format.js { render "traer_remitos" }
+      end
+    else
+      @remitos = Remito.where(:facturado => false)
+    end
+    #end      
+
       
   end
 
