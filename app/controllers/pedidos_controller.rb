@@ -96,7 +96,7 @@ class PedidosController < ApplicationController
     pendiente_remision
       if @pedido.save
         @pedido.activo!
-        #enviar_mensaje_por_slack
+        enviar_mensaje_por_slack
         if @pedido.detalles.any? {|producto| Producto.find(producto.producto_id).correlativo?}
           format.html { render :rango_pedido }
         else
