@@ -25,6 +25,7 @@
 
 
             <%= form_for(@pedido) do |f| %>
+              <%= f.hidden_field :pendiente_confirmar, value: true %>
               <%= f.fields_for :detalles do |ff| %>
               <tr>
                 <% if ff.object.producto.rango %>
@@ -36,6 +37,7 @@
                   <% end %>
                 <% end %>
                 <%= ff.hidden_field :producto_id %>
+
               <% end %>
               </tr>
               </tbody>

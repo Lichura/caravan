@@ -18,6 +18,8 @@
               <dd><%= @pedido.remitido.to_sino %></dd>         
              <dt>Facturado:</dt>
               <dd><%= @pedido.facturado.to_sino %></dd>
+              <dt>pendiente de confirmar:</dt>
+              <dd><%= @pedido.pendiente_confirmar.to_sino %></dd>
               <% if @pedido.condicionCompra %>
               <dt>Condicioncompra:</dt>
               <dd><%= CondicionPago.find(@pedido.condicionCompra).nombre %></dd>
