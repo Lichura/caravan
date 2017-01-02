@@ -1,0 +1,21 @@
+  <div style="background-color: white" class="container">
+    <div class="row">
+      <h1>Nuestros productos</h1>
+    </div>
+    <!-- Course 1 -->
+    <div class="row producto">
+    <h2><%= producto.titulo %></h2>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          <%= producto.description %>
+        </span>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-right imagen">
+            <img  src=<%= asset_path('caravanas.png') %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

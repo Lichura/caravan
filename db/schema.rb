@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223175610) do
+ActiveRecord::Schema.define(version: 20170102152046) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -207,6 +207,22 @@ ActiveRecord::Schema.define(version: 20161223175610) do
     t.integer  "numero"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "pagina_principal_productos", force: :cascade do |t|
+    t.string   "imagen"
+    t.string   "nombre"
+    t.string   "descripcion"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.integer  "pagina_principal_id"
+  end
+
+  create_table "pagina_principals", force: :cascade do |t|
+    t.string   "imagen_principal"
+    t.string   "nosotros_texto"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "pagos", force: :cascade do |t|

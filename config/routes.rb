@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :pagina_principals
   resources :insumos
   resources :pagos
   resources :nota_creditos

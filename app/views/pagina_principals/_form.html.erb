@@ -1,0 +1,43 @@
+<%= form_for(@pagina_principal, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @pagina_principal.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@pagina_principal.errors.count, "error") %> prohibited this pago from being saved:</h4>
+
+      <ul>
+      <% @pagina_principals.error.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :imagen_principal, "Imagen", class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.file_field :imagen_principal, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :nosotros_texto, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :nosotros_texto, class: "form-control" %>
+    </div>
+  </div>
+
+<%= f.fields_for :pagina_principal_productos do |productos| %>
+  <%= render 'productos_fields', f: productos %>
+<% end %>
+<%= link_to_add_fields "Agregar producto", f, :pagina_principal_productos,  :class => "btn btn-success pull-right" %>
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+      <%= link_to pagina_principals_path, class: 'btn btn-default pull-right' do %>
+          Cancelar
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+
