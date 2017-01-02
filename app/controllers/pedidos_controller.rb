@@ -96,7 +96,7 @@ class PedidosController < ApplicationController
     pendiente_remision
       if @pedido.save
         @pedido.activo!
-        #enviar_mensaje_por_slack
+        enviar_mensaje_por_slack
         if @pedido.detalles.any? {|producto| Producto.find(producto.producto_id).correlativo?}
           format.html { render :rango_pedido }
         else
@@ -167,12 +167,13 @@ class PedidosController < ApplicationController
   
   private
     def estado_pedido_update
-        if @pedido.detalles.any? { |item| Producto.find(item.producto_id).rango == true && (item.rango_desde.blank? || item.rango_hasta.blank?)}
+        if @pedido.detalles.any? { |item| Producto.find(item.producto_id).rango == true && (item.rango_desde.blank? || item.rango_hasta.blank?)} || @pedido.pendiente_confirmar?
           @pedido.activo!
-        else
+        else  
           @pedido.confirmado!
         end
     end
+
 
     def create_pedidos
       Producto.where(tipo: [1,2], activo: true).all.each do |obj|
@@ -219,7 +220,7 @@ class PedidosController < ApplicationController
     #end
 
     def pedido_params
-        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy, :detalle_insumos_attributes => [:id, :producto_id, :insumo_id, :cantidad_id, :detalle_id, :_destroy]])
+        params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :pendiente_confirmar, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy, :detalle_insumos_attributes => [:id, :producto_id, :insumo_id, :cantidad_id, :detalle_id, :_destroy]])
     end
 
 
