@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20170102152046) do
-
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
