@@ -3,6 +3,7 @@
       <h1>Nuestros productos</h1>
     </div>
     <!-- Course 1 -->
+    <% @pagina_principal.pagina_principal_productos.each do |producto| %>
     <div class="row producto">
     <h2><%= producto.titulo %></h2>
       <div class="col-md-6 col-lg-6">
@@ -13,9 +14,10 @@
       <div class="col-md-6 col-lg-6">
         <div class="contenedor-animacion cf">
           <div class="animation-element slide-right imagen">
-            <img  src=<%= asset_path('caravanas.png') %>>
+            <img  src=<%= producto.imagen %>>
           </div>
         </div>
       </div>
     </div>
-    </div>
+    <% end %>
+  </div>
