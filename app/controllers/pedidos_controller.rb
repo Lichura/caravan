@@ -205,7 +205,12 @@ class PedidosController < ApplicationController
             mensaje += "#{k}: #{v} unidades\n"
             end
 
-      SLACK.ping mensaje , parse: "full"
+      begin
+        SLACK.ping mensaje , parse: "full"
+      rescue => ex
+        logger.error ex.message
+      end
+
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_pedido
