@@ -1,4 +1,6 @@
 class Insumo < ApplicationRecord
+	mount_uploader :imagen, ImagenUploader
+
 	has_many :producto_insumos
 	has_many :productos, :through => :producto_insumos
 	has_many :stock_pedidos, :through => :stock_items

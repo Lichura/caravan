@@ -3,7 +3,7 @@
 		<div class="detalle-producto-titulo-nombre"><%= f.object.producto.nombre %></div>
 		<div class="detalle-producto-titulo-descripcion"><%= f.object.producto.descripcion %></div>
 	</div>
-	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen %></div>
+	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen, class: "producto_imagen" %></div>
 	<div class="precio detalle-producto-precio">
 		<%= number_to_currency(f.object.producto.precio) %>
 	</div>
@@ -17,10 +17,12 @@
 					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente) %>>
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
 						<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
+												<span><%= ff.object.insumo.nombre %></span>
 						<% else %>
-						<%= ff.check_box :_destroy, {}, '0', '1' %>
+							<%= f.collection_radio_buttons :_destroy, Insumo.where(id: ff.object.insumo.id).all, :id, :nombre %>
+							<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
 						<% end %>
-						<span><%= ff.object.insumo.nombre %></span>
+
 
 					</label>
 					<%= ff.hidden_field :insumo_id %>
@@ -52,10 +54,12 @@
 $('document').ready(function(){
 	$(".precio-unitario").change(function(){
 		calcularPrecioArticulo(this);
+		cambiarImagenInsumo(this);
 	});
 	
 	$(".precio-unitario").each(function(){
 		calcularPrecioArticulo(this);
+
 	});
 
 
@@ -83,6 +87,13 @@ function calcularPrecioArticulo(elem) {
 	var $container = $(elem).parent().parent().parent();
 	var $elemento = $(elem).parent().parent();
 	$elemento.find('.detalle-producto-informacion-insumo').each(function() {
+			if ($(this).find('.precio-unitario').find('input[type=radio]').prop('checked') == true){
+			var val = $(this).find('.precio-unitario').attr("value");
+			   	if ( val ) {
+			        val = parseFloat( val.replace( /^\$/, "" ) );
+			        suma += !isNaN( val ) ? val : 0;
+			    }
+			}
 			if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
 			var val = $(this).find('.precio-unitario').attr("value");
 			   	if ( val ) {
@@ -96,6 +107,15 @@ function calcularPrecioArticulo(elem) {
 	$container.find('.precio').text(suma.toFixed(2)).trigger('change');
 	$container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
+
+  function cambiarImagenInsumo(elem){
+  	var $container = $(elem).parent().parent().parent();
+  	var $imagen = $container.find('.producto_imagen');
+  	var $elemento = $(elem).parent();
+  	var nueva_imagen = $elemento.find('.insumo_imagen').attr("name");
+  	$imagen.attr("src", nueva_imagen);
+  	
+  }
 
  function UpdateTotal() {
 	var sum = 0;
