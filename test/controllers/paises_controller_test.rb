@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PaisesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @pais = paises(:one)
+    @pais = paises(:España)
   end
 
   test "should get index" do

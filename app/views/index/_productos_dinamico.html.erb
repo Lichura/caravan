@@ -3,17 +3,21 @@
       <h1>Nuestros productos</h1>
     </div>
     <!-- Course 1 -->
-    <% @pagina_principal.pagina_principal_productos.each do |producto| %>
+    <% @pagina_principal.pagina_principal_productos.each.with_index do |producto, index| %>
     <div class="row producto">
-    <h2><%= producto.titulo %></h2>
+    <h2><%= producto.nombre %></h2>
       <div class="col-md-6 col-lg-6">
         <span>
-          <%= producto.description %>
+          <%= producto.descripcion %>
         </span>
       </div>
       <div class="col-md-6 col-lg-6">
         <div class="contenedor-animacion cf">
+        <% if index.odd? %>
           <div class="animation-element slide-right imagen">
+        <% else %>
+          <div class="animation-element slide-left imagen">
+        <% end %>
             <img  src=<%= producto.imagen %>>
           </div>
         </div>
