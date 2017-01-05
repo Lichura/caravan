@@ -16,13 +16,12 @@
 				<div class="detalle-producto-informacion-insumo">
 					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente) %>>
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
-						<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
-												<span><%= ff.object.insumo.nombre %></span>
+							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
 						<% else %>
-							<%= f.collection_radio_buttons :_destroy, Insumo.where(id: ff.object.insumo.id).all, :id, :nombre %>
+							<%= ff.check_box :_destroy, {checked: false, class:"checkbox_insumo"}, '0', '1' %>
 							<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
 						<% end %>
-
+						<span><%= ff.object.insumo.nombre %></span>
 
 					</label>
 					<%= ff.hidden_field :insumo_id %>
@@ -55,6 +54,7 @@ $('document').ready(function(){
 	$(".precio-unitario").change(function(){
 		calcularPrecioArticulo(this);
 		cambiarImagenInsumo(this);
+		deseleccionarChecks(this);
 	});
 	
 	$(".precio-unitario").each(function(){
@@ -115,6 +115,17 @@ function calcularPrecioArticulo(elem) {
   	var nueva_imagen = $elemento.find('.insumo_imagen').attr("name");
   	$imagen.attr("src", nueva_imagen);
   	
+  }
+
+  function deseleccionarChecks(elem){
+  	var $container = $(elem).parent().parent().parent();
+	var $elemento = $(elem).parent().parent();
+	var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
+  	$elemento.find(".checkbox_insumo").each(function(){
+  		if ($(this).attr("id") != $checkbox ){
+  			$(this).attr('checked', false);
+  	}
+  	});
   }
 
  function UpdateTotal() {
