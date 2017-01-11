@@ -40,6 +40,8 @@
                       <th>Rango Desde</th>
                       <th>Rango Hasta</th>
                       <th>Pendiente de remitir</th>
+                       <th>Insumo</th>
+                      <th>Cantidad-insumo</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,6 +52,12 @@
                           <td data-title="Rango Desde"><%= producto.rango_desde %></td>
                           <td data-title="Rango Hasta"><%= producto.rango_hasta %></td>
                           <td data-title="Pendiente de remitir"><%= producto.pendiente_remitir %></td>
+                              <% producto.detalle_insumos.each do |insumo| %>
+                              <tr>
+                                <td data-title="Insumo"><%= Insumo.find(insumo.insumo_id).nombre %></td>
+                                <td data-title="Cantidad-insumo"><%= insumo.cantidad_id %></td>
+                              </tr>
+                              <% end %>
                         </tr>
                       <% end %>
                     </tbody>

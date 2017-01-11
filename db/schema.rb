@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102152046) do
+ActiveRecord::Schema.define(version: 20170104104039) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -151,6 +151,7 @@ ActiveRecord::Schema.define(version: 20170102152046) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.integer  "alerta"
+    t.string   "imagen"
   end
 
   create_table "medidas", force: :cascade do |t|

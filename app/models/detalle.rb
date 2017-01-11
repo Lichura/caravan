@@ -5,7 +5,7 @@ class Detalle < ApplicationRecord
 	#after_create :controlar_stock
 	after_update :actualizar_stock_insumo
 	before_destroy :destruir_stock_insumo
-
+	after_update :cantidad_insumo
 
   	has_many :detalle_insumos
   	accepts_nested_attributes_for :detalle_insumos,  allow_destroy: true
@@ -21,7 +21,12 @@ class Detalle < ApplicationRecord
 		end
 	end
 
-
+	def cantidad_insumo
+		self.detalle_insumos.each do |insumo|
+			coeficiente = ProductoInsumo.find_by(producto_id: insumo.producto_id, insumo_id: insumo.insumo_id).coeficiente
+			insumo.cantidad_id = self.cantidad * coeficiente
+		end
+	end
 
 
 	def destruir_stock_insumo
