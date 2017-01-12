@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'erecondo@caravanastrenquelauquen.com.ar'
+  default from: 'mail@caravanastrenquelauquen.com.ar'
   layout 'mailer'
 end

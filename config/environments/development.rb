@@ -61,8 +61,8 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
   :address              => "smtp.zoho.com",
    :port                 => 587,
-   :user_name            => 'erecondo@caravanastrenquelauquen.com.ar',
-   :password             => '',
+   :user_name            => 'mail@caravanastrenquelauquen.com.ar',
+   :password             => ENV['MAILPASSWORD'],
    :authentication       => :login,
    :enable_starttls_auto => true
     }

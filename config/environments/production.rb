@@ -88,8 +88,8 @@ Rails.application.configure do
 # SMTP settings for gmail
   :address              => "smtp.zoho.com",
    :port                 => 587,
-   :user_name            => 'erecondo@caravanastrenquelauquen.com.ar',
-   :password             => '',
+   :user_name            => 'mail@caravanastrenquelauquen.com.ar',
+   :password             => ENV['MAILPASSWORD'],
    :authentication       => :login,
    :enable_starttls_auto => true
     }
