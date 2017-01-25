@@ -1,3 +1,4 @@
+
 <div class="detalle-producto">
 	<div class="detalle-producto-titulo">
 		<div class="detalle-producto-titulo-nombre"><%= f.object.producto.nombre %></div>
@@ -14,16 +15,18 @@
 			<%= f.fields_for :detalle_insumos do |ff| %>
 				<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
 				<div class="detalle-producto-informacion-insumo">
-					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente) %>>
+					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
 							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
 						<% else %>
 							<%= ff.check_box :_destroy, {checked: false, class:"checkbox_insumo"}, '0', '1' %>
-							<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
+
 						<% end %>
+
 						<span><%= ff.object.insumo.nombre %></span>
 
 					</label>
+					<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
 					<%= ff.hidden_field :insumo_id %>
 					<%= ff.hidden_field :producto_id %>
 				</div>
@@ -41,7 +44,8 @@
 		<span>Subtotal: $</span>
 		<span class="subtotal">0</span>
 	</div>
-	<%= f.hidden_field :precio, :value => f.object.producto.precio %>
+
+	<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
 	<%= f.hidden_field :producto_id %>
 </div>
 
@@ -49,8 +53,13 @@
 
 
 
+
 <script>
+
+
+
 $('document').ready(function(){
+
 	$(".precio-unitario").change(function(){
 		calcularPrecioArticulo(this);
 		cambiarImagenInsumo(this);
@@ -69,6 +78,11 @@ $('document').ready(function(){
 
 	$('.cantidad').on('change', function() {
         UpdateSubTotal(this);
+        
+    });
+
+    $('.cantidad').on('change', function(){
+		validarArticulos(this);
     });
 
 
@@ -87,13 +101,6 @@ function calcularPrecioArticulo(elem) {
 	var $container = $(elem).parent().parent().parent();
 	var $elemento = $(elem).parent().parent();
 	$elemento.find('.detalle-producto-informacion-insumo').each(function() {
-			if ($(this).find('.precio-unitario').find('input[type=radio]').prop('checked') == true){
-			var val = $(this).find('.precio-unitario').attr("value");
-			   	if ( val ) {
-			        val = parseFloat( val.replace( /^\$/, "" ) );
-			        suma += !isNaN( val ) ? val : 0;
-			    }
-			}
 			if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
 			var val = $(this).find('.precio-unitario').attr("value");
 			   	if ( val ) {
@@ -126,6 +133,24 @@ function calcularPrecioArticulo(elem) {
   			$(this).attr('checked', false);
   	}
   	});
+  }
+
+  function validarArticulos(elem){
+  	var $container = $(elem).parent().parent().parent();
+	var $elemento = $(elem).parent().parent().parent();
+	var quantity = $(elem).val();
+	var chequeado = false
+	if (quantity > 0){
+  		$elemento.find(".checkbox_insumo").each(function(){
+  			if ( $(this).is(':checked') ){
+  				chequeado = true;
+  				alert("prueba");
+  			}
+  		});
+  	}
+  	if (chequeado === false){
+  		alert("No seleccionaste ninguna opcion.");
+  	}
   }
 
  function UpdateTotal() {

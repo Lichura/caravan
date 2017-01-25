@@ -68,7 +68,7 @@
                         </thead>
                         <tbody>
                           <%= f.fields_for :detalles do |ff| %>
-                            <% render 'detalle_edit', f: ff %>
+                            <% render 'detalle_edit', f: ff, locals: {user: f} %>
                           <% end %>
                         </tbody>
                       </table>

@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   def create
   	user = User.find_by_email(params[:email])
     #si el usuario es un cliente, lo redirijo a la pagina principal y no lo dejo loguearse
-    if user.profile_id == 3
+    if  !user.present? || user.profile_id == 3
         flash.now.alert = "Su usuario no cuenta con permisos para iniciar sesion"
         redirect_to root_url
     else

@@ -7,6 +7,7 @@ class Pedido < ApplicationRecord
 
 
   validates :cuit, presence: true
+  #validates_with GoodnessValidator, fields: [:detalles[:last_name]]
 
     enum status: {
     activo: 0,
@@ -51,24 +52,31 @@ class Pedido < ApplicationRecord
   def calcularPrecioTotal
     precio = 0
     cantidad = 0
+    distribuidor = User.find(self.distribuidor_id)
+    if distribuidor.descuento?
+      descuento = 1.0 - (distribuidor.descuento / 100.0)
+    else
+      descuento = 0.2
+    end
+    puts("================= descuentooooooo #{descuento}")
     self.detalles.each do |detalle|
       if Producto.find(detalle.producto_id).tipo == 1
         precio_insumo = 0
         detalle.detalle_insumos.each do |insumos|
           insumo = Insumo.find(insumos.insumo_id)
           coeficiente = ProductoInsumo.find_by(producto_id: detalle.producto_id, insumo_id: insumo.id).coeficiente
-          precio_insumo += insumo.precio * coeficiente
+          precio_insumo += insumo.precio * coeficiente 
         end
         puts("el precio de los insumos suma #{precio_insumo}")
-        precio += precio_insumo * detalle.cantidad
-        detalle.precio = precio_insumo
+        precio += precio_insumo * detalle.cantidad 
+        detalle.precio = precio_insumo * descuento
         detalle.save
       else
         precio += Producto.find(detalle.producto_id).precio * detalle.cantidad 
       end
       cantidad += detalle.cantidad
     end
-    self.precioTotal = precio
+      self.precioTotal = precio * descuento
   end
 
   def reservar_stock_insumo
@@ -84,8 +92,13 @@ class Pedido < ApplicationRecord
         end
       else
         producto = Producto.find(detalle.producto_id)
+        if !producto.stock_disponible.nil?
         producto.stock_disponible -= detalle.cantidad
         producto.stock_reservado += detalle.cantidad
+        else
+          producto.stock_disponible = 0 - detalle.cantidad
+          producto.stock_reservado =  detalle.cantidad
+        end
         producto.save
       end
     end
@@ -165,3 +178,13 @@ class Pedido < ApplicationRecord
 
 end
 
+
+
+
+class GoodnessValidator < ActiveModel::Validator
+  def validate(record)
+    if options[:fields].any?{|field| record.send(field) == "Evil" }
+      record.errors[:base] << "This person is evil"
+    end
+  end
+end

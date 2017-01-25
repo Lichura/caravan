@@ -67,7 +67,7 @@ $('document').ready(function(){
       var $container = $(elem).parent().parent();
       var cantidad = $container.find('.cantidad').val();
       var rango_desde = $container.find('.rango_desde').val();
-      var rango_hasta = parseInt(rango_desde) + parseInt(cantidad) -1;
+      var rango_hasta = parseInt(rango_desde) + parseInt(cantidad) - 1;
       $container.find('.rango_hasta').val(rango_hasta).trigger('change');
   }
 

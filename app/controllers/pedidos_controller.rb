@@ -69,6 +69,8 @@ class PedidosController < ApplicationController
     else
       @numero = 1
     end
+    @descuento = !current_user.descuento.nil? ? current_user.descuento : 1
+    #@descuento = 1 - (current_user.descuento / 100.0) || 1
     @cuits = User.all.map{ |u| [ u.cuit, u.id ] }
     if params[:cliente_id]
     @cliente = User.find(params[:cliente_id])  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente

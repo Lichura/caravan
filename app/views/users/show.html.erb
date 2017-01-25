@@ -19,6 +19,8 @@
             <dd><%= @user.localidad_id %></dd>
             <dt>Codigo Postal:</dt>
             <dd><%= @user.codigoPostal %></dd>
+            <dt>Descuento:</dt>
+            <dd><%= number_to_percentage(@user.descuento , precision: 0) %></dd>
             <% @user.user_sucursals.each do |sucursal| %>
               <dt>Sucursal:</dt>
               <dd><%= sucursal.nombre %></dd>
