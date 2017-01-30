@@ -1,6 +1,7 @@
 class FacturasController < ApplicationController
   before_action :set_factura, only: [:show, :edit, :update, :destroy]
   before_action :set_tipo, only: [:show, :edit, :update, :new, :nueva_factura]
+  before_action :set_numero, only: [:new, :nueva_factura]
 
   # GET /facturas
   # GET /facturas.json
@@ -29,6 +30,7 @@ class FacturasController < ApplicationController
     @cuit = params[:cuit]
     authorize @factura
     crear_factura_sin_remito
+
     if !params[:cuit].nil?
       pedidos = Pedido.where(cuit: @cuit).pluck(:id)
       @remitos = Remito.where(pedido_id: [pedidos], facturado: false)
@@ -206,6 +208,13 @@ class FacturasController < ApplicationController
     end
   end
 
+  def set_numero
+    if Factura.maximum(:numero)
+      @numero = Factura.maximum(:numero) + 1
+    else
+      @numero = 1
+    end
+  end
 
   def set_tipo
     @tipos = ["Factura A", "Factura B"]
