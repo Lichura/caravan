@@ -76,14 +76,12 @@ $('document').ready(function(){
     	UpdateTotal();
     });
 
-	$('.cantidad').on('change', function() {
+	$('.cantidad').off('change').on('change', function() {
         UpdateSubTotal(this);
+        validarArticulos(this);
         
     });
 
-    $('.cantidad').on('change', function(){
-		validarArticulos(this);
-    });
 
 
 function UpdateSubTotal(elem) {
