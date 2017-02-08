@@ -5,7 +5,7 @@ class Factura < ApplicationRecord
 
 	accepts_nested_attributes_for :factura_items,  allow_destroy: true
 
-	after_initialize :aumentar_numerador
+	#after_initialize :aumentar_numerador
 	before_validation :marcar_productos_para_destruir
 	after_create :nueva_factura_cuenta_corriente
   	after_destroy :eliminar_factura_cuenta_corriente

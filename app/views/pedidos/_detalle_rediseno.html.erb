@@ -60,7 +60,7 @@
 
 $('document').ready(function(){
 
-	$(".precio-unitario").change(function(){
+	$(".precio-unitario").off('change').on('change', function(){
 		calcularPrecioArticulo(this);
 		cambiarImagenInsumo(this);
 		deseleccionarChecks(this);
@@ -76,13 +76,32 @@ $('document').ready(function(){
     	UpdateTotal();
     });
 
+<<<<<<< HEAD
 	$('.cantidad').off('change').on('change', function() {
         UpdateSubTotal(this);
         validarArticulos(this);
         
     });
 
+=======
+	
+    $(".cantidad").off('change').on('change',function(){
+		validarArticulos(this);
+		UpdateTotal(this);
+    });
+>>>>>>> f8b51588b694e195d42927dd49bf3c913a20bbf3
 
+    $(".checkbox_insumo").off('change').on('change',function(){
+    	var $container = $(this).parent().parent().parent().parent();
+		var quantity = $container.find('.cantidad').val();
+    	 if ( $(this).is(':checked') & (quantity > 0)){
+  			$(":submit").attr("disabled", false);
+  			}
+  		else
+  			{
+  				$(":submit").attr("disabled", true);
+  			}
+    });
 
 function UpdateSubTotal(elem) {
     // This will give the tr of the Element Which was changed
@@ -136,18 +155,34 @@ function calcularPrecioArticulo(elem) {
   function validarArticulos(elem){
   	var $container = $(elem).parent().parent().parent();
 	var $elemento = $(elem).parent().parent().parent();
-	var quantity = $(elem).val();
+	var quantity = $container.find('.cantidad').val();
 	var chequeado = false
 	if (quantity > 0){
   		$elemento.find(".checkbox_insumo").each(function(){
   			if ( $(this).is(':checked') ){
   				chequeado = true;
-  				alert("prueba");
+  				$(":submit").removeAttr("disabled");
   			}
   		});
   	}
   	if (chequeado === false){
   		alert("No seleccionaste ninguna opcion.");
+  		$(":submit").attr("disabled", true);
+  	}
+  }
+
+  function validarArticulosSinCantidad(elem){
+  	var $container = $(elem).parent().parent().parent();
+	var $elemento = $(elem).parent().parent().parent();
+	var chequeado = false
+  	$elemento.find(".checkbox_insumo").each(function(){
+  		if ( $(this).is(':checked') ){
+  			chequeado = true;
+  			$(":submit").removeAttr("disabled");
+  		}
+  	});
+  	if (chequeado === false){
+  		$(":submit").attr("disabled", true);
   	}
   }
 
