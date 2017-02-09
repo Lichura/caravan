@@ -17,6 +17,8 @@ class User < ApplicationRecord
   	has_many :relacions
   	has_many :clientes, :through => :relacions
 
+  	has_many :rangos
+
 	before_create { generate_token(:auth_token) }
 	has_secure_password
 

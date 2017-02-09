@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170115170527) do
+ActiveRecord::Schema.define(version: 20170209143052) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -326,6 +326,16 @@ ActiveRecord::Schema.define(version: 20170115170527) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "codigoAfip"
+  end
+
+  create_table "rangos", force: :cascade do |t|
+    t.string   "letras"
+    t.string   "numero"
+    t.integer  "digito"
+    t.integer  "pedido_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relacions", force: :cascade do |t|

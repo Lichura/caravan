@@ -3,6 +3,7 @@ class Pedido < ApplicationRecord
 	has_many :productos, :through => :detalles
 	has_many :detalles
   has_many :remitos
+  has_many :rangos
 
 
 
@@ -162,6 +163,34 @@ class Pedido < ApplicationRecord
             rango_nuevo.save
           end
         end 
+      end
+    end
+
+    def calcular_rango_senasa
+      self.detalles.each do |detalle|
+        producto =  Producto.find(detalle.producto_id)
+        usuario = self.user_id
+        cantidad = detalle.cantidad
+        ultimo_rango = Rango.find_by(user_id: usuario).last
+        ultimo_rango_numero = ultimo_rango.numero
+        ultimo_rango_letra = ultimo_rango_letra
+        for index i in cantidad 
+          ultimo_rango_numero += 1
+          case ultimo_rango_numero
+          when 9
+            ultimo_rango_numero = 000
+          when 99
+            ultimo_rango_numero = 0
+          when 999
+            ultimo_rango_numero = 00
+
+          if ultimo_rango_numero = 1000
+            ultimo_rango_letra = ultimo_rango_letra.next
+            ultimo_rango_numero = 000
+          end
+          rango = Rango.new
+        end
+
       end
     end
 

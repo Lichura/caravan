@@ -1,0 +1,13 @@
+<div class="page-header">
+  <%= link_to rangos_path, class: 'btn btn-default' do %>
+    <span class="glyphicon glyphicon-list-alt"></span>
+    Volver
+  <% end -%>
+  <%= link_to @rango, class: 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-info-sign"></span>
+    Mostrar
+  <% end -%>
+  <h1>Editar rango</h1>
+</div>
+
+<%= render 'form' %>
