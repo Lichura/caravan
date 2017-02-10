@@ -7,8 +7,8 @@ class PaginaPrincipalsController < ApplicationController
   def index
     @pagina_principals = PaginaPrincipal.first
     @prueba = Senasa.new
-    @numeros = @prueba.calcular("AZ112", "J020")
-    @numeros = "001".next
+    @numeros = @prueba.verificar_cantidad_de_letras("JA20")
+    
 
   end
 
