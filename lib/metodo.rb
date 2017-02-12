@@ -78,4 +78,59 @@ module Metodo
 		end
 	end
 
+	def descomponer_rango(rango)
+		array_nuevo = Array.new
+		array_nuevo = rango.split("")
+		numero = /\d+/.match(rango).try(:[], 0)
+		puts array_nuevo[0]
+		case numero.size
+		when 3
+			aumentar_array_3_numeros(array_nuevo)
+		when 2
+			aumentar_array_2_numeros(array_nuevo)
+		when 1
+			puts("un numero")
+		end
+	end
+
+	def aumentar_array_3_numeros(array)
+		if array[3].to_i < 9
+			array[3] = array[3].next
+		else
+			array[3] = 0
+			if array[2].to_i < 9
+				array[2] = array[2].next
+			else
+				array[2] = 0
+				if array[1].to_i < 9
+					array[1] = array[1].next
+				else
+					array[1]= 0
+					array[0] = array[0].next
+				end
+			end
+		end	
+		puts(array)
+	end
+
+	def aumentar_array_2_numeros(array)
+		if array[3].to_i < 9
+			array[3] = array[3].next
+		else
+			array[3] = 0
+			if array[2].to_i < 9
+				array[2] = array[2].next
+			else
+				array[2] = 0
+				if array[1] = "Z"
+					array[0] = array[0].next
+					array[1] = "A"
+				else
+					array[1] = array[1].next 
+				end
+			end
+		end	
+		puts(array)
+	end
+
 end
