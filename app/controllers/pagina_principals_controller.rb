@@ -10,6 +10,7 @@ class PaginaPrincipalsController < ApplicationController
     @numeros = @prueba.descomponer_rango("AZ99")
     #@numeros = "001".next
 
+
   end
 
   # GET /pagina_principals/1

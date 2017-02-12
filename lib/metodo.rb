@@ -78,6 +78,7 @@ module Metodo
 		end
 	end
 
+
 	def descomponer_rango(rango)
 		array_nuevo = Array.new
 		array_nuevo = rango.split("")
@@ -131,6 +132,19 @@ module Metodo
 			end
 		end	
 		puts(array)
+	end
+
+
+	def verificar_cantidad_de_letras(rango)
+		letras = rango.scan(/(.*\D)(\d+)/)
+		case letras.size
+		when 1
+			puts("una letra")
+		when 2
+			puts("dos letras")
+		when 3
+			puts("tres letras")
+		end
 	end
 
 end
