@@ -7,7 +7,7 @@ class PaginaPrincipalsController < ApplicationController
   def index
     @pagina_principals = PaginaPrincipal.first
     @prueba = Senasa.new
-    @numeros = @prueba.descomponer_rango("AZ99")
+    @numeros = @prueba.descomponer_rango("ZZX8")
     #@numeros = "001".next
 
 

@@ -90,8 +90,9 @@ module Metodo
 		when 2
 			aumentar_array_2_numeros(array_nuevo)
 		when 1
-			puts("un numero")
+			aumentar_array_1_numero(array_nuevo)
 		end
+		return array_nuevo
 	end
 
 	def aumentar_array_3_numeros(array)
@@ -106,8 +107,13 @@ module Metodo
 				if array[1].to_i < 9
 					array[1] = array[1].next
 				else
-					array[1]= 0
-					array[0] = array[0].next
+					if array[0] == "Z"
+						array[1] = "A"
+						array[0] = "A"
+					else
+						array[1]= 0
+						array[0] = array[0].next
+					end
 				end
 			end
 		end	
@@ -122,29 +128,49 @@ module Metodo
 			if array[2].to_i < 9
 				array[2] = array[2].next
 			else
-				array[2] = 0
-				if array[1] = "Z"
-					array[0] = array[0].next
+				if array[0] == "Z" && array[1] == "Z"
+					array[0] = "A"
 					array[1] = "A"
+					array[2] = "A"
 				else
-					array[1] = array[1].next 
+					array[2] = 0
+						if array[1] == "Z"
+							array[0] = array[0].next
+							array[1] = "A"
+						else
+							array[1] = array[1].next 
+						end
 				end
 			end
 		end	
 		puts(array)
 	end
 
-
-	def verificar_cantidad_de_letras(rango)
-		letras = rango.scan(/(.*\D)(\d+)/)
-		case letras.size
-		when 1
-			puts("una letra")
-		when 2
-			puts("dos letras")
-		when 3
-			puts("tres letras")
-		end
+	def aumentar_array_1_numero(array)
+		if array[3].to_i < 9
+			array[3] = array[3].next
+		else
+			array[3] = 0
+			if array[0] == "Z" && array[1] == "Z" && array [2] == "Z"
+				array[0] = "A"
+				array[1] = 0
+				array[2] = 0
+			else
+				if array[2] = "Z"
+					array[2] = "A"
+				else
+					array[2] = array[2].next
+					if array[1] = "Z"
+						array[0] = array[0].next
+						array[1] = "A"
+					else
+						array[1] = array[1].next 
+					end
+				end
+			end
+		end	
+		puts(array)
 	end
+
 
 end
