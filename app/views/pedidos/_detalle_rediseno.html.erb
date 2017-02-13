@@ -76,20 +76,20 @@ $('document').ready(function(){
     	UpdateTotal();
     });
 
-<<<<<<< HEAD
+
 	$('.cantidad').off('change').on('change', function() {
         UpdateSubTotal(this);
         validarArticulos(this);
         
     });
 
-=======
+
 	
     $(".cantidad").off('change').on('change',function(){
 		validarArticulos(this);
 		UpdateTotal(this);
     });
->>>>>>> f8b51588b694e195d42927dd49bf3c913a20bbf3
+
 
     $(".checkbox_insumo").off('change').on('change',function(){
     	var $container = $(this).parent().parent().parent().parent();

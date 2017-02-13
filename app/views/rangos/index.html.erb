@@ -18,9 +18,10 @@
             <table class="table table-hover">
                 <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
                   <tr>
-                                            <th>Letras</th>
-                        <th>Numero</th>
+                        <th>CUIG</th>
+                        <th>Rango</th>
                         <th>Digito</th>
+                        <th>caravana</th>
                         <th>Pedido</th>
                         <th>User</th>
 
@@ -32,10 +33,11 @@
 
 
                 <tbody>
-                  <%= @rangos.each do |rango| %>
+                  <% @rangos.each do |rango| %>
+                                            <td><%= User.find(rango.user_id).cuig %></td>
                                             <td><%= rango.letras %></td>
-                                            <td><%= rango.numero %></td>
                                             <td><%= rango.digito %></td>
+                                            <td><%= User.find(rango.user_id).cuig + "-" + rango.letras + "-" + rango.digito.to_s %></td>
                                             <td><%= rango.pedido_id %></td>
                                             <td><%= rango.user_id %></td>
                                       <td>

@@ -78,12 +78,44 @@ module Metodo
 		end
 	end
 
+	def calcular_letras(rango)
+		consulta = descomponer_rango(rango)
+		numeros = /\d+/.match(consulta.to_s).try(:[], 0)
+		case numeros.size
+		when 1
+			return consulta[0..2]
+		when 2
+			return consulta[0..1]
+		when 3
+			return consulta[0]
+		end
+	end
+
+	def generar_nuevo_rango(rango, pedido, user, cuig)
+		rango_nuevo = Rango.new
+		consulta = descomponer_rango(rango)
+		calcular_nuevo = calcular(cuig, consulta)
+		rango_nuevo.letras = consulta
+		rango_nuevo.pedido_id = pedido
+		rango_nuevo.user_id = user
+		rango_nuevo.digito = calcular_nuevo
+		rango_nuevo.save
+		return consulta 
+	end
+
+	def disminuir_ultimo_numero(rango)
+		array_nuevo = Array.new
+		array_nuevo = rango.split("")
+		array_nuevo[3] = "."
+		puts("jfsjadlkfjsdlkfjsadlkjfklsadjflksdajflkdsjflksjdklfjsdalkfjsalkdjflskadjflkasjflkasjfk")
+		puts(array_nuevo)
+		return array_nuevo.join("")
+	end
 
 	def descomponer_rango(rango)
 		array_nuevo = Array.new
 		array_nuevo = rango.split("")
 		numero = /\d+/.match(rango).try(:[], 0)
-		puts array_nuevo[0]
 		case numero.size
 		when 3
 			aumentar_array_3_numeros(array_nuevo)
@@ -92,10 +124,13 @@ module Metodo
 		when 1
 			aumentar_array_1_numero(array_nuevo)
 		end
-		return array_nuevo
+		return array_nuevo.join("")
 	end
 
 	def aumentar_array_3_numeros(array)
+		if array[3] == "."
+			array[3] = 0
+		else	
 		if array[3].to_i < 9
 			array[3] = array[3].next
 		else
@@ -117,10 +152,13 @@ module Metodo
 				end
 			end
 		end	
-		puts(array)
+	end
 	end
 
 	def aumentar_array_2_numeros(array)
+				if array[3] == "."
+			array[3] = 0
+		else	
 		if array[3].to_i < 9
 			array[3] = array[3].next
 		else
@@ -143,10 +181,14 @@ module Metodo
 				end
 			end
 		end	
+	end
 		puts(array)
 	end
 
 	def aumentar_array_1_numero(array)
+				if array[3] == "."
+			array[3] = 0
+		else	
 		if array[3].to_i < 9
 			array[3] = array[3].next
 		else
@@ -169,6 +211,7 @@ module Metodo
 				end
 			end
 		end	
+	end
 		puts(array)
 	end
 
