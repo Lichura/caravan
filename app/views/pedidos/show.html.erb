@@ -100,7 +100,14 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if current_user.profile_id == 1  %>
+        <% if !@pedido.activo? %>
+          <%= link_to "Excel", rangos_path(format: "xls", pedido: @pedido.id) %>
+        <% end %>
+      <% end %>
             <%= link_to "PDF", pedido_path(@pedido, :format => 'pdf'),  {class: "btn btn-warning"} %>
   </div>
 </div>
+
+
 
