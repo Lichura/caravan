@@ -1,10 +1,16 @@
 class PaginaPrincipalsController < ApplicationController
+  include Metodo
   before_action :set_pagina_principal, only: [:show, :edit, :update, :destroy]
 
   # GET /pagina_principals
   # GET /pagina_principals.json
   def index
     @pagina_principals = PaginaPrincipal.first
+    @prueba = Senasa.new
+    @numeros = @prueba.descomponer_rango("ZZX8")
+    #@numeros = "001".next
+
+
   end
 
   # GET /pagina_principals/1

@@ -76,11 +76,20 @@ $('document').ready(function(){
     	UpdateTotal();
     });
 
+
+	$('.cantidad').off('change').on('change', function() {
+        UpdateSubTotal(this);
+        validarArticulos(this);
+        
+    });
+
+
 	
     $(".cantidad").off('change').on('change',function(){
 		validarArticulos(this);
 		UpdateTotal(this);
     });
+
 
     $(".checkbox_insumo").off('change').on('change',function(){
     	var $container = $(this).parent().parent().parent().parent();

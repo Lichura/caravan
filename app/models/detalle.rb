@@ -6,6 +6,7 @@ class Detalle < ApplicationRecord
 	after_update :actualizar_stock_insumo
 	before_destroy :destruir_stock_insumo
 	after_update :cantidad_insumo
+	after_update :generar_rango_senasa
 
   	has_many :detalle_insumos
   	accepts_nested_attributes_for :detalle_insumos,  allow_destroy: true
@@ -26,6 +27,23 @@ class Detalle < ApplicationRecord
 			coeficiente = ProductoInsumo.find_by(producto_id: insumo.producto_id, insumo_id: insumo.insumo_id).coeficiente
 			insumo.cantidad_id = self.cantidad * coeficiente
 		end
+	end
+
+
+	def generar_rango_senasa
+		if self.rango_desde != nil && Producto.find(self.producto_id).correlativo == false
+		rango_desde = self.rango_desde
+
+		cantidad = self.cantidad
+		cuig = User.find(self.pedido.user_id).cuig
+		@metodo = Senasa.new
+		rango_desde = @metodo.disminuir_ultimo_numero(rango_desde)
+		i = 0
+		while i < cantidad
+			rango_desde = @metodo.generar_nuevo_rango(rango_desde, self.pedido_id, self.pedido.user_id, cuig)
+			i += 1
+		end
+	end
 	end
 
 

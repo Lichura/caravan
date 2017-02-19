@@ -24,9 +24,7 @@ class FacturasController < ApplicationController
 
   # GET /facturas/new
   def new
-
     @factura = Factura.new
-    
     @cuit = params[:cuit]
     authorize @factura
     crear_factura_sin_remito
@@ -42,8 +40,6 @@ class FacturasController < ApplicationController
       @remitos = Remito.where(:facturado => false)
     end
     #end      
-
-      
   end
 
   def nueva_factura

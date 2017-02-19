@@ -1,0 +1,1 @@
+json.array! @rangos, partial: 'rangos/rango', as: :rango
