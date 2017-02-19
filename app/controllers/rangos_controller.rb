@@ -4,7 +4,17 @@ class RangosController < ApplicationController
   # GET /rangos
   # GET /rangos.json
   def index
-    @rangos = Rango.paginate(:page => params[:page], :per_page => 10)
+    if params[:pedido]
+      @rangos = Rango.where(pedido_id: params[:pedido]).paginate(:page => params[:page], :per_page => 10)
+      @nombre = Pedido.find(params[:pedido]).comprobanteNumero
+    else
+      @rangos = Rango.paginate(:page => params[:page], :per_page => 10)
+    end
+    respond_to do |format|
+      format.html
+      format.csv { send_data @rangos.to_csv }
+      format.xls { headers["Content-Disposition"] = "attachment; filename=\"pedido-#{@nombre}.xls\"" }
+    end
   end
 
   # GET /rangos/1
