@@ -34,7 +34,7 @@
             </div>
             <div id="collapse2" class="panel-collapse collapse in">
                 <% if @pedido.new_record? %>
-                  <% Familium.all.each do |familia| %>
+                  <% @familia_de_productos.each do |familia| %>
                     <div class="panel-group">
                       <div class="panel panel-default">
                         <div class="panel-heading pedidos">
@@ -46,7 +46,7 @@
                           <div class="detalle-contenedor">
                              <%= f.fields_for :detalles do |ff| %>
                                <% if ff.object.producto.familium_id == familia.id %>
-                                <% render 'detalle_rediseno', f: ff %>
+                                <% render 'detalle_rediseño_2', f: ff %>
                                <% end %>
                              <% end %>
                            </div>

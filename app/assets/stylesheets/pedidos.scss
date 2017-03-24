@@ -386,6 +386,7 @@ body {
 
 
 .detalle-producto-foto{
+  position: relative;
   height: 100px;
 }
 .detalle-producto-foto img{
@@ -394,11 +395,11 @@ body {
 }
 
 .detalle-producto-precio{
-  position: relative;
+  position: absolute;
   text-align: right;
   font-size: 2em; 
-  margin-top: -10%;
-  margin-bottom: 10%;
+  bottom:0;
+  right:0;
   color: rgb(100,100,100);
 }
 
@@ -430,40 +431,72 @@ font-size: 1.5em;
   margin-top: 0;
 }
 
+.detalle-producto-informacion_new{
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  width: 100%;
+}
 
 
+.detalle-producto-informacion-insumo_new:hover {
+  color: whitesmoke;
+}
 
+.detalle-producto-informacion-insumo_new:before {
+  content: "";
+  position: absolute;
+  background: #383736;
+  bottom: 0;
+  left: 0;
+  right: 100%;
+  top: 0;
+  z-index: -1;
+  -webkit-transition: right 0.09s ease-in;
+}
 
+.detalle-producto-informacion-insumo_new:hover:before {
+  right: 0;
+}
 
-.detalle-producto-informacion-insumo{
-  font-size: 0.5em;
+.detalle-producto-informacion-insumo_new{
+  background-color: rgba(120,120,120,1.0);
+  width: 100%;
+  height: 40px;
+  color: white;
+  border-bottom: 1px solid white;
+  text-align: center;
+  position: relative;
+  text-transform: uppercase;
+  outline: 0;
+  overflow:hidden;
+  background: none;
+  z-index: 1;
+  cursor: pointer;
+  transition:         0.4s ease-in;
+  -o-transition:      0.4s ease-in;
+  -ms-transition:     0.4s ease-in;
+  -moz-transition:    0.4s ease-in;
+  -webkit-transition: 0.4s ease-in;
 
   label {
+      width: 100%;
       position:relative;   
       cursor:pointer;
   }
   label [type="checkbox"] {
       display:none;
   }
-  [type="checkbox"] + span {
-      display:inline-block;
-      background:rgb(255,255,255);
-      border: 1px solid rgb(200,200,200);
-      padding:1em;
+  [type="checkbox"]  {
+      background: #383736;
   }
 
-  label:hover{
-    background: $pedidos;
-      color: white; 
-      display:inline-block; 
-  }
 
   :checked + span {
       background:$pedidos;
       color: white; 
-      display:inline-block;    
+      width: 100%; 
   }
-  [type="checkbox"][disabled] + span {
+  label [type="checkbox"][disabled]  {
       background: rgb(200,200,200);  
   }
 }
@@ -473,6 +506,7 @@ font-size: 1.5em;
   text-align: right;
   margin-top: 5%;
 }
+
 
 
 /*=======================*/

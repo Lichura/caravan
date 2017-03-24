@@ -1,0 +1,45 @@
+
+<div class="detalle-producto">
+	<div class="detalle-producto-titulo">
+		<div class="detalle-producto-titulo-nombre"><%= f.object.producto.nombre %></div>
+		<div class="detalle-producto-titulo-descripcion"><%= f.object.producto.descripcion %></div>
+	</div>
+	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen, class: "producto_imagen" %>
+	<div class="precio detalle-producto-precio">
+		<%= number_to_currency(f.object.producto.precio) %>
+	</div>
+	</div>
+	<% if f.object.producto.insumos.any? %>
+		<div class="detalle-producto-informacion_new">
+			<!-- iteracion -->
+			<%= f.fields_for :detalle_insumos do |ff| %>
+				<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
+				<div class="detalle-producto-informacion-insumo_new">
+					<label class="precio-unitario_new" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
+						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
+							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
+						<% else %>
+							<%= ff.check_box :_destroy, {checked: false, class:"checkbox_insumo"}, '0', '1' %>
+
+						<% end %>
+
+						<span><%= ff.object.insumo.nombre %></span>
+
+					</label>
+					<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
+					<%= ff.hidden_field :insumo_id %>
+					<%= ff.hidden_field :producto_id %>
+				</div>
+				<% end %>
+			<% end %>
+			<!-- fin iteracion -->
+		</div>
+	<% end %>
+	<% if @pedido.errors.any? %>
+		<div class="detalle-producto-cantidad_new">Cantidad: <%= f.text_field :cantidad  ,  class: "cantidad"%></div>
+	<% else %>
+		<div class="detalle-producto-cantidad_new">Cantidad: <%= f.text_field :cantidad, :value => 0,  class: "cantidad"  %></div>
+	<% end %>
+	<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
+	<%= f.hidden_field :producto_id %>
+</div>

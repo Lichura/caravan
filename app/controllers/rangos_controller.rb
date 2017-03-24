@@ -8,7 +8,7 @@ class RangosController < ApplicationController
       @rangos = Rango.where(pedido_id: params[:pedido]).paginate(:page => params[:page], :per_page => 10)
       @nombre = Pedido.find(params[:pedido]).comprobanteNumero
     else
-      @rangos = Rango.paginate(:page => params[:page], :per_page => 10)
+      @rangos = Rango.paginate(:page => params[:page], :per_page => 10).includes(:user)
     end
     respond_to do |format|
       format.html
