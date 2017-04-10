@@ -7,15 +7,15 @@
       "display": true,
       "description": "",
       "x": 20,
-      "y": 216,
+      "y": 235,
       "width": 555.2,
-      "height": 323,
+      "height": 350,
       "header": {
         "enabled": true,
-        "height": 44,
+        "height": 30,
         "translate": {
           "x": 0,
-          "y": 144
+          "y": 163
         },
         "items": [
           {
@@ -24,14 +24,14 @@
             "display": true,
             "description": "",
             "x": 20,
-            "y": 91,
+            "y": 77,
             "width": 73.1,
             "height": 25,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 22,
+              "font-size": 14,
               "color": "#000000",
               "text-align": "center",
               "vertical-align": "top",
@@ -50,16 +50,16 @@
             "display": true,
             "description": "",
             "x": 125.1,
-            "y": 87,
+            "y": 76,
             "width": 155,
             "height": 26,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 22,
+              "font-size": 14,
               "color": "#000000",
-              "text-align": "center",
+              "text-align": "left",
               "vertical-align": "top",
               "line-height": "",
               "line-height-ratio": "",
@@ -76,14 +76,14 @@
             "display": true,
             "description": "",
             "x": 440.1,
-            "y": 91,
+            "y": 77,
             "width": 89,
             "height": 25,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 22,
+              "font-size": 14,
               "color": "#000000",
               "text-align": "center",
               "vertical-align": "top",
@@ -99,10 +99,10 @@
         ]
       },
       "detail": {
-        "height": 31,
+        "height": 17.1,
         "translate": {
           "x": 0,
-          "y": 108.8
+          "y": 113.8
         },
         "items": [
           {
@@ -111,14 +111,14 @@
             "display": true,
             "description": "",
             "x": 20,
-            "y": 157.2,
+            "y": 151.2,
             "width": 62.1,
-            "height": 19,
+            "height": 16.1,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 18,
+              "font-size": 14,
               "color": "#000000",
               "text-align": "center",
               "vertical-align": "top",
@@ -138,36 +138,21 @@
             }
           },
           {
-            "id": "",
-            "type": "line",
-            "display": true,
-            "description": "",
-            "style": {
-              "border-color": "#000000",
-              "border-width": 1,
-              "border-style": "solid"
-            },
-            "x1": 20,
-            "y1": 182.2,
-            "x2": 575.2,
-            "y2": 182.2
-          },
-          {
             "id": "nombre",
             "type": "text-block",
             "display": true,
             "description": "",
-            "x": 130.1,
-            "y": 157.2,
+            "x": 129.1,
+            "y": 151.2,
             "width": 215,
-            "height": 20,
+            "height": 16.1,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 18,
+              "font-size": 14,
               "color": "#000000",
-              "text-align": "center",
+              "text-align": "left",
               "vertical-align": "top",
               "line-height": "",
               "line-height-ratio": "",
@@ -190,14 +175,14 @@
             "display": true,
             "description": "",
             "x": 437.1,
-            "y": 158.2,
+            "y": 152.2,
             "width": 94,
-            "height": 20,
+            "height": 16.1,
             "style": {
               "font-family": [
-                "Times New Roman"
+                "Helvetica"
               ],
-              "font-size": 18,
+              "font-size": 14,
               "color": "#000000",
               "text-align": "center",
               "vertical-align": "top",
@@ -223,7 +208,7 @@
         "height": 0,
         "translate": {
           "x": 0,
-          "y": 60.6
+          "y": 51.7
         },
         "items": []
       },
@@ -232,12 +217,12 @@
         "height": 0,
         "translate": {
           "x": 0,
-          "y": 1.2
+          "y": -7.7
         },
         "items": []
       },
-      "content-height": 279,
-      "auto-page-break": true
+      "content-height": 320,
+      "auto-page-break": false
     },
     {
       "id": "",
@@ -262,7 +247,7 @@
       "display": true,
       "description": "",
       "x": 277.1,
-      "y": 20,
+      "y": 30,
       "width": 62,
       "height": 55,
       "style": {
@@ -287,15 +272,15 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 459.1,
-      "y": 96,
+      "x": 450,
+      "y": 95,
       "width": 116.1,
-      "height": 16.1,
+      "height": 14,
       "style": {
         "font-family": [
           "Helvetica"
         ],
-        "font-size": 14,
+        "font-size": 12,
         "color": "#000000",
         "text-align": "center",
         "vertical-align": "top",
@@ -320,14 +305,14 @@
       "display": true,
       "description": "",
       "x": 434.1,
-      "y": 20,
+      "y": 25,
       "width": 92.1,
-      "height": 21,
+      "height": 18,
       "style": {
         "font-family": [
           "Helvetica"
         ],
-        "font-size": 18,
+        "font-size": 16,
         "color": "#000000",
         "text-align": "center",
         "vertical-align": "top",
@@ -351,17 +336,17 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 403.1,
-      "y": 20,
+      "x": 400,
+      "y": 25,
       "width": 25.4,
       "height": 25.9,
       "style": {
         "font-family": [
           "Helvetica"
         ],
-        "font-size": 18,
+        "font-size": 16,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -378,7 +363,7 @@
       "display": true,
       "description": "",
       "x": 247.4,
-      "y": 85,
+      "y": 105,
       "width": 123.7,
       "height": 29,
       "style": {
@@ -405,7 +390,7 @@
       "display": true,
       "description": "",
       "x": 20,
-      "y": 127,
+      "y": 150,
       "width": 555.2,
       "height": 79,
       "style": {
@@ -450,7 +435,7 @@
       "display": true,
       "description": "",
       "x": 102,
-      "y": 135,
+      "y": 161,
       "width": 158.1,
       "height": 14,
       "style": {
@@ -459,7 +444,7 @@
         ],
         "font-size": 12,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -482,7 +467,7 @@
       "display": true,
       "description": "",
       "x": 102,
-      "y": 172,
+      "y": 201,
       "width": 97,
       "height": 14,
       "style": {
@@ -491,7 +476,7 @@
         ],
         "font-size": 12,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -514,7 +499,7 @@
       "display": true,
       "description": "",
       "x": 102,
-      "y": 152,
+      "y": 181,
       "width": 148,
       "height": 14,
       "style": {
@@ -523,7 +508,7 @@
         ],
         "font-size": 12,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -546,12 +531,12 @@
       "display": true,
       "description": "",
       "x": 36,
-      "y": 134,
+      "y": 160,
       "width": 90.9,
       "height": 20,
       "style": {
         "font-family": [
-          "Times New Roman"
+          "Helvetica"
         ],
         "font-size": 14,
         "color": "#000000",
@@ -574,7 +559,7 @@
       "display": true,
       "description": "",
       "x": 354.1,
-      "y": 552,
+      "y": 570,
       "width": 122.1,
       "height": 21,
       "style": {
@@ -599,8 +584,8 @@
       "type": "text-block",
       "display": true,
       "description": "",
-      "x": 476.1,
-      "y": 554,
+      "x": 480,
+      "y": 570,
       "width": 33,
       "height": 16.1,
       "style": {
@@ -631,8 +616,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 480.1,
-      "y": 554,
+      "x": 530,
+      "y": 570,
       "width": 45,
       "height": 16.1,
       "style": {
@@ -657,8 +642,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 403.1,
-      "y": 44,
+      "x": 400,
+      "y": 49,
       "width": 122,
       "height": 48.3,
       "style": {
@@ -685,13 +670,13 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 400.1,
+      "x": 400,
       "y": 86,
-      "width": 195.1,
-      "height": 100,
+      "width": 55.5,
+      "height": 24,
       "style": {
         "font-family": [
-          "Times New Roman"
+          "Helvetica"
         ],
         "font-size": 12,
         "color": "#000000",
@@ -711,8 +696,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 20,
-      "y": 553,
+      "x": 55,
+      "y": 570,
       "width": 165.1,
       "height": 24,
       "style": {
@@ -721,7 +706,7 @@
         ],
         "font-size": 14,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -738,7 +723,7 @@
       "display": true,
       "description": "",
       "x": 221.1,
-      "y": 579,
+      "y": 595,
       "width": 150,
       "height": 27,
       "style": {
@@ -763,8 +748,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 52.1,
-      "y": 610,
+      "x": 55,
+      "y": 630,
       "width": 77,
       "height": 24,
       "style": {
@@ -773,7 +758,7 @@
         ],
         "font-size": 14,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -789,8 +774,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 52,
-      "y": 633,
+      "x": 55,
+      "y": 653,
       "width": 62.1,
       "height": 27.8,
       "style": {
@@ -799,7 +784,7 @@
         ],
         "font-size": 14,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -807,7 +792,7 @@
         "font-style": []
       },
       "texts": [
-        "Firma"
+        "Firma:"
       ]
     },
     {
@@ -815,8 +800,8 @@
       "type": "text",
       "display": true,
       "description": "",
-      "x": 40.1,
-      "y": 658,
+      "x": 55,
+      "y": 678,
       "width": 117,
       "height": 25,
       "style": {
@@ -825,7 +810,7 @@
         ],
         "font-size": 14,
         "color": "#000000",
-        "text-align": "center",
+        "text-align": "left",
         "vertical-align": "top",
         "line-height": "",
         "line-height-ratio": "",
@@ -833,7 +818,7 @@
         "font-style": []
       },
       "texts": [
-        "Aclaracion"
+        "Aclaracion:"
       ]
     },
     {
@@ -903,24 +888,9 @@
         "border-style": "solid"
       },
       "x1": 20,
-      "y1": 542,
+      "y1": 565,
       "x2": 575.2,
-      "y2": 542
-    },
-    {
-      "id": "",
-      "type": "line",
-      "display": true,
-      "description": "",
-      "style": {
-        "border-color": "#000000",
-        "border-width": 1,
-        "border-style": "solid"
-      },
-      "x1": 20,
-      "y1": 20,
-      "x2": 575.2,
-      "y2": 20
+      "y2": 565
     },
     {
       "id": "",
@@ -942,7 +912,7 @@
       "type": "image",
       "display": true,
       "description": "",
-      "x": 21.1,
+      "x": 20,
       "y": 20,
       "width": 252,
       "height": 63,
@@ -962,9 +932,85 @@
         "border-style": "solid"
       },
       "x1": 20,
+      "y1": 20,
+      "x2": 575.2,
+      "y2": 20
+    },
+    {
+      "id": "",
+      "type": "line",
+      "display": true,
+      "description": "",
+      "style": {
+        "border-color": "#000000",
+        "border-width": 1,
+        "border-style": "solid"
+      },
+      "x1": 20,
       "y1": 821.8,
       "x2": 20,
       "y2": 20
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 32,
+      "y": 83,
+      "width": 220.6,
+      "height": 63,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 8,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": 9,
+        "line-height-ratio": 1,
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ]
+      },
+      "texts": [
+        "Enois S.A.",
+        "Direccion: Gdor. Irigoyen 145 Trenque Lauquen -Bs. As.",
+        "Telefono: 02392-49-0617",
+        "Mail: ventas@caravanastrenquelauquen.com.ar",
+        "Web: www.caravanastrenquelauquen.com.ar",
+        "IVA Responsable Inscripto"
+      ]
+    },
+    {
+      "id": "",
+      "type": "text",
+      "display": true,
+      "description": "",
+      "x": 257.6,
+      "y": 85,
+      "width": 99,
+      "height": 17,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 14,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [
+          "bold"
+        ]
+      },
+      "texts": [
+        "REMITO"
+      ]
     }
   ],
   "state": {
