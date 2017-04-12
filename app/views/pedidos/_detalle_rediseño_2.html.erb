@@ -52,17 +52,9 @@
 
 $('document').ready(function(){
 
-	$(".precio-unitario").off('change').on('change', function(){
-		calcularPrecioArticulo(this);
-		cambiarImagenInsumo(this);
-		deseleccionarChecks(this);
-		pintarDivs(this);
-	});
-	
-	$(".precio-unitario").each(function(){
-		calcularPrecioArticulo(this);
 
-	});
+	
+
 
 
 	 $('.subtotal').change(function() {
@@ -81,18 +73,7 @@ $('document').ready(function(){
 
 
 
-    $(".checkbox_insumo").off('change').on('change',function(){
-    	var $container = $(this).parent().parent().parent().parent();
-		var quantity = $container.find('.cantidad').val();
-    	 if ( $(this).is(':checked') & (quantity > 0)){
-  			$(":submit").attr("disabled", false);
-  			}
-  		else
-  			{
-  				$(":submit").attr("disabled", true);
-  				despintarDivs(this);
-  			}
-    });
+
 
 function UpdateSubTotal(elem) {
     // This will give the tr of the Element Which was changed
@@ -104,54 +85,16 @@ function UpdateSubTotal(elem) {
     $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
 
-function calcularPrecioArticulo(elem) {
-	var suma = 0;
-	var $container = $(elem).parent().parent().parent();
-	var $elemento = $(elem).parent().parent();
-	$elemento.find('.detalle-producto-informacion-insumo').each(function() {
-			if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
-			var val = $(this).find('.precio-unitario').attr("value");
-			   	if ( val ) {
-			        val = parseFloat( val.replace( /^\$/, "" ) );
-			        suma += !isNaN( val ) ? val : 0;
-			    }
-		}
-	});
-	var cantidad = $container.find('.cantidad').val();
-	var subtotal = parseInt(cantidad) * parseFloat(suma);
-	$container.find('.precio').text(suma.toFixed(2)).trigger('change');
-	$container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
-}
 
-  function cambiarImagenInsumo(elem){
-  	var $container = $(elem).parent().parent().parent();
-  	var $imagen = $container.find('.producto_imagen');
-  	var $elemento = $(elem).parent();
-  	var nueva_imagen = $elemento.find('.insumo_imagen').attr("name");
-  	$imagen.attr("src", nueva_imagen);
-  }
 
-  function pintarDivs(elem){
-  	var $container = $(elem).parent();
-  	$(elem).parent().addClass('pintar-contenedor');
-  }
 
-  function despintarDivs(elem){
-  	var $container = $(elem).parent().parent();
-  	$(elem).parent().parent().removeClass('pintar-contenedor');
-  }
 
-  function deseleccionarChecks(elem){
-  	var $container = $(elem).parent().parent().parent();
-	var $elemento = $(elem).parent().parent();
-	var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
-  	$elemento.find(".checkbox_insumo").each(function(){
-  		if ($(this).attr("id") != $checkbox ){
-  			$(this).attr('checked', false);
-  			 despintarDivs(this)
-  	}
-  	});
-  }
+
+
+
+
+
+
 
   function validarArticulos(elem){
   	var $container = $(elem).parent().parent().parent();

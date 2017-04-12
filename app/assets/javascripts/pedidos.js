@@ -1,4 +1,7 @@
 $('document').ready(function(){
+
+
+
 	 $('.subtotal').change(function() {
     	UpdateTotal();
     });
@@ -20,6 +23,11 @@ $('document').ready(function(){
         
     });
 
+
+
+  function agregarTilde(elem){
+  	 $(elem).append("<i style='color:green' class='glyphicon glyphicon-ok'></i>");
+  }
 
 function UpdateSubTotal(elem) {
     // This will give the tr of the Element Which was changed

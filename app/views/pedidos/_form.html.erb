@@ -1,3 +1,4 @@
+
         <%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
         <% if @pedido.errors.any? %>
         <div class="alert alert-danger alert-dismissable" role="alert">
@@ -118,7 +119,102 @@
  });
 
 
+    $(".precio-unitario").each(function(){
+    calcularPrecioArticulo(this);
 
+  });
+
+
+    $(".checkbox_insumo").off('change').on('change',function(){
+      var $container = $(this).parent().parent().parent().parent();
+    var quantity = $container.find('.cantidad').val();
+       if ( $(this).is(':checked') & (quantity > 0)){
+        $(":submit").attr("disabled", false);
+        }
+      else
+        {
+          $(":submit").attr("disabled", true);
+          despintarDivs(this);
+          eliminarTilde(this);
+        }
+    });
+
+//recorro cada insumo de cada articulo, en caso de que este deshabilitado (es decir por defecto y no se pueda
+// seleccionar, lo pinto y le agrego un tilde)
+  $(".precio-unitario").each(function(){
+    if ( $(this).find("input:checkbox").is(':disabled') ) {
+      pintarDivs(this);
+      agregarTilde(this);
+    }
+  });
+
+  $(".precio-unitario").off('change').on('change', function(){
+    calcularPrecioArticulo(this);
+    cambiarImagenInsumo(this);
+    deseleccionarChecks(this);
+    pintarDivs(this);
+    agregarTilde(this);
+  });
+
+  //agrego un tilde verde al texto de cada insumo
+  function agregarTilde(elem){
+     $(elem).append("<i style='color:green' class='glyphicon glyphicon-ok'></i>");
+  }
+
+  function eliminarTilde(elem){
+    $(elem).html(($(elem).find("span").text()));
+  }
+
+  //pinto cada contenedor
+  function pintarDivs(elem){
+    var $container = $(elem).parent();
+    $(elem).parent().addClass('pintar-contenedor');
+  }
+
+
+  function despintarDivs(elem){
+    var $container = $(elem).parent().parent();
+    $(elem).parent().parent().removeClass('pintar-contenedor');
+  }
+
+function calcularPrecioArticulo(elem) {
+  var suma = 0;
+  var $container = $(elem).parent().parent().parent();
+  var $elemento = $(elem).parent().parent();
+  $elemento.find('.detalle-producto-informacion-insumo').each(function() {
+      if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
+      var val = $(this).find('.precio-unitario').attr("value");
+          if ( val ) {
+              val = parseFloat( val.replace( /^\$/, "" ) );
+              suma += !isNaN( val ) ? val : 0;
+          }
+    }
+  });
+  var cantidad = $container.find('.cantidad').val();
+  var subtotal = parseInt(cantidad) * parseFloat(suma);
+  $container.find('.precio').text(suma.toFixed(2)).trigger('change');
+  $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+}
+
+  function deseleccionarChecks(elem){
+    var $container = $(elem).parent().parent().parent();
+  var $elemento = $(elem).parent().parent();
+  var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
+    $elemento.find(".checkbox_insumo").each(function(){
+      if ($(this).attr("id") != $checkbox ){
+        $(this).attr('checked', false);
+         despintarDivs(this)
+    }
+    });
+  }
+
+    function cambiarImagenInsumo(elem){
+    var $container = $(elem).parent().parent().parent();
+    var $imagen = $container.find('.producto_imagen');
+    var $elemento = $(elem).parent();
+    var nueva_imagen = $elemento.find('.insumo_imagen').attr("name");
+    $imagen.attr("src", nueva_imagen);
+  }
 
   var table = $('#tabla');
 
