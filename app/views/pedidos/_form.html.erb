@@ -125,9 +125,11 @@
   });
 
 
+    //generar una funcion que cuando se clicke y ya este clickado despinte y saque tildes
+
     $(".checkbox_insumo").off('change').on('change',function(){
       var $container = $(this).parent().parent().parent().parent();
-    var quantity = $container.find('.cantidad').val();
+      var quantity = $container.find('.cantidad').val();
        if ( $(this).is(':checked') & (quantity > 0)){
         $(":submit").attr("disabled", false);
         }
@@ -135,7 +137,7 @@
         {
           $(":submit").attr("disabled", true);
           despintarDivs(this);
-          eliminarTilde(this);
+          
         }
     });
 
@@ -151,9 +153,10 @@
   $(".precio-unitario").off('change').on('change', function(){
     calcularPrecioArticulo(this);
     cambiarImagenInsumo(this);
-    deseleccionarChecks(this);
     pintarDivs(this);
     agregarTilde(this);
+    deseleccionarChecks(this);
+
   });
 
   //agrego un tilde verde al texto de cada insumo
@@ -162,7 +165,10 @@
   }
 
   function eliminarTilde(elem){
-    $(elem).html(($(elem).find("span").text()));
+    var $container = $(elem).parent().parent();
+    console.log($container.html());
+    $container.find('i').remove();
+    
   }
 
   //pinto cada contenedor
@@ -198,13 +204,18 @@ function calcularPrecioArticulo(elem) {
 
   function deseleccionarChecks(elem){
     var $container = $(elem).parent().parent().parent();
-  var $elemento = $(elem).parent().parent();
-  var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
+    var $elemento = $(elem).parent().parent();
+    var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
     $elemento.find(".checkbox_insumo").each(function(){
       if ($(this).attr("id") != $checkbox ){
         $(this).attr('checked', false);
-         despintarDivs(this)
+         despintarDivs(this);
+         eliminarTilde(this);
+    } else if(($(this).attr("id") == $checkbox) && ($(this).prop('checked') == false) ){
+        despintarDivs(this);
+        eliminarTilde(this);
     }
+    
     });
   }
 
