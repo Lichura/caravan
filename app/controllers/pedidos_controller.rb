@@ -62,8 +62,10 @@ class PedidosController < ApplicationController
   def new
     @pedido = Pedido.new
     authorize @pedido
+    @familia_de_productos = Familium.all
     create_pedidos
     @usuarios = User.all
+
     if Pedido.maximum(:comprobanteNumero)
       @numero = Pedido.maximum(:comprobanteNumero) + 1
     else
