@@ -3,13 +3,12 @@ usuario = User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id)
 report.start_new_page do |page|
   page.values razonSocial: usuario.razonSocial, 
  		 	  cuit: @factura.cuit, 
-              fecha: @factura.fecha,
+              fecha: @factura.fecha.to_formatted_s(:day_month_and_year),
               numero: @factura.numero,
+              total: @factura.total,
               neto: @factura.neto,
               iva: @factura.iva,
-              total: @factura.total,
-              direccion: usuario.user_sucursals.first.direccion,
-              telefono: usuario.user_sucursals.first.telefono
+              direccion: usuario.user_sucursals.first.direccion
 end
 
 	@factura.factura_items.each do |producto|
@@ -18,8 +17,8 @@ end
 			row.item(:nombre).value(Producto.find(producto.producto_id).nombre)
 			row.item(:cantidad).value(producto.cantidad)
 			row.item(:precio).value(producto.precio)
-			row.item(:neto).value(producto.neto)
-			row.item(:iva).value(producto.iva)
+			row.item(:neto).value(producto.neto / producto.cantidad)
+			row.item(:iva).value(producto.iva / producto.cantidad)
 			row.item(:subtotal).value(producto.subtotal)
 		end
 	end
