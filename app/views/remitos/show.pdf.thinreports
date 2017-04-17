@@ -2,7 +2,7 @@ report.start_new_page do |page|
   page.values razonSocial: User.find(Pedido.find(@remito.pedido_id).user_id).razonSocial, 
  		 	  cuit: User.find(Pedido.find(@remito.pedido_id).user_id).cuit, 
  		 	  direccion: User.find(Pedido.find(@remito.pedido_id).user_id).direccion,
-              fecha: @remito.fecha, 
+              fecha: @remito.fecha.to_formatted_s(:day_month_and_year), 
               numero: @remito.numero,
               cantidadTotal: @remito.cantidadTotal
 end
