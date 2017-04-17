@@ -31,19 +31,21 @@ class Detalle < ApplicationRecord
 
 
 	def generar_rango_senasa
-		if self.rango_desde != nil && Producto.find(self.producto_id).correlativo == false
-		rango_desde = self.rango_desde
-
-		cantidad = self.cantidad
-		cuig = User.find(self.pedido.user_id).cuig
-		@metodo = Senasa.new
-		rango_desde = @metodo.disminuir_ultimo_numero(rango_desde)
-		i = 0
-		while i < cantidad
-			rango_desde = @metodo.generar_nuevo_rango(rango_desde, self.pedido_id, self.pedido.user_id, cuig)
-			i += 1
+		puts("generando rango")
+		if self.rango_desde != "" 
+			if Producto.find(self.producto_id).correlativo == false
+				rango_desde = self.rango_desde
+				cantidad = self.cantidad
+				cuig = User.find(self.pedido.user_id).cuig
+				@metodo = Senasa.new
+				rango_desde = @metodo.disminuir_ultimo_numero(rango_desde)
+				i = 0
+				while i < cantidad
+					rango_desde = @metodo.generar_nuevo_rango(rango_desde, self.pedido_id, self.pedido.user_id, cuig)
+					i += 1
+				end
+			end
 		end
-	end
 	end
 
 
