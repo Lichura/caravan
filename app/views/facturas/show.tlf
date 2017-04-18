@@ -1176,6 +1176,38 @@
         "base": "",
         "type": ""
       }
+    },
+    {
+      "id": "observaciones",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 51,
+      "y": 757,
+      "width": 500.6,
+      "height": 53,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 14,
+        "color": "#000000",
+        "text-align": "left",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "fit",
+        "word-wrap": "break-word"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": true,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {

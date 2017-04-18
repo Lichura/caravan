@@ -8,7 +8,8 @@ report.start_new_page do |page|
               total: @factura.total,
               neto: @factura.neto,
               iva: @factura.iva,
-              direccion: usuario.user_sucursals.first.direccion
+              direccion: usuario.user_sucursals.first.direccion,
+              observaciones: "Remitos: " + @factura.remitos.map(&:numero).join(", ") + "\n" + @factura.observaciones
 end
 
 	@factura.factura_items.each do |producto|
