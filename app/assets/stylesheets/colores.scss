@@ -4,13 +4,13 @@
 	$facturas : #387A36;
 
 	.panel-heading.pedidos {
-			color: white;
-			background-color: $pedidos;
+			color: $pedidos;
+			background-color: white;
 	}
 
 	.pedidos{
-		color: white;
-		background-color: $pedidos;
+		color:  $pedidos;
+		background-color: whitesmoke;
 	}
 
 	.panel-heading.usuarios {
