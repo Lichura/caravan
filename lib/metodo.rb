@@ -107,7 +107,6 @@ module Metodo
 		array_nuevo = Array.new
 		array_nuevo = rango.split("")
 		array_nuevo[3] = "."
-		puts("jfsjadlkfjsdlkfjsadlkjfklsadjflksdajflkdsjflksjdklfjsdalkfjsalkdjflskadjflkasjflkasjfk")
 		puts(array_nuevo)
 		return array_nuevo.join("")
 	end

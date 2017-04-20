@@ -30,15 +30,21 @@ class Detalle < ApplicationRecord
 	end
 
 
+#si es un producto senasa y no tiene un rango asociado deberia generar un rango 
+#verificar que es de senasa
+#verificar que solo se utiliza cuando se actualiza y no cuando se genera
 	def generar_rango_senasa
 		puts("generando rango")
-		if self.rango_desde != "" 
+		if !self.rango_desde.blank?
+			puts("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ rango desde @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+				")
+			puts("aca empieza: #{self.rango_desde} aca termina")
 			if Producto.find(self.producto_id).correlativo == false
 				rango_desde = self.rango_desde
 				cantidad = self.cantidad
 				cuig = User.find(self.pedido.user_id).cuig
 				@metodo = Senasa.new
-				rango_desde = @metodo.disminuir_ultimo_numero(rango_desde)
+				#rango_desde = @metodo.disminuir_ultimo_numero(rango_desde)
 				i = 0
 				while i < cantidad
 					rango_desde = @metodo.generar_nuevo_rango(rango_desde, self.pedido_id, self.pedido.user_id, cuig)
