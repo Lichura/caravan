@@ -37,7 +37,7 @@
 	<% end %>
 	<!-- con el siguiente if voy a verificar que tenga insumos obligatorios -->
 	<% if f.object.producto.rango == true && f.object.producto.correlativo == false %>
-		<%= hidden_field_tag "validar_insumo",{} , class: "validar_insumo" %>
+		<%= hidden_field_tag "validar_insumo", "validar_insumo" , class: "validar_insumo" %>
 	<% end %>
 	<% if @pedido.errors.any? %>
 		<div class="detalle-producto-cantidad">Cantidad: <%= f.text_field :cantidad  ,  class: "cantidad"%></div>
@@ -68,9 +68,10 @@ $('document').ready(function(){
 
 	$('.cantidad').off('change').on('change', function() {
         UpdateSubTotal(this);
-        $contenedor = $(this).parent()
-        console.log($contenedor.find(".validar_insumo"));
-        if ($contenedor.find(".validar_insumo").attr("name") = 'validar_insumo') {
+        $contenedor = $(this).parent().parent();
+        prueba = $(".validar_insumo");
+        console.log($contenedor.find(prueba).val());
+        if ($contenedor.find(prueba).val() === "validar_insumo") {
         	console.log("esta validando");
         	validarArticulos(this);
         }
