@@ -13,32 +13,20 @@
 		background-color: whitesmoke;
 	}
 
-	.panel-heading.usuarios {
-		color: white;
-		background-color: $usuarios;
+	.panel-heading.usuarios,
+	.usuarios {
+		color: $usuarios;
+		background-color: white;
 	}
 
-	.usuarios{
-		color: white;
-		background-color: $usuarios;
+	.panel-heading.remitos,
+	.remitos {
+			color: $remitos;
+			background-color: white;
 	}
 
-	.panel-heading.remitos {
-			color: white;
-			background-color: $remitos;
-	}
-
-	.remitos{
-		color: white;
-		background-color: $remitos;
-	}
-
-	.panel-heading.facturas {
-			color: white;
-			background-color: $facturas;
-	}
-
-	.facturas{
-		color: white;
-		background-color: $facturas;
+	.panel-heading.facturas,
+	.facturas {
+			color: $remitos;
+			background-color: white;
 	}
