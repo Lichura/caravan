@@ -18,12 +18,14 @@ Producto.destroy_all
 condicionesPagos = CondicionPago.create!([{id:1, nombre: "30 dias"}])
 familia = Familium.create!([{
 	id:1, nombre: "Caravanas", descripcion: "Caravanas" 
-}])
+},
+{id:2, nombre: "Pinzas", descripcion: "Pinzas" },
+{id:3, nombre: "Otros", descripcion: "Otros" }])
 
 productos = Producto.create!([
-	{id:1, familium_id: 1, nombre: "Caravana 1", precio: 100, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0 },
-	{id:2, familium_id: 1, nombre: "Caravana 2", precio: 50, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0},
-	{id:3, familium_id: 1, nombre: "Caravana 3", precio: 250, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0}
+	{id:1, familium_id: 1, nombre: "Caravana 1", precio: 1, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0 },
+	{id:2, familium_id: 1, nombre: "Caravana 2", precio: 1, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0},
+	{id:3, familium_id: 1, nombre: "Caravana 3", precio: 1, activo: true, familia_id: 1, stock_fisico: 0, stock_disponible: 0, stock_reservado: 0, stock_pedido: 0}
 ])
 
 
@@ -36,40 +38,40 @@ perfiles = Profile.create!([
   {id: 3, nombre: "cliente", descripcion: "cliente"}])
   
   
-usuarios = User.create!([{
-    profile_id: 1,
-    email:"lichun88@gmail.com",
-    password: "admin",
-    password_confirmation: "admin",
-    razonSocial: "Licho",
-    direccion: "bla bla",
-    cuig: "321321312",
-    renspa: "131232321",
-    cuit: 20335067622,
-    telefono: "144132312",
-    codigoPostal: "08018",
-    provincia_id: 1,
-    pais_id: 1,
-    encargado: "Licho",
-    celular: "13123123",
-    numeroCv: "23123",
-    role: :admin},
-    {
-    profile_id: 2,
-    email:"distribuidor",
-    password: "distribuidor",
-    password_confirmation: "distribuidor",
-    razonSocial: "Distribuidor 1",
-    direccion: "bla bla",
-    cuig: "3213213",
-    renspa: "1312323",
-    cuit: 20335067623,
-    telefono: "144132312",
-    codigoPostal: "08018",
-    provincia_id: 1,
-    pais_id: 1,
-    numeroCv: "23122"
-  }])
+# usuarios = User.create!([{
+#     profile_id: 1,
+#     email:"lichun88@gmail.com",
+#     password: "admin",
+#     password_confirmation: "admin",
+#     razonSocial: "Licho",
+#     direccion: "bla bla",
+#     cuig: "321321312",
+#     renspa: "131232321",
+#     cuit: 20335067622,
+#     telefono: "144132312",
+#     codigoPostal: "08018",
+#     provincia_id: 1,
+#     pais_id: 1,
+#     encargado: "Licho",
+#     celular: "13123123",
+#     numeroCv: "23123",
+#     role: :admin},
+#     {
+#     profile_id: 2,
+#     email:"distribuidor",
+#     password: "distribuidor",
+#     password_confirmation: "distribuidor",
+#     razonSocial: "Distribuidor 1",
+#     direccion: "bla bla",
+#     cuig: "3213213",
+#     renspa: "1312323",
+#     cuit: 20335067623,
+#     telefono: "144132312",
+#     codigoPostal: "08018",
+#     provincia_id: 1,
+#     pais_id: 1,
+#     numeroCv: "23122"
+#   }])
  paises = Pais.create!([{id: 1, nombre:'Argentina', abreviacion:'AR'}])
 
 provincias = Provincia.create!([{pais_id: 1, id:1, codigoAfip: 0 , nombre: 'Capital Federal', nombre_corto: 'CF'},

@@ -74,9 +74,9 @@ body{
   	background-color:rgba(255,255,255,0.1);
 }
 
+
 .contenedor-totales .campo{
     border: none;
-    border-bottom: 3px solid $pedidos;
     transition: border 0.3s;
     background-color:rgba(255,255,255,0);
 }
@@ -365,13 +365,13 @@ body {
   margin: 0 auto;
   height: 50px;
 
-  background-color: rgb(180,180,180);
+  background-color: whitesmoke;
   border-bottom: 1px solid rgb(220,220,220);
 }
 
 
 .detalle-producto-titulo-nombre{
-  color: white;
+  color: rgb(120,120,120);
   font-size: 1em;
   margin-left: 10px;
   font-weight: bold;
@@ -527,4 +527,26 @@ color: rgba(120,120,120,1.0);
 
 .tabla{
   text-align: center;
+}
+
+
+
+
+/*  configuro el color de los paneles y le saco lo redondo */
+.panel{
+  border: 0px;
+}
+
+.panel-body{
+  padding: 0px;
+  background-color: whitesmoke;
+
+}
+
+.panel-heading{
+  border-radius: 0px;
+}
+
+.panel-collapse{
+  padding-top: 15px;
 }
