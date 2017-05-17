@@ -53,6 +53,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = {:host => "caravanastrenquelauquen.com.ar"}
+  config.action_mailer.perform_deliveries = true
 
   ActionMailer::Base.raise_delivery_errors = true
 
