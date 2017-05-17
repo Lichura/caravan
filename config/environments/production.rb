@@ -81,8 +81,10 @@ Rails.application.configure do
     config.logger = ActiveSupport::TaggedLogging.new(logger)
   end
 
+config.action_mailer.default_url_options = {:host => "caravanastrenquelauquen.com.ar"}
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.perform_deliveries = true
 
     config.action_mailer.delivery_method = :smtp
 # SMTP settings for gmail
