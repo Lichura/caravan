@@ -86,6 +86,7 @@ Rails.application.configure do
 
     config.action_mailer.delivery_method = :smtp
 # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
   :address              => "smtp.zoho.com",
    :port                 => 587,
    :user_name            => 'mail@caravanastrenquelauquen.com.ar',
@@ -93,4 +94,5 @@ Rails.application.configure do
    :authentication       => :login,
    :enable_starttls_auto => true
     }
+    
 end
