@@ -13,11 +13,13 @@ class StockItem < ApplicationRecord
   def nuevo_pedido
     if self.insumo_id?
   	 @insumo = Insumo.find(self.insumo_id)
+     @insumo.stock_pedido ||= 0
   	 @insumo.stock_pedido += self.cantidad
   	 @insumo.save
     else
       @producto = Producto.find(self.producto_id)
-      @producto.stock_pedido += self.cantidad
+      @producto.stock_pedido ||= 0
+      @producto.stock_pedido += self.cantidad 
       @producto.save
     end
   end
@@ -26,6 +28,9 @@ class StockItem < ApplicationRecord
   	if self.recibido_changed?
       if self.insumo_id?
         @insumo = Insumo.find(self.insumo_id)
+        @insumo.stock_pedido ||= 0
+        @insumo.stock_disponible ||= 0
+        @insumo.stock_fisico ||= 0
     		unless self.recibido
     			@insumo.stock_pedido += self.cantidad
     			@insumo.stock_disponible -= self.cantidad
@@ -38,6 +43,9 @@ class StockItem < ApplicationRecord
         @insumo.save
       else
         @producto = Producto.find(self.producto_id)
+        @producto.stock_pedido ||= 0
+        @producto.stock_disponible ||= 0
+        @producto.stock_fisico ||= 0
         unless self.recibido
           @producto.stock_pedido += self.cantidad
           @producto.stock_disponible -= self.cantidad

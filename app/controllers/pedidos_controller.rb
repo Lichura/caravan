@@ -27,20 +27,35 @@ class PedidosController < ApplicationController
   # GET /pedidos
   # GET /pedidos.json
   def index
-
-    @pedidos = Pedido.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+    #si el usuario es admin hago lo siguiente
+    if current_user.profile_id == 1
+      @pedidos = Pedido.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        if params[:search]
+          @pedidos = Pedido.search(params[:search]).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        else
+          @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        end
+        if params[:filtrar] && params[:filtrar] != ""
+          @estado = Pedido.statuses[params[:filtrar]]
+          @pedidos = Pedido.filtrar(@estado).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        else
+          @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        end
+    #si el usuario no es admin hago lo siguiente:
+    else
+      @pedidos = Pedido.where(distribuidor_id: current_user.id).paginate(:page => params[:page], :per_page => 10) || nil
       if params[:search]
-        @pedidos = Pedido.search(params[:search]).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
-      else
-        @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        @pedidos = Pedido.where(distribuidor_id: current_user.id).search(params[:search]).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
-
       if params[:filtrar] && params[:filtrar] != ""
-        @estado = Pedido.statuses[params[:filtrar]]
-        @pedidos = Pedido.filtrar(@estado).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
-      else
-        @pedidos = Pedido.all.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
+        @estado = Pedido.where(distribuidor_id: current_user.id).statuses[params[:filtrar]]
+        @pedidos = Pedido.where(distribuidor_id: current_user.id).filtrar(@estado).order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
       end
+    end
+
+
+
+
     respond_to do |format|
       format.html
       format.pdf do
