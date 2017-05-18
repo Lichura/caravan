@@ -5,7 +5,7 @@
       <h3>Nuevo Cliente</h3>
       <% if @user.errors.any? %>
         <div class="error_messages">
-          <h2> Form ins invalid</h2>
+          <h2> El formulario posee errores</h2>
           <ul>
             <% for message in @user.errors.full_messages %>
               <li><%= message %></li>
