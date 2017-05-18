@@ -129,7 +129,7 @@ end
   	if @user.save
        @distribuidor.clientes << @user
       if @user.profile_id == 2
-        UserMailer.envio_de_password(@user, @user.password).deliver_later
+        UserMailer.envio_de_password(@user, @user.password).deliver_now
       end
   		  session[:return_to] ||= request.referer
         redirect_to session.delete(:return_to), :notice => "Se creo el cliente #{@user.razonSocial}"
