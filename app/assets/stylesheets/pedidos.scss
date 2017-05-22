@@ -378,7 +378,7 @@ body {
 }
 
 .detalle-producto-titulo-descripcion{
-  color: white;
+  color: rgb(160,160,160);
   font-size: 1em;
   margin-left: 10px;
 }
@@ -549,4 +549,15 @@ color: rgba(120,120,120,1.0);
 
 .panel-collapse{
   padding-top: 15px;
+}
+
+
+.detalle-producto-cantidad
+  { 
+    font-weight: bold;
+    .cantidad{
+    border-bottom: 3px solid $pedidos;
+    border-right: 3px solid $pedidos;
+    width: 100px;
+  }
 }

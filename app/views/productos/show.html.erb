@@ -17,7 +17,7 @@
             <dd><%= number_to_currency(@producto.precio) %></dd>
 
             <dt>Imagen:</dt>
-            <dd><%= image_tag @producto.imagen %></dd>
+            <dd><%= image_tag(@producto.imagen, class: "producto-show-imagen") %></dd>
 
             <dt>Activo:</dt>
             <dd><%= @producto.activo %></dd>
