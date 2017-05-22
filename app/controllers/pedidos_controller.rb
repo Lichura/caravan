@@ -195,7 +195,7 @@ class PedidosController < ApplicationController
 
 
     def create_pedidos
-      Producto.where(tipo: [1,2], activo: true).all.each do |obj|
+      Producto.where(tipo: [1,2], activo: true).all.order(:nombre).each do |obj|
           if !@pedido.producto_ids.include?(obj.id)
             detalle = @pedido.detalles.build(:producto_id => obj.id)
             obj.producto_insumos.each do |insumo|
