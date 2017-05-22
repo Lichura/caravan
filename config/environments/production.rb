@@ -86,8 +86,8 @@ config.action_mailer.default_url_options = {:host => "caravanastrenquelauquen.co
   config.active_record.dump_schema_after_migration = false
   config.action_mailer.perform_deliveries = true
 
-    config.action_mailer.delivery_method = :smtp
-# SMTP settings for gmail
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
   config.action_mailer.smtp_settings = {
   :address              => "smtp.zoho.com",
    :port                 => 587,
