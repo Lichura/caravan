@@ -137,7 +137,6 @@
         {
           $(":submit").attr("disabled", true);
           despintarDivs(this);
-          
         }
     });
 
@@ -151,12 +150,12 @@
   });
 
   $(".precio-unitario").off('change').on('change', function(){
-    calcularPrecioArticulo(this);
+
     cambiarImagenInsumo(this);
     pintarDivs(this);
     agregarTilde(this);
     deseleccionarChecks(this);
-
+    calcularPrecioArticulo(this);
   });
 
   //agrego un tilde verde al texto de cada insumo
@@ -168,7 +167,6 @@
     var $container = $(elem).parent().parent();
     console.log($container.html());
     $container.find('i').remove();
-    
   }
 
   //pinto cada contenedor

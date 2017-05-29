@@ -77,7 +77,7 @@ class PedidosController < ApplicationController
   def new
     @pedido = Pedido.new
     authorize @pedido
-    @familia_de_productos = Familium.all
+    @familia_de_productos = Familium.all.order(:nombre)
     create_pedidos
     @usuarios = User.all
 

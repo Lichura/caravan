@@ -57,7 +57,7 @@ class Pedido < ApplicationRecord
     if distribuidor.descuento?
       descuento = 1.0 - (distribuidor.descuento / 100.0)
     else
-      descuento = 0.2
+      descuento = 1.0
     end
     puts("================= descuentooooooo #{descuento}")
     self.detalles.each do |detalle|

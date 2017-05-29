@@ -350,7 +350,7 @@ body {
 
 .detalle-producto{
   background: whitesmoke;
-  width: 300px;
+  width: 15%;
   height: auto;
   display: inline-block;
   margin:2.5%;
@@ -402,12 +402,13 @@ body {
   bottom:0;
   right:0;
   color: rgb(100,100,100);
+  font-weight: bold;
 }
 
 
 .detalle-producto-cantidad{
 text-align: center;
-font-size: 2em;
+font-size: 1em;
 color: rgba(120,120,120,1.0);
   input{
     width: 50px;
@@ -557,6 +558,7 @@ color: rgba(120,120,120,1.0);
   { 
     font-weight: bold;
     .cantidad{
+    margin-top: 3px;
     border-bottom: 3px solid $pedidos;
     border-right: 3px solid $pedidos;
     width: 100px;
