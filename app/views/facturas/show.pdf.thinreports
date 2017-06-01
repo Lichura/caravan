@@ -1,4 +1,15 @@
 usuario = User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id)
+pedidos = []
+rangos = ""
+@factura.remitos.each do |remito|
+	pedidos << remito.pedido
+end
+
+pedidos.each do |pedido|
+	pedido.detalles.each do |detalle|
+		rangos << detalle.rango_desde + "-" + detalle.rango_hasta 
+	end
+end
 
 report.start_new_page do |page|
   page.values razonSocial: usuario.razonSocial, 
@@ -9,7 +20,12 @@ report.start_new_page do |page|
               neto: @factura.neto,
               iva: @factura.iva,
               direccion: usuario.user_sucursals.first.direccion,
-              observaciones: "Remitos: " + @factura.remitos.map(&:numero).join(", ") + "\n" + (@factura.observaciones.nil? ? "" : @factura.observaciones)
+              observaciones: "Remitos: " + @factura.remitos.map(&:numero).join(", ") +
+              "\nRENSPA: " + usuario.renspa +
+              "\nCUIG: " + usuario.cuig + 
+              "\nCV: " + usuario.numeroCv + 
+              "\n" + (@factura.observaciones.nil? ? "" : @factura.observaciones) +
+              "Rangos: " + rangos.to_s
 end
 
 	@factura.factura_items.each do |producto|
