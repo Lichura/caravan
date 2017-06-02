@@ -22,8 +22,8 @@ report.start_new_page do |page|
               direccion: usuario.user_sucursals.first.direccion,
               observaciones: "Remitos: " + @factura.remitos.map(&:numero).join(", ") +
               "\nRENSPA: " + usuario.renspa +
-              "\nCUIG: " + usuario.cuig + 
-              "\nCV: " + usuario.numeroCv + 
+              " - CUIG: " + usuario.cuig + 
+              " - CV: " + usuario.numeroCv + 
               "\n" + (@factura.observaciones.nil? ? "" : @factura.observaciones) +
               "Rangos: " + rangos.to_s
 end

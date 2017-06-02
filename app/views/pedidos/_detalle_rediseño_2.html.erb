@@ -46,6 +46,8 @@
 	<% end %>
 	<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
 	<%= f.hidden_field :producto_id %>
+	<input class="pedido_minimo" hidden value=<%= f.object.producto.pedido_minimo %>></input>
+	<input class="multiplo" hidden value=<%= f.object.producto.multiplo %>></input>
 	<span class="subtotal" style="display: none">0</span>
 </div>
 

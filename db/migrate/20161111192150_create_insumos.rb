@@ -5,10 +5,10 @@ class CreateInsumos < ActiveRecord::Migration[5.0]
       t.string :descripcion
       t.float :precio
       t.integer :unidad_medida
-      t.integer :stock_fisico
-      t.integer :stock_reservado
-      t.integer :stock_disponible
-      t.integer :stock_pedido
+      t.integer :stock_fisico, default: 0
+      t.integer :stock_reservado, default: 0
+      t.integer :stock_disponible, default: 0
+      t.integer :stock_pedido, default: 0
 
       t.timestamps
     end

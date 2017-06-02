@@ -46,6 +46,21 @@
     </div>
   </div>
 
+  <div class="form-group" id="pedido_minimo">
+    <%= f.label :pedido_minimo, "Pedido minimo", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :pedido_minimo, class: "form-control" %>
+      </div>
+      <span data-toggle="tooltip" title="Este valor sera el minimo que se puede pedir para este producto." class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+  </div>
+
+  <div class="form-group" id="pedido_minimo">
+    <%= f.label :multiplo, "Multiplo", class: "col-sm-2 control-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :multiplo, class: "form-control" %>
+      </div>
+      <span data-toggle="tooltip" title="Los pedidos solo podran contener multiplos de este numero. Ej: si es 50 solo puede ser 50, 100, 150, etc..." class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+  </div>
 
   <div class="form-group">
     <%= f.label :imagen, "Imagen", class: "col-sm-2 control-label" %>
@@ -70,6 +85,7 @@
       <%= f.check_box :correlativo, class: "form-control" %>
     </div>
   </div>
+
   <div id="mostrar_insumos">
   <%= f.fields_for :producto_insumos do |ff| %>
     <% render 'insumos', f: ff %>
@@ -106,6 +122,11 @@ $(document).ready(function() {
       $('#precio').show();
     }
   });
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+
 
 });
 </script>

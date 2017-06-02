@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418182655) do
+ActiveRecord::Schema.define(version: 20170602075106) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -298,8 +298,8 @@ ActiveRecord::Schema.define(version: 20170418182655) do
     t.string   "descripcion"
     t.float    "precio"
     t.boolean  "activo"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "familia_id"
     t.integer  "familium_id"
     t.integer  "stock_fisico"
@@ -310,6 +310,9 @@ ActiveRecord::Schema.define(version: 20170418182655) do
     t.boolean  "rango"
     t.integer  "tipo"
     t.boolean  "correlativo"
+    t.integer  "pedido_minimo"
+    t.string   "multiplo_integer"
+    t.integer  "multiplo",         default: 1
     t.index ["familia_id"], name: "index_productos_on_familia_id"
   end
 
