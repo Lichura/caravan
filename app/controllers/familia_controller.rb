@@ -16,6 +16,7 @@ class FamiliaController < ApplicationController
   # GET /familia/1
   # GET /familia/1.json
   def show
+    authorize Familium
   end
 
   # GET /familia/new
@@ -26,6 +27,7 @@ class FamiliaController < ApplicationController
 
   # GET /familia/1/edit
   def edit
+    authorize Familium
   end
 
   # POST /familia

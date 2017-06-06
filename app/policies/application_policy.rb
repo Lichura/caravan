@@ -62,6 +62,6 @@ class ApplicationPolicy
   end
 
   def is_cliente?
-    user.profile_id == 1
+    user.profile_id == 3
   end
 end
