@@ -70,12 +70,14 @@ $('document').ready(function(){
 
 	$('.cantidad').off('change').on('change', function() {
         UpdateSubTotal(this);
+        validarPedidoMinimo(this);
         $contenedor = $(this).parent().parent();
         prueba = $(".validar_insumo");
         console.log($contenedor.find(prueba).val());
         if ($contenedor.find(prueba).val() === "validar_insumo") {
         	console.log("esta validando");
         	validarArticulos(this);
+
         }
         
         //UpdateTotal(this);
@@ -101,7 +103,19 @@ function UpdateSubTotal(elem) {
 
 
 
-
+//esta funcion revisa el pedido_minimo y el multiplo de cada articulo para validar que el cliente ingreso lo correcto
+function validarPedidoMinimo(elem){
+	var $container = $(elem).parent().parent();
+	var pedidoMinimo = $container.find('.pedido_minimo').val();
+	var multiplo = $container.find('.multiplo').val();
+	var cantidad = $container.find('.cantidad').val();
+	console.log(cantidad);
+	if (parseInt(cantidad) < parseInt(pedidoMinimo)){
+		alert('El minimo de unidades para este producto es: ' + pedidoMinimo);
+		$container.find('.cantidad').focus();
+	
+	}
+}
 
 
 
