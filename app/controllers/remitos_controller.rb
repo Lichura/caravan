@@ -64,6 +64,9 @@ class RemitosController < ApplicationController
   # GET /remitos/1/edit
   def edit
     authorize Remito
+    @pedido = @remito.pedido
+    crear_remitos
+    @numero = @remito.numero
   end
 
   # POST /remitos
