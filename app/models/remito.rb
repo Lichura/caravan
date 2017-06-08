@@ -13,7 +13,8 @@ class Remito < ApplicationRecord
 	after_update :finalizado_por_ajuste
 	before_validation :marcar_productos_para_destruir
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
-
+	validates :telefono, format: { with: /([0-9]{5,12})/, message: "El telefono ingresado no es correcto" }, :allow_blank => true
+	validates :dniRetira, format: { with: /([0-9]{8,9})/, message: "El Dni ingresado no es correcto" }, :allow_blank => true
 
 
 	private
@@ -34,12 +35,14 @@ class Remito < ApplicationRecord
 
 
 	 def finalizar_pedido
+	 		if self.pedido_id
 		    @pedido = Pedido.find(self.pedido_id)
 		    if @pedido.detalles.all? {|producto| producto.pendiente_remitir == 0}
 		    	@pedido.remitido!
 		   	else
 		    	@pedido.remitido_parcial!
 		    end
+		end
 	end
 
 	def modificar_estado

@@ -74,7 +74,9 @@ class RemitosController < ApplicationController
   def create
     @remito = Remito.new(remito_params)
     authorize @remito
-    modificar_stock
+    if @remito.pedido_id
+      modificar_stock
+    end
     pendiente_facturar
     respond_to do |format|
       if @remito.save
@@ -123,14 +125,15 @@ class RemitosController < ApplicationController
   private
   def set_transporte
   @transporte = ["Retira Cliente", "Retira distribuidor", "Envío por correo", "Envío por transporte", "Otros"]
-  @transporte_fields = {"Retira Cliente" => [:empresa, :dniRetira, :telefono],
-                          "Retira distribuidor" => [:empresa, :dniRetira, :telefono],
-                          "Envío por correo" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
-                          "Envío por transporte" => [:empresa, :destino, :numeroGuia, :retira, :dniRetira],
-                          "Otros" => [:comentarios]}
+  @transporte_fields = {"Retira Cliente" => [[:empresa, "Empresa"], [:dniRetira, "DNI retira"], [:telefono, "Telefono"]],
+                          "Retira distribuidor" => [[:empresa, "Empresa"], [:dniRetira, "DNI retira"], [:telefono, "Telefono"]],
+                          "Envío por correo" => [[:empresa, "Empresa"], [:destino, "Destino"], [:numeroGuia, "Numero Guia"], [:retira, "Retira"], [:dniRetira, "DNI Retira"]],
+                          "Envío por transporte" => [[:empresa, "Empresa"], [:destino, "Destino"], [:numeroGuia, "Numero Guia"], [:retira, "Retira"], [:dniRetira, "DNI Retira"]],
+                          "Otros" => [[:comentarios, "Comentarios"]]}
   end
 
    def estado_pedido_remito
+        if @remito.pedido_id
         @pedido = Pedido.find(@remito.pedido_id)
         if @pedido.detalles.all? {|producto| producto.pendiente_remitir == 0}
           @pedido.remitido!
@@ -139,6 +142,7 @@ class RemitosController < ApplicationController
           @pedido.remitido_parcial!
         end
         @pedido.save
+      end
   end
 
 
@@ -154,7 +158,10 @@ class RemitosController < ApplicationController
     @pedido.save
   end
 
+
+
   def modificar_stock_destruir
+    if @remito.pedido_id
     @pedido = Pedido.find(@remito.pedido_id)
     @pedido.detalles.each do |producto|
       @remito.remito_items.each do |item|
@@ -164,6 +171,7 @@ class RemitosController < ApplicationController
       end
     end
     @pedido.save
+  end
   end
 
   def crear_remitos

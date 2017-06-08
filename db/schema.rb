@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602075106) do
+ActiveRecord::Schema.define(version: 20170607082719) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -338,6 +338,7 @@ ActiveRecord::Schema.define(version: 20170602075106) do
     t.boolean  "correlativo"
     t.integer  "pedido_minimo"
     t.integer  "multiplo",         default: 1
+    t.string   "color"
     t.index ["familia_id"], name: "index_productos_on_familia_id"
   end
 
@@ -396,11 +397,11 @@ ActiveRecord::Schema.define(version: 20170602075106) do
     t.float    "ivaTotal"
     t.float    "total"
     t.integer  "cantidadTotal"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "finalizado"
     t.string   "empresa"
-    t.integer  "dniRetira"
+    t.integer  "dniRetira",     limit: 8
     t.string   "telefono"
     t.string   "numeroGuia"
     t.string   "destino"

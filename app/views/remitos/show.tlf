@@ -1011,6 +1011,38 @@
       "texts": [
         "REMITO"
       ]
+    },
+    {
+      "id": "comentarios",
+      "type": "text-block",
+      "display": true,
+      "description": "",
+      "x": 20,
+      "y": 759,
+      "width": 555.2,
+      "height": 12.2,
+      "style": {
+        "font-family": [
+          "Helvetica"
+        ],
+        "font-size": 10,
+        "color": "#000000",
+        "text-align": "center",
+        "vertical-align": "top",
+        "line-height": "",
+        "line-height-ratio": "",
+        "letter-spacing": "",
+        "font-style": [],
+        "overflow": "fit",
+        "word-wrap": "none"
+      },
+      "reference-id": "",
+      "value": "",
+      "multiple-line": false,
+      "format": {
+        "base": "",
+        "type": ""
+      }
     }
   ],
   "state": {
