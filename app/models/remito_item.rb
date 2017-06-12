@@ -2,8 +2,10 @@ class RemitoItem < ApplicationRecord
 	belongs_to :producto, optional: true
 	belongs_to :remito, optional: true
 
-	after_create :reducir_stock_al_remitir
-	after_destroy :aumentar_stock_al_eliminar_remito
+	#after_create :reducir_stock_al_remitir
+	#after_destroy :aumentar_stock_al_eliminar_remito
+
+	before_save :pendiente_de_facturar
 
 	def reducir_stock_al_remitir
 		if !self.remito.pedido.nil?
@@ -52,8 +54,12 @@ class RemitoItem < ApplicationRecord
 				producto.save
 			end
 		end
-
-
 	end
+
+
+	#a cada producto dentro del detalle le asigno la cantidad del remito como pendiente de facturar
+	def pendiente_de_facturar
+        self.pendiente_facturar = self.cantidad
+  	end
 
 end

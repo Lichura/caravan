@@ -42,17 +42,7 @@ class RemitosController < ApplicationController
   def new
     @remito = Remito.new
     authorize @remito
-    if Remito.maximum(:numero)
-      @numero = Remito.maximum(:numero) + 1
-    else
-      @numero = 1
-    end
-    if params[:id]
-      @pedido = Pedido.find(params[:id])     
-      crear_remitos
-    else
-      crear_remitos_sin_pedido
-    end
+    crear_remitos_sin_pedido
     if params[:transporte]
      @transporte_elegido = @transporte_fields[params[:transporte]]  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente
       respond_to do |format|
@@ -65,7 +55,6 @@ class RemitosController < ApplicationController
   def edit
     authorize Remito
     @pedido = @remito.pedido
-    crear_remitos
     @numero = @remito.numero
   end
 
@@ -77,10 +66,10 @@ class RemitosController < ApplicationController
     if @remito.pedido_id
       modificar_stock
     end
-    pendiente_facturar
+    #pendiente_facturar
     respond_to do |format|
       if @remito.save
-        estado_pedido_remito
+        #estado_pedido_remito
         format.html { redirect_to pedidos_path, notice: 'El remito se creo correctamente' }
         format.json { render :show, status: :created, location: @remito }
       else
@@ -93,13 +82,13 @@ class RemitosController < ApplicationController
   # PATCH/PUT /remitos/1
   # PATCH/PUT /remitos/1.json
   def update
-    modificar_stock
+    #modificar_stock
 
     respond_to do |format|
       if @remito.update(remito_params)
         authorize @remito
-        pendiente_facturar
-        estado_pedido_remito
+        #pendiente_facturar
+        #estado_pedido_remito
         format.html { redirect_to @remito, notice: 'El remito se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @remito }
       else
@@ -184,9 +173,7 @@ class RemitosController < ApplicationController
 
   def crear_remitos_sin_pedido
     Producto.where(activo: true).all.each do |obj|
-        if !@remito.producto_ids.include?(obj.id)
           @remito.remito_items.build(:producto_id => obj.id)
-        end
     end
   end
 
