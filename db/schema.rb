@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607082719) do
+ActiveRecord::Schema.define(version: 20170612181713) do
 
   create_table "bancos", force: :cascade do |t|
     t.integer  "codigo"
@@ -409,6 +409,7 @@ ActiveRecord::Schema.define(version: 20170607082719) do
     t.string   "comentarios"
     t.boolean  "facturado"
     t.string   "estado"
+    t.integer  "user_id"
   end
 
   create_table "stock_items", force: :cascade do |t|

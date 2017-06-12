@@ -1,5 +1,6 @@
 class Remito < ApplicationRecord
 	include ActiveModel::Dirty
+
 	has_many :remito_items
 	has_many :productos, :through => :remito_items
 	belongs_to :pedido, optional: true
@@ -18,8 +19,13 @@ class Remito < ApplicationRecord
 	validates :dniRetira, format: { with: /([0-9]{8,9})/, message: "El Dni ingresado no es correcto" }, :allow_blank => true
 
 
+
+
 	private
 
+ 	def generar_numero 
+    	self.numero = Remito.maximum(:numero) + 1 || 1 unless self.numero
+  	end
 
 	def generar_estado
 		self.estado = "Pendiente de facturar"
@@ -63,14 +69,6 @@ class Remito < ApplicationRecord
 	def finalizado_por_ajuste
     	if self.finalizado
       		@pedido.finalizado_por_ajuste!
-    	end
-  	end
-
-  	def generar_numero
-  		if Remito.maximum(:numero)
-      		self.numero = Remito.maximum(:numero) + 1
-    	else
-      		self.numero = 1
     	end
   	end
 

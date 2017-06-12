@@ -1,7 +1,7 @@
 <tr>	
 	<td data-title="Producto"><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
-	<td data-title="Pendiente" class="pendiente"></td>
+	<td data-title="Pendiente" class="pendiente"><%= f.text_field :pendiente, class: "cantidad form-control" %></td>
 	<td data-title="Cantidad"><%= f.text_field :cantidad , class: "cantidad form-control" %></td>
 	<%= f.hidden_field :producto_id %>
 	<%= f.hidden_field :_destroy %>

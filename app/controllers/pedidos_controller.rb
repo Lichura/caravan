@@ -100,10 +100,9 @@ class PedidosController < ApplicationController
 
   #para generar un remito a partir de un pedido
   def nuevo_remito
-
+    @pedido = Pedido.find(params[:pedido_id])
     puts "creacion de nuevo remito con pedido = #{@pedido.id}"
-
-    @remito = Remito.new(pedido_id: params[:pedido_id])
+    @remito = Remito.new(pedido_id: @pedido.id)
     respond_to do |format|
         if @remito.save
           format.html { redirect_to @remito, notice: 'El usuario se actualizo correctamente' }

@@ -1,4 +1,6 @@
 class RemitoItem < ApplicationRecord
+	attr_accessor :pendiente
+
 	belongs_to :producto, optional: true
 	belongs_to :remito, optional: true
 
