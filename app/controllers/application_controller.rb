@@ -41,4 +41,28 @@ private
   end
 
 
+    #se envia el tipo de articulo (producto/insumo), 
+  #el tipo de stock(fisico/reservado/pedido), el id del articulo
+  #la cantidad a modificar y el signo (suma/resta)
+  def modificar_stock_articulo(tipo, tipo_stock, id, cantidad, signo)
+    case tipo
+    when "producto"
+        articulo = Producto.find(id)
+        stock = "producto_#{tipo_stock}"
+    when "insumo"
+        articulo = Insumo.find(id)
+        stock = "articulo_#{tipo_stock}"
+    end
+
+    case signo
+    when "suma"
+      articulo.stock += cantidad
+    when "resta"
+      articulo.stock -= cantidad
+    end
+    articulo.save
+    puts("Se modifico el stock #{tipo_stock} de #{articulo.nombre} por #{signo} #{cantidad}")
+  end
+
+
 end

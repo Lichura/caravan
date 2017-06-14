@@ -9,7 +9,7 @@ class Remito < ApplicationRecord
 
 	before_create :generar_numero_y_estado_pendiente_de_facturar
 
-	after_save :modificar_estado_pedido if :remito_tiene_pedido
+	after_save :modificar_estado_pedido, :if => :remito_tiene_pedido?
 	#before_validation :marcar_productos_para_destruir
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 	validates :telefono, format: { with: /([0-9]{5,12})/, message: "El telefono ingresado no es correcto" }, :allow_blank => true
@@ -34,7 +34,7 @@ class Remito < ApplicationRecord
 	end
 
 	def remito_tiene_pedido
-		if self.pedido_id return true
+		return true if self.pedidos.any? 
 	end
 
 	#cambio el estado del pedido una vez que se hayan remitido todos los articulos
