@@ -53,7 +53,7 @@ private
         articulo = Insumo.find(id)
         stock = "articulo_#{tipo_stock}"
     end
-
+    puts ("#{articulo}#{stock}")
     case signo
     when "suma"
       articulo.stock += cantidad
