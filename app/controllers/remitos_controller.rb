@@ -39,18 +39,16 @@ class RemitosController < ApplicationController
   end
 
   # GET /remitos/new
-  def new
-    @remito = Remito.new
-    authorize @remito
-    
-    if params[:pedido_id]
-      @pedido = Pedido.find(params[:pedido_id]) 
-      @remito.pedido_id = @pedido.id
-      @remito.user_id = @pedido.user_id
+  def new 
+    #if params[:pedido_id]
+      @pedido = Pedido.find(params[:pedido_id])
+      @remito = Remito.new
       crear_remitos
-    else
-      crear_remitos_sin_pedido
-    end
+    #else
+      #@remito = Remito.new
+      #crear_remitos_sin_pedido
+    #end
+    authorize @remito
     if params[:transporte]
      @transporte_elegido = @transporte_fields[params[:transporte]]  #a partir del id seleccionado en la vista busco el cliente por ajax y lo renderizo con get_cliente
       respond_to do |format|
