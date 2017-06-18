@@ -1,12 +1,13 @@
 class Remito < ApplicationRecord
 	include ActiveModel::Dirty
 
+
 	has_many :remito_items
 	has_many :productos, :through => :remito_items
 	belongs_to :pedido, optional: true
 	has_and_belongs_to_many :facturas, optional: true
 
-
+	#before_initialize :asociar_pedido_al_remito
 	before_create :generar_numero_y_estado_pendiente_de_facturar
 
 	after_save :modificar_estado_pedido, :if => :remito_tiene_pedido
@@ -16,8 +17,13 @@ class Remito < ApplicationRecord
 	validates :dniRetira, format: { with: /([0-9]{8,9})/, message: "El Dni ingresado no es correcto" }, :allow_blank => true
 
 
+
+	
 	private
 
+	def asociar_pedido_al_remito
+		self.pedido_id = Pedido.find(params[:pedido_id])
+	end
 
 
  	def generar_numero_y_estado_pendiente_de_facturar

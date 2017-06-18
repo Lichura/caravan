@@ -72,9 +72,6 @@ class RemitosController < ApplicationController
   def create
     @remito = Remito.new(remito_params)
     authorize @remito
-    if @remito.pedido_id
-      modificar_stock
-    end
     respond_to do |format|
       if @remito.save
         format.html { redirect_to pedidos_path, notice: 'El remito se creo correctamente' }
@@ -151,7 +148,7 @@ class RemitosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def remito_params
-      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :finalizado, :empresa, :dniRetira, :telefono, :numeroGuia, :destino, :retira, :comentarios, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
+      params.require(:remito).permit(:pedido_id, :numero, :fecha, :transporte, :ivaTotal, :total, :cantidadTotal, :finalizado, :empresa, :dniRetira, :telefono, :numeroGuia, :destino, :retira, :comentarios, :user_id, :remito_items_attributes => [:id, :producto_id, :cantidad, :precio, :iva, :subtotal, :precioNeto, :_destroy])
     end
 
 end
