@@ -1,5 +1,5 @@
 class RemitoItem < ApplicationRecord
-	attr_accessor :pendiente
+	attr_accessor :pendiente, :pedido
 
 	belongs_to :producto, optional: true
 	belongs_to :remito, optional: true
@@ -9,9 +9,15 @@ class RemitoItem < ApplicationRecord
 
 	#after_destroy :aumentar_stock_al_eliminar_remito
 
+	after_save :setear_pedido
+	after_save :modificar_stock
 	before_save :pendiente_de_facturar
 
 
+	def setear_pedido
+		puts("estoy seteando el pedido")
+		@pedido = Pedido.find(self.remito.pedido_id)
+	end
 
 
 	def modificar_stock_por_operacion_de_un_remito_con_pedidos
@@ -86,5 +92,50 @@ class RemitoItem < ApplicationRecord
 	def pendiente_de_facturar
         self.pendiente_facturar = self.cantidad
   	end
+
+
+
+
+  	#deberia pasar estos dos metodos al modelo de remito_items
+  def modificar_stock
+  	puts("estoy modificando el stock del pedido")
+    @pedido.detalles.each do |producto|
+        if producto.producto_id == self.producto_id && !self.cantidad.blank?
+          producto.pendiente_remitir -= self.cantidad
+        end
+    end
+    @pedido.save
+    modificar_estado_pedido
+  end
+
+
+
+  def modificar_stock_destruir
+    if @remito.pedido_id
+    @pedido = Pedido.find(@remito.pedido_id)
+    @pedido.detalles.each do |producto|
+      @remito.remito_items.each do |item|
+        if producto.producto_id == item.producto_id && !item.cantidad.blank?
+          producto.pendiente_remitir += item.cantidad
+        end
+      end
+    end
+    @pedido.save
+  end
+  end
+
+
+  	def modificar_estado_pedido
+		if @pedido.detalles.all? {|producto| producto.pendiente_remitir == 0}
+		    @pedido.remitido!
+		    puts("estoy modificando el estado del pedido por remitido")
+		elsif @pedido.detalles.any? {|producto| producto.pendiente_remitir == 0}
+		   	@pedido.remitido_parcial!
+		   	puts("estoy modificando el estado del pedido por remitido parcial")
+		elsif self.remito.finalizado?
+			@pedido.finalizado_por_ajuste!
+		end
+		@pedido.save
+	end
 
 end
