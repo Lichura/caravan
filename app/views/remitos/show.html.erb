@@ -15,7 +15,7 @@
           <dd><%= @remito.fecha %></dd>
           <dt>Transporte:</dt>
           <dt>Cliente:</dt>
-          <dd>usuario</dd>
+          <dd><%= User.find(@remito.user_id).cuit %></dd>
           <dd><%= @remito.transporte %></dd>
           <dt>Dni Retira:</dt>
           <dd><%= @remito.dniRetira %></dd>

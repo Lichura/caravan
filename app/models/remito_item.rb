@@ -4,30 +4,22 @@ class RemitoItem < ApplicationRecord
 	belongs_to :producto, optional: true
 	belongs_to :remito, optional: true
 
-<<<<<<< HEAD
-	after_save :modificar_stock_por_creacion_de_un_remito_con_pedidos, :if => self.remito.pedidos.any?
-=======
+
 	after_save :modificar_stock_por_operacion_de_un_remito_con_pedidos
->>>>>>> c1880de05ba8f3813588f4df1c2563bd2209ec9e
+
 	#after_destroy :aumentar_stock_al_eliminar_remito
 
 	before_save :pendiente_de_facturar
 
 
 
-<<<<<<< HEAD
-	def modificar_stock_por_creacion_de_un_remito_con_pedidos(funcion)
-		self.remitos.each do |remito|
-			remito.pedidos.each do |pedido|
-				detalle_insumos.where(pedido_id: pedido.id).each do |detalle|
-=======
+
 	def modificar_stock_por_operacion_de_un_remito_con_pedidos
 	begin
 		self.remitos.each do |remito|
 			puts("se hace la iteracion por los remitos")
 			remito.pedidos.each do |pedido|
 				detalle_insumos.where(pedido_id: pedido.id).all.each do |detalle|
->>>>>>> c1880de05ba8f3813588f4df1c2563bd2209ec9e
 					modificar_stock_articulo("insumo", "reservado", detalle.insumo_id, detalle.cantidad, operacion)
 					modificar_stock_articulo("insumo", "fisico", detalle.insumo_id, detalle.cantidad, operacion)
 				end

@@ -11,12 +11,14 @@
       </ul>
     </div>
   <% end %>
+
   <div class="form-group">
     <%= f.label :fecha, class: "col-sm-2 control-label" %>
     <div class="col-sm-10">
       <%= f.date_field :fecha, :value => Date.today , class: "form-control" %>
     </div>
   </div>
+    <h3><%= @remito.pedido_id %></h3>
   <div class="form-group">
   <%= f.label :user_id, "Seleccionar cliente", class: "col-sm-2 control-label" %>
       <div class="col-sm-10">

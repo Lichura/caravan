@@ -1,16 +1,16 @@
 class Remito < ApplicationRecord
 	include ActiveModel::Dirty
 
-
 	has_many :remito_items
 	has_many :productos, :through => :remito_items
 	belongs_to :pedido, optional: true
 	has_and_belongs_to_many :facturas, optional: true
 
 	#before_initialize :asociar_pedido_al_remito
+	
 	before_create :generar_numero_y_estado_pendiente_de_facturar
 
-	after_save :modificar_estado_pedido, :if => :remito_tiene_pedido
+	after_save :modificar_estado_pedido
 	#before_validation :marcar_productos_para_destruir
 	accepts_nested_attributes_for :remito_items,  allow_destroy: true
 	validates :telefono, format: { with: /([0-9]{5,12})/, message: "El telefono ingresado no es correcto" }, :allow_blank => true
@@ -18,11 +18,19 @@ class Remito < ApplicationRecord
 
 
 
-	
+	#si el remito tiene un pedido asociado, guardo el pedido_id y el user_id
+	def asociar_pedido(pedido)
+		puts("estoy asociando un pedido!")
+		self.pedido_id = pedido.id
+		self.user_id = pedido.user_id
+		self.save
+	end
+
 	private
 
-	def asociar_pedido_al_remito
-		self.pedido_id = Pedido.find(params[:pedido_id])
+	def remito_tiene_pedido
+		puts("comprobar que tiene pedido")
+		return true unless self.pedido.nil?
 	end
 
 
