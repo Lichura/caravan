@@ -10,7 +10,8 @@ class RemitoItem < ApplicationRecord
 	#after_destroy :aumentar_stock_al_eliminar_remito
 
 	after_save :setear_pedido
-	after_save :modificar_stock
+	after_save :modificar_pendiente_de_remitir_en_pedido
+	after_destroy :modificar_pendiente_de_remitir_en_pedido_luego_de_eliminar
 	before_save :pendiente_de_facturar
 
 
@@ -97,7 +98,7 @@ class RemitoItem < ApplicationRecord
 
 
   	#deberia pasar estos dos metodos al modelo de remito_items
-  def modificar_stock
+  def modificar_pendiente_de_remitir_en_pedido
   	puts("estoy modificando el stock del pedido")
     @pedido.detalles.each do |producto|
         if producto.producto_id == self.producto_id && !self.cantidad.blank?
@@ -110,18 +111,14 @@ class RemitoItem < ApplicationRecord
 
 
 
-  def modificar_stock_destruir
-    if @remito.pedido_id
-    @pedido = Pedido.find(@remito.pedido_id)
+  def modificar_pendiente_de_remitir_en_pedido_luego_de_eliminar
     @pedido.detalles.each do |producto|
-      @remito.remito_items.each do |item|
         if producto.producto_id == item.producto_id && !item.cantidad.blank?
-          producto.pendiente_remitir += item.cantidad
+          producto.pendiente_remitir += self.cantidad
         end
-      end
     end
     @pedido.save
-  end
+    modificar_estado_pedido
   end
 
 

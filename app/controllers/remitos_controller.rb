@@ -130,7 +130,7 @@ class RemitosController < ApplicationController
     @pedido.detalles.each do |obj|
       puts "Estoy mostrando el detalle #{obj} del remito #{@remito.id}"
       if !@remito.producto_ids.include?(obj.producto_id) && (obj.pendiente_remitir > 0)
-        @remito.remito_items.build(:producto_id => obj.producto_id, :cantidad => obj.cantidad, :pendiente => obj.pendiente_remitir)
+        @remito.remito_items.build(:producto_id => obj.producto_id, :cantidad => obj.pendiente_remitir, :pendiente => obj.pendiente_remitir)
       end
     end
   end
