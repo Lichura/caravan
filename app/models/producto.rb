@@ -83,6 +83,33 @@ def marcar_productos_para_destruir
   end
   
   TIPOS = {1 => "Producto", 2 => "Producto sin insumos", 3 => "Concepto"}
+
+
+         #se envia el tipo de articulo (producto/insumo), 
+  #el tipo de stock(fisico/reservado/pedido), el id del articulo
+  #la cantidad a modificar y el signo (suma/resta)
+  def modificar_stock_articulo(tipo, tipo_stock, id, cantidad, signo)
+    case tipo
+    when "producto"
+        @articulo = Producto.find(id)
+        @stock = "stock_#{tipo_stock}"
+    when "insumo"
+        @articulo = Insumo.find(id)
+        @stock = "stock_#{tipo_stock}"
+        puts @articulo
+    end
+    @prueba = @articulo."{@stock}"
+    case signo
+    when "suma"
+      @prueba += cantidad
+    when "resta"
+      @prueba -= cantidad
+    end
+    @articulo.save
+    puts("Se modifico el stock #{tipo_stock} de #{prueba} por #{signo} #{cantidad}")
+  end
+
+
   private
   def self.search(producto)
 		where("nombre LIKE ? OR descripcion LIKE ?", "%#{producto}%", "%#{producto}%")
@@ -98,4 +125,7 @@ def marcar_productos_para_destruir
     def destruir_relacion_con_insumos
      self.producto_insumos.delete_all   
    end
+
+
+
 end
