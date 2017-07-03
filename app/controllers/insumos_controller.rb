@@ -1,5 +1,5 @@
 class InsumosController < ApplicationController
-  before_action :set_insumo, only: [:show, :edit, :update, :destroy]
+  before_action :set_insumo, only: [:show, :edit, :copy, :update, :destroy]
 
   # GET /insumos
   # GET /insumos.json
@@ -15,6 +15,10 @@ class InsumosController < ApplicationController
   # GET /insumos/new
   def new
     @insumo = Insumo.new
+  end
+
+  def copy
+    @insumo = Insumo.find(params[:id]).dup
   end
 
   # GET /insumos/1/edit
@@ -76,6 +80,6 @@ class InsumosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def insumo_params
-      params.require(:insumo).permit(:nombre, :descripcion, :precio, :unidad_medida, :alerta, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :imagen)
+      params.require(:insumo).permit(:nombre, :descripcion, :precio, :color, :unidad_medida, :alerta, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :imagen)
     end
 end

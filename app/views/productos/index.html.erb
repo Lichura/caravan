@@ -19,6 +19,7 @@
       <table class="table table-hover">
           <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
             <th>Nombre</th>
+            <th>Color</th>
             <th>Precio</th>
             <th>Imagen</th>
             <th>Stock disponible</th>
@@ -30,6 +31,7 @@
             <% @productos.each do |producto| %>
             <tr><!-- se podria utilizar para ver el proximo turno -->
               <td><%= producto.nombre %></td>
+              <td><%= producto.color %></td>
               <td><%= producto.precio %></td>
               <td class="producto-imagen"><%= image_tag producto.imagen %></td>
               <td><%= producto.stock_disponible %></td>

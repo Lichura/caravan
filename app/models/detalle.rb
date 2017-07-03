@@ -4,6 +4,7 @@ class Detalle < ApplicationRecord
 	belongs_to :pedido, optional: true
 	#after_create :controlar_stock
 	after_update :actualizar_stock_insumo
+	before_destroy :eliminar_detalle_insumos 
 	before_destroy :destruir_stock_insumo
 	after_update :cantidad_insumo
 	after_update :generar_rango_senasa
@@ -11,9 +12,15 @@ class Detalle < ApplicationRecord
   	has_many :detalle_insumos
   	accepts_nested_attributes_for :detalle_insumos,  allow_destroy: true
 
-  	 after_destroy { |record|
-              DetalleInsumo.destroy(record.detalle_insumos.pluck(:id))
-            }
+  	
+            
+
+    def eliminar_detalle_insumos
+    	puts("antes de eliminar los inusmos")
+    	self.detalle_insumos.each do |insumo|
+    		DetalleInsumo.destroy(insumo)
+    	end	
+    end
 
 	def controlar_stock
 		producto = Producto.find(self.producto_id)

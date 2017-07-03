@@ -1,55 +1,45 @@
-
-<div class="detalle-producto">
-	<div class="detalle-producto-titulo">
-		<div class="detalle-producto-titulo-nombre"><%= f.object.producto.nombre %></div>
-		<div class="detalle-producto-titulo-descripcion"><%= f.object.producto.descripcion %></div>
-	</div>
-	<div class="detalle-producto-foto"><%= image_tag f.object.producto.imagen, class: "producto_imagen" %>
-	<div class="precio detalle-producto-precio">
-		<%= number_to_currency(f.object.producto.precio) %>
-	</div>
-	</div>
-	<% if f.object.producto.insumos.any? %>
-		<div class="detalle-producto-informacion">
-			<!-- iteracion -->
-			<%= f.fields_for :detalle_insumos do |ff| %>
-				<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
-				<div class="detalle-producto-informacion-insumo">
-					<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
+<tr class="<%= cycle("odd", "even") -%>">	
+                	<td data-title="Foto"><%= image_tag f.object.producto.imagen, class: "producto_imagen" %></td>
+                	<td data-title="Producto", class="producto_nombre"><%= f.object.producto.nombre %><br>
+					<%= f.object.producto.descripcion %></td>
+					<td>
+						<% if f.object.producto.insumos.any? %>
+							<!-- iteracion -->
+							<%= f.fields_for :detalle_insumos do |ff| %>
+								<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
+									<label value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(				insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
 							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
 						<% else %>
 							<%= ff.check_box :_destroy, {checked: false, class:"checkbox_insumo"}, '0', '1' %>
 
+												<span><%= ff.object.insumo.nombre %></span>
+										<% end %>
+									</label>
+									<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
+									<%= ff.hidden_field :insumo_id %>
+									<%= ff.hidden_field :producto_id %>
+								<% end %>
+							<% end %>
 						<% end %>
+					</td>
+					<td data-title="Color"><%= f.object.producto.color %></td>
+					<td data-title="Precio" class="precio"><%= number_to_currency(f.object.producto.precio) %></td>
+					<td data-title="Cantidad" ><%= f.text_field :cantidad, class: "cantidad" %></td>
+					<td><span class="subtotal">0</span></td>
+					<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
+					<%= f.hidden_field :producto_id %>
+					<input class="pedido_minimo" hidden value=<%= f.object.producto.pedido_minimo %>></input>
+					<input class="multiplo" hidden value=<%= f.object.producto.multiplo %>></input>
+				</tr>
 
-						<span><%= ff.object.insumo.nombre %></span>
 
-					</label>
-					<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
-					<%= ff.hidden_field :insumo_id %>
-					<%= ff.hidden_field :producto_id %>
-				</div>
-				<% end %>
-			<% end %>
-			<!-- fin iteracion -->
-		</div>
-	<% end %>
-	<!-- con el siguiente if voy a verificar que tenga insumos obligatorios -->
-	<% if f.object.producto.rango == true && f.object.producto.correlativo == false %>
-		<%= hidden_field_tag "validar_insumo", "validar_insumo" , class: "validar_insumo" %>
-	<% end %>
-	<% if @pedido.errors.any? %>
-		<div class="detalle-producto-cantidad">Cantidad: <%= f.text_field :cantidad  ,  class: "cantidad"%></div>
-	<% else %>
-		<div class="detalle-producto-cantidad">Cantidad: <%= f.text_field :cantidad, :value => 0,  class: "cantidad"  %></div>
-	<% end %>
-	<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
-	<%= f.hidden_field :producto_id %>
-	<input class="pedido_minimo" hidden value=<%= f.object.producto.pedido_minimo %>></input>
-	<input class="multiplo" hidden value=<%= f.object.producto.multiplo %>></input>
-	<span class="subtotal" style="display: none">0</span>
-</div>
+
+
+
+
+
+
 
 
 <script>
@@ -57,13 +47,7 @@
 
 
 $('document').ready(function(){
-
-
-	
-
-
-
-	 $('.subtotal').change(function() {
+ $('.subtotal').change(function() {
     	UpdateTotal();
     });
 
@@ -92,11 +76,15 @@ $('document').ready(function(){
 
 function UpdateSubTotal(elem) {
     // This will give the tr of the Element Which was changed
+
     var $container = $(elem).parent().parent();
     var quantity = $container.find('.cantidad').val();
     var price = $container.find('.precio').text();
     price = price.replace("$", "");
     var subtotal = parseInt(quantity) * parseFloat(price);
+    console.log(price);
+    console.log(quantity);
+    console.log(subtotal);
     $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
 

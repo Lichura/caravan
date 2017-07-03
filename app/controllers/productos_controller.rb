@@ -18,6 +18,7 @@ class ProductosController < ApplicationController
   # GET /productos/1.json
   def show
     authorize Producto
+    @colores = @producto.color.split(',')
   end
 
   # GET /productos/new
@@ -93,7 +94,7 @@ class ProductosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def producto_params
-        params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango, :correlativo, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :tipo, :pedido_minimo, :multiplo, :producto_insumos_attributes => [:id, :insumo_id, :coeficiente, :por_defecto, :_destroy])
+        params.require(:producto).permit(:nombre, :descripcion, :imagen, :precio, :activo, :familium_id, :rango, :correlativo, :stock_fisico, :stock_reservado, :stock_disponible, :stock_pedido, :tipo, :pedido_minimo, :multiplo, :color,:producto_insumos_attributes => [:id, :insumo_id, :coeficiente, :por_defecto, :_destroy])
      end
 
 
