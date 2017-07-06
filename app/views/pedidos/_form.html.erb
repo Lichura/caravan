@@ -154,18 +154,18 @@
 
     //generar una funcion que cuando se clicke y ya este clickado despinte y saque tildes
 
-    $(".checkbox_insumo").off('change').on('change',function(){
-      var $container = $(this).parent().parent().parent().parent();
-      var quantity = $container.find('.cantidad').val();
-       if ( $(this).is(':checked') & (quantity > 0)){
-        $(":submit").attr("disabled", false);
-        }
-      else
-        {
-          $(":submit").attr("disabled", true);
-          despintarDivs(this);
-        }
-    });
+    // $(".checkbox_insumo").off('change').on('change',function(){
+    //   var $container = $(this).parent().parent().parent().parent();
+    //   var quantity = $container.find('.cantidad').val();
+    //    if ( $(this).is(':checked') & (quantity > 0)){
+    //     $(":submit").attr("disabled", false);
+    //     }
+    //   else
+    //     {
+    //       $(":submit").attr("disabled", true);
+    //       despintarDivs(this);
+    //     }
+    // });
 
 //recorro cada insumo de cada articulo, en caso de que este deshabilitado (es decir por defecto y no se pueda
 // seleccionar, lo pinto y le agrego un tilde)

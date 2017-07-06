@@ -25,8 +25,8 @@ class Pedido < ApplicationRecord
   
   before_validation :marcar_productos_para_destruir
   after_create :generar_boolean
-  after_create :reservar_stock_insumo
-  before_destroy :devolver_stock_insumo
+  #after_create :reservar_stock_insumo
+  #before_destroy :devolver_stock_insumo
   after_create :calcularPrecioTotal
   after_create :calcular_rango_automatico
   #after_update :actualizar_stock_insumo

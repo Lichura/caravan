@@ -3,9 +3,10 @@ class Detalle < ApplicationRecord
 	belongs_to :producto, optional: true
 	belongs_to :pedido, optional: true
 	#after_create :controlar_stock
-	after_update :actualizar_stock_insumo
+	#after_update :actualizar_stock_insumo
+	after_update :actualizar_stock_producto
 	before_destroy :eliminar_detalle_insumos 
-	before_destroy :destruir_stock_insumo
+	#before_destroy :destruir_stock_insumo
 	after_update :cantidad_insumo
 	after_update :generar_rango_senasa
 
@@ -62,6 +63,20 @@ class Detalle < ApplicationRecord
 	end
 
 
+  
+  def actualizar_stock_producto
+  	@producto = Producto.find(self.producto_id)
+  	if self.cantidad_changed? && !self.detalle_insumos.any?
+  		@producto.stock_disponible += self.cantidad_was 
+		@producto.stock_reservado -= self.cantidad_was 
+		@producto.stock_disponible -= self.cantidad 
+		@producto.stock_reservado += self.cantidad
+		@producto.save
+	end
+  end
+
+
+
 	def destruir_stock_insumo
 	    producto = Producto.find(self.producto_id)
 	    if producto.producto_insumos.any?
@@ -78,29 +93,30 @@ class Detalle < ApplicationRecord
 		end
 	end
 
-  def actualizar_stock_insumo
-      if self.cantidad_changed?
-      	  	if self.detalle_insumos.any?
-	      	  self.detalle_insumos do |detalle|
-		      	producto = Producto.find(detalle.producto_id)
-		      	insumo = Insumo.find(detalle.insumo_id)
-		      	coeficiente = ProductoInsumo.find_by(producto_id: producto.id, insumo_id: insumo.id).coeficiente
-		        insumo.stock_disponible += (self.cantidad_was * coeficiente)
-		        insumo.stock_reservado -= (self.cantidad_was  * coeficiente)
-		        insumo.stock_disponible -= (self.cantidad * coeficiente)
-		        insumo.stock_reservado += (self.cantidad  * coeficiente)
-		        insumo.save
-		      end
-	  		else
-		      	producto = Producto.find(detalle.producto_id)
-		      	producto.stock_disponible += self.cantidad_was 
-		        producto.stock_reservado -= self.cantidad_was 
-		        producto.stock_disponible -= self.cantidad 
-		        producto.stock_reservado += self.cantidad
-		        producto.save
-	      	end
-      end
-  end
+  # def actualizar_stock_insumo
+  #     if self.cantidad_changed?
+  #     	  	if self.detalle_insumos.any?
+	 #      	  self.detalle_insumos do |detalle|
+		#       	producto = Producto.find(detalle.producto_id)
+		#       	insumo = Insumo.find(detalle.insumo_id)
+		#       	coeficiente = ProductoInsumo.find_by(producto_id: producto.id, insumo_id: insumo.id).coeficiente
+		#         insumo.stock_disponible += (self.cantidad_was * coeficiente)
+		#         insumo.stock_reservado -= (self.cantidad_was  * coeficiente)
+		#         insumo.stock_disponible -= (self.cantidad * coeficiente)
+		#         insumo.stock_reservado += (self.cantidad  * coeficiente)
+		#         insumo.save
+		#       end
+	 #  		else
+		#       	producto = Producto.find(detalle.producto_id)
+		#       	producto.stock_disponible += self.cantidad_was 
+		#         producto.stock_reservado -= self.cantidad_was 
+		#         producto.stock_disponible -= self.cantidad 
+		#         producto.stock_reservado += self.cantidad
+		#         producto.save
+	 #      	end
+  #     end
+  # end
+
 
 
 

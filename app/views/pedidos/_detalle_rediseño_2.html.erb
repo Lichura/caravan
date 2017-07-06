@@ -11,10 +11,9 @@
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
 							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
 						<% else %>
-							<%= ff.check_box :_destroy, {checked: false, class:"checkbox_insumo"}, '0', '1' %>
-
-												<span><%= ff.object.insumo.nombre %></span>
-										<% end %>
+							<%= ff.check_box :_destroy, { checked: false, class:"checkbox_insumo"}, '0', '1' %>					
+						<% end %>
+						<span><%= ff.object.insumo.nombre %></span>
 									</label>
 									<%= hidden_field_tag Insumo.find(ff.object.insumo.id).imagen, '', class: "insumo_imagen" %>
 									<%= ff.hidden_field :insumo_id %>
