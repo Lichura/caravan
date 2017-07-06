@@ -7,6 +7,7 @@ class Detalle < ApplicationRecord
 	after_update :actualizar_stock_producto
 	before_destroy :eliminar_detalle_insumos 
 	#before_destroy :destruir_stock_insumo
+	after_create :cantidad_insumo
 	after_update :cantidad_insumo
 	after_update :generar_rango_senasa
 

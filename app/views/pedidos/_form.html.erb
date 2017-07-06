@@ -1,120 +1,112 @@
 
-        <%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
-        <% if @pedido.errors.any? %>
-        <div class="alert alert-danger alert-dismissable" role="alert">
-          <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4><%= pluralize(@pedido.errors.count, "error") %> impidieron que se genere el pedido:</h4>
+<%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
+<% if @pedido.errors.any? %>
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4><%= pluralize(@pedido.errors.count, "error") %> impidieron que se genere el pedido:</h4>
 
-          <ul>
-            <% @pedido.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-            <% end %>
-          </ul>
-        </div>
-        <% end %>
-
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading pedidos">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse1">Cliente</a>
-              </h4>
-            </div>
-            <div id="collapse1" class="panel-collapse collapse in">
-              <%= render partial: 'cabecera', locals: {f: f} %>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel-group">
-          <div class="panel panel-default">
-            <div class="panel-heading pedidos">
-              <h4 class="panel-title">
-                <a data-toggle="collapse" href="#collapse2">Detalle</a>
-              </h4>
-            </div>
-            <div id="collapse2" class="panel-collapse collapse in">
-                <% if @pedido.new_record? %>
-                  <% @familia_de_productos.each do |familia| %>
-                    <div class="panel-group">
-                      <div class="panel panel-default">
-                        <div class="panel-heading pedidos">
-                          <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#<%= familia.nombre %>"><%= familia.nombre %></a>
-                          </h4>
-                        </div>
-                        <div id=<%= familia.nombre %> class="panel-collapse collapse in">
-                          <div class="panel-group">
-    <div class="panel panel-default">
-          <div class="panel-heading facturas">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" href="#collapse">Articulos</a>
-            </h4>
-          </div>
-        <div id="collapse" class="panel-collapse collapse in">
-            <div class="tabla-responsive-vertical shadow-z-1">
-            <table class="tabla tabla-hover">
-                <thead>
-                    <tr>
-                      <th>Foto</th>
-                      <th>Producto</th>
-                      <th>Insumos</th>
-                      <th>Color</th>
-                      <th>Precio</th>
-                      <th>Cantidad</th>
-                      <th>Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                             <%= f.fields_for :detalles do |ff| %>
-                               <% if ff.object.producto.familium_id == familia.id %>
-                                <% render 'detalle_rediseño_2', f: ff %>
-                               <% end %>
-                             <% end %>
-                                             </tbody>
-            </table>
-            </div>
-        </div>
-    </div>
+  <ul>
+    <% @pedido.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
 </div>
-                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <div id="collapse" class="panel-collapse collapse in">
+<% end %>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading pedidos">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Cliente</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <%= render partial: 'cabecera', locals: {f: f} %>
+    </div>
+  </div>
+</div>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading pedidos">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse2">Detalle</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse in">
+      <% if @pedido.new_record? %>
+        <% @familia_de_productos.each do |familia| %>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading pedidos">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#<%= familia.nombre %>"><%= familia.nombre %></a>
+                </h4>
+              </div>
+              <div id=<%= familia.nombre %> class="panel-collapse collapse in">
+                <div class="panel-group">
+                  <div class="panel panel-default">
                     <div class="tabla-responsive-vertical shadow-z-1">
-                       <table class="tabla tabla-hover">
-                        <thead>
-                          <tr>
-                            <th colspan="2">Producto</th>
-                            <th>Cantidad</th>
-                            <th>Rango Desde</th>
-                            <th>Rango Hasta</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <%= f.fields_for :detalles do |ff| %>
-                            <% render 'detalle_edit', f: ff, locals: {user: f} %>
-                          <% end %>
-                        </tbody>
-                      </table>
+                        <table class="tabla tabla-hover">
+                          <thead>
+                            <tr>
+                              <th>Foto</th>
+                              <th>Producto</th>
+                              <th>Insumos</th>
+                              <th>Color</th>
+                              <th>Precio</th>
+                              <th>Cantidad</th>
+                              <th>Subtotal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                           <%= f.fields_for :detalles do |ff| %>
+                           <% if ff.object.producto.familium_id == familia.id %>
+                           <% render 'detalle_rediseño_2', f: ff %>
+                           <% end %>
+                           <% end %>
+                          </tbody>
+                        </table>
                     </div>
-                  </div>   
-                <% end %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-      </div>
-      <%= render partial: 'totales', locals: {f: f} %>
+        <% end %>
+      <% else %>
+        <div id="collapse" class="panel-collapse collapse in">
+          <div class="tabla-responsive-vertical shadow-z-1">
+            <table class="tabla tabla-hover">
+              <thead>
+                <tr>
+                  <th colspan="2">Producto</th>
+                  <th>Cantidad</th>
+                  <th>Rango Desde</th>
+                  <th>Rango Hasta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :detalles do |ff| %>
+                  <% render 'detalle_edit', f: ff, locals: {user: f} %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>   
       <% end %>
+    </div>
+  </div>
+</div>
+<%= render partial: 'totales', locals: {f: f} %>
+<% end %>
 
 
 
 
 
-      <!--<div class="subtotal">0$</div> -->
-      <script>
+<!--<div class="subtotal">0$</div> -->
+<script>
 /**
  * Created by Kupletsky Sergey on 05.11.14.
  *
@@ -146,7 +138,7 @@
  });
 
 
-    $(".precio-unitario").each(function(){
+  $(".precio-unitario").each(function(){
     calcularPrecioArticulo(this);
 
   });
@@ -169,32 +161,32 @@
 
 //recorro cada insumo de cada articulo, en caso de que este deshabilitado (es decir por defecto y no se pueda
 // seleccionar, lo pinto y le agrego un tilde)
-  $(".precio-unitario").each(function(){
-    if ( $(this).find("input:checkbox").is(':disabled') ) {
-      pintarDivs(this);
-      agregarTilde(this);
-    }
-  });
-
-  $(".precio-unitario").off('change').on('change', function(){
-
-    cambiarImagenInsumo(this);
+$(".precio-unitario").each(function(){
+  if ( $(this).find("input:checkbox").is(':disabled') ) {
     pintarDivs(this);
     agregarTilde(this);
-    deseleccionarChecks(this);
-    calcularPrecioArticulo(this);
-  });
+  }
+});
+
+$(".precio-unitario").off('change').on('change', function(){
+
+  cambiarImagenInsumo(this);
+  pintarDivs(this);
+  agregarTilde(this);
+  deseleccionarChecks(this);
+  calcularPrecioArticulo(this);
+});
 
   //agrego un tilde verde al texto de cada insumo
   function agregarTilde(elem){
-     $(elem).append("<i style='color:green' class='glyphicon glyphicon-ok'></i>");
-  }
+   $(elem).append("<i style='color:green' class='glyphicon glyphicon-ok'></i>");
+ }
 
-  function eliminarTilde(elem){
-    var $container = $(elem).parent().parent();
-    console.log($container.html());
-    $container.find('i').remove();
-  }
+ function eliminarTilde(elem){
+  var $container = $(elem).parent().parent();
+  console.log($container.html());
+  $container.find('i').remove();
+}
 
   //pinto cada contenedor
   function pintarDivs(elem){
@@ -208,24 +200,24 @@
     $(elem).parent().parent().removeClass('pintar-contenedor');
   }
 
-function calcularPrecioArticulo(elem) {
-  var suma = 0;
-  var $container = $(elem).parent().parent().parent();
-  var $elemento = $(elem).parent().parent();
-  $elemento.find('.detalle-producto-informacion-insumo').each(function() {
+  function calcularPrecioArticulo(elem) {
+    var suma = 0;
+    var $container = $(elem).parent().parent().parent();
+    var $elemento = $(elem).parent().parent();
+    $elemento.find('.detalle-producto-informacion-insumo').each(function() {
       if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
-      var val = $(this).find('.precio-unitario').attr("value");
-          if ( val ) {
-              val = parseFloat( val.replace( /^\$/, "" ) );
-              suma += !isNaN( val ) ? val : 0;
-          }
-    }
-  });
-  var cantidad = $container.find('.cantidad').val();
-  var subtotal = parseInt(cantidad) * parseFloat(suma);
-  $container.find('.precio').text(suma.toFixed(2)).trigger('change');
-  $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
-}
+        var val = $(this).find('.precio-unitario').attr("value");
+        if ( val ) {
+          val = parseFloat( val.replace( /^\$/, "" ) );
+          suma += !isNaN( val ) ? val : 0;
+        }
+      }
+    });
+    var cantidad = $container.find('.cantidad').val();
+    var subtotal = parseInt(cantidad) * parseFloat(suma);
+    $container.find('.precio').text(suma.toFixed(2)).trigger('change');
+    $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+  }
 
   function deseleccionarChecks(elem){
     var $container = $(elem).parent().parent().parent();
@@ -234,17 +226,17 @@ function calcularPrecioArticulo(elem) {
     $elemento.find(".checkbox_insumo").each(function(){
       if ($(this).attr("id") != $checkbox ){
         $(this).attr('checked', false);
-         despintarDivs(this);
-         eliminarTilde(this);
-    } else if(($(this).attr("id") == $checkbox) && ($(this).prop('checked') == false) ){
         despintarDivs(this);
         eliminarTilde(this);
-    }
-    
+      } else if(($(this).attr("id") == $checkbox) && ($(this).prop('checked') == false) ){
+        despintarDivs(this);
+        eliminarTilde(this);
+      }
+
     });
   }
 
-    function cambiarImagenInsumo(elem){
+  function cambiarImagenInsumo(elem){
     var $container = $(elem).parent().parent().parent();
     var $imagen = $container.find('.producto_imagen');
     var $elemento = $(elem).parent();
