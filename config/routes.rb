@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     collection do
       get 'get_precios', to: "pedidos#get_precios"
       get 'get_cliente', to: "pedidos#get_cliente"
+      get 'get_rango', to: "pedidos#get_rango"
       get 'rango_pedido', to: "pedidos#rango_pedido"
     end 
   end

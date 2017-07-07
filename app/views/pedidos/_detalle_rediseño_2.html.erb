@@ -25,11 +25,12 @@
 					<td data-title="Color"><%= f.object.producto.color %></td>
 					<td data-title="Precio" class="precio"><%= number_to_currency(f.object.producto.precio) %></td>
 					<td data-title="Cantidad" ><%= f.text_field :cantidad, class: "cantidad" %></td>
-					<td><span class="subtotal">0</span></td>
+					<td><span class="subtotal">0</span>
+					<input class="pedido_minimo" hidden value=<%= f.object.producto.pedido_minimo %>></input>
+					<input class="multiplo" hidden value=<%= f.object.producto.multiplo %>></input></td>
 					<%= f.hidden_field :precio, :value => (f.object.producto.precio * @descuento) %>
 					<%= f.hidden_field :producto_id %>
-					<input class="pedido_minimo" hidden value=<%= f.object.producto.pedido_minimo %>></input>
-					<input class="multiplo" hidden value=<%= f.object.producto.multiplo %>></input>
+
 				</tr>
 
 
@@ -66,29 +67,18 @@ $('document').ready(function(){
         //UpdateTotal(this);
     });
 
-
-	
-
-
-
-
-
+//calculo para cada linea su subtotal (precio * cantidad)
 function UpdateSubTotal(elem) {
-    // This will give the tr of the Element Which was changed
-
     var $container = $(elem).parent().parent();
     var quantity = $container.find('.cantidad').val();
     var price = $container.find('.precio').text();
     price = price.replace("$", "");
     var subtotal = parseInt(quantity) * parseFloat(price);
-    console.log(price);
-    console.log(quantity);
-    console.log(subtotal);
+    console.log("precio" + price);
+    console.log("cantidad" + quantity);
+    console.log("subtotal" + subtotal);
     $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
 }
-
-
-
 
 //esta funcion revisa el pedido_minimo y el multiplo de cada articulo para validar que el cliente ingreso lo correcto
 function validarPedidoMinimo(elem){
@@ -100,8 +90,11 @@ function validarPedidoMinimo(elem){
 	if (parseInt(cantidad) < parseInt(pedidoMinimo)){
 		alert('El minimo de unidades para este producto es: ' + pedidoMinimo);
 		$container.find('.cantidad').focus();
-	
+	} else if (( parseInt(cantidad) % parseInt(pedidoMinimo) ) > 0 ){
+		alert('El pedido debe ser un multiplo de: ' + pedidoMinimo);
+		$container.find('.cantidad').focus();
 	}
+
 }
 
 
@@ -157,10 +150,12 @@ function validarPedidoMinimo(elem){
 	});
 
 	$(".cantidad").each(function(){
-		var val = $.trim( $(this).val() );
-		cantidad += parseFloat(val);
+		var val = parseFloat($.trim( $(this).val() ));
+		cantidad += !isNaN( val ) ? val : 0;
 	});
 
+	console.log("la cantidad es " + cantidad);
+	//$('input.total').text(sum.toFixed(2)).trigger('change');
 	$("input.total").val( sum );
 	$("input.cantidadTotal").val( cantidad );
 }

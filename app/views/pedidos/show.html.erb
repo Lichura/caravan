@@ -36,6 +36,7 @@
                     <thead>
                       <tr>
                       <th>Producto</th>
+                      <th>Insumos</br>Nombre Cantidad</th>
                       <th>Cantidad</th>
                       <th>Rango Desde</th>
                       <th>Rango Hasta</th>
@@ -46,17 +47,24 @@
                       <% @pedido.detalles.each do |producto| %>
                         <tr>
                           <td data-title="Producto"><%= Producto.find(producto.producto_id).nombre %></td>
+                          <td data-title="Insumos">
+                          <table>
+                          <tbody>
+                          <% producto.detalle_insumos.each do |insumo| %>
+                          <tr>
+                              <td><%= Insumo.find(insumo.insumo_id).nombre %></td>
+                              <td><%= insumo.cantidad_id %></td></tr>
+                            <% end %>
+                            </tbody>
+                            </table>
+                            </td>
                           <td data-title="Cantidad"><%= producto.cantidad %></td>
                           <td data-title="Rango Desde"><%= producto.rango_desde %></td>
                           <td data-title="Rango Hasta"><%= producto.rango_hasta %></td>
                           <td data-title="Pendiente de remitir"><%= producto.pendiente_remitir %></td>
-                        </tr>
-                  <% producto.detalle_insumos.each do |insumo| %>
-                    <tr>
-                      <td data-title="Insumo"><%= Insumo.find(insumo.insumo_id).nombre %></td>
-                      <td data-title="Cantidad-insumo"><%= insumo.cantidad_id %></td>
-                    </tr>
-                    <% end %>
+
+
+                                                    </tr>
                     <% end %>
                     </tbody>
                   </table>

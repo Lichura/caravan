@@ -103,6 +103,16 @@ module Metodo
 		return consulta 
 	end
 
+	def generar_nuevo_rango_on_the_fly(rango_inicial, cantidad)
+		i = 2
+		consulta = descomponer_rango(rango_inicial)
+		while i < cantidad do
+			consulta = descomponer_rango(consulta)
+			i += 1
+		end
+		return consulta 
+	end
+
 	def disminuir_ultimo_numero(rango)
 		array_nuevo = Array.new
 		array_nuevo = rango.split("")
