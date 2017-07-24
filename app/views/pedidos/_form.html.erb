@@ -170,31 +170,35 @@
 
 $(".precio-unitario").off('change').on('change', function(){
 
-  //cambiarImagenInsumo(this);
-  //pintarDivs(this);
-  //agregarTilde(this);
-  //deseleccionarChecks(this);
   calcularPrecioArticulo(this);
 });
 
 
   function calcularPrecioArticulo(elem) {
     var suma = 0;
-    var $container = $(elem).parent().parent().parent();
+    var $container = $(elem).parent().parent();
     var $elemento = $(elem).parent().parent();
-    $elemento.find('.detalle-producto-informacion-insumo').each(function() {
-      if ($(this).find('.precio-unitario').find('input[type=checkbox]').prop('checked') == true){
-        var val = $(this).find('.precio-unitario').attr("value");
-        if ( val ) {
-          val = parseFloat( val.replace( /^\$/, "" ) );
-          suma += !isNaN( val ) ? val : 0;
-        }
-      }
+    $elemento.find('.detalle-insumo-para-calcular-precio').each(function() {
+        $(this).find('.precio-unitario').each(function(){
+          if ($(this).find('input[type=checkbox]').prop('checked') == true){
+            var val = $(this).attr("value");
+            if ( val ) {
+              val = parseFloat( val.replace( /^\$/, "" ) );
+              suma += !isNaN( val ) ? val : 0;
+              console.log(suma)
+            }
+          }
+        });
     });
     var cantidad = $container.find('.cantidad').val();
     var subtotal = parseInt(cantidad) * parseFloat(suma);
     $container.find('.precio').text(suma.toFixed(2)).trigger('change');
-    $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+    if (subtotal) {
+      $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+    }else{
+      $container.find('.subtotal').text(0.00).trigger('change');
+    }
+    
   }
 
   //agrego un tilde verde al texto de cada insumo

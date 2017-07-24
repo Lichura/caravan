@@ -26,7 +26,7 @@ class PedidosController < ApplicationController
 
   def get_rango
     @metodo = Senasa.new
-    rango_desde = @metodo.generar_nuevo_rango_on_the_fly(params[:rango_desde], params[:iteraciones].to_i)
+    rango_desde = @metodo.calcular_rango_vivo(params[:rango_desde], params[:iteraciones].to_i)
     puts(rango_desde)
     data = {:message => rango_desde}
     render :json => data, :status => :ok

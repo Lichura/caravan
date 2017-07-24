@@ -165,7 +165,7 @@ module Metodo
 	end
 
 	def aumentar_array_2_numeros(array)
-				if array[3] == "."
+		if array[3] == "."
 			array[3] = 0
 		else	
 		if array[3].to_i < 9
@@ -175,7 +175,7 @@ module Metodo
 			if array[2].to_i < 9
 				array[2] = array[2].next
 			else
-				if array[0] == "Z" && array[1] == "Z"
+				if array[0] == "Z" && array[1] == "Z" && array[2] == 9
 					array[0] = "A"
 					array[1] = "A"
 					array[2] = "A"
@@ -195,7 +195,7 @@ module Metodo
 	end
 
 	def aumentar_array_1_numero(array)
-				if array[3] == "."
+		if array[3] == "."
 			array[3] = 0
 		else	
 		if array[3].to_i < 9
@@ -224,5 +224,25 @@ module Metodo
 		puts(array)
 	end
 
+	def calcular_rango_vivo(rango_inicial, iteraciones)
+		
+		nuevo_rango = rango_inicial.next
+		for i in (1..iteraciones)
+			case nuevo_rango
+				when "A0000"
+				 	rango_final = "A000"
+				when "AA000"
+					rango_final = "AA00"
+				when "AAA00"
+					rango_final = "AAA0"
+				when "AAAA0"
+					rango_final = "A000"
+				else
+					rango_final = nuevo_rango
+			end
+			nuevo_rango = rango_final
+		end
+		return rango_final
+	end
 
 end

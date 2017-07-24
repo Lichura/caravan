@@ -2,12 +2,12 @@
                 	<td data-title="Foto"><%= image_tag f.object.producto.imagen, class: "producto_imagen" %></td>
                 	<td data-title="Producto", class="producto_nombre"><%= f.object.producto.nombre %><br>
 					<%= f.object.producto.descripcion %></td>
-					<td>
+					<td class="detalle-insumo-para-calcular-precio">
 						<% if f.object.producto.insumos.any? %>
 							<!-- iteracion -->
 							<%= f.fields_for :detalle_insumos do |ff| %>
 								<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente > 0 %>
-									<label value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(				insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
+									<label class="precio-unitario" value=<%= number_to_currency(ff.object.insumo.precio * ProductoInsumo.find_by(				insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).coeficiente * @descuento) %> >
 						<% if ProductoInsumo.find_by(insumo_id: ff.object.insumo.id, producto_id: f.object.producto.id).por_defecto?  %>
 							<%= ff.check_box :_destroy, {checked: true, disabled: true}, '0', '1' %>
 						<% else %>
@@ -90,9 +90,13 @@ function validarPedidoMinimo(elem){
 	if (parseInt(cantidad) < parseInt(pedidoMinimo)){
 		alert('El minimo de unidades para este producto es: ' + pedidoMinimo);
 		$container.find('.cantidad').focus();
+		$(":submit").attr("disabled", true);
 	} else if (( parseInt(cantidad) % parseInt(pedidoMinimo) ) > 0 ){
 		alert('El pedido debe ser un multiplo de: ' + pedidoMinimo);
 		$container.find('.cantidad').focus();
+		$(":submit").attr("disabled", true);
+	} else {
+		$(":submit").removeAttr("disabled");
 	}
 
 }
@@ -153,8 +157,6 @@ function validarPedidoMinimo(elem){
 		var val = parseFloat($.trim( $(this).val() ));
 		cantidad += !isNaN( val ) ? val : 0;
 	});
-
-	console.log("la cantidad es " + cantidad);
 	//$('input.total').text(sum.toFixed(2)).trigger('change');
 	$("input.total").val( sum );
 	$("input.cantidadTotal").val( cantidad );

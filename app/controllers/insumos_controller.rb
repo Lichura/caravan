@@ -32,7 +32,7 @@ class InsumosController < ApplicationController
 
     respond_to do |format|
       if @insumo.save
-        format.html { redirect_to @insumo, notice: 'Se creo el insumo correctamente' }
+        format.html { redirect_to @insumo, notice: 'Acuerdese de realizar un pedido de stock antes de utilizar el mismo.' }
         format.json { render :show, status: :created, location: @insumo }
       else
         format.html { render :new }

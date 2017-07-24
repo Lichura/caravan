@@ -43,7 +43,7 @@ class ProductosController < ApplicationController
     authorize @producto
     respond_to do |format|
       if @producto.save
-        format.html { redirect_to @producto, notice: 'El producto se genero correctamente' }
+        format.html { redirect_to @producto, notice: 'Acuerdese de realizar un pedido de stock antes de utilizar el mismo.' }
         format.json { render :show, status: :created, location: @producto }
       else
         format.html { render :new }
