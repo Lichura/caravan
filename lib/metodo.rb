@@ -226,23 +226,27 @@ module Metodo
 
 	def calcular_rango_vivo(rango_inicial, iteraciones)
 		
-		nuevo_rango = rango_inicial.next
-		for i in (1..iteraciones)
+		nuevo_rango = rango_inicial
+		
+		for i in (1...iteraciones)
+			nuevo_rango = nuevo_rango.next
+			puts("recibo el siguiente rango inicial #{nuevo_rango}")
 			case nuevo_rango
 				when "A0000"
-				 	rango_final = "A000"
+				 	nuevo_rango = "A000"
 				when "AA000"
-					rango_final = "AA00"
+					nuevo_rango = "AA00"
 				when "AAA00"
-					rango_final = "AAA0"
+					nuevo_rango = "A000"
 				when "AAAA0"
-					rango_final = "A000"
+					nuevo_rango = "A000"
 				else
-					rango_final = nuevo_rango
+					nuevo_rango
 			end
-			nuevo_rango = rango_final
+			
 		end
-		return rango_final
+
+		return nuevo_rango
 	end
 
 end
