@@ -1,0 +1,12 @@
+  <div class="form-group">
+    <%= f.label :coeficiente, ("#{f.object.insumo.nombre} #{f.object.insumo.color}"), class: "col-sm-4 control-label" %>
+    <div class="col-sm-2">
+      <%= f.text_field :coeficiente ,  class: "form-control" %> 
+    </div>
+    <%= f.label :por_defecto , class: "col-sm-3 control-label"%>
+    <div class="col-sm-1">
+      	<%= f.check_box :por_defecto ,  class: "form-control"%>
+    </div>
+
+    <%= f.hidden_field :insumo_id %>
+  </div>

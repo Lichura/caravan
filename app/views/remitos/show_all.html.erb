@@ -1,0 +1,84 @@
+
+<% @pedido.remitos.each do |remito| %>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading remitos"><h2>Remito <%= remito.numero %></h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Pedido:</dt>
+          <dd><%= remito.pedido_id %></dd>
+
+          <dt>Numero:</dt>
+          <dd><%= remito.numero %></dd>
+
+          <dt>Fecha:</dt>
+          <dd><%= remito.fecha %></dd>
+          <dt>Estado: </dt>
+          <dd><%= remito.estado %></dd>
+          <dt>Transporte:</dt>
+          <dd><%= remito.transporte %></dd>
+
+          <dt>Productos:</dt>
+          <dd>
+          <div class="tabla-responsive-vertical shadow-z-1">
+                  <!-- Table starts here -->
+            <table id="tabla" class="tabla tabla-hover">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad</th>
+                  <th>Pendiente de facturar</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% remito.remito_items.each do |item| %>
+                <tr>
+                <td data-title="Producto"><%= Producto.find(item.producto_id).nombre %></td>
+                <td data-title="Cantidad"><%= item.cantidad %></td>
+                <td data-title="Pendiente de facturar"><%= item.pendiente_facturar %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          </dd>
+
+          <dt>Cantidad total:</dt>
+          <dd><%= remito.cantidadTotal %></dd>
+
+          <dt>Facturas:</dt>
+          <% remito.facturas.each do |factura| %>
+            <dd><%= link_to "Factura #{factura.id}", factura_path(factura), class: "btn btn-warning" %></dd>
+          <% end %>
+
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to pedidos_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        pedidos
+      <% end %>
+      <% if current_user.profile_id == 1 && remito.estado == "Pendiente de facturar" %>
+      <%= link_to remito_path(remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right' do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_remito_path(remito),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+
+      <% if remito.estado != "Facturado" %>
+        <%= link_to nueva_factura_path("remito_ids[]" => remito.id),  class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Facturar
+        <% end %>
+      <% end %>
+            <% end %>
+      <%= link_to "PDF", remito_path(remito, :format => 'pdf'),  {class: "btn btn-warning", target: :_blank} %>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,79 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading remitos"><h2>Remito <%= @remito.numero %></h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Pedido:</dt>
+          <dd><%= @remito.pedido_id %></dd>
+          <dt>Facturado:</dt>
+          <dd><%= @remito.facturado.to_sino %>
+          <dt>Remito numero:</dt>
+          <dd><%= @remito.numero %></dd>
+          <dt>Fecha:</dt>
+          <dd><%= @remito.fecha %></dd>
+          <dt>Transporte:</dt>
+          <dt>Cliente:</dt>
+          <dd><%= User.find(@remito.user_id).cuit %></dd>
+          <dd><%= @remito.transporte %></dd>
+          <dt>Dni Retira:</dt>
+          <dd><%= @remito.dniRetira %></dd>
+          <dt>Comentarios:</dt>
+          <dd><%= @remito.comentarios %></dd>
+          <dt>Productos:</dt>
+
+          <dd>
+
+            <div class="tabla-responsive-vertical shadow-z-1">
+                  <!-- Table starts here -->
+                  <table id="tabla" class="tabla tabla-hover">
+                    <thead>
+                      <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Facturado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      <% @remito.remito_items.each do |item| %>
+                      <tr>
+                        <td data-title="Producto"><%= Producto.find(item.producto_id).nombre %></td>
+                        <td data-title="Cantidad"><%= item.cantidad %></td>
+                        <td data-title="Facturado"><%= item.facturado %></td>
+                        </tr>
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                </dd>
+
+          <dt>Cantidad total:</dt>
+          <dd><%= number_to_currency(@remito.cantidadTotal) %></dd>
+
+
+           <dt>Facturas Asociadas:</dt>
+          <% @remito.facturas.each do |factura|  %>
+            <dd><%= link_to "Factura #{factura.id}", factura_path(factura), class: "btn btn-warning" %></dd>
+          <% end %> 
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to remitos_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        remitos
+      <% end %>
+      <% if current_user.profile_id == 1 %>
+        <%= link_to remito_path(@remito), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este remito?' }, class: 'btn btn-danger pull-right' do %>
+          <span class="glyphicon glyphicon-trash"></span>
+          Eliminar
+        <% end %>
+        <%= link_to edit_remito_path(@remito),  class: 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Editar
+        <% end %>
+      <% end %>
+      <%= link_to "PDF", remito_path(@remito, :format => 'pdf'),  {class: "btn btn-warning"} %>
+  </div>
+</div>

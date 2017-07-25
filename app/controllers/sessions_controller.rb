@@ -1,11 +1,12 @@
 class SessionsController < ApplicationController
+    skip_before_filter :require_login
   def new
   end
 
   def create
   	user = User.find_by_email(params[:email])
     #si el usuario es un cliente, lo redirijo a la pagina principal y no lo dejo loguearse
-    if user.profile_id == 3
+    if  !user.present? || user.profile_id == 3
         flash.now.alert = "Su usuario no cuenta con permisos para iniciar sesion"
         redirect_to root_url
     else
@@ -17,8 +18,12 @@ class SessionsController < ApplicationController
         end
         #puts "#{current_user.name}"
     		#session[:user_id] = user.id
-    		flash.now.alert = "logged in!"
-    		redirect_to root_url
+    		flash.now.alert = "Bienvenido!"
+        if user.profile_id == 1
+    		  redirect_to menu_url
+        else
+          redirect_to distribuidores_url
+        end
     	else
     		flash.now.alert = "Usuario o contraseña incorrecta"
     		render "new"

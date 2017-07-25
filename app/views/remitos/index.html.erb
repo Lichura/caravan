@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading remitos"><h3>Remitos</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+          <%= form_tag(remitos_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar remitos", class: "form-control"%>
+              <span class="input-group-btn">
+              <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      <div class="row" style="height: 100px;"></div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+                <thead class="remitos">
+                  <tr>
+                    <th>Pedido</th>
+                    <th>Razon Social</th>
+                    <th>Fecha</th>
+                    <th>Cantidad total</th>
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @remitos.each do |remito| %>
+                                            <td><%= remito.numero %></td>
+                                            <td>usuario</td>
+                                            <td><%= remito.fecha.to_formatted_s(:day_month_and_year) %></td>
+                                            <td><%= remito.cantidadTotal %></td>
+                                      <td>
+                    <%= link_to remito_path(remito) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_remito_path(remito) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to remito_path(remito.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta remito?' } do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @remitos, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nuevo remito', new_remito_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

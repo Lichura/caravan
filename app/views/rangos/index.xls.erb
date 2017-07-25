@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Sheet1">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">ID</Data></Cell>
+        <Cell><Data ss:Type="String">CUIG</Data></Cell>
+        <Cell><Data ss:Type="String">Rango</Data></Cell>
+        <Cell><Data ss:Type="String">Digito</Data></Cell>
+        <Cell><Data ss:Type="String">Impresión</Data></Cell>
+      </Row>
+    <% @rangos.each do |rango| %>
+      <Row>
+        <Cell><Data ss:Type="Number"><%= rango.id %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= User.find(rango.user_id).cuig %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= rango.letras %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= rango.digito.to_s %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= User.find(rango.user_id).cuig + "-" + rango.letras + "-" + rango.digito.to_s %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

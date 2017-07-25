@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Cuenta Corriente</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+
+            <%= form_tag(cuentascorrientes_path, :method => "get", id: "search-form") do %>
+            <div class="form-group">
+                <%= label_tag :fecha,  "Filtrar por fecha hasta", class: "control-label" %>
+                  <%= date_field_tag(:fecha, value = Date.today + 1 , options = {class: "form-control"}) %>
+            </div>
+            <div class="form-group">
+                <%= label_tag :cliente, "Filtrar por cliente", class: "col-sm-2 control-label" %>
+                	<%= select_tag :cliente, options_from_collection_for_select(User.where(profile_id: 2).all, "id", "razonSocial", :selected => params[:cliente]), class: "form-control" %>
+            </div>
+                <%= submit_tag "Filtrar", class: 'btn btn-default pull-right'%>
+            <% end %>
+          </div>
+        </div>
+      <div class="row" style="height: 100px;"></div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+              <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                <th>id</th>
+                <th>Distribuidor</th>
+                <th>Fecha</th>
+                <th>Concepto</th>
+                <th>Concepto Numero</th>
+                <th>Monto</th>
+                <th>Saldo</th>
+              </thead>
+          <tbody>
+            <% @cuentacorrientes.each do |cc| %>
+            <tr><!-- se podria utilizar para ver el proximo turno -->
+				<td><%= cc.id %></td>
+				<td><%= User.find(cc.user_id).razonSocial.truncate_words(5) %></td>
+				<td><%= cc.created_at.to_formatted_s(:day_month_and_year) %></td>
+				<td><%= cc.concepto %></td>
+				<td><%= cc.conceptoNumero %></td>
+				<td><%= number_to_currency(cc.monto) %></td>
+				<td><%= number_to_currency(@cuentacorrientes.where("user_id = ? AND created_at <= ?", cc.user_id, cc.created_at).sum(:monto)) %></td>
+            </tr>  
+            <% end %>
+          </tbody>
+      </table>
+    </div>
+    <%= will_paginate @cuentacorrientes, renderer: BootstrapPagination::Rails %>
+</div>
+
+</div>
+</div>
+</div>
+
+

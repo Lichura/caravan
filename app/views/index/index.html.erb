@@ -1,35 +1,25 @@
+<head>
+    <%= stylesheet_link_tag 'index', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+
 <section class="seccion-principal" data-section-name="principal">
-	<video playsinline autoplay muted loop poster="<%= asset_path('fondo.png') %>" id="video">
-	    <source src="<%= asset_path('video.mp4') %>"type="video/mp4">
-	</video>
-
-	<div class="titulo-principal">
-		<h1>Caravanas</h1>
-		<h3>Trenque Lauquen</h3>
-	</div>
+<%= render 'principal_dinamico' %>
 </section>
-<section class="seccion-inicio" data-section-name="inicio" id="inicio">
-	<p>seccion de inicio</p>
+<section class="seccion-inicio" data-section-name="inicio" id="seccion-inicio">
+	<%= render 'nosotros_dinamico' %>
 </section>
-<section class="seccion-nosotros" data-section-name="nosotros" id="nosotros">
-	<p>seccion de nosotros</p>
-</section>
-<section class="seccion-productos" data-section-name="productos" id="productos">
-	<p>seccion de productos</p>
-	<div>
-		<img src=<%= asset_path('caravana.png') %>>
-	</div>
+<section class="seccion-productos" data-section-name="productos" id="seccion-productos">
+	<%= render 'productos_dinamico' %>
 </section>
 
-<section class="seccion-contacto" data-section-name="contacto" id="contacto">
-	<p>seccion de contacto</p>
-	<div>
-		<%= render 'mensajes/form', mensaje: @mensaje %>
-	</div>
-</section>
+
+
+<footer class="footer">
+<%= render 'footer' %>
+</footer>
 
 <script>
-$(function() {
+/*$(function() {
   $.scrollify({
 		section:"section",
 });
@@ -41,7 +31,47 @@ $(function() {
 
 
 
-});
+});*/
 
+
+var $animation_elements = $('.animation-element');
+var $window = $(window);
+
+function check_if_in_view() {
+  var window_height = $window.height();
+  var window_top_position = $window.scrollTop();
+  var window_bottom_position = (window_top_position + window_height);
+
+  $.each($animation_elements, function() {
+    var $element = $(this);
+    var element_height = $element.outerHeight();
+    var element_top_position = $element.offset().top;
+    var element_bottom_position = (element_top_position + element_height);
+
+    //check to see if this current container is within viewport
+    if ((element_bottom_position >= window_top_position) &&
+      (element_top_position <= window_bottom_position)) {
+      $element.addClass('in-view');
+    } else {
+      $element.removeClass('in-view');
+    }
+  });
+}
+
+function check_nav() {
+  if ($(document).scrollTop() >= 100 ){
+    $('#custom-bootstrap-menu').addClass('fixed');
+
+  }else{
+    $('#custom-bootstrap-menu').removeClass('fixed');
+  }
+}
+
+$window.on('scroll resize', check_if_in_view);
+$window.trigger('scroll');
+$window.on('scroll', check_nav);
 
 </script>
+
+
+

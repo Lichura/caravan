@@ -1,0 +1,43 @@
+<!--For our animations to look good, the animated elements need to be able to be scrolled to. For this example I've added dummy content to the top -->
+
+
+  <div style="background-color: white" class="container">
+    <div class="row">
+      <h1>Nuestros productos</h1>
+    </div>
+    <!-- Course 1 -->
+    <div class="row producto">
+    <h2>Caravanas SENASA</h2>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+        </span>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-right imagen">
+            <img  src=<%= asset_path('caravanas.png') %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row producto">
+    <h2>Caravanas</h2>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+          <div class="animation-element slide-left imagen">
+            <img  src=<%= asset_path('caravanas.png') %>>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. 
+        </span>
+      </div>
+    </div>
+    </div>
+  </div>
+
+
+

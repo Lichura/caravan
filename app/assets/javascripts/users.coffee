@@ -3,12 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-
 jQuery ->
-	$('.remove_fields').on 'click', (event) ->
+	$('form').on 'click', '.remove_fields', (event) ->
 		$(this).prev('input[type=hidden]').val('1')
 		$(this).closest('fieldset').hide()
 		event.preventDefault()
+
 jQuery ->
 	$('.add_fields').on 'click', (event) ->
 		time = new Date().getTime()
@@ -20,10 +20,22 @@ jQuery ->
 
 jQuery ->
 	ciudades = $('#user_localidad_id').html()
-	$('#user_provincia_id').ready -> 
+	$('#user_provincia_id').on "change", -> 
 		provincia = $('#user_provincia_id :selected').text()
 		options = $(ciudades).filter("optgroup[label='#{provincia}']").html()
 		if options
 			$('#user_localidad_id').html(options)
 		else
 			$('#user_localidad_id').empty()
+
+
+jQuery ->
+	$(document).ready ->
+		if $('#buscarAfip').val() != ""
+  			$.ajax
+  				url: "/users/new"
+  				type: "GET"
+  				dataType: "script"
+  				data:
+  					search_afip: $('#buscarAfip').val()
+

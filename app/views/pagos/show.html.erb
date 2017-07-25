@@ -1,0 +1,53 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Comprobante de pago</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Distribuidor:</dt>
+          <dd><%= @pago.distribuidor_id %></dd>
+
+          <dt>Numero:</dt>
+          <dd><%= @pago.numero %></dd>
+
+          <dt>Medio de pago:</dt>
+          <dd><%= @pago.medioDePago %></dd>
+
+          <dt>Monto total:</dt>
+          <dd><%= number_to_currency(@pago.monto) %></dd>
+
+
+          <% if @pago.cheques.any? %>
+          <dt>Cheques:</dt>
+          <dd>
+            <% @pago.cheques.each do |cheque| %>
+              <div class="cheque-formato">
+                <span class="cheque-fechas"><%= cheque.fecha %></span>
+                <span class="cheque-bancos"><%= Banco.find(cheque.banco).nombre %></span>
+                <span class="cheque-numeros"><%= cheque.numero %></span>
+                <span class="cheque-montos"><%= number_to_currency(cheque.monto) %></span>  
+                <span class="cheque-nombres">Caravanas - Trenque Lauquen</span>             
+              </div><br>
+            <% end %>
+          <% end %>
+          </dd>
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to pagos_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Pagos
+      <% end %>
+      <%= link_to pago_path(@pago), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pago?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_pago_path(@pago),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+      <%= link_to "PDF", pago_path(@pago, :format => 'pdf'),  {class: "btn btn-warning"} %>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+
+.menuBoton{
+	width: 300px;
+	height: 150px;
+	background-color:rgba(200,200,200,0.5);
+  margin-top: 10%;
+}
+
+.menu{
+	margin-top: 5%;
+   display: -webkit-flex;
+   display: flex;
+  -webkit-flex-wrap: wrap; /* Safari */
+  flex-wrap:         wrap;
+   -webkit-justify-content: space-around; /* Safari */
+  justify-content:         space-around;
+ -webkit-align-content: space-between; /* Safari */
+  align-content:         space-between;
+}
+
+.menu .links{
+  background: none;
+}
+.menuBoton .glyphicon{
+	font-size: 5em;
+	position: relative;
+	margin-left: 2%;
+	margin-top: 60px;
+	color: white;
+}
+
+.menuBoton .menuHeader{
+
+	margin-top: 0;
+	color: white;
+	height: 35px;
+	width: 300px;
+	background-color: rgba(255,255,255,0.3);
+	position:absolute;
+}
+
+.menuBoton .menuHeader h2{
+
+	margin-top: 0;
+	margin-left: 5px;
+	position:absolute;
+}
+.menuBoton h1{
+	position: relative;
+	margin-top: -50px;
+	margin-left: 204px;
+	font-size: 80px;
+	color: white;
+}

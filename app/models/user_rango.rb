@@ -1,0 +1,2 @@
+class UserRango < ApplicationRecord
+end

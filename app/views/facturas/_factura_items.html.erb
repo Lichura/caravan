@@ -1,0 +1,87 @@
+
+<div class="panel-group">
+	<div class="panel panel-default">
+		<%= form_for @factura do |f| %>
+	       <% @remitos_seleccionados.each do |remito| %>
+			    <div class="panel-heading facturas">
+			      <h4 class="panel-title">
+			        <a data-toggle="collapse" href="#collapse-<%= remito.id %>">Remito N: <%= remito.numero %> </a>
+			      </h4>
+			    </div>
+			    <div id="collapse-<%= remito.id %>" class="panel-collapse collapse in">
+<div class="tabla-responsive-vertical shadow-z-1">
+  <table class="tabla tabla-hover">
+			    <thead>
+	              	<tr>
+		              	<th>Producto</th>
+		              	<th>Cantidad</th>
+		              	<th>Precio</th>
+		              	<th>IVA</th>
+		              	<th>Neto</th>
+		              	<th>Descuento en %</th>
+		              	<th>Subtotal</th>
+	           		</tr>
+	            </thead>
+	            <tbody>
+	            	<%= f.fields_for :factura_items do |ff| %>
+	            		<% if ff.object.remito_id == remito.id %>
+							<tr>	
+								<td data-title="Producto"><%= ff.object.producto.nombre %><br>
+								<%= ff.object.producto.descripcion %></td>
+								<td data-title="Cantidad"><%= ff.text_field :cantidad, :value =>  Remito.find(ff.object.remito_id).remito_items.find_by(:producto_id => ff.object.producto.id).cantidad , class: "cantidad form-control" %></td>
+								<td data-title="Precio"><%= ff.text_field :precio, :value =>  Producto.find(ff.object.producto.id).precio   , class: "precio form-control" %></td>
+								<td data-title="IVA"><%= ff.text_field :iva, :value => 0, class: "iva form-control" %></td>
+								<td data-title="Neto"><%= ff.text_field :neto, :value => 0, class: "neto form-control", readonly: true %></td>
+								<td data-title="descuento"><%= ff.text_field :neto, :value => 0, class: "descuento form-control" %></td>
+								<td data-title="Subtotal"><%= ff.text_field :subtotal, :value => 0, class: "subtotal form-control", readonly: true %></td>
+								<%= ff.hidden_field :producto_id %>
+								<%= ff.hidden_field :remito_id %>
+							</tr>
+						<% end %>
+					<% end %>
+				</tbody>
+				</table>
+				</div>
+			    </div>
+			    <% end %>
+		<% end %>
+	</div>
+</div>
+
+
+<script>
+$('document').ready(function(){
+	$('#ocultar_detalle').hide();
+	$('.cantidad').each(function(){
+		UpdateSubTotal(this);
+	});
+
+
+	$('.cantidad').unbind();
+	$('.cantidad').on('change', function(){
+		UpdateSubTotal(this);
+	});
+	$('.precio').on('change', function(){
+		UpdateSubTotal(this);
+	});
+	$('.descuento').unbind();
+	$('.descuento').change(function(){
+		UpdateSubTotal(this);
+	});
+
+	function UpdateSubTotal(elem) {
+	    // This will give the tr of the Element Which was changed
+	    var $container = $(elem).parent().parent();
+	    var cantidad = $container.find('.cantidad').val();
+	    var precio = $container.find('.precio').val();
+	    var descuento = 1 - (($container.find('.descuento').val() / 100));
+	    var subtotal = parseInt(cantidad) * parseFloat(precio) * parseFloat(descuento);
+	    var neto = (parseInt(subtotal) / (1.21));
+	    var iva = (subtotal - neto);
+	    $container.find('.subtotal').val(subtotal.toFixed(2)).trigger('change');
+	    $container.find('.iva').val(iva.toFixed(2)).trigger('change');
+	    $container.find('.neto').val(neto.toFixed(2)).trigger('change');
+	}
+
+});
+</script>

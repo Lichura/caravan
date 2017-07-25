@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>rangos</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-sm-offset-3">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                        <th>CUIG</th>
+                        <th>Rango</th>
+                        <th>Digito</th>
+                        <th>caravana</th>
+                        <th>Pedido</th>
+                        <th>User</th>
+
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+                  <% @rangos.each do |rango| %>
+                                            <td><%= User.find(rango.user_id).cuig %></td>
+                                            <td><%= rango.letras %></td>
+                                            <td><%= rango.digito %></td>
+                                            <td><%= User.find(rango.user_id).cuig + "-" + rango.letras + "-" + rango.digito.to_s %></td>
+                                            <td><%= rango.pedido_id %></td>
+                                            <td><%= rango.user_id %></td>
+                                      <td>
+                    <%= link_to rango_path(rango) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_rango_path(rango) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to rango_path(rango.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta rango?' }, remote: true do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @rangos, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nueva rango', new_rango_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to "Excel", rangos_path(format: "xls") %>

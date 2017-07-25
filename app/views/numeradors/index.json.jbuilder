@@ -1,0 +1,1 @@
+json.array! @numeradors, partial: 'numeradors/numerador', as: :numerador

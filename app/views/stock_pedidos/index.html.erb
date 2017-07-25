@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Stock</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <div class="input-group">
+              <input type="text" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button">Buscar</button>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                    <th>Vendedor</th>
+                    <th>Cantidadtotal</th>
+                    <th>Preciototal</th>
+                    <th>Mostrar</th>
+                    <th>Confirmar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @stock_pedidos.each do |stock_pedido| %>
+                  <tr>
+                    <td><%= stock_pedido.vendedor %></td>
+                    <td><%= stock_pedido.cantidadTotal %></td>
+                    <td><%= stock_pedido.precioTotal %></td>
+                    <td><%= link_to stock_pedido_path(stock_pedido) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %></td>
+                    <td><%= link_to edit_stock_pedido_path(stock_pedido) do %>
+                      <i class="glyphicon glyphicon-unchecked"></i>
+                    <% end %></td>
+                    
+                    <td>
+                    <%= link_to stock_pedido_path(stock_pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta stock_pedido?' } do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @stock_pedidos, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nuevo pedido de stock de insumos', new_stock_pedido_path %>
+          </button>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nuevo pedido de stock de productos', new_producto_stock_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

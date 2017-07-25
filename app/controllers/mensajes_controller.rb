@@ -4,12 +4,19 @@ class MensajesController < ApplicationController
   # GET /mensajes
   # GET /mensajes.json
   def index
-    @mensajes = Mensaje.all
+    @mensajes = Mensaje.paginate(:page => params[:page], :per_page => 10)
+      if params[:search]
+        @mensajes = Mensaje.search(params[:search]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @mensajes = Mensaje.all.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   # GET /mensajes/1
   # GET /mensajes/1.json
   def show
+    @mensaje.leido = true
+    @mensaje.save
   end
 
   # GET /mensajes/new
@@ -28,7 +35,7 @@ class MensajesController < ApplicationController
 
     respond_to do |format|
       if @mensaje.save
-        format.html { redirect_to @mensaje, notice: 'Mensaje was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Muchas gracias por comunicarte con Caravanas-TL.' }
         format.json { render :show, status: :created, location: @mensaje }
       else
         format.html { render :new }

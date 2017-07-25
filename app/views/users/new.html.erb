@@ -1,169 +1,157 @@
+<%= form_for @user do |f| %>
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Nuevo Cliente</h3></div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="col-lg-6">
+    <div class="panel-heading usuarios">
+      <h3>Nuevo Cliente</h3>
+      <% if @user.errors.any? %>
+        <div class="error_messages">
+          <h2> El formulario posee errores</h2>
+          <ul>
+            <% for message in @user.errors.full_messages %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-lg-6"></div>
+      </div>
+      <br>
+      <% if current_user.profile_id == 1 %>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Seleccionar perfil</label>
+        <div class="col-sm-10">
+            <%= f.collection_select(:profile_id, Profile.all, :id, :nombre,  {include_blank: true}, {:class => "form-control"}) %>
+        </div>
+        <div id="seleccionar_distribuidor">
+          <label class="col-sm-2 col-form-label">Seleccione distribuidor</label>
+          <div class="col-sm-10">
+             <%= f.collection_select(:distribuidor_id, User.all, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
           </div>
         </div>
-        <br>
-            <div id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="afipcollapse">
-                  <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#afipCollapse" aria-expanded="true" aria-controls="afipCollapse">
-                      Datos AFIP
-                    </a>
-                  </h3>
-                </div>
-                <div id="afipCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="afipCollapse">
-                  <%= form_tag(new_user_path, :method => "post", id: "search-form") do %>
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Ingrese el Cuit del cliente</label>
-                    <div class="input-group">
-                    <%= text_field_tag :search_afip,  params[:search_afip], placeholder: "Buscar Cuit", class: "form-control"%>
-                      <span class="input-group-btn">
-                      <%= submit_tag "Buscar", class: 'btn btn-default'%>
-                      </span>
-                    </div>
-                  <% end %><br>
-              <%= form_for @user do |f| %>
-                <% if @afip %>
-                  <% if @error %>
-                    <%= @error %>
-                  <% end %>
+      </div>
+      <% end %>
+      <div id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading usuarios" role="tab" id="afipcollapse">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#afipCollapse" aria-expanded="true" aria-controls="afipCollapse">Datos AFIP</a>
+            </h3>
+          </div>
+          <div id="afipCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="afipCollapse">
+            <div class="form-group row">
+              <div class="col-sm-10">
 
-                <div>
-                  <%= fields_for @user do |ff| %>
-                      <% render 'afip_fields', f: f %>
-                  <% end %>
+                <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Cuit</label>
+                  <div class="col-sm-10">
+                  <%= f.text_field :cuit, id: "buscarAfip", class: "form-control" %>
+
                 </div>
-              <% end %> 
-              <div id="afip"></div>
+                </div>
+
+                      <div id="afip"></div>
+              </div>
             </div>
           </div>
-              <% if @user.errors.any? %>
-                <div class="error_messages">
-                  <h2> Form ins invalid</h2>
-                  <ul>
-                    <% for message in @user.errors.full_messages %>
-                      <li><%= message %></li>
-                    <% end %>
-                  </ul>
-                </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading usuarios" role="tab" id="senasa">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#senasaCollapse" aria-expanded="true" aria-controls="senasaCollapse">Datos SENASA</a>
+            </h3>
+          </div>
+          <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="senasa" id="senasaCollapse">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">CUIG</label>
+              <div class="col-sm-10">
+                <%= f.text_field :cuig, placeholder: "CUIG", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">RENSPA</label>
+              <div class="col-sm-10">
+                <%= f.text_field :renspa, placeholder: "RENSPA", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Numero CV</label>
+              <div class="col-sm-10">
+                <%= f.text_field :numeroCv, placeholder: "Numero CV", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+         </div>
+        <div class="panel panel-default">
+          <div class="panel-heading usuarios" role="tab" id="cliente">
+            <h3 class="panel-title">
+              <a data-toggle="collapse" data-parent="#accordion" href="#clienteCollapse" aria-expanded="true" aria-controls="clienteCollapse">Datos Cliente</a>
+            </h3>
+          </div>
+          <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="cliente" id="clienteCollapse">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Email</label>
+              <div class="col-sm-10">
+                <%= f.email_field :email, placeholder: "email@gmail.com", class: "form-control" %>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Localidad</label>
+              <div class="col-sm-10">
+                <%= f.grouped_collection_select :localidad_id, Provincia.order(:nombre), :ciudades, :nombre, :id, :nombre, {include_blank: true}, {:class => 'form-control'}  %>
+              </div>
+            </div>
+            <%= f.fields_for :user_sucursals do |sucursal| %>
+              <%= render 'user_sucursal_fields', f: sucursal %>
             <% end %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="senasa">
-                  <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#senasaCollapse" aria-expanded="true" aria-controls="senasaCollapse">
-                      Datos SENASA
-                    </a>
-                  </h3>
-                </div>
-                <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="senasa" id="senasaCollapse">
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">CUIG</label>
-                    <div class="col-sm-10">
-                      <%= f.text_field :cuig, placeholder: "CUIG", class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">RENSPA</label>
-                    <div class="col-sm-10">
-                      <%= f.text_field :renspa, placeholder: "RENSPA", class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Numero CV</label>
-                    <div class="col-sm-10">
-                      <%= f.text_field :numeroCv, placeholder: "Numero CV", class: "form-control" %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="cliente">
-                  <h3 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#clienteCollapse" aria-expanded="true" aria-controls="clienteCollapse">
-                      Datos Cliente
-                    </a>
-                  </h3>
-                </div>
-                <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="cliente" id="clienteCollapse">
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                      <%= f.email_field :email, placeholder: "email@gmail.com", class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Localidad</label>
-                    <div class="col-sm-10">
-                      <%= f.grouped_collection_select :localidad_id, Provincia.order(:nombre), :ciudades, :nombre, :id, :nombre, {include_blank: true}, {:class => 'form-control'}  %> 
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Telefono</label>
-                    <div class="col-sm-10">
-                      <%= f.telephone_field :telefono, placeholder: "Telefono", class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Celular</label>
-                    <div class="col-sm-10">
-                      <%= f.telephone_field :celular, placeholder: "Celular", class: "form-control" %>
-                    </div>
-                  </div>
-                  <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Encargado</label>
-                    <div class="col-sm-10">
-                      <%= f.text_field :encargado, placeholder: "Encargado", class: "form-control" %>
-                    </div>
-                  </div>
-
-
-                  <%= f.fields_for :user_sucursals do |sucursal|%>
-                    <%= render 'user_sucursal_fields', f: sucursal %>
-                  <% end %>
-                  <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals, class: "btn btn-default" %>
-                </div>
-                </div>
-
-                <% if current_user && (current_user.profile_id == 1) %>
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="admin">
-                      <h3 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#adminCollapse" aria-expanded="true" aria-controls="adminCollapse">
-                          Datos Administrador
-                        </a>
-                      </h3>
-                    </div>
-                    <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="admin" id="adminCollapse">
-                    crear distribuidor o cliente
-                    <div>
-                  </div>
-                </div>
-              </div>
-                <% end %>
-              <%= f.submit 'Crear Usuario', class: "btn btn-primary pull-right"%>
-        <% end %>
-        <%= link_to edit_multiple_users_path, class: 'btn btn-danger pull' do %>
-          Cancelar
-        <% end %>
+            <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals,  :class => "btn btn-success pull-right" %>
+            <%= f.hidden_field :condicionCompra, :value => 1 %>
+          </div>
+        </div>
+      <%= f.submit 'Crear Usuario', :class => "btn btn-primary pull-right" %>
+      </div>
+    </div>
   </div>
+
 </div>
+<% end %>
 <script>
 $(document).ready(function(){
-  $('#user_cuig').mask('00.000.0.00000/00');
+
+  $('#user_renspa').mask('00.000.0.00000/00');
+  $('#user_numeroCv').mask('000');
+  $('#user_cuig').mask('SS000');
+  $('#seleccionar_distribuidor').hide();
+  $( ".has-error" ).first().focus();
 
 
-   $("#search-form").validate({
-    debug: true,
-    rules: {
-    "search_afip": {required: true, rangelength: [11,11]},
+  $('#user_profile_id').change(function(){
+    if ($('#user_profile_id').val() == 3 ){
+      $('#seleccionar_distribuidor').show();
+      $('#user_distribuidor_id').combobox();
+    } else {
+      $('#seleccionar_distribuidor').hide();
     }
   });
+
+
+
+  $(document).on('change', '#buscarAfip', function(){
+     $.ajax({
+       url: "/users/new",
+       data: {
+        search_afip: $('#buscarAfip').val()
+      },
+      error: function() {
+          alert("En estos momentos no podemos procesar su solicitud, intente nuevamente en unos momentos o puede cargar el formulario a mano.");
+          $('#afip').html("<%= j(render 'afip_fields') %>");
+        },
+      dataType: 'script',
+      type: 'GET'
+    });
+  });
+
 });
-
-
-
 </script>

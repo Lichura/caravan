@@ -1,111 +1,312 @@
+
 <%= form_for(@pedido, html: { class: "form-horizontal", role: "form" }) do |f| %>
-  <% if @pedido.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@pedido.errors.count, "error") %> prohibited this pedido from being saved:</h4>
+<% if @pedido.errors.any? %>
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4><%= pluralize(@pedido.errors.count, "error") %> impidieron que se genere el pedido:</h4>
 
-      <ul>
-      <% @pedido.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+  <ul>
+    <% @pedido.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading pedidos">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse1">Cliente</a>
+      </h4>
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :fecha, "Fecha: ", class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= Date.today %>
+    <div id="collapse1" class="panel-collapse collapse in">
+      <%= render partial: 'cabecera', locals: {f: f} %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :comprobanteNumero, "Nota de pedido N: " , class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <% if @pedido.comprobanteNumero  %>
-        <%= f.label :comprobanteNumero, :value => @pedido.comprobanteNumero %>
-      <% else %>
-        <%= @numeroDePedido %>
-        <%= f.hidden_field :comprobanteNumero, :value => @numeroDePedido %>
-      <% end %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :cuit, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.collection_select :cuit, User.all, :cuit, :cuit,  include_blank: true, class: "form-control" %>
-    </div>
-  </div>
+</div>
 
-  <div class="form-group">
-    <%= f.label :condicionCompra, "Condicion de compra", class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :condicionCompra, class: "form-control" %>
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading pedidos">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#collapse2">Detalle</a>
+      </h4>
     </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :sucursal, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.number_field :sucursal, class: "form-control" %>
-    </div>
-  </div>
-<!--Primero itero por todos los productos y para cada uno puedo asignarle una cantidad, el precio viene dado por el producto-->
-
-<%= f.fields_for :detalles do |detalle| %>
-
-                <%= detalle.check_box :_destroy, {:checked => detalle.object.persisted?}, '0', '1' %>
-                <%= detalle.hidden_field :producto_id %>
-                <%= detalle.object.producto.nombre %> 
+    <div id="collapse2" class="panel-collapse collapse in">
+      <% if @pedido.new_record? %>
+        <% @familia_de_productos.each do |familia| %>
+          <div class="panel-group">
+            <div class="panel panel-default">
+              <div class="panel-heading pedidos">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" href="#<%= familia.nombre %>"><%= familia.nombre %></a>
+                </h4>
+              </div>
+              <div id=<%= familia.nombre %> class="panel-collapse collapse in">
+                <div class="panel-group">
+                  <div class="panel panel-default">
+                    <div class="tabla-responsive-vertical shadow-z-1">
+                        <table class="tabla tabla-hover">
+                          <thead>
+                            <tr>
+                              <th>Foto</th>
+                              <th>Producto</th>
+                              <th>Insumos</th>
+                              <th>Color</th>
+                              <th>Precio</th>
+                              <th>Cantidad</th>
+                              <th>Subtotal</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                           <%= f.fields_for :detalles do |ff| %>
+                           <% if ff.object.producto.familium_id == familia.id %>
+                           <% render 'detalle_rediseño_2', f: ff %>
+                           <% end %>
+                           <% end %>
+                          </tbody>
+                        </table>
+                    </div>
                   </div>
                 </div>
-               <div class="form-group">
-                  <%= detalle.label :cantidad , class: "col-sm-2 control-label"%>
-                <div class="col-sm-10">
-                  <%= detalle.text_field :cantidad, class: "form-control" %>
-                </div>
-              </div>               
-              <div class="form-group">
-                  <%= detalle.label :precio , class: "col-sm-2 control-label"%>
-                <div class="col-sm-10">
-                  <%= detalle.text_field :precio, :value => detalle.object.producto.precio, class: "form-control" %>
-
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div id="collapse" class="panel-collapse collapse in">
+          <div class="tabla-responsive-vertical shadow-z-1">
+            <table class="tabla tabla-hover">
+              <thead>
+                <tr>
+                  <th colspan="2">Producto</th>
+                  <th>Cantidad</th>
+                  <th>Rango Desde</th>
+                  <th>Rango Hasta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :detalles do |ff| %>
+                  <% render 'detalle_edit', f: ff, locals: {user: f} %>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>   
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= render partial: 'totales', locals: {f: f} %>
 <% end %>
 
-  <div class="form-group">
-    <%= f.label :cantidadTotal, class: "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :cantidadTotal, class: "cantidadTotal form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-      <%= f.label :precioTotal, class: "col-sm-2 control-label" %>
-      <div class="col-sm-10">
-      <%= f.text_field :precioTotal, class: "subtotal form-control" %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit class: "btn btn-primary" %>
-    </div>
-  </div>
-<% end %>
+
+
 
 
 <!--<div class="subtotal">0$</div> -->
 <script>
+/**
+ * Created by Kupletsky Sergey on 05.11.14.
+ *
+ * Material Design Responsive Table
+ * Tested on Win8.1 with browsers: Chrome 37, Firefox 32, Opera 25, IE 11, Safari 5.1.7
+ * You can use this table in Bootstrap (v3) projects. Material Design Responsive Table CSS-style will override basic bootstrap style.
+ * JS used only for table constructor: you don't need it in your project
+ */
 
-$('.cantidad').on('change', function () {
+ $(document).ready(function() {
 
-    var subtotal = 0;
-    var cantidad = 0;
-    $('.cantidad').each(function () {
-        var $this = $(this);
-        var quantity = parseInt($this.val());
-        var price = parseFloat($this.siblings('.precio').val())
-        subtotal += quantity * price;
-        cantidad += quantity;
-    })
-    $('.subtotal').text(subtotal);
-    $('.cantidadTotal').text(cantidad);
-})
-$('.cantidad').trigger('change')
+  if ( !$('#pedido_user_id').val() ){
+    $('#collapse2').hide();
+  }
+
+  $(document).on('change', '#buscarAfip1', function(){
+   $.ajax({
+     url: '/users/new_pedido',
+     data: {
+      search_afip: $('#buscarAfip1').val()
+    },
+    error: function() {
+      alert($('#buscarAfip1').val());
+    },
+    dataType: 'script',
+    type: 'GET'
+  });
+
+ });
+
+
+  $(".precio-unitario").each(function(){
+    calcularPrecioArticulo(this);
+
+  });
+
+
+    //generar una funcion que cuando se clicke y ya este clickado despinte y saque tildes
+
+    // $(".checkbox_insumo").off('change').on('change',function(){
+    //   var $container = $(this).parent().parent().parent().parent();
+    //   var quantity = $container.find('.cantidad').val();
+    //    if ( $(this).is(':checked') & (quantity > 0)){
+    //     $(":submit").attr("disabled", false);
+    //     }
+    //   else
+    //     {
+    //       $(":submit").attr("disabled", true);
+    //       despintarDivs(this);
+    //     }
+    // });
+
+//recorro cada insumo de cada articulo, en caso de que este deshabilitado (es decir por defecto y no se pueda
+// seleccionar, lo pinto y le agrego un tilde)
+// $(".precio-unitario").each(function(){
+//   if ( $(this).find("input:checkbox").is(':disabled') ) {
+//     pintarDivs(this);
+//     agregarTilde(this);
+//   }
+// });
+
+$(".precio-unitario").off('change').on('change', function(){
+
+  calcularPrecioArticulo(this);
+});
+
+
+  function calcularPrecioArticulo(elem) {
+    var suma = 0;
+    var $container = $(elem).parent().parent();
+    var $elemento = $(elem).parent().parent();
+    $elemento.find('.detalle-insumo-para-calcular-precio').each(function() {
+        $(this).find('.precio-unitario').each(function(){
+          if ($(this).find('input[type=checkbox]').prop('checked') == true){
+            var val = $(this).attr("value");
+            if ( val ) {
+              val = parseFloat( val.replace( /^\$/, "" ) );
+              suma += !isNaN( val ) ? val : 0;
+              console.log(suma)
+            }
+          }
+        });
+    });
+    var cantidad = $container.find('.cantidad').val();
+    var subtotal = parseInt(cantidad) * parseFloat(suma);
+    $container.find('.precio').text(suma.toFixed(2)).trigger('change');
+    if (subtotal) {
+      $container.find('.subtotal').text(subtotal.toFixed(2)).trigger('change');
+    }else{
+      $container.find('.subtotal').text(0.00).trigger('change');
+    }
+    
+  }
+
+  //agrego un tilde verde al texto de cada insumo
+ //  function agregarTilde(elem){
+ //   $(elem).append("<i style='color:green' class='glyphicon glyphicon-ok'></i>");
+ // }
+
+//  function eliminarTilde(elem){
+//   var $container = $(elem).parent().parent();
+//   console.log($container.html());
+//   $container.find('i').remove();
+// }
+
+  //pinto cada contenedor
+  // function pintarDivs(elem){
+  //   var $container = $(elem).parent();
+  //   $(elem).parent().addClass('pintar-contenedor');
+  // }
+
+
+  // function despintarDivs(elem){
+  //   var $container = $(elem).parent().parent();
+  //   $(elem).parent().parent().removeClass('pintar-contenedor');
+  // }
+
+
+
+  // function deseleccionarChecks(elem){
+  //   var $container = $(elem).parent().parent().parent();
+  //   var $elemento = $(elem).parent().parent();
+  //   var $checkbox = $(elem).find(".checkbox_insumo").attr("id");
+  //   $elemento.find(".checkbox_insumo").each(function(){
+  //     if ($(this).attr("id") != $checkbox ){
+  //       $(this).attr('checked', false);
+  //       despintarDivs(this);
+  //       eliminarTilde(this);
+  //     } else if(($(this).attr("id") == $checkbox) && ($(this).prop('checked') == false) ){
+  //       despintarDivs(this);
+  //       eliminarTilde(this);
+  //     }
+
+  //   });
+  // }
+
+  // function cambiarImagenInsumo(elem){
+  //   var $container = $(elem).parent().parent().parent();
+  //   var $imagen = $container.find('.producto_imagen');
+  //   var $elemento = $(elem).parent();
+  //   var nueva_imagen = $elemento.find('.insumo_imagen').attr("name");
+  //   $imagen.attr("src", nueva_imagen);
+  // }
+
+  var table = $('#tabla');
+
+    // Table bordered
+    $('#tabla-bordered').change(function() {
+      var value = $( this ).val();
+      table.removeClass('tabla-bordered').addClass(value);
+    });
+
+    // Table striped
+    $('#tabla-striped').change(function() {
+      var value = $( this ).val();
+      table.removeClass('tabla-striped').addClass(value);
+    });
+
+    // Table hover
+    $('#tabla-hover').change(function() {
+      var value = $( this ).val();
+      table.removeClass('tabla-hover').addClass(value);
+    });
+
+    // Table color
+    $('#tabla-color').change(function() {
+      var value = $(this).val();
+      table.removeClass(/^tabla-mc-/).addClass(value);
+    });
+  });
+
+// jQuery’s hasClass and removeClass on steroids
+// by Nikita Vasilyev
+// https://github.com/NV/jquery-regexp-classes
+(function(removeClass) {
+
+  jQuery.fn.removeClass = function( value ) {
+    if ( value && typeof value.test === "function" ) {
+      for ( var i = 0, l = this.length; i < l; i++ ) {
+        var elem = this[i];
+        if ( elem.nodeType === 1 && elem.className ) {
+          var classNames = elem.className.split( /\s+/ );
+
+          for ( var n = classNames.length; n--; ) {
+            if ( value.test(classNames[n]) ) {
+              classNames.splice(n, 1);
+            }
+          }
+          elem.className = jQuery.trim( classNames.join(" ") );
+        }
+      }
+    } else {
+      removeClass.call(this, value);
+    }
+    return this;
+  }
+
+})(jQuery.fn.removeClass);
+
+
+
 </script>
+

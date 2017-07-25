@@ -1,0 +1,2 @@
+class Numerador < ApplicationRecord
+end

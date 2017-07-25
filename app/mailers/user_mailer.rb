@@ -11,7 +11,7 @@ class UserMailer < ApplicationMailer
     mail(:to => user.email, :subject => "Recuperacion de contraseña")
   end
   def envio_de_password(user, password)
-    @user = user
+    @user = user.email
     @password = password
     mail(:to => user.email, :subject => "Detalles de su cuenta")
   end

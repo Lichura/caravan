@@ -1,0 +1,26 @@
+  <div style="background-color: white" class="container">
+    <div class="row">
+      <h1>Nuestros productos</h1>
+    </div>
+    <% @pagina_principal.pagina_principal_productos.each.with_index do |producto, index| %>
+    <div class="row producto">
+    <h2><%= producto.nombre %></h2>
+      <div class="col-md-6 col-lg-6">
+        <span>
+          <%= producto.descripcion %>
+        </span>
+      </div>
+      <div class="col-md-6 col-lg-6">
+        <div class="contenedor-animacion cf">
+        <% if index.odd? %>
+          <div class="animation-element slide-right imagen">
+        <% else %>
+          <div class="animation-element slide-left imagen">
+        <% end %>
+            <img  src=<%= producto.imagen %>>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>

@@ -1,0 +1,238 @@
+   <div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading facturas"><h3>Nueva factura</h3></div>
+      <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-12">
+<%= link_to "Buscar Remitos", new_factura_path, remote: true, :style => "color:white", class: "btn btn-block btn-primary" %><br>
+
+<%= form_for(@factura, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @factura.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@factura.errors.count, "error") %> La factura no pudo realizarse por:</h4>
+
+      <ul>
+      <% @factura.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+
+  <div class="form-group">
+    <%= f.label :fecha, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.date_select :fecha, class: "form-control" %>
+    </div>
+    <%= f.label :tipo, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.select :tipo, @tipos, {}, { class: "form-control"} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pto_venta, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :pto_venta, :value => "0001", class: "form-control" %>
+    </div>
+    <%= f.label :numero, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :numero, class: "form-control", value: @numero %>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :cuit, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :cuit, :value => User.find(@remitos_seleccionados.first.pedido.distribuidor_id).cuit, class: "form-control" %>
+    </div>
+    <%= f.label :vendedor, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :vendedor, :value=> current_user.razonSocial, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :observaciones, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :observaciones, class: "form-control" %>
+    </div>
+  </div>
+
+
+  <!-- Hasta que no consiga enviar fc electronica no puedo habilitar estos campos
+  <div class="form-group">
+    <%= f.label :cae, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :cae, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :vencimiento_cae, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :vencimiento_cae, class: "form-control" %>
+    </div>
+  </div>-->
+
+
+
+
+
+
+<div class="panel-group">
+  <div class="panel panel-default">
+         <% @remitos_seleccionados.each do |remito| %>
+          <div class="panel-heading facturas">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse-<%= remito.id %>">Remito N: <%= remito.numero %> - Razon social: <%= User.find(remito.pedido.user_id).razonSocial %> </a>
+            </h4>
+          </div>
+          <div id="collapse-<%= remito.id %>" class="panel-collapse collapse in">
+<div class="tabla-responsive-vertical shadow-z-1">
+  <table class="tabla tabla-hover">
+          <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>IVA</th>
+                    <th>Neto</th>
+                    <th>Descuento en %</th>
+                    <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :factura_items do |ff| %>
+                  <% if ff.object.remito_id == remito.id %>
+              <tr>  
+                <td data-title="Producto"><%= ff.object.producto.nombre %><br>
+                <%= ff.object.producto.descripcion %></td>
+                <td data-title="Cantidad"><%= ff.text_field :cantidad, :value =>  Remito.find(ff.object.remito_id).remito_items.find_by(:producto_id => ff.object.producto.id).pendiente_facturar , class: "cantidad form-control" %></td>
+                 <td data-title="Precio"><%= ff.text_field :precio, :value =>  Remito.find(ff.object.remito_id).pedido.detalles.find_by(:producto_id => ff.object.producto.id).precio   , class: "precio form-control" %></td>
+                <td data-title="IVA"><%= ff.text_field :iva, :value => 0, class: "iva form-control", readonly: true %></td>
+                <td data-title="Neto"><%= ff.text_field :neto, :value => 0, class: "neto form-control", readonly: true %></td>
+                <td data-title="descuento"><%= ff.text_field :descuento, :value => 0, class: "descuento form-control" %></td>
+                <td data-title="Subtotal"><%= ff.text_field :subtotal, :value => 0, class: "subtotal form-control", readonly: true %></td>
+                <%= ff.hidden_field :producto_id %>
+                <%= ff.hidden_field :remito_id %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+        </table>
+        </div>
+          </div>
+          <% end %>
+  </div>
+</div>
+
+<div class="form-group pull-right">
+<div class="totales">
+<table>
+  <tbody>
+  <tr>
+    <td><%= f.label :neto, "Neto:" %></td>
+    <td><%= f.text_field :neto, :id => "neto" %>$</td>
+  </tr>
+  <tr>
+    <td><%= f.label :iva, "IVA:" %></td>
+    <td><%= f.text_field :iva, :id => "iva" %>$</td>
+  </tr>
+  <tr>
+    <!-- Hasta que no se facturen 10mm no se utiliza
+    <td><%= f.label :iibb, "IIBB:" %></td>
+      <td><%= f.text_field :iibb, :id => "iibb"%>$</td>
+    </tr>
+   <tr> -->
+      <td><%= f.label :total, "Total:" %></td>
+      <td><%= f.text_field :total, :id => "total" %>$</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Enviar",  class: "btn btn-success  pull-right" %>
+      <%= link_to facturas_path, class: 'btn btn-default' do %>
+          Cancelar
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$('document').ready(function(){
+  $('.cantidad').each(function(){
+    UpdateSubTotal(this);
+  });
+
+  UpdateTotal();
+  $('.cantidad').unbind();
+  $('.cantidad').on('change', function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+  $('.precio').on('change', function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+  $('.descuento').unbind();
+  $('.descuento').change(function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+
+  function UpdateSubTotal(elem) {
+      // This will give the tr of the Element Which was changed
+      var $container = $(elem).parent().parent();
+      var cantidad = $container.find('.cantidad').val();
+      var precio = $container.find('.precio').val();
+      var descuento = 1 - (($container.find('.descuento').val() / 100));
+      var subtotal = parseInt(cantidad) * parseFloat(precio) * parseFloat(descuento);
+      var neto = (parseInt(subtotal) / (1.21));
+      var iva = (subtotal - neto);
+      $container.find('.subtotal').val(subtotal.toFixed(2)).trigger('change');
+      $container.find('.iva').val(iva.toFixed(2)).trigger('change');
+      $container.find('.neto').val(neto.toFixed(2)).trigger('change');
+  }
+
+
+  function UpdateTotal(){
+    var neto = 0;
+    var iva = 0;
+    var iibb = 0;
+    var total = 0;
+    $(".neto").each(function(){
+      var val = $.trim( $(this).val() );
+      neto += parseFloat(val);
+    });
+    $(".iva").each(function(){
+      var val = $.trim( $(this).val() );
+      iva += parseFloat(val);
+    });
+    $(".subtotal").each(function(){
+      var val = $.trim( $(this).val() );
+      total += parseFloat(val);
+    });
+    $('#neto').val(neto.toFixed(2)).trigger('change');
+    $('#iva').val(iva.toFixed(2)).trigger('change');
+    $('#iibb').val(iibb.toFixed(2)).trigger('change');
+    $('#total').val(total.toFixed(2)).trigger('change');
+  }
+
+});
+</script>

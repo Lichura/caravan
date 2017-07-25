@@ -1,1 +1,1 @@
-json.partial! "pedidos/pedido", pedido: @pedido
+json.extract! @pedido, :id, :cuit, :created_at, :updated_at

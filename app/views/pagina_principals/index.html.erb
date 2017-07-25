@@ -1,0 +1,35 @@
+
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>pagina_principal</h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal">
+          <dt>Imagen principal:</dt>
+          <dd><%= @pagina_principals.imagen_principal %></dd>
+
+          <dt>Nosotros texto:</dt>
+          <dd><%= @pagina_principals.nosotros_texto %></dd>
+
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to pagina_principals_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        pagina_principals
+      <% end %>
+      <%= link_to pagina_principal_path(@pagina_principals), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta provincia?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_pagina_principal_path(@pagina_principals),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>
+
+
+
+<%= @numeros %>

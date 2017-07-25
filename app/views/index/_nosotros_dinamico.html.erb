@@ -1,0 +1,17 @@
+<div class="container">
+	<div id="nosotros-texto">
+	  <h1>QUIENES SOMOS</h1>
+	  <div class="row">
+	  	<%= @pagina_principal.nosotros_texto.html_safe %>
+	  </div>
+	 </div>
+
+
+	 <div class="row">
+	  <div id="nosotros-imagen" class="contenedor-animacion cf">
+	    <video  autoplay muted loop class="animation-element slide-right imagen video">
+	      <source src=<%= asset_path('caravana.mp4') %> type="video/mp4"  />
+	    </video>
+	  </div>
+	</div>
+</div>

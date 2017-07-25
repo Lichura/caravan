@@ -1,0 +1,1 @@
+json.array! @nota_creditos, partial: 'nota_creditos/nota_credito', as: :nota_credito

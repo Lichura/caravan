@@ -27,7 +27,7 @@ class UserSucursalController < ApplicationController
     @sucursal = UserSucursal.new(user_sucursal_params)
 
     respond_to do |format|
-      if @detalle.save
+      if @sucursal.save
         format.html { redirect_to @sucursal, notice: 'Detalle was successfully created.' }
         format.json { render :show, status: :created, location: @sucursal }
       else

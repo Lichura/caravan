@@ -1,0 +1,2 @@
+module StockPedidosHelper
+end

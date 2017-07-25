@@ -26,6 +26,11 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+#gema para graficos
+gem "chartkick"
+gem 'groupdate'
+#gema para los reportes
+gem 'thinreports-rails'
 #gema para uploadear fotos
 gem 'carrierwave'
 #gema para achicar la imagenes
@@ -36,14 +41,22 @@ gem "mini_magick"
 # gem 'bcrypt', '~> 3.1.7'
 # gema para las facturas de afip
 gem 'bravo'
+gem 'savon'
 # gema para parsear las api de afip
 gem 'httparty'
 gem 'bootstrap-generators', '~> 3.3.4'
 #se utiliza para el paginador con bootstrap
 gem 'will_paginate-bootstrap'
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+ gem 'capistrano-rails', group: :development
+ gem 'unicorn', group: :development
 
+#Integracion con slack
+gem 'slack-notifier'
+#pundit se usa para los perfiles
+gem 'pundit'
+#gema para serializar
+gem 'active_model_serializers'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -58,6 +71,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rspec-rails','~>3.0'
 end
 
 
@@ -66,5 +80,12 @@ group :production do
 	gem 'rails_12factor'
 end
 
+
+group :test do
+  gem 'rspec-rails','~>3.0'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'database_cleaner'
+end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

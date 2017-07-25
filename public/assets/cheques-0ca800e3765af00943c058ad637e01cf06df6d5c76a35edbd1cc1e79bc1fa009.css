@@ -1,0 +1,49 @@
+/* line 1, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-formato {
+  margin-left: 15%;
+  height: 200px;
+  width: 600px;
+  background-image: url(/assets/cheque-8c2a0e4175419d5a2d2c85d9a12b143fcb5bb14a92440ceba7735b4ac54f5880.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  position: relative;
+  display: block;
+  font-weight: bold;
+}
+
+/* line 13, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-montos {
+  position: absolute;
+  margin-top: 13.5%;
+  margin-left: 58%;
+}
+
+/* line 20, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-fechas {
+  position: absolute;
+  margin-top: 8%;
+  margin-left: 55%;
+}
+
+/* line 27, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-bancos {
+  position: absolute;
+  margin-top: 4%;
+  margin-left: 5%;
+  font-size: 0.8em;
+  width: 300px;
+}
+
+/* line 36, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-numeros {
+  position: absolute;
+  margin-top: 28%;
+  margin-left: 45%;
+}
+
+/* line 42, /Users/lgurman/Documents/proyectos/caravan/app/assets/stylesheets/cheques.scss */
+.cheque-nombres {
+  position: absolute;
+  margin-top: 13.5%;
+  margin-left: 10%;
+}

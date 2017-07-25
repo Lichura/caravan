@@ -1,68 +1,101 @@
-<p id="notice"><%= notice %></p>
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Pedidos</h3></div>
+    <div class="panel-heading pedidos"><h3>Pedidos</h3></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
+            <%= form_tag(pedidos_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
-              <input type="text" class="form-control">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar pedidos", class: "form-control"%>
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button">Buscar</button>
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
               </span>
             </div>
+            <% end %><br>
+             <%= form_tag(pedidos_path, :method => "get", id: "filtrar-form") do %>
+            <div class="input-group">
+                <%=select_tag :filtrar, options_from_collection_for_select(@estados, :to_s, :to_s, :selected => params[:filtrar]), {include_blank: true, class: "form-control"} %>
+              <span class="input-group-btn">
+                <%= submit_tag "Filtrar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
           </div>
         </div>
-<div class="row" style="height: 100px;"></div>
-      <div class="table-responsive">
-      <table class="table table-hover">
-      <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
-        <th>Cuit</th>
+      <div class="row" style="height: 50px;"></div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+              <thead class="pedidos">
         <th>Comprobante</th>
+        <th>CUIT</th>
         <th>Fecha</th>
-        <th>Cantidad</th>
+        <th>Estado</th>
         <th>Remitido</th>
         <th>Facturado</th>
         <th>Mostrar</th>
-        <th>Editar</th>
+        <th>Confirmado</th>
         <th>Eliminar</th>
       </thead>
       <tbody>
+      <div id="datos">
         <% @pedidos.each do |pedido| %>
-        <tr><!-- se podria utilizar para ver el proximo turno -->
-          <td><%= pedido.cuit %></td>
+        <!-- se podria utilizar para ver el proximo turno -->
+        <tr>
           <td><%= pedido.comprobanteNumero %></td>
+          <td><%= pedido.cuit %></td>
           <td><%= pedido.created_at.to_formatted_s(:day_month_and_year) %></td>
-          <td><%= pedido.cantidadTotal %></td>
+          <td><%= pedido.status %></td>
           <td>
-              <% if pedido.remitido %>
-                <span class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
+              <% if pedido.confirmado? || pedido.remitido_parcial? %>
+                <% if current_user.profile_id == 1 %>
+                <span class="glyphicon glyphicon-unchecked"><%= link_to 'Nuevo remito', new_remito_path(pedido_id: pedido.id) %></span>
+                <% end %>
+              <% elsif !pedido.activo? %>
+                <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
+                  <i style="color:green" class="glyphicon glyphicon-check"></i>
+                <% end %>
               <% else %>
-                <span class="glyphicon glyphicon-unchecked"></span>
+                <i class="glyphicon glyphicon-uncheck"></i>
               <% end %>
           </td>
           <td>
-              <% if pedido.facturado %>
-                <span class="glyphicon glyphicon-check"><%= link_to '', pedido %></span>
+              <% if pedido.facturado? %>
+                <%= link_to mostrar_remitos_path(pedido: pedido.id), method: "post" do %>
+                  <i style="color:green" class="glyphicon glyphicon-check"></i>
+                <% end %>
+              <% elsif current_user.profile_id == 1 && (pedido.remitido? || pedido.remitido_parcial? || pedido.facturado_parcial?) %>
+                <span class="glyphicon glyphicon-unchecked"><%= link_to "Facturar", nueva_factura_path("remito_ids[]" => pedido.remitos.all.pluck(:id)) %></span>
               <% else %>
-                <span class="glyphicon glyphicon-unchecked"></span>
+                <span class="glyphicon glyphicon-uncheck"></span>
               <% end %>
           </td>
           <td>
-              <span class="glyphicon glyphicon-list-alt"><%= link_to '', pedido %></span>
+                <%= link_to pedido_path(pedido) do %>
+                  <i class="glyphicon glyphicon-list-alt"></i>
+                <% end %>
           </td>
           <td>
+          <% if current_user.profile_id == 1 && pedido.activo? %>
             <%= link_to edit_pedido_path(pedido) do %>
-             <i class="glyphicon glyphicon-pencil"></i>
+             <i class="glyphicon glyphicon-ok"></i>
             <% end %>
+          <% elsif pedido.activo? %>
+            <i class="glyphicon glyphicon-ok"></i>
+          <% else %>
+            <i style="color:green" class="glyphicon glyphicon-ok"></i>
+          <% end %>
+
           </td>
           <td>
-            <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' }, remote: true do %>
+          <% if pedido.activo? %>
+            <%= link_to pedido_path(pedido.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este pedido?' } do %>
               <i class="glyphicon glyphicon-trash"></i>
             <% end %>
+          <% end %>
           </td>
-        </tr>  
-        <% end %>
+          </tr>
+          <% end %>
+          </div>
       </tbody>
       </table>
       </div>

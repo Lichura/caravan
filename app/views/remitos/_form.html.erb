@@ -1,0 +1,128 @@
+<%= form_for(@remito, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @remito.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@remito.errors.count, "error") %> El remito no pudo ser guardado por:</h4>
+
+      <ul>
+      <% @remito.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :fecha, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.date_field :fecha, :value => Date.today , class: "form-control" %>
+    </div>
+  </div>
+    <h3><%= @remito.pedido_id %></h3>
+  <div class="form-group">
+  <%= f.label :user_id, "Seleccionar cliente", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+      <%= f.collection_select(:user_id, @clientes, :id, :razonSocial,  {include_blank: true}, {:class => "form-control"}) %>
+      </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :comentarios, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :comentarios , class: "form-control" %>
+    </div>
+  </div>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading remitos">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Transportista</a>
+        </h4>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-12">
+           <div id="collapse1" class="panel-collapse collapse in">
+              <div class="form-group">
+                <%= f.label :transporte, class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <%= f.select :transporte, @transporte, {include_blank: true}, { class: "form-control"} %>
+                </div>
+              </div>
+              <div id="transporte"></div>
+           </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> 
+  <div class="tabla-responsive-vertical shadow-z-1">
+    <table class="tabla tabla-hover">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Pendiente</th>
+          <th>Cantidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :remito_items do |ff| %>
+          <% render 'remito_items', f: ff %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="contenedor-totales pull-right">
+    <div class="form-group">
+      <%= f.label :cantidadTotal, "Cantidad total", class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.number_field :cantidadTotal, :value => 0, class: "cantidadTotal campo form-control" %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :finalizado, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.check_box :finalizado, class: "form-control", title: "Tildar el check finalizado en caso de que se desee finalizar el remito con diferencias entre las cantidades pedidas y las remitidas." %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Enviar", class: "btn btn-primary" %>
+      <%= link_to remitos_path, class: 'btn btn-default pull-right' do %>
+          Cancelar
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+
+<script>
+$('document').ready(function(){
+  UpdateTotal();
+    $('.cantidad').on('change', function() {
+          UpdateTotal(this);
+          ValidarCantidad(this);
+      });
+   function UpdateTotal() {
+    var cantidad = 0;
+    $(".cantidad").each(function(){
+      var val = $.trim( $(this).val() );
+      cantidad += parseFloat(val);
+    });
+    $("input.cantidadTotal").val( cantidad );
+  }
+
+  function ValidarCantidad(elem){
+    var $container = $(elem).parent().parent();
+    var cantidad = $container.find('.cantidad').val();
+    var pendiente = $container.find('.pendiente').text();
+    if (parseFloat(cantidad) > parseFloat(pendiente)){
+      $(elem).addClass("cantidad_no_permitida");
+      alert("La cantidad a remitir supera la cantidad pedida.")
+  }
+  }
+});
+$(function() {
+    $('.datepicker').datepicker();
+});
+
+</script>

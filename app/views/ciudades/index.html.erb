@@ -1,10 +1,10 @@
-<p id="notice"><%= notice %></p>
+
 <div class="container">
   <div class="panel panel-default">
     <div class="panel-heading"><h3>Ciudades</h3></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
           <%= form_tag(ciudades_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar ciudades", class: "form-control"%>
@@ -30,6 +30,7 @@
 
     <tbody>
       <% @ciudades.each do |ciudad| %>
+      <tr>
             <td><%= ciudad.pais_id %></td>
             <td><%= ciudad.provincia_id %></td>
             <td><%= ciudad.nombre %></td>
@@ -49,6 +50,7 @@
                   <i class="glyphicon glyphicon-trash"></i>
                 <% end %>
               </td>
+              </tr>
       <% end %>
     </tbody>
   </table>

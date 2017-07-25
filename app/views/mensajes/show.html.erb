@@ -1,29 +1,40 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @mensaje.nombre %>
-</p>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2><%= Moneda %></h2></div>
+        <div class="panel-body">
+         <dl class="dl-horizontal"><p id="notice"><%= notice %></p>
+          <dt>Nombre:</dt>
+          <dd><%= @mensaje.nombre %></dd>
 
-<p>
-  <strong>Empresa:</strong>
-  <%= @mensaje.empresa %>
-</p>
+          <dt>Empresa:</dt>
+          <dd><%= @mensaje.empresa %></dd>
 
-<p>
-  <strong>Email:</strong>
-  <%= @mensaje.email %>
-</p>
+          <dt>Simbolo:</dt>
+          <dd><%= @mensaje.email %></dd>
 
-<p>
-  <strong>Telefono:</strong>
-  <%= @mensaje.telefono %>
-</p>
+          <dt>Telefono:</dt>
+          <dd><%= @mensaje.telefono %></dd>
 
-<p>
-  <strong>Texto:</strong>
-  <%= @mensaje.texto %>
-</p>
+          <dt>Texto:</dt>
+          <dd><%= @mensaje.texto %></dd>
+        </dl>
+        </div>
+      </div>
+    </div>
+      <%= link_to mensajes_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Mensajes
+      <% end %>
+      <%= link_to mensaje_path(@mensaje), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este mensaje?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_mensaje_path(@mensaje),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_mensaje_path(@mensaje) %> |
-<%= link_to 'Back', mensajes_path %>

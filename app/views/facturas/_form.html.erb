@@ -1,0 +1,215 @@
+   
+<%= link_to "Buscar Remitos", new_factura_path, remote: true, :style => "color:white", class: "btn btn-block btn-primary" %><br>
+
+<%= form_for(@factura, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  <% if @factura.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4><%= pluralize(@factura.errors.count, "error") %> La factura no pudo realizarse por:</h4>
+
+      <ul>
+      <% @factura.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="form-group">
+    <%= f.label :fecha, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.date_select :fecha, class: "form-control" %>
+    </div>
+    <%= f.label :tipo, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.select :tipo, @tipos, {}, { class: "form-control"} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :pto_venta, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :pto_venta, :value => "0001", class: "form-control" %>
+    </div>
+    <%= f.label :numero, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :numero, class: "form-control", value: @numero %>
+    </div>
+  </div>
+
+
+   <div class="form-group">
+    <%= f.label :cuit, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.number_field :cuit, :value => 3123, class: "form-control" %>
+    </div>
+    <%= f.label :vendedor, class: "col-sm-2 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :vendedor, :value=> current_user.razonSocial, class: "form-control" %>
+    </div>
+  </div>
+
+    <div class="form-group">
+    <%= f.label :observaciones, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :observaciones, class: "form-control" %>
+    </div>
+  </div>
+
+
+<div class="panel-group">
+  <div class="panel panel-default">
+          <div class="panel-heading facturas">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse">Articulos</a>
+            </h4>
+          </div>
+          <div id="collapse" class="panel-collapse collapse in">
+            <div class="tabla-responsive-vertical shadow-z-1">
+              <table class="tabla tabla-hover">
+                <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad</th>
+                      <th>Precio</th>
+                      <th>IVA</th>
+                      <th>Neto</th>
+                      <th>Descuento en %</th>
+                      <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <%= f.fields_for :factura_items do |ff| %>
+                    <% render 'detalle_sin_remito', f: ff %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+  </div>
+</div>
+
+<div class="form-group pull-right">
+<div class="totales">
+<table>
+  <tbody>
+  <tr>
+    <td><%= f.label :neto, "Neto:" %></td>
+    <td><%= f.text_field :neto, :id => "neto", :readonly => true %>$</td>
+  </tr>
+  <tr>
+    <td><%= f.label :iva, "IVA:" %></td>
+    <td><%= f.text_field :iva, :id => "iva", :readonly => true %>$</td>
+  </tr>
+  <!-- Hasta que no se facturen 10mm no se utiliza<tr>
+    <td><%= f.label :iibb, "IIBB:" %></td>
+      <td><%= f.text_field :iibb, :id => "iibb"%>$</td>
+    </tr>
+   <tr> -->
+      <td><%= f.label :total, "Total:" %></td>
+      <td><%= f.text_field :total, :id => "total",  readonly: true %>$</td>
+    </tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Enviar",  class: "btn btn-primary" %>
+      <%= link_to facturas_path, class: 'btn btn-default pull-right' do %>
+          Cancelar
+      <% end -%>
+    </div>
+  </div>
+<% end %>
+
+
+<script>
+$('document').ready(function(){
+  $('.cantidad').each(function(){
+    UpdateSubTotal(this);
+  });
+
+  UpdateTotal();
+  $('.cantidad').unbind();
+  $('.cantidad').on('change', function(){
+    UpdateSubTotal(this);
+    UpdateTotal();
+  });
+  $('.precio').on('change', function(){
+    UpdateSubTotal(this);
+  });
+  $('.descuento').unbind();
+  $('.descuento').change(function(){
+    UpdateSubTotal(this);
+  });
+
+  function UpdateSubTotal(elem) {
+      // This will give the tr of the Element Which was changed
+      var $container = $(elem).parent().parent();
+      var cantidad = $container.find('.cantidad').val();
+      var precio = $container.find('.precio').val();
+      var descuento = 1 - (($container.find('.descuento').val() / 100));
+      var subtotal = parseInt(cantidad) * parseFloat(precio) * parseFloat(descuento);
+      var neto = (parseInt(subtotal) / (1.21));
+      var iva = (subtotal - neto);
+      $container.find('.subtotal').val(subtotal.toFixed(2)).trigger('change');
+      $container.find('.iva').val(iva.toFixed(2)).trigger('change');
+      $container.find('.neto').val(neto.toFixed(2)).trigger('change');
+  }
+
+
+  function UpdateTotal(){
+    var neto = 0;
+    var iva = 0;
+    var iibb = 0;
+    var total = 0;
+    $(".neto").each(function(){
+      var val = $.trim( $(this).val() );
+      neto += parseFloat(val);
+    });
+    $(".iva").each(function(){
+      var val = $.trim( $(this).val() );
+      iva += parseFloat(val);
+    });
+    $(".subtotal").each(function(){
+      var val = $.trim( $(this).val() );
+      total += parseFloat(val);
+    });
+    $('#neto').val(neto.toFixed(2)).trigger('change');
+    $('#iva').val(iva.toFixed(2)).trigger('change');
+    $('#iibb').val(iibb.toFixed(2)).trigger('change');
+    $('#total').val(total.toFixed(2)).trigger('change');
+  }
+    $(document).on('change', '#Cliente_factura', function(){
+        $.ajax({
+           url: '/facturas/new',
+           data: {
+              distribuidor: $('#Cliente_factura').val()
+           },
+           error: function() {
+              alert($('#Cliente_factura').val());
+           },
+           dataType: 'script',
+           success: function(data) {
+              alert(data);
+           },
+           type: 'GET'
+        });
+    });
+
+
+
+
+
+
+
+
+});
+</script>
+

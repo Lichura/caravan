@@ -1,2 +1,5 @@
 class ProductoHistorico < ApplicationRecord
+
+
+
 end

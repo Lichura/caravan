@@ -1,0 +1,41 @@
+usuario = User.find(Pedido.find(@factura.remitos.first.pedido_id).user_id)
+pedidos = []
+rangos = ""
+@factura.remitos.each do |remito|
+	pedidos << remito.pedido
+end
+
+pedidos.each do |pedido|
+	pedido.detalles.each do |detalle|
+		rangos << detalle.rango_desde + "-" + detalle.rango_hasta 
+	end
+end
+
+report.start_new_page do |page|
+  page.values razonSocial: usuario.razonSocial, 
+ 		 	  cuit: @factura.cuit, 
+              fecha: @factura.fecha.to_formatted_s(:day_month_and_year),
+              numero: @factura.numero,
+              total: @factura.total,
+              neto: @factura.neto,
+              iva: @factura.iva,
+              direccion: usuario.user_sucursals.first.direccion,
+              observaciones: "Remitos: " + @factura.remitos.map(&:numero).join(", ") +
+              "\nRENSPA: " + usuario.renspa +
+              " - CUIG: " + usuario.cuig + 
+              " - CV: " + usuario.numeroCv + 
+              "\n" + (@factura.observaciones.nil? ? "" : @factura.observaciones) +
+              "Rangos: " + rangos.to_s
+end
+
+	@factura.factura_items.each do |producto|
+		report.list.add_row do |row|
+			row.item(:producto_id).value(producto.producto_id)
+			row.item(:nombre).value(Producto.find(producto.producto_id).nombre)
+			row.item(:cantidad).value(producto.cantidad)
+			row.item(:precio).value(producto.precio)
+			row.item(:neto).value(producto.neto / producto.cantidad)
+			row.item(:iva).value(producto.iva / producto.cantidad)
+			row.item(:subtotal).value(producto.subtotal)
+		end
+	end

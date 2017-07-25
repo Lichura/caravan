@@ -1,0 +1,1 @@
+json.partial! "stock_pedidos/stock_pedido", stock_pedido: @stock_pedido

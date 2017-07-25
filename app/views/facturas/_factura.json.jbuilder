@@ -1,0 +1,2 @@
+json.extract! factura, :id, :cuit, :fecha, :control, :vendedor, :subtotal, :bonificacion, :neto, :iva, :iibb, :total, :cae, :vencimiento_cae, :pto_venta, :numero, :tipo, :created_at, :updated_at
+json.url factura_url(factura, format: :json)

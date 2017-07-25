@@ -1,11 +1,11 @@
 
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Usuarios</h3></div>
+    <div class="panel-heading usuarios"><h3>Usuarios</h3></div>
     <p id="notice"><%= notice %></p>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
             <%= form_tag(users_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar usuarios", class: "form-control"%>
@@ -16,6 +16,7 @@
            <% end %>
           </div>
         </div>
+                  <%= form_tag update_multiple_users_path, method: :put do %>
       <div class="row" style="height: 50px;"></div>
       <div class="table-responsive">
         <table class="table table-hover">
@@ -29,7 +30,7 @@
             <th>Editar</th>
             <th>Eliminar</th>
           </thead>
-          <%= form_tag update_multiple_users_path, method: :put do %>
+
             <tbody>
                 <% @user.each do |user| %>
                   <%= fields_for "users[]", user do |f| %>
@@ -64,10 +65,11 @@
                   <% end %> 
                 <% end %>
               </tbody>
-            <% end %>
+            
         </table>
       </div>
     <%= submit_tag "actualizar" , class: "btn btn-primary pull-right" %>
+    <% end %>
     <%= link_to 'Nuevo usuario', new_user_path, class: "btn btn-default"  %>
     </div>
   </div>

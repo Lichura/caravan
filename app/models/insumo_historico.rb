@@ -1,0 +1,2 @@
+class InsumoHistorico < ApplicationRecord
+end

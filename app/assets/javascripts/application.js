@@ -12,32 +12,26 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap
 //= require_tree .
+//= require Chart.bundle
+//= require chartkick
 
 
 
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-function myFunction() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
+
 
 
 
 
 $(document).ready(function(){
-$(window).scroll(function() {
-	if ($(window).scrollTop() >= 50 ) {
-        $('.topnav').addClass('fondo'); 
-    }
-    else {
-        $('.topnav').removeClass('fondo');   
-    }
+$(".spinner").hide();
+  $(document).ajaxStart(function() {
+    $(".spinner").fadeIn('slow');
+  }).ajaxStop(function() {
+      $(".spinner").hide();
+  });
 });
-});
+
+

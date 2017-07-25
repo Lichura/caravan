@@ -1,0 +1,21 @@
+<fieldset>
+	<h2>Producto: </h2>
+                 <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Titulo: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :nombre, placeholder: "Nombre", class: "form-control" %>
+                    </div>
+                </div>
+               <div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Descripcion: </label>
+                    <div class="col-sm-6">
+                      <%= f.text_field :descripcion, placeholder: "Descripcion", class: "form-control" %>
+                    </div>
+                </div>
+               	<div class="form-group row">
+                    <label class="col-sm-2 col-form-label">Foto: </label>
+                    <div class="col-sm-6">
+                      <%= f.file_field :imagen,  class: "form-control", placeholder: "Imagen", class: "form-control" %>
+                    </div>
+                </div>
+</fieldset>

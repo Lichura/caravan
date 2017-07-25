@@ -1,10 +1,10 @@
-<p id="notice"><%= notice %></p>
+
 <div class="container">
   <div class="panel panel-default">
-    <div class="panel-heading"><h3>Monedas</h3></div>
+    <div class="panel-heading"><h3>Monedas</h3><p id="notice"><%= notice %></p></div>
       <div class="panel-body">
         <div class="row">
-          <div class="col-lg-6 col-sm-offset-3">
+          <div class="col-lg-6 col-lg-offset-3">
           <%= form_tag(monedas_path, :method => "get", id: "search-form") do %>
             <div class="input-group">
               <%= text_field_tag :search,  params[:search], placeholder: "Buscar monedas", class: "form-control"%>

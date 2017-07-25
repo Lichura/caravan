@@ -10,16 +10,20 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
  *= require_self
+ *= require main
  */
-@import "bootstrap";
+
+
 @font-face {
     font-family: 'Chandstate';
     src:url(Chandstate.otf) format("truetype");
     font-weight: normal;
     font-style: normal;
-}  
+}
+
+
+
 
 
 body{
@@ -28,117 +32,6 @@ body{
 	background-image: url('fondo.png');
 }
 
-#myTopnav{
-	position: fixed;
-	top: 0;
-	left: 0;
-}
-
-
-/* Remove margins and padding from the list, and add a black background color */
-ul.topnav {
-	width: 80%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: rgba(255,255,255,0);
-    position: relative;
-    z-index: 100;
-    margin-left: 10%;
-
-}
-
-ul.topnav.fondo{
-	background-color: rgba(255,255,255,1);
-}
-
-/* Float the list items side by side */
-ul.topnav li {
-	float: left;
-	width: 15%;
-	border-bottom: 1px solid white;
-}
-
-ul.topnav li img {
-	display: block;
-	width: 60px;
-	height: 60px;
-	text-align: center;
-	margin-left: 25%;
-}
-/* Style the links inside the list items */
-ul.topnav li a {
-    display: block;
-    color: rgb(0,0,0);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    transition: 0.3s;
-    font-size: 17px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Change background color of links on hover */
-	ul.topnav:hover{
-		background-color: rgba(255,255,255,0.3);
-	}
-
-	ul.topnav li:hover{
-	border-bottom: 2px solid white;
-	border-width: 30%;
-}
-
-	ul.topnav li a:hover{
-			color: orange;
-			border-bottom: 3px solid white;
-			
-	}
-
-/* Hide the list item that contains the link that should open and close the topnav on small screens */
-ul.topnav li.icon {display: none;}
-
-
-
-
-/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
-@media screen and (max-width:680px) {
-  ul.topnav li:not(:first-child) {display: none;}
-  ul.topnav li.icon {
-    float: right;
-    display: inline-block;
-  }
-
-    .titulo-principal h1{
-	font-size: 3em;
-}
-
-.titulo-principal h3{
-	font-size: 1em;
-	margin-top: -10%;
-}
-}
-
-/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
-@media screen and (max-width:680px) {
-  ul.topnav.responsive {position: relative;}
-  ul.topnav.responsive li.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  ul.topnav.responsive li {
-    float: none;
-    display: inline;
-  }
-  ul.topnav.responsive li a {
-    display: block;
-    text-align: left;
-  }
-
-
-}
 
 
 
@@ -157,67 +50,75 @@ video {
   transform: translate(-50%, -50%);
 }
 
-.titulo-principal{
-	font-family: 'Chandstate';
-	text-align: center;
-	z-index: 20;
-	color: black;
-	position: absolute;
-	left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-}
 
-.titulo-principal h1{
-	font-size: 5em;
-}
 
-.titulo-principal h3{
-	font-size: 3em;
-	margin-top: -5%;
-}
 
-.seccion-principal{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	display: block;
-}
-.seccion-inicio{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-color: #FFF;
-	top: 100%;
-}
-.seccion-nosotros{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-color: #FFF;
-	top: 200%;
-}
-.seccion-productos{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-color: #FFF;
-	top: 300%;
-}
-.seccion-contacto{
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	background-color: #FFF;
-	top: 400%;
-}
 
 
 
 .table td {
-   text-align: center;   
-}	
+   text-align: center;
+}
 
 .table th {
-   text-align: center;   
+   text-align: center;
 }
+
+
+
+.spinner{
+  position:absolute;
+  z-index: 10000;
+  background-color: rgba(0,0,0,0.3);
+  width: 150px;
+  height: 150px;
+  border-radius: 5px 5px 5px 5px;
+
+  top: 50%;
+  left: 50%;
+
+  margin: -75px 0 0 -75px;
+}
+
+.spinner i{
+  margin: 50px 50px;
+}
+
+.alert{
+  margin-top: 5%;
+}
+
+
+
+/*CSS para el ordenamiento de columnas*/
+.pretty th .current {
+  padding-right: 12px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+
+.pretty th .asc {
+  background-image: url(/images/up_arrow.gif);
+}
+
+.pretty th .desc {
+  background-image: url(/images/down_arrow.gif);
+}
+
+
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+

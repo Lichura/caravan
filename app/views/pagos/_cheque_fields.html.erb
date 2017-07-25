@@ -1,0 +1,67 @@
+  
+  <h3> Nuevo cheque </h3>
+  <fieldset style="background-color: rgb(240,240,240)">
+  <div class="form-group">
+	  <%= f.label :fecha, "Fecha de pago", class: "col-sm-2 control-label" %>
+	  <div class="col-sm-10">
+	  <%= f.date_field :fecha, :value => Date.today, class: "form-control" %>
+	  </div>
+  </div>
+  <div class="form-group">
+	  <%= f.label :numero, "Banco y Numero", class: "col-sm-2 control-label" %>
+	  <div class="col-sm-2">
+    <%= f.text_field :banco, class: "cheque-banco form-control" %>
+    </div>
+    <div class="col-sm-8">
+	  <%= f.text_field :numero, class: "cheque-numero form-control" %>
+	  </div>
+  </div>
+  <div class="form-group">
+	  <%= f.label :monto, "Monto", class: "col-sm-2 control-label" %>
+	  <div class="col-sm-10">
+	  <%= f.text_field :monto, class: "monto-cheque form-control" %>
+	  </div>
+  </div>
+  <br>
+  <div>
+      	<%= f.hidden_field :_destroy %>
+      	<%= link_to "Eliminar cheque", '#', class: "remove_fields btn btn-danger pull-right" %>
+    </div>
+   <br>
+
+</fieldset> 
+
+
+
+<script>
+
+
+  $('.cheque-banco').mask('000');
+  $('.cheque-numero').mask('00000000');
+  $('.monto-cheque').unbind();
+  $('.monto-cheque').on('change', function(){
+    UpdateTotal();
+  });
+
+  $('.remove_fields').on('click', function(){
+  	UpdateEliminar(this);
+  	UpdateTotal();
+  });
+
+  	function UpdateEliminar(elem){
+  	  var $container = $(elem).parent().parent();
+      var $monto = $container.find('.monto-cheque');
+      $monto.val(0).trigger('change');
+  	}
+
+    function UpdateTotal(){
+    var suma = 0;
+    $(".monto-cheque").each(function(){
+      var val = $.trim( $(this).val() );
+      suma += parseFloat(val);
+    });
+    $("#pago_monto").prop("readonly", false);
+    $('#pago_monto').val(suma.toFixed(2)).trigger('change');
+    $("#pago_monto").prop("readonly", true);
+  }
+  </script>

@@ -1,0 +1,32 @@
+	$pedidos: #387A36;
+	$remitos: #387A36;
+	$usuarios: #387A36;
+	$facturas : #387A36;
+
+	.panel-heading.pedidos {
+			color: $pedidos;
+			background-color: white;
+	}
+
+	.pedidos{
+		color:  $pedidos;
+		background-color: whitesmoke;
+	}
+
+	.panel-heading.usuarios,
+	.usuarios {
+		color: $usuarios;
+		background-color: white;
+	}
+
+	.panel-heading.remitos,
+	.remitos {
+			color: $remitos;
+			background-color: white;
+	}
+
+	.panel-heading.facturas,
+	.facturas {
+			color: $remitos;
+			background-color: white;
+	}

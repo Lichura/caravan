@@ -1,0 +1,127 @@
+<div id="product-modal" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header usuarios">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title"><%= title %></h4>
+      </div>
+        <div class="modal-body">
+          <%= form_for @user do |f| %>
+            <div class="panel panel-default">
+              <div class="panel-heading usuarios">
+                <h3>Nuevo Cliente</h3>
+                <% if @user.errors.any? %>
+                  <div class="error_messages">
+                    <h2> El formulario no es valido</h2>
+                    <ul>
+                      <% for message in @user.errors.full_messages %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                  </div>
+                </div>
+                <br>
+                <div id="accordion" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                    <div class="panel-heading usuarios" role="tab" id="afipcollapse">
+                      <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#afipCollapse" aria-expanded="true" aria-controls="afipCollapse">Datos AFIP</a>
+                      </h3>
+                    </div>
+                    <div id="afipCollapse" class="panel-body panel-collapse collapse in" role="tabpanel" aria-labelledby="afipCollapse">
+                      <div class="form-group row">
+                        <div class="col-sm-10">
+                          <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Cuit</label>
+                            <div class="col-sm-10">
+                              <%= f.text_field :cuit, placeholder: "CUIT", id: "buscarAfip1", class: "form-control" %>
+                            </div>
+                          </div>
+                          <div id="afip"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading usuarios" role="tab" id="senasa">
+                      <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#senasaCollapse" aria-expanded="true" aria-controls="senasaCollapse">Datos SENASA</a>
+                      </h3>
+                    </div>
+                    <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="senasa" id="senasaCollapse">
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">CUIG</label>
+                        <div class="col-sm-10">
+                          <%= f.text_field :cuig, placeholder: "CUIG", class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">RENSPA</label>
+                        <div class="col-sm-10">
+                          <%= f.text_field :renspa, placeholder: "RENSPA", class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Numero CV</label>
+                        <div class="col-sm-10">
+                          <%= f.text_field :numeroCv, placeholder: "Numero CV", class: "form-control" %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel panel-default">
+                    <div class="panel-heading usuarios" role="tab" id="cliente">
+                      <h3 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#clienteCollapse" aria-expanded="true" aria-controls="clienteCollapse">Datos Cliente</a>
+                      </h3>
+                    </div>
+                    <div class="panel-body panel-collapse collapse" role="tabpanel" aria-labelledby="cliente" id="clienteCollapse">
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                          <%= f.email_field :email, placeholder: "email@gmail.com", class: "form-control" %>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Localidad</label>
+                        <div class="col-sm-10">
+                          <%= f.grouped_collection_select :localidad_id, Provincia.order(:nombre), :ciudades, :nombre, :id, :nombre, {include_blank: true}, {:class => 'form-control'}  %>
+                        </div>
+                      </div>
+                      <%= f.fields_for :user_sucursals do |sucursal| %>
+                        <%= render 'user_sucursal_fields', f: sucursal %>
+                      <% end %>
+                      <%= link_to_add_fields "Agregar establecimiento", f, :user_sucursals,  :class => "btn btn-success pull-right" %>
+                      <%= f.hidden_field :condicionCompra, :value => 1 %>
+                    </div>
+                  </div>
+                  <%= f.submit 'Crear Usuario', :class => "btn btn-primary pull-right" %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function(){
+
+  });
+ 
+
+  $('#user_renspa').mask('00.000.0.00000/00');
+  $('#user_numeroCv').mask('000');
+  $('#user_cuig').mask('SS000');
+});
+</script>

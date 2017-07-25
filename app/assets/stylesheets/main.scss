@@ -1,0 +1,28 @@
+
+@import "bootstrap-generators.scss";
+@import "bootstrap-variables.scss";
+@import "principal.scss";
+@import "colores.scss";
+@import "login.scss";
+@import "menu.scss";
+@import "navbar.scss";
+@import "scaffolds.scss";
+
+@import "mensajes.scss";
+
+
+@import "pedidos.scss";
+@import "cheques.scss";
+
+
+.producto-imagen{
+	img{
+		width: 100px;
+		height: 50px;
+	}
+}
+
+.producto-show-imagen{
+		width: 100px;
+		height: 50px;
+}

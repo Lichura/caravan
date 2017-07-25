@@ -1,30 +1,85 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"><h2>Producto:</h2><p id="notice"><%= notice %></p></div>
+        <div class="panel-body">
+          <dl class="dl-horizontal">
+            <dt>Familia:</dt>
+            <dd><%= @producto.familium.nombre %></dd>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @producto.nombre %>
-</p>
+              <dt>Nombre:</dt>
+            <dd><%= @producto.nombre %></dd>
 
-<p>
-  <strong>Descripcion:</strong>
-  <%= @producto.descripcion %>
-</p>
+            <dt>Descripcion:</dt>
+            <dd><%= @producto.descripcion %></dd>
 
+            <dt>Precio:</dt>
+            <dd><%= number_to_currency(@producto.precio) %></dd>
 
-<p>
-  <strong>Precio:</strong>
-  <%= @producto.precio %>
-</p>
+            <dt>Imagen:</dt>
+            <dd><%= image_tag(@producto.imagen, class: "producto-show-imagen") %></dd>
 
-<p>
-  <strong>Activo:</strong>
-  <%= @producto.activo %>
-</p>
-
-<p>
-  <strong>Familia:</strong>
-  <%= @producto.familium.nombre %>
-</p>
-
-<%= link_to 'Edit', edit_producto_path(@producto) %> |
-<%= link_to 'Back', productos_path %>
+            <dt>Activo:</dt>
+            <dd><%= @producto.activo %></dd>
+            <dt>Utiliza rango:</dt>
+            <dd><%= @producto.rango %></dd>
+            <dt>Pedido minimo:</dt>
+            <dd><%= @producto.pedido_minimo %></dd>
+            <dt>Es correlativo:</dt>
+            <dd><%= @producto.correlativo %></dd>
+            <dt>Colores:</dt>
+            <% @colores.each do |color| %>
+            <dd><%= color %></dd>
+            <% end %>
+            <dt>Stock fisico:</dt>
+            <dd><%= @producto.stock_fisico %></dd>
+            <dt>Stock reservado:</dt>
+            <dd><%= @producto.stock_reservado %></dd>
+            <dt>Stock disponible:</dt>
+            <dd><%= @producto.stock_disponible %></dd>
+            <dt>Stock pedido:</dt>
+            <dd><%= @producto.stock_pedido %></dd>
+            <% if @producto.insumos.any? %>
+            <dt>Insumos:</dt>
+            <dd>
+            <div class="row" style="height: 100px;"></div>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                    <th>Insumo</th>
+                    <th>Coeficiente</th>
+                    <th>Defecto</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% @producto.producto_insumos.where("coeficiente > 0").each do |insumo| %>
+                    <tr>
+                      <td><%= Insumo.find(insumo.insumo_id).nombre %> <%= Insumo.find(insumo.insumo_id).color %></td>
+                      <td><%= insumo.coeficiente %></td>
+                      <td><%= insumo.por_defecto.to_sino %></td>
+                    </tr>
+                    <% end %>
+                </tbody>
+              </table>
+            </div>
+            </dd>
+            <% end %>
+          </dl>
+        </div>
+      </div>
+    </div>
+ <%= link_to productos_path, class: 'btn btn-default pull-right' do %>
+        <span class="glyphicon glyphicon-list-alt"></span>
+        Productos
+      <% end %>
+      <%= link_to producto_path(@producto), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este producto?' }, class: 'btn btn-danger pull-right', remote: true do %>
+        <span class="glyphicon glyphicon-trash"></span>
+        Eliminar
+      <% end %>
+      <%= link_to edit_producto_path(@producto),  class: 'btn btn-primary' do %>
+        <span class="glyphicon glyphicon-pencil"></span>
+        Editar
+      <% end %>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>pagos</h3></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+            <%= form_tag(familia_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar pagos", class: "form-control"%>
+              <span class="input-group-btn">
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                       <th>Distribuidor</th>
+                        <th>Numero</th>
+                        <th>Mediodepago</th>
+                        <th>Monto</th>
+                        <th>Estado</th>
+
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+
+
+                <tbody>
+                  <% @pagos.each do |pago| %>
+                                            <td><%= User.find(pago.distribuidor_id).razonSocial %></td>
+                                            <td><%= pago.numero %></td>
+                                            <td><%= pago.medioDePago %></td>
+                                            <td><%= pago.monto %></td>
+                                            <td><%= pago.estado %></td>
+                                      <td>
+                    <%= link_to pago_path(pago) do %>
+                      <i class="glyphicon glyphicon-list-alt"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to edit_pago_path(pago) do %>
+                      <i class="glyphicon glyphicon-pencil"></i>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to pago_path(pago.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar esta pago?' }, remote: true do %>
+                      <i class="glyphicon glyphicon-trash"></i>
+                    <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @pagos, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nuevo pago', new_pago_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

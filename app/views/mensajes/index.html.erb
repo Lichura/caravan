@@ -1,18 +1,34 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Mensajes</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Empresa</th>
-      <th>Email</th>
-      <th>Telefono</th>
-      <th>Texto</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading"><h3>Mensajes</h3><p id="notice"><%= notice %></p></div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6 col-lg-offset-3">
+          <%= form_tag(mensajes_path, :method => "get", id: "search-form") do %>
+            <div class="input-group">
+              <%= text_field_tag :search,  params[:search], placeholder: "Buscar mensajes", class: "form-control"%>
+              <span class="input-group-btn">
+                <%= submit_tag "Buscar", class: 'btn btn-default'%>
+              </span>
+            </div>
+           <% end %>
+          </div>
+        </div>
+        <div class="row" style="height: 100px;"></div>
+          <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="color: white; background-color:rgba(30,20,20, 0.7);">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Empresa</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Texto</th>
+                    <th>Mostrar</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
 
   <tbody>
     <% @mensajes.each do |mensaje| %>
@@ -22,14 +38,32 @@
         <td><%= mensaje.email %></td>
         <td><%= mensaje.telefono %></td>
         <td><%= mensaje.texto %></td>
-        <td><%= link_to 'Show', mensaje %></td>
-        <td><%= link_to 'Edit', edit_mensaje_path(mensaje) %></td>
-        <td><%= link_to 'Destroy', mensaje, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to mensaje_path(mensaje) do %>
+            <i class="glyphicon glyphicon-list-alt"></i>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to edit_mensaje_path(mensaje) do %>
+            <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+         </td>
+         <td>
+          <%= link_to mensaje_path(mensaje.id), method: :delete, data: { confirm: 'Esta seguro que desea eliminar este mensaje?' }, remote: true do %>
+           <i class="glyphicon glyphicon-trash"></i>
+          <% end %>
+        </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Mensaje', new_mensaje_path %>
+                <% end %>
+                </tbody>
+            </table>
+          </div>
+          <%= will_paginate @mensajes, renderer: BootstrapPagination::Rails %>
+          <button type="button" class="btn btn-primary pull-right">
+            <%= link_to 'Nueva mensaje', new_mensaje_path %>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

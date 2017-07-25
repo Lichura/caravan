@@ -1,0 +1,75 @@
+<% if @cliente %>
+<%= form_for @pedido do |f| %>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">CUIT:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteCuit"><%= @cliente.cuit %></span>
+  </div>
+</div>
+<%= f.hidden_field :cuit, :value => @cliente.cuit %>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Razon Social:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteRazonSocial"><%= @cliente.razonSocial %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">CUIG:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteCuig"><%= @cliente.cuig %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">RENSPA:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteRenspa"><%= @cliente.renspa %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">CV:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteCV"><%= @cliente.numeroCv %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Provincia:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteProvincia"><%= Provincia.find(@cliente.provincia_id).nombre %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Localidad:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteLocalidad"><%= Ciudad.find(@cliente.localidad_id).nombre %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Codigo Postal:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteCodigoPostal"><%= @cliente.codigoPostal %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Direccion:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteDireccion"><%= @cliente.direccion %></span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Sucursal:</label>
+  <div class="col-sm-8">
+    <span  type="text" id="clienteSucursal">
+    <%= f.collection_select(:sucursal, @cliente.user_sucursals.all, :id, :nombre,  {}, {:class => "form-control"}) %>
+</span>
+  </div>
+</div>
+<div class="form-group row">
+  <label for="example-text-input" class="col-sm-2 control-label">Condicion de compra:</label>
+  <div class="col-sm-8">
+    <span class="form-control" type="text" id="clienteDireccion"><%= CondicionPago.find(@cliente.condicion_id).nombre %></span>
+  </div>
+</div>
+      <%= f.hidden_field :condicionCompra, :value => @cliente.condicion_id %>
+<% end %>
+<% end %>
+

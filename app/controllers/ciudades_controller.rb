@@ -1,6 +1,5 @@
 class CiudadesController < ApplicationController
   before_action :set_ciudad, only: [:show, :edit, :update, :destroy]
-
   # GET /ciudades
   # GET /ciudades.json
   def index
@@ -10,6 +9,7 @@ class CiudadesController < ApplicationController
       else
         @ciudades = Ciudad.all.paginate(:page => params[:page], :per_page => 10)
       end
+      authorize @ciudades
   end
 
   # GET /ciudades/1
@@ -22,6 +22,7 @@ class CiudadesController < ApplicationController
   # GET /ciudades/new
   def new
     @ciudad = Ciudad.new
+    authorize @ciudad
     @paises = Pais.all.collect {|x| [x.nombre, x.id]}
   end
 
@@ -34,10 +35,10 @@ class CiudadesController < ApplicationController
   # POST /ciudades.json
   def create
     @ciudad = Ciudad.new(ciudad_params)
-
+    authorize @ciudad
     respond_to do |format|
       if @ciudad.save
-        format.html { redirect_to @ciudad, notice: 'Ciudad was successfully created.' }
+        format.html { redirect_to @ciudad, notice: 'La ciudad se creo correctamente' }
         format.json { render :show, status: :created, location: @ciudad }
       else
         format.html { render :new }
@@ -51,7 +52,8 @@ class CiudadesController < ApplicationController
   def update
     respond_to do |format|
       if @ciudad.update(ciudad_params)
-        format.html { redirect_to @ciudad, notice: 'Ciudad was successfully updated.' }
+        authorize @ciudad
+        format.html { redirect_to @ciudad, notice: 'La ciudad se actualizo correctamente' }
         format.json { render :show, status: :ok, location: @ciudad }
       else
         format.html { render :edit }
@@ -64,8 +66,9 @@ class CiudadesController < ApplicationController
   # DELETE /ciudades/1.json
   def destroy
     @ciudad.destroy
+    authorize @ciudad
     respond_to do |format|
-      format.html { redirect_to ciudades_url, notice: 'Ciudad was successfully destroyed.' }
+      format.html { redirect_to ciudades_url, notice: 'La ciudad se elimino correctamente.' }
       format.json { head :no_content }
     end
   end
