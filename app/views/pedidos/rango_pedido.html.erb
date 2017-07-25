@@ -61,6 +61,11 @@ $('document').ready(function(){
     UpdateSubTotal(this);
   });
 
+  $('.cantidad').on('change', function(){
+    UpdateSubTotal(this);
+  });
+
+
 
   function UpdateSubTotal(elem) {
       // This will give the tr of the Element Which was changed

@@ -27,6 +27,10 @@
             <dd><%= @producto.pedido_minimo %></dd>
             <dt>Es correlativo:</dt>
             <dd><%= @producto.correlativo %></dd>
+            <dt>Colores:</dt>
+            <% @colores.each do |color| %>
+            <dd><%= color %></dd>
+            <% end %>
             <dt>Stock fisico:</dt>
             <dd><%= @producto.stock_fisico %></dd>
             <dt>Stock reservado:</dt>
@@ -49,9 +53,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                    <% @producto.producto_insumos.each do |insumo| %>
+                    <% @producto.producto_insumos.where("coeficiente > 0").each do |insumo| %>
                     <tr>
-                      <td><%= Insumo.find(insumo.insumo_id).nombre %></td>
+                      <td><%= Insumo.find(insumo.insumo_id).nombre %> <%= Insumo.find(insumo.insumo_id).color %></td>
                       <td><%= insumo.coeficiente %></td>
                       <td><%= insumo.por_defecto.to_sino %></td>
                     </tr>

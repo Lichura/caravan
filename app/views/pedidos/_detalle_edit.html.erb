@@ -8,8 +8,8 @@
 			<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" , readonly: true  %></td>
 			<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, readonly: true  ,class: "form-control" %></td>
 		<% else %>
-			<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "form-control" %></td>
-			<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "form-control" %></td>
+			<td data-title="Rango Desde"><%= f.text_field :rango_desde, class: "rango_desde form-control" %></td>
+			<td data-title="Rango Hasta"><%= f.text_field :rango_hasta, class: "rango_hasta form-control" %></td>
 		<% end %>
 	<% end %>
 	<%= f.hidden_field :producto_id %>
@@ -27,6 +27,28 @@ $('document').ready(function(){
 	//$('.cantidad').on('change', function() {
     //    UpdateSubTotal(this);
     //});
+
+
+ $(document).on('change', '.rango_desde', function(){
+	 $.ajax({ 
+	  type: 'GET',
+	  url: '/pedidos/get_rango',
+	  data: {
+	      rango_desde: $('.rango_desde').val(),
+	      iteraciones: $('.cantidad').val()
+	    },
+	  success: function(data,status,xhr){
+	    console.log(data);
+	    $('.rango_hasta').val(data.message);
+	  },
+	  error: function(xhr,status,error){
+	    console.log(xhr);
+	    alert(error);
+	  }
+	});
+
+ });
+
 
 
 
