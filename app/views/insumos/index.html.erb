@@ -20,6 +20,7 @@
                   <tr>
                                             <th>Nombre</th>
                         <th>Descripcion</th>
+                        <th>Color</th>
                         <th>Precio</th>
                         <th>Unidad medida</th>
                         <th>Stock fisico</th>
@@ -30,6 +31,7 @@
                     <th>Mostrar</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
+                    <th>Duplicar</th>
                   </tr>
                 </thead>
 
@@ -38,6 +40,7 @@
                   <% @insumos.each do |insumo| %>
                                             <td><%= insumo.nombre %></td>
                                             <td><%= insumo.descripcion %></td>
+                                            <td><%= insumo.color %></td>
                                             <td><%= insumo.precio %></td>
                                             <td><%= insumo.unidad_medida %></td>
                                             <td><%= insumo.stock_fisico %></td>
@@ -59,6 +62,11 @@
                       <i class="glyphicon glyphicon-trash"></i>
                     <% end %>
                     </td>
+                  <td>
+                    <%= link_to copiar_insumo_path(insumo) do %>
+                      <i class="glyphicon glyphicon-duplicate"></i>
+                    <% end %>
+                  </td>
                   </tr>
                 <% end %>
                 </tbody>

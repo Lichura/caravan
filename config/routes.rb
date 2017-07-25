@@ -65,13 +65,14 @@ Rails.application.routes.draw do
     collection do
       get 'get_precios', to: "pedidos#get_precios"
       get 'get_cliente', to: "pedidos#get_cliente"
+      get 'get_rango', to: "pedidos#get_rango"
       get 'rango_pedido', to: "pedidos#rango_pedido"
       post 'nuevo_remito', to: "pedidos#nuevo_remito"
     end 
   end
 
 
-
+  get '/insumos/:id/copy' => "insumos#copy" , :as => 'copiar_insumo'
   post 'facturas/new' => "facturas#new"
   get 'nueva_factura' => "facturas#nueva_factura", :as => "nueva_factura"
   resources :facturas do

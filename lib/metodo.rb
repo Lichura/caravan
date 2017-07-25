@@ -103,6 +103,16 @@ module Metodo
 		return consulta 
 	end
 
+	def generar_nuevo_rango_on_the_fly(rango_inicial, cantidad)
+		i = 2
+		consulta = descomponer_rango(rango_inicial)
+		while i < cantidad do
+			consulta = descomponer_rango(consulta)
+			i += 1
+		end
+		return consulta 
+	end
+
 	def disminuir_ultimo_numero(rango)
 		array_nuevo = Array.new
 		array_nuevo = rango.split("")
@@ -155,7 +165,7 @@ module Metodo
 	end
 
 	def aumentar_array_2_numeros(array)
-				if array[3] == "."
+		if array[3] == "."
 			array[3] = 0
 		else	
 		if array[3].to_i < 9
@@ -165,7 +175,7 @@ module Metodo
 			if array[2].to_i < 9
 				array[2] = array[2].next
 			else
-				if array[0] == "Z" && array[1] == "Z"
+				if array[0] == "Z" && array[1] == "Z" && array[2] == 9
 					array[0] = "A"
 					array[1] = "A"
 					array[2] = "A"
@@ -185,7 +195,7 @@ module Metodo
 	end
 
 	def aumentar_array_1_numero(array)
-				if array[3] == "."
+		if array[3] == "."
 			array[3] = 0
 		else	
 		if array[3].to_i < 9
@@ -214,5 +224,29 @@ module Metodo
 		puts(array)
 	end
 
+	def calcular_rango_vivo(rango_inicial, iteraciones)
+		
+		nuevo_rango = rango_inicial
+		
+		for i in (1...iteraciones)
+			nuevo_rango = nuevo_rango.next
+			puts("recibo el siguiente rango inicial #{nuevo_rango}")
+			case nuevo_rango
+				when "A0000"
+				 	nuevo_rango = "A000"
+				when "AA000"
+					nuevo_rango = "AA00"
+				when "AAA00"
+					nuevo_rango = "A000"
+				when "AAAA0"
+					nuevo_rango = "A000"
+				else
+					nuevo_rango
+			end
+			
+		end
+
+		return nuevo_rango
+	end
 
 end
