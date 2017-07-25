@@ -3,6 +3,7 @@ class Pedido < ApplicationRecord
 	has_many :productos, :through => :detalles
 	has_many :detalles
   has_many :remitos
+  has_many :remito_items, :through => :remitos
   has_many :rangos
 
 

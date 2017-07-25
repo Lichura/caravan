@@ -1,7 +1,8 @@
-<tr>	<td data-title="Producto"><%= f.object.producto.nombre %><br>
+<tr>	
+	<td data-title="Producto"><%= f.object.producto.nombre %><br>
 	<%= f.object.producto.descripcion %></td>
-	<td data-title="Pendiente" class="pendiente"><%= @pedido.detalles.find_by(producto_id: f.object.producto.id).pendiente_remitir  %></td>
-	<td data-title="Cantidad"><%= f.text_field :cantidad, :value => @pedido.detalles.find_by(producto_id: f.object.producto.id).pendiente_remitir , class: "cantidad form-control" %></td>
+	<td data-title="Pendiente" class="pendiente"><%= f.text_field :pendiente, class: "cantidad form-control", disabled: true %></td>
+	<td data-title="Cantidad"><%= f.text_field :cantidad , class: "cantidad form-control" %></td>
 	<%= f.hidden_field :producto_id %>
 	<%= f.hidden_field :_destroy %>
 </tr>

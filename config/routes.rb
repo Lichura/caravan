@@ -67,6 +67,7 @@ Rails.application.routes.draw do
       get 'get_cliente', to: "pedidos#get_cliente"
       get 'get_rango', to: "pedidos#get_rango"
       get 'rango_pedido', to: "pedidos#rango_pedido"
+      post 'nuevo_remito', to: "pedidos#nuevo_remito"
     end 
   end
 

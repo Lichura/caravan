@@ -31,7 +31,7 @@
                 <tbody>
                   <% @remitos.each do |remito| %>
                                             <td><%= remito.numero %></td>
-                                            <td><%= User.find_by(cuit: remito.pedido.cuit).razonSocial %></td>
+                                            <td>usuario</td>
                                             <td><%= remito.fecha.to_formatted_s(:day_month_and_year) %></td>
                                             <td><%= remito.cantidadTotal %></td>
                                       <td>

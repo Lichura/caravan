@@ -18,6 +18,9 @@ class ApplicationController < ActionController::Base
 
 
 
+
+
+
 private
 
   def require_login
@@ -39,6 +42,8 @@ private
   def logged_in?
    current_user != nil
   end
+
+
 
 
 end

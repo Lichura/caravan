@@ -105,6 +105,23 @@ class PedidosController < ApplicationController
     end
   end
 
+
+  #para generar un remito a partir de un pedido
+  def nuevo_remito
+    @pedido = Pedido.find(params[:pedido_id])
+    puts "creacion de nuevo remito con pedido = #{@pedido.id}"
+    @remito = Remito.new(pedido_id: @pedido.id)
+    respond_to do |format|
+        if @remito.save
+          format.html { redirect_to @remito, notice: 'El usuario se actualizo correctamente' }
+          format.json { render :show, status: :ok, location: @remito }
+        else
+          format.html { render :new }
+          format.json { render json: @remito.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /pedidos/1/edit
   def edit
     @productos = Producto.all
@@ -253,6 +270,10 @@ class PedidosController < ApplicationController
 
     def pedido_params
         params.require(:pedido).permit(:fecha, :user_id, :cantidadTotal, :cuit, :precioTotal, :comprobanteNumero, :condicionCompra, :sucursal, :pendiente_confirmar, :detalles_attributes => [:id, :precio, :cantidad, :producto_id, :rango_desde, :rango_hasta, :pendiente_remitir, :_destroy, :detalle_insumos_attributes => [:id, :producto_id, :insumo_id, :cantidad_id, :detalle_id, :_destroy]])
+    end
+
+    def remito_params
+      params.require(:pedido).permit(:pedido_id)
     end
 
 
