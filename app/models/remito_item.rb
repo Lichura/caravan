@@ -23,16 +23,16 @@ class RemitoItem < ApplicationRecord
 
 	def modificar_stock_por_operacion_de_un_remito_con_pedidos
 	#begin
-			
-				puts("se hace la iteracion por los pedidos")
-			self.remito.pedido.detalles.each do |detalle|
-				puts("a ver si llego hasta aca!")
-				detalle.detalle_insumos.where(producto_id: detalle.producto_id).each do |detalle_insumo|
-					@producto = Producto.new
-					@producto.modificar_stock_articulo("insumo", "reservado", detalle_insumo.insumo_id, detalle_insumo.cantidad_id, "resta")
-					@producto.modificar_stock_articulo("insumo", "fisico", detalle_insumo.insumo_id, detalle_insumo.cantidad_id, "resta")
-			end
+	puts("se hace la iteracion por los pedidos")
+	self.remito.pedido.detalles.each do |detalle|
+		puts("a ver si llego hasta aca!")
+		detalle.detalle_insumos.where(producto_id: detalle.producto_id).each do |detalle_insumo|
+			@producto = Producto.new
+			@insumo = Insumo.find(detalle_insumo.insumo_id)
+			@producto.modificar_stock_articulo("insumo", @insumo.stock_reservado, detalle_insumo.insumo_id, detalle_insumo.cantidad_id, "resta")
+			@producto.modificar_stock_articulo("insumo", @insumo.stock_fisico, detalle_insumo.insumo_id, detalle_insumo.cantidad_id, "resta")
 		end
+	end
 	#rescue
 	#	puts "Hubo un error al intentar modificar el stock luego de generar un remito"
 	#end

@@ -89,25 +89,22 @@ def marcar_productos_para_destruir
   #el tipo de stock(fisico/reservado/pedido), el id del articulo
   #la cantidad a modificar y el signo (suma/resta)
   def modificar_stock_articulo(tipo, tipo_stock, id, cantidad, signo)
-    case tipo
-    when "producto"
-        @articulo = Producto.find(id)
-        @stock = "stock_#{tipo_stock}"
-    when "insumo"
-        @articulo = Insumo.find(id)
-        @stock = "stock_#{tipo_stock}"
-        puts @articulo
-    end
-    @prueba = @articulo."{@stock}"
-    case signo
-    when "suma"
-      @prueba += cantidad
-    when "resta"
-      @prueba -= cantidad
-    end
-    @articulo.save
-    puts("Se modifico el stock #{tipo_stock} de #{prueba} por #{signo} #{cantidad}")
-  end
+     case tipo
+     when "producto"
+         @articulo = Producto.find(id)
+     when "insumo"
+         @articulo = Insumo.find(id)
+     end
+     @prueba = tipo_stock
+     case signo
+     when "suma"
+       @prueba += cantidad
+     when "resta"
+       @prueba -= cantidad
+     end
+     @articulo.save
+     puts("Se modifico el stock #{tipo_stock} de #{prueba} por #{signo} #{cantidad}")
+   end
 
 
   private
